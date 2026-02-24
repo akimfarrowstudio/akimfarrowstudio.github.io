@@ -1,0 +1,537 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Akim Farrow | Afrofuturist Industrialist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet" vid="7">
+    <style vid="8">
+        :root {
+            --void: #1a0f0a; 
+            --charcoal: #121212; 
+            --rust: #d35400; 
+            --rust-glow: #e67e22; 
+            --oxide-gold: #ff6b35; 
+            --steel: #2c1e18; 
+            --font-display: 'Anton', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--charcoal);
+            color: #e8e0dc;
+            font-family: var(--font-mono);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        
+        .sidebar {
+            background: var(--void);
+            border-right: 1px solid #3d2218;
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #fff;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            letter-spacing: 0.1em;
+        }
+
+        .nav-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: #8a665c;
+            text-decoration: none;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--oxide-gold);
+        }
+
+        .location-tags {
+            font-size: 0.6rem;
+            color: var(--rust);
+            letter-spacing: 0.4em;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            opacity: 0.5;
+            padding-bottom: 2rem;
+        }
+
+        
+        .scrolling-content {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            background-color: var(--charcoal);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.08) 0%, transparent 70%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+
+        section {
+            padding: 6rem 5vw;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 10vw;
+            line-height: 0.85;
+            text-transform: uppercase;
+            color: var(--oxide-gold);
+            margin-bottom: 2rem;
+        }
+
+        .hero-sub {
+            border-left: 4px solid var(--rust);
+            padding-left: 2rem;
+        }
+
+        .hero-sub p:first-child {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .hero-sub p:last-child {
+            color: var(--rust);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        
+        .gallery-section {
+            padding: 6rem 0 6rem 5vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding-right: 5vw;
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--rust);
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--oxide-gold);
+            line-height: 1;
+        }
+
+        .gallery-filmstrip-container {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 2rem;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .gallery-filmstrip-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-filmstrip {
+            display: flex;
+            gap: 2rem;
+            padding-right: 5vw;
+        }
+
+        .artwork-card {
+            flex: 0 0 600px;
+            cursor: pointer;
+        }
+
+        .artwork-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: var(--charcoal);
+            border: 1px solid rgba(255, 107, 53, 0.15);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .artwork-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(60%) contrast(120%) brightness(0.7);
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .artwork-card:hover .artwork-image img {
+            transform: scale(1.03);
+            filter: grayscale(0%) contrast(110%) brightness(0.9);
+        }
+
+        .artwork-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0 0.5rem;
+        }
+
+        .artwork-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #f5f0ee;
+            letter-spacing: 0.05em;
+        }
+
+        .artwork-meta {
+            font-size: 0.7rem;
+            color: var(--rust);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        
+        .form-container {
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            padding: 4rem;
+            background: rgba(26, 15, 10, 0.95);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+            position: relative;
+            max-width: 900px;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust));
+        }
+
+        .form-header {
+            margin-bottom: 4rem;
+        }
+
+        .form-header h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            letter-spacing: 0.05em;
+            color: var(--oxide-gold);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--rust);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        input, select, textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #4d2d1d;
+            color: #fff;
+            padding: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-bottom-color: var(--oxide-gold);
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .material-option {
+            border: 1px solid #4d2d1d;
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #997a6e;
+        }
+
+        .material-option:hover {
+            border-color: var(--rust);
+            color: var(--oxide-gold);
+        }
+
+        .material-option.selected {
+            background: var(--rust);
+            color: #fff;
+            border-color: var(--rust);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--oxide-gold);
+            color: var(--oxide-gold);
+            padding: 1.5rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--oxide-gold);
+            color: var(--void);
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #3d2218;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            color: #8a665c;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--charcoal); }
+        ::-webkit-scrollbar-thumb { background: #4d2d1d; }
+    </style>
+</head>
+<body vid="9">
+
+    <div class="layout" vid="10">
+        <aside class="sidebar" vid="11">
+            <div class="brand" vid="12">AF.</div>
+            <nav class="nav-vertical" vid="13">
+                <a href="#hero" class="nav-link" vid="14">ARCHIVE</a>
+                <a href="#works" class="nav-link" vid="15">WORKS</a>
+                <a href="#inquire" class="nav-link active" vid="16">INQUIRE</a>
+            </nav>
+            <div class="location-tags" vid="17">
+                <span vid="18">FOUNDRY</span>
+                <span vid="19">ZIMBABWE</span>
+                <span vid="20">CHICAGO</span>
+            </div>
+        </aside>
+
+        <main class="scrolling-content" vid="21">
+            <section id="hero" vid="22">
+                <h1 class="hero-title" vid="23">AKIM<br vid="24">FARROW</h1>
+                <div class="hero-sub" vid="25">
+                    <p vid="26">Sculptor of Myth &amp; Metal</p>
+                    <p vid="27">Afrofuturist Industrialist</p>
+                </div>
+            </section>
+
+            <section id="works" class="gallery-section" vid="28">
+                <div class="section-header" vid="29">
+                    <div class="section-label" vid="30">Selected Works</div>
+                    <div class="section-title" vid="31">ARCHIVE FILMSTRIP</div>
+                </div>
+
+                <div class="gallery-filmstrip-container" vid="32">
+                    <div class="gallery-filmstrip" vid="33">
+                        <div class="artwork-card" vid="34">
+                            <div class="artwork-image" vid="35">
+                                <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Echoes of Great Zimbabwe" vid="36">
+                            </div>
+                            <div class="artwork-info" vid="37">
+                                <div class="artwork-title" vid="38">Echoes of Great Zimbabwe</div>
+                                <div class="artwork-meta" vid="39">2023 · Corten Steel</div>
+                            </div>
+                        </div>
+                        <div class="artwork-card" vid="40">
+                            <div class="artwork-image" vid="41">
+                                <img src="https://images.unsplash.com/photo-1554188248-986adbb73be0?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Orbit of the Ancestors" vid="42">
+                            </div>
+                            <div class="artwork-info" vid="43">
+                                <div class="artwork-title" vid="44">Orbit of the Ancestors</div>
+                                <div class="artwork-meta" vid="45">2022 · Bronze &amp; Circuitry</div>
+                            </div>
+                        </div>
+                        <div class="artwork-card" vid="46">
+                            <div class="artwork-image" vid="47">
+                                <img src="https://images.unsplash.com/photo-1561266436-1e66c98ae795?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Oxidized Future V" vid="48">
+                            </div>
+                            <div class="artwork-info" vid="49">
+                                <div class="artwork-title" vid="50">Oxidized Future V</div>
+                                <div class="artwork-meta" vid="51">2021 · Mixed Media</div>
+                            </div>
+                        </div>
+                        <div class="artwork-card" vid="52">
+                            <div class="artwork-image" vid="53">
+                                <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Foundry Study No. 4" vid="54">
+                            </div>
+                            <div class="artwork-info" vid="55">
+                                <div class="artwork-title" vid="56">Foundry Study No. 4</div>
+                                <div class="artwork-meta" vid="57">2024 · Iron</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="inquire" vid="58">
+                <div class="form-container" vid="59">
+                    <div class="form-header" vid="60">
+                        <h2 vid="61">INITIATE COMMISSION</h2>
+                        <p style="font-size: 0.8rem; margin-top: 1rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;" vid="62">
+                            Custom fabrications require 3-6 months lead time.
+                        </p>
+                    </div>
+
+                    <form onsubmit="event.preventDefault();" vid="63">
+                        <div class="form-grid" vid="64">
+                            <div class="form-group" vid="65">
+                                <label vid="66">Identifier [Name]</label>
+                                <input type="text" placeholder="ENTER FULL NAME" vid="67">
+                            </div>
+                            <div class="form-group" vid="68">
+                                <label vid="69">Frequency [Email]</label>
+                                <input type="email" placeholder="EMAIL@ADDRESS.COM" vid="70">
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width" vid="71">
+                            <label vid="72">Project Scope</label>
+                            <select vid="73">
+                                <option vid="74">Public Sculpture Installation</option>
+                                <option vid="75">Private Collector Piece</option>
+                                <option vid="76">Architectural Integrated Work</option>
+                                <option vid="77">Gallery Exhibition Request</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width" vid="78">
+                            <label vid="79">Preferred Material Palette</label>
+                            <div class="materials-grid" vid="80">
+                                <div class="material-option selected" onclick="this.classList.toggle('selected')" vid="81">Raw Steel</div>
+                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="82">Oxidized Copper</div>
+                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="83">Cast Bronze</div>
+                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="84">Rebar / Slag</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width" vid="85">
+                            <label vid="86">Specifications</label>
+                            <textarea rows="4" placeholder="DESCRIBE DIMENSIONS, SITE CONTEXT AND CONCEPT..." vid="87"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" vid="88">Transmit Request</button>
+                    </form>
+
+                    <footer vid="89">
+                        <div vid="90">© 2024 AKIM FARROW STUDIOS</div>
+                        <div vid="91">SIGNAL ACTIVE // CHICAGO, IL</div>
+                    </footer>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script vid="92">
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const scrollContainer = document.querySelector('.scrolling-content');
+
+        scrollContainer.addEventListener('scroll', () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollContainer.scrollTop >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        
+        const filmstrip = document.querySelector('.gallery-filmstrip-container');
+        filmstrip.addEventListener('wheel', (evt) => {
+            evt.preventDefault();
+            filmstrip.scrollLeft += evt.deltaY;
+        });
+    </script>
+</body></html>
