@@ -368,6 +368,83 @@
             letter-spacing: 0.2em;
         }
 
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-photo-frame {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            border: var(--border);
+            position: relative;
+        }
+
+        .about-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(40%) contrast(110%) brightness(0.8);
+            transition: filter 0.5s ease;
+        }
+
+        .about-photo-frame:hover img {
+            filter: grayscale(0%) contrast(110%) brightness(0.85);
+        }
+
+        .about-photo-frame::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 40%;
+            background: linear-gradient(to top, rgba(26,15,10,0.8), transparent);
+            pointer-events: none;
+        }
+
+        .about-location-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--rust);
+            margin-top: 1.2rem;
+            opacity: 0.7;
+        }
+
+        .about-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--oxide-gold);
+            line-height: 1;
+            margin-bottom: 2.5rem;
+        }
+
+        .about-bio {
+            font-size: 0.82rem;
+            line-height: 1.9;
+            color: #c8b8b0;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .about-tags {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .about-tags span {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            border: 1px solid rgba(255,107,53,0.3);
+            padding: 0.5rem 1.2rem;
+            color: var(--rust);
+        }
+
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--charcoal); }
         ::-webkit-scrollbar-thumb { background: #4d2d1d; }
@@ -380,132 +457,157 @@
             <div class="brand" vid="12">AF.</div>
             <nav class="nav-vertical" vid="13">
                 <a href="#hero" class="nav-link" vid="14">ARCHIVE</a>
-                <a href="#works" class="nav-link" vid="15">WORKS</a>
-                <a href="#inquire" class="nav-link active" vid="16">INQUIRE</a>
+                <a href="#about" class="nav-link" vid="15">ABOUT</a>
+                <a href="#works" class="nav-link" vid="16">WORKS</a>
+                <a href="#inquire" class="nav-link active" vid="17">INQUIRE</a>
             </nav>
-            <div class="location-tags" vid="17">
-                <span vid="18">FOUNDRY</span>
-                <span vid="19">ZIMBABWE</span>
-                <span vid="20">CHICAGO</span>
+            <div class="location-tags" vid="18">
+                <span vid="19">FOUNDRY</span>
+                <span vid="20">ZIMBABWE</span>
+                <span vid="21">CHICAGO</span>
             </div>
         </aside>
 
-        <main class="scrolling-content" vid="21">
-            <section id="hero" vid="22">
-                <h1 class="hero-title" vid="23">AKIM<br vid="24">FARROW</h1>
-                <div class="hero-sub" vid="25">
-                    <p vid="26">Sculptor of Myth &amp; Metal</p>
-                    <p vid="27">Afrofuturist Industrialist</p>
+        <main class="scrolling-content" vid="22">
+            <section id="hero" vid="23">
+                <h1 class="hero-title" vid="24">AKIM<br vid="25">FARROW</h1>
+                <div class="hero-sub" vid="26">
+                    <p vid="27">Sculptor of Myth &amp; Metal</p>
+                    <p vid="28">Afrofuturist Industrialist</p>
                 </div>
             </section>
 
-            <section id="works" class="gallery-section" vid="28">
-                <div class="section-header" vid="29">
-                    <div class="section-label" vid="30">Selected Works</div>
-                    <div class="section-title" vid="31">ARCHIVE FILMSTRIP</div>
+            <section id="about" vid="29">
+                <div class="about-grid" vid="30">
+                    <div class="about-photo-col" vid="31">
+                        <div class="about-photo-frame" vid="32">
+                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Akim Farrow at work" vid="33">
+                        </div>
+                        <div class="about-location-tag" vid="34">ZIMBABWE — CHICAGO</div>
+                    </div>
+                    <div class="about-text-col" vid="35">
+                        <div class="section-label" vid="36">About the Artist</div>
+                        <h2 class="about-title" vid="37">MEET AKIM</h2>
+                        <p class="about-bio" vid="38">As a first generation Zimbabwean-American artist, grown in the mountains, my perspective is shaped by imbrications of being. My work navigates layerings and liminalities of identity, myth, and storytelling; in-between realms of the self.</p>
+                        <p class="about-bio" vid="39">All materiality is a single body, alive with memory, weight, and form. In the Contemporary age, the industrial Anthropocene, where the bones of the world are cast in steel, I often turn to this medium — my first material love — to tell the stories I wish I was told about the world; about myself.</p>
+                        <p class="about-bio" vid="40">My sculptures are living objects and sites of story-building, where personal and collective histories collide, transmuting the industrial age into something more intimate. My works celebrate the intricate and infinite imbrications of our shared human experience.</p>
+                        <div class="about-tags" vid="41">
+                            <span vid="42">STEEL</span>
+                            <span vid="43">MYTH</span>
+                            <span vid="44">MEMORY</span>
+                            <span vid="45">FORM</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="works" class="gallery-section" vid="46">
+                <div class="section-header" vid="47">
+                    <div class="section-label" vid="48">Selected Works</div>
+                    <div class="section-title" vid="49">ARCHIVE FILMSTRIP</div>
                 </div>
 
-                <div class="gallery-filmstrip-container" vid="32">
-                    <div class="gallery-filmstrip" vid="33">
-                        <div class="artwork-card" vid="34">
-                            <div class="artwork-image" vid="35">
-                                <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Echoes of Great Zimbabwe" vid="36">
-                            </div>
-                            <div class="artwork-info" vid="37">
-                                <div class="artwork-title" vid="38">Echoes of Great Zimbabwe</div>
-                                <div class="artwork-meta" vid="39">2023 · Corten Steel</div>
-                            </div>
-                        </div>
-                        <div class="artwork-card" vid="40">
-                            <div class="artwork-image" vid="41">
-                                <img src="https://images.unsplash.com/photo-1554188248-986adbb73be0?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Orbit of the Ancestors" vid="42">
-                            </div>
-                            <div class="artwork-info" vid="43">
-                                <div class="artwork-title" vid="44">Orbit of the Ancestors</div>
-                                <div class="artwork-meta" vid="45">2022 · Bronze &amp; Circuitry</div>
-                            </div>
-                        </div>
-                        <div class="artwork-card" vid="46">
-                            <div class="artwork-image" vid="47">
-                                <img src="https://images.unsplash.com/photo-1561266436-1e66c98ae795?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Oxidized Future V" vid="48">
-                            </div>
-                            <div class="artwork-info" vid="49">
-                                <div class="artwork-title" vid="50">Oxidized Future V</div>
-                                <div class="artwork-meta" vid="51">2021 · Mixed Media</div>
-                            </div>
-                        </div>
+                <div class="gallery-filmstrip-container" vid="50">
+                    <div class="gallery-filmstrip" vid="51">
                         <div class="artwork-card" vid="52">
                             <div class="artwork-image" vid="53">
-                                <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Foundry Study No. 4" vid="54">
+                                <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Echoes of Great Zimbabwe" vid="54">
                             </div>
                             <div class="artwork-info" vid="55">
-                                <div class="artwork-title" vid="56">Foundry Study No. 4</div>
-                                <div class="artwork-meta" vid="57">2024 · Iron</div>
+                                <div class="artwork-title" vid="56">Echoes of Great Zimbabwe</div>
+                                <div class="artwork-meta" vid="57">2023 · Corten Steel</div>
+                            </div>
+                        </div>
+                        <div class="artwork-card" vid="58">
+                            <div class="artwork-image" vid="59">
+                                <img src="https://images.unsplash.com/photo-1554188248-986adbb73be0?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Orbit of the Ancestors" vid="60">
+                            </div>
+                            <div class="artwork-info" vid="61">
+                                <div class="artwork-title" vid="62">Orbit of the Ancestors</div>
+                                <div class="artwork-meta" vid="63">2022 · Bronze &amp; Circuitry</div>
+                            </div>
+                        </div>
+                        <div class="artwork-card" vid="64">
+                            <div class="artwork-image" vid="65">
+                                <img src="https://images.unsplash.com/photo-1561266436-1e66c98ae795?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Oxidized Future V" vid="66">
+                            </div>
+                            <div class="artwork-info" vid="67">
+                                <div class="artwork-title" vid="68">Oxidized Future V</div>
+                                <div class="artwork-meta" vid="69">2021 · Mixed Media</div>
+                            </div>
+                        </div>
+                        <div class="artwork-card" vid="70">
+                            <div class="artwork-image" vid="71">
+                                <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Foundry Study No. 4" vid="72">
+                            </div>
+                            <div class="artwork-info" vid="73">
+                                <div class="artwork-title" vid="74">Foundry Study No. 4</div>
+                                <div class="artwork-meta" vid="75">2024 · Iron</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="inquire" vid="58">
-                <div class="form-container" vid="59">
-                    <div class="form-header" vid="60">
-                        <h2 vid="61">INITIATE COMMISSION</h2>
-                        <p style="font-size: 0.8rem; margin-top: 1rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;" vid="62">
+            <section id="inquire" vid="76">
+                <div class="form-container" vid="77">
+                    <div class="form-header" vid="78">
+                        <h2 vid="79">INITIATE COMMISSION</h2>
+                        <p style="font-size: 0.8rem; margin-top: 1rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;" vid="80">
                             Custom fabrications require 3-6 months lead time.
                         </p>
                     </div>
 
-                    <form onsubmit="event.preventDefault();" vid="63">
-                        <div class="form-grid" vid="64">
-                            <div class="form-group" vid="65">
-                                <label vid="66">Identifier [Name]</label>
-                                <input type="text" placeholder="ENTER FULL NAME" vid="67">
+                    <form onsubmit="event.preventDefault();" vid="81">
+                        <div class="form-grid" vid="82">
+                            <div class="form-group" vid="83">
+                                <label vid="84">Identifier [Name]</label>
+                                <input type="text" placeholder="ENTER FULL NAME" vid="85">
                             </div>
-                            <div class="form-group" vid="68">
-                                <label vid="69">Frequency [Email]</label>
-                                <input type="email" placeholder="EMAIL@ADDRESS.COM" vid="70">
+                            <div class="form-group" vid="86">
+                                <label vid="87">Frequency [Email]</label>
+                                <input type="email" placeholder="EMAIL@ADDRESS.COM" vid="88">
                             </div>
                         </div>
 
-                        <div class="form-group full-width" vid="71">
-                            <label vid="72">Project Scope</label>
-                            <select vid="73">
-                                <option vid="74">Public Sculpture Installation</option>
-                                <option vid="75">Private Collector Piece</option>
-                                <option vid="76">Architectural Integrated Work</option>
-                                <option vid="77">Gallery Exhibition Request</option>
+                        <div class="form-group full-width" vid="89">
+                            <label vid="90">Project Scope</label>
+                            <select vid="91">
+                                <option vid="92">Public Sculpture Installation</option>
+                                <option vid="93">Private Collector Piece</option>
+                                <option vid="94">Architectural Integrated Work</option>
+                                <option vid="95">Gallery Exhibition Request</option>
                             </select>
                         </div>
 
-                        <div class="form-group full-width" vid="78">
-                            <label vid="79">Preferred Material Palette</label>
-                            <div class="materials-grid" vid="80">
-                                <div class="material-option selected" onclick="this.classList.toggle('selected')" vid="81">Raw Steel</div>
-                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="82">Oxidized Copper</div>
-                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="83">Cast Bronze</div>
-                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="84">Rebar / Slag</div>
+                        <div class="form-group full-width" vid="96">
+                            <label vid="97">Preferred Material Palette</label>
+                            <div class="materials-grid" vid="98">
+                                <div class="material-option selected" onclick="this.classList.toggle('selected')" vid="99">Raw Steel</div>
+                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="100">Oxidized Copper</div>
+                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="101">Cast Bronze</div>
+                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="102">Rebar / Slag</div>
                             </div>
                         </div>
 
-                        <div class="form-group full-width" vid="85">
-                            <label vid="86">Specifications</label>
-                            <textarea rows="4" placeholder="DESCRIBE DIMENSIONS, SITE CONTEXT AND CONCEPT..." vid="87"></textarea>
+                        <div class="form-group full-width" vid="103">
+                            <label vid="104">Specifications</label>
+                            <textarea rows="4" placeholder="DESCRIBE DIMENSIONS, SITE CONTEXT AND CONCEPT..." vid="105"></textarea>
                         </div>
 
-                        <button type="submit" class="submit-btn" vid="88">Transmit Request</button>
+                        <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
                     </form>
 
-                    <footer vid="89">
-                        <div vid="90">© 2024 AKIM FARROW STUDIOS</div>
-                        <div vid="91">SIGNAL ACTIVE // CHICAGO, IL</div>
+                    <footer vid="107">
+                        <div vid="108">© 2024 AKIM FARROW STUDIOS</div>
+                        <div vid="109">SIGNAL ACTIVE // CHICAGO, IL</div>
                     </footer>
                 </div>
             </section>
         </main>
     </div>
 
-    <script vid="92">
+    <script vid="110">
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
         const scrollContainer = document.querySelector('.scrolling-content');
