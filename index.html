@@ -1,516 +1,6 @@
-<html lang="en" vid="0"><head vid="1">
-    <meta charset="UTF-8" vid="2">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
-    <title vid="4">Akim Farrow | Afrofuturist Industrialist</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
-    <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet" vid="7">
-    <style vid="8">
-        :root {
-            --void: #1a0f0a; 
-            --charcoal: #121212; 
-            --rust: #d35400; 
-            --rust-glow: #e67e22; 
-            --oxide-gold: #ff6b35; 
-            --steel: #2c1e18; 
-            --font-display: 'Anton', sans-serif;
-            --font-mono: 'Space Mono', monospace;
-            --border: 1px solid rgba(255, 107, 53, 0.2);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--charcoal);
-            color: #e8e0dc;
-            font-family: var(--font-mono);
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        .layout {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        
-        .sidebar {
-            background: var(--void);
-            border-right: 1px solid #3d2218;
-            padding: 2rem 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .brand {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: #fff;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            letter-spacing: 0.1em;
-        }
-
-        .nav-vertical {
-            display: flex;
-            flex-direction: column;
-            gap: 4rem;
-            margin-top: 2rem;
-        }
-
-        .nav-link {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.4em;
-            color: #8a665c;
-            text-decoration: none;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--oxide-gold);
-        }
-
-        .location-tags {
-            font-size: 0.6rem;
-            color: var(--rust);
-            letter-spacing: 0.4em;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            opacity: 0.5;
-            padding-bottom: 2rem;
-        }
-
-        
-        .scrolling-content {
-            height: 100vh;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-            background-color: var(--charcoal);
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.08) 0%, transparent 70%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-        }
-
-        section {
-            padding: 6rem 5vw;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: 10vw;
-            line-height: 0.85;
-            text-transform: uppercase;
-            color: var(--oxide-gold);
-            margin-bottom: 2rem;
-        }
-
-        .hero-sub {
-            border-left: 4px solid var(--rust);
-            padding-left: 2rem;
-        }
-
-        .hero-sub p:first-child {
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .hero-sub p:last-child {
-            color: var(--rust);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        
-        .gallery-section {
-            padding: 6rem 0 6rem 5vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .section-header {
-            padding-right: 5vw;
-            margin-bottom: 3rem;
-        }
-
-        .section-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.4em;
-            color: var(--rust);
-            margin-bottom: 1rem;
-            opacity: 0.8;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            color: var(--oxide-gold);
-            line-height: 1;
-        }
-
-        .gallery-filmstrip-container {
-            width: 100%;
-            overflow-x: auto;
-            padding-bottom: 2rem;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .gallery-filmstrip-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .gallery-filmstrip {
-            display: flex;
-            gap: 2rem;
-            padding-right: 5vw;
-        }
-
-        .artwork-card {
-            flex: 0 0 600px;
-            cursor: pointer;
-        }
-
-        .artwork-image {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background-color: var(--charcoal);
-            border: 1px solid rgba(255, 107, 53, 0.15);
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .artwork-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(60%) contrast(120%) brightness(0.7);
-            transition: transform 0.5s ease, filter 0.5s ease;
-        }
-
-        .artwork-card:hover .artwork-image img {
-            transform: scale(1.03);
-            filter: grayscale(0%) contrast(110%) brightness(0.9);
-        }
-
-        .artwork-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 0 0.5rem;
-        }
-
-        .artwork-title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: #f5f0ee;
-            letter-spacing: 0.05em;
-        }
-
-        .artwork-meta {
-            font-size: 0.7rem;
-            color: var(--rust);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        
-        .form-container {
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            padding: 4rem;
-            background: rgba(26, 15, 10, 0.95);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
-            position: relative;
-            max-width: 900px;
-        }
-
-        .form-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust));
-        }
-
-        .form-header {
-            margin-bottom: 4rem;
-        }
-
-        .form-header h2 {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            letter-spacing: 0.05em;
-            color: var(--oxide-gold);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 2.5rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .full-width {
-            grid-column: span 2;
-        }
-
-        label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: var(--rust);
-            margin-bottom: 0.75rem;
-            letter-spacing: 0.1em;
-        }
-
-        input, select, textarea {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #4d2d1d;
-            color: #fff;
-            padding: 1rem 0;
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-bottom-color: var(--oxide-gold);
-        }
-
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .material-option {
-            border: 1px solid #4d2d1d;
-            padding: 0.8rem;
-            text-align: center;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #997a6e;
-        }
-
-        .material-option:hover {
-            border-color: var(--rust);
-            color: var(--oxide-gold);
-        }
-
-        .material-option.selected {
-            background: var(--rust);
-            color: #fff;
-            border-color: var(--rust);
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: transparent;
-            border: 1px solid var(--oxide-gold);
-            color: var(--oxide-gold);
-            padding: 1.5rem;
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: var(--oxide-gold);
-            color: var(--void);
-        }
-
-        footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid #3d2218;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.6rem;
-            color: #8a665c;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: center;
-        }
-
-        .about-photo-frame {
-            width: 100%;
-            aspect-ratio: 3/4;
-            overflow: hidden;
-            border: var(--border);
-            position: relative;
-        }
-
-        .about-photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(40%) contrast(110%) brightness(0.8);
-            transition: filter 0.5s ease;
-        }
-
-        .about-photo-frame:hover img {
-            filter: grayscale(0%) contrast(110%) brightness(0.85);
-        }
-
-        .about-photo-frame::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 40%;
-            background: linear-gradient(to top, rgba(26,15,10,0.8), transparent);
-            pointer-events: none;
-        }
-
-        .about-location-tag {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.4em;
-            color: var(--rust);
-            margin-top: 1.2rem;
-            opacity: 0.7;
-        }
-
-        .about-title {
-            font-family: var(--font-display);
-            font-size: 4rem;
-            color: var(--oxide-gold);
-            line-height: 1;
-            margin-bottom: 2.5rem;
-        }
-
-        .about-bio {
-            font-size: 0.82rem;
-            line-height: 1.9;
-            color: #c8b8b0;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.02em;
-        }
-
-        .about-tags {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2.5rem;
-            flex-wrap: wrap;
-        }
-
-        .about-tags span {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            border: 1px solid rgba(255,107,53,0.3);
-            padding: 0.5rem 1.2rem;
-            color: var(--rust);
-        }
-
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--charcoal); }
-        ::-webkit-scrollbar-thumb { background: #4d2d1d; }
-    </style>
-</head>
-<body vid="9">
-
-    <div class="layout" vid="10">
-        <aside class="sidebar" vid="11">
-            <div class="brand" vid="12">AF.</div>
-            <nav class="nav-vertical" vid="13">
-                <a href="#hero" class="nav-link" vid="14">ARCHIVE</a>
-                <a href="#about" class="nav-link" vid="15">ABOUT</a>
-                <a href="#works" class="nav-link" vid="16">WORKS</a>
-                <a href="#inquire" class="nav-link active" vid="17">INQUIRE</a>
-            </nav>
-            <div class="location-tags" vid="18">
-                <span vid="19">FOUNDRY</span>
-                <span vid="20">ZIMBABWE</span>
-                <span vid="21">CHICAGO</span>
-            </div>
-        </aside>
-
-        <main class="scrolling-content" vid="22">
-            <section id="hero" vid="23">
-                <h1 class="hero-title" vid="24">AKIM<br vid="25">FARROW</h1>
-                <div class="hero-sub" vid="26">
-                    <p vid="27">Sculptor of Myth &amp; Metal</p>
-                    <p vid="28">Afrofuturist Industrialist</p>
-                </div>
-            </section>
-
-            <section id="about" vid="29">
-                <div class="about-grid" vid="30">
-                    <div class="about-photo-col" vid="31">
-                        <div class="about-photo-frame" vid="32">
-                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Akim Farrow at work" vid="33">
-                        </div>
-                        <div class="about-location-tag" vid="34">ZIMBABWE — CHICAGO</div>
-                    </div>
-                    <div class="about-text-col" vid="35">
-                        <div class="section-label" vid="36">About the Artist</div>
-                        <h2 class="about-title" vid="37">MEET AKIM</h2>
-                        <p class="about-bio" vid="38">As a first generation Zimbabwean-American artist, grown in the mountains, my perspective is shaped by imbrications of being. My work navigates layerings and liminalities of identity, myth, and storytelling; in-between realms of the self.</p>
-                        <p class="about-bio" vid="39">All materiality is a single body, alive with memory, weight, and form. In the Contemporary age, the industrial Anthropocene, where the bones of the world are cast in steel, I often turn to this medium — my first material love — to tell the stories I wish I was told about the world; about myself.</p>
-                        <p class="about-bio" vid="40">My sculptures are living objects and sites of story-building, where personal and collective histories collide, transmuting the industrial age into something more intimate. My works celebrate the intricate and infinite imbrications of our shared human experience.</p>
-                        <div class="about-tags" vid="41">
-                            <span vid="42">STEEL</span>
-                            <span vid="43">MYTH</span>
-                            <span vid="44">MEMORY</span>
-                            <span vid="45">FORM</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="works" class="gallery-section" vid="46">
-                <div class="section-header" vid="47">
-                    <div class="section-label" vid="48">Selected Works</div>
-                    <div class="section-title" vid="49">ARCHIVE FILMSTRIP</div>
-                </div>
-
-                <div class="gallery-filmstrip-container" vid="50">
-                    <a class="artwork-card" href="blog1.html">
+<a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/steelcagemother.jpg" alt="Steel Cage Mother">
+    <img src="steelcagemother.jpg" alt="Steel Cage Mother">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Steel Cage Mother</div>
@@ -520,7 +10,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/whitealbum.jpg" alt="White Album">
+    <img src="whitealbum.jpg" alt="White Album">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">White Album</div>
@@ -530,7 +20,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/mokumeganerings.jpg" alt="Mokume-gane (木目金) Rings">
+    <img src="mokumeganerings.jpg" alt="Mokume-gane (木目金) Rings">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Mokume-gane (木目金) Rings</div>
@@ -540,7 +30,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/strangeharvest.jpg" alt="Strange Harvest">
+    <img src="strangeharvest.jpg" alt="Strange Harvest">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Strange Harvest</div>
@@ -550,7 +40,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/autochthon.jpg" alt="Autochthon">
+    <img src="autochthon.jpg" alt="Autochthon">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Autochthon</div>
@@ -560,7 +50,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/baobabbottletree.jpg" alt="Baobab Bottle Tree">
+    <img src="baobabbottletree.jpg" alt="Baobab Bottle Tree">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Baobab Bottle Tree</div>
@@ -570,7 +60,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/monsterswemake.jpg" alt="Monsters We Make">
+    <img src="monsterswemake.jpg" alt="Monsters We Make">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Monsters We Make</div>
@@ -580,7 +70,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/intothewoodsbench.jpg" alt="Into the Woods, Bench">
+    <img src="intothewoodsbench.jpg" alt="Into the Woods, Bench">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Into the Woods, Bench</div>
@@ -590,7 +80,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/bastardsonofaking.jpg" alt="Bastard Son of a King">
+    <img src="bastardsonofaking.jpg" alt="Bastard Son of a King">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Bastard Son of a King</div>
@@ -600,7 +90,7 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/somegladmorning.jpg" alt="Some Glad Morning">
+    <img src="somegladmorning.jpg" alt="Some Glad Morning">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Some Glad Morning</div>
@@ -610,101 +100,10 @@
 
 <a class="artwork-card" href="blog1.html">
   <div class="artwork-image">
-    <img src="assets/images/selfportrait.jpg" alt="Self Portrait">
+    <img src="selfportrait.jpg" alt="Self Portrait">
   </div>
   <div class="artwork-info">
     <div class="artwork-title">Self Portrait</div>
     <div class="artwork-meta">2015 · Canvas &amp; Oil Paint</div>
   </div>
 </a>
-                </div>
-            </section>
-
-            <section id="inquire" vid="76">
-                <div class="form-container" vid="77">
-                    <div class="form-header" vid="78">
-                        <h2 vid="79">INITIATE COMMISSION</h2>
-                        <p style="font-size: 0.8rem; margin-top: 1rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;" vid="80">
-                            Custom fabrications require 3-6 months lead time.
-                        </p>
-                    </div>
-
-                    <form onsubmit="event.preventDefault();" vid="81">
-                        <div class="form-grid" vid="82">
-                            <div class="form-group" vid="83">
-                                <label vid="84">Identifier [Name]</label>
-                                <input type="text" placeholder="ENTER FULL NAME" vid="85">
-                            </div>
-                            <div class="form-group" vid="86">
-                                <label vid="87">Frequency [Email]</label>
-                                <input type="email" placeholder="EMAIL@ADDRESS.COM" vid="88">
-                            </div>
-                        </div>
-
-                        <div class="form-group full-width" vid="89">
-                            <label vid="90">Project Scope</label>
-                            <select vid="91">
-                                <option vid="92">Public Sculpture Installation</option>
-                                <option vid="93">Private Collector Piece</option>
-                                <option vid="94">Architectural Integrated Work</option>
-                                <option vid="95">Gallery Exhibition Request</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group full-width" vid="96">
-                            <label vid="97">Preferred Material Palette</label>
-                            <div class="materials-grid" vid="98">
-                                <div class="material-option selected" onclick="this.classList.toggle('selected')" vid="99">Raw Steel</div>
-                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="100">Oxidized Copper</div>
-                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="101">Cast Bronze</div>
-                                <div class="material-option" onclick="this.classList.toggle('selected')" vid="102">Rebar / Slag</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group full-width" vid="103">
-                            <label vid="104">Specifications</label>
-                            <textarea rows="4" placeholder="DESCRIBE DIMENSIONS, SITE CONTEXT AND CONCEPT..." vid="105"></textarea>
-                        </div>
-
-                        <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
-                    </form>
-
-                    <footer vid="107">
-                        <div vid="108">© 2024 AKIM FARROW STUDIOS</div>
-                        <div vid="109">SIGNAL ACTIVE // CHICAGO, IL</div>
-                    </footer>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <script vid="110">
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const scrollContainer = document.querySelector('.scrolling-content');
-
-        scrollContainer.addEventListener('scroll', () => {
-            let current = "";
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollContainer.scrollTop >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        
-        const filmstrip = document.querySelector('.gallery-filmstrip-container');
-        filmstrip.addEventListener('wheel', (evt) => {
-            evt.preventDefault();
-            filmstrip.scrollLeft += evt.deltaY;
-        });
-    </script>
-</body></html>
