@@ -6,7 +6,7 @@
 
   <title vid="4">Akim Farrow | Afrofuturist Industrialist</title>
 
-  <!-- FAVICON / SITE ICON (use relative paths so GitHub Pages works for both root + /repo-name/) -->
+  <!-- FAVICON / SITE ICON (relative paths) -->
   <link rel="icon" href="og.jpg?v=2" type="image/jpeg">
   <link rel="apple-touch-icon" href="og.jpg?v=2">
   <link rel="shortcut icon" href="og.jpg?v=2" type="image/jpeg">
@@ -38,11 +38,7 @@
       --border: 1px solid rgba(255, 107, 53, 0.2);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body { width: 100%; }
 
@@ -85,7 +81,7 @@
       height: auto;
       max-width: 80%;
       display: block;
-      transform: none; /* ensure not flipped */
+      transform: none;
     }
 
     .nav-vertical {
@@ -211,16 +207,29 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
     }
 
-    .gallery-filmstrip-container::-webkit-scrollbar {
-      display: none;
-    }
+    .gallery-filmstrip-container::-webkit-scrollbar { display: none; }
 
     .gallery-filmstrip {
       display: flex;
       gap: 2rem;
       padding-right: 5vw;
+      align-items: stretch;
+    }
+
+    /* Make links behave like cards without breaking flex sizing */
+    .artwork-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      flex: 0 0 auto;
+      outline: none;
+    }
+
+    .artwork-link:focus-visible .artwork-card {
+      box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.35);
     }
 
     .artwork-card {
@@ -357,10 +366,7 @@
       color: var(--rust);
     }
 
-    /* CENTER the form container on all view sizes */
-    #inquire {
-      align-items: center;
-    }
+    #inquire { align-items: center; }
 
     .form-container {
       border: 1px solid rgba(255, 107, 53, 0.2);
@@ -383,9 +389,7 @@
       background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust));
     }
 
-    .form-header {
-      margin-bottom: 4rem;
-    }
+    .form-header { margin-bottom: 4rem; }
 
     .form-header h2 {
       font-family: var(--font-display);
@@ -406,9 +410,7 @@
       flex-direction: column;
     }
 
-    .full-width {
-      grid-column: span 2;
-    }
+    .full-width { grid-column: span 2; }
 
     label {
       font-size: 0.75rem;
@@ -418,9 +420,7 @@
       letter-spacing: 0.1em;
     }
 
-    input,
-    select,
-    textarea {
+    input, select, textarea {
       background: transparent;
       border: none;
       border-bottom: 1px solid #4d2d1d;
@@ -431,9 +431,7 @@
       transition: border-color 0.3s;
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
+    input:focus, select:focus, textarea:focus {
       outline: none;
       border-bottom-color: var(--oxide-gold);
     }
@@ -487,7 +485,6 @@
       color: var(--void);
     }
 
-    /* Footer styles (standalone box outside the form) */
     .site-footer {
       padding: 0 5vw 6rem;
       width: 100%;
@@ -551,138 +548,50 @@
       color: var(--oxide-gold);
     }
 
-    .footer-icon i {
-      font-size: 18px;
-      line-height: 1;
-    }
+    .footer-icon i { font-size: 18px; line-height: 1; }
 
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--charcoal); }
     ::-webkit-scrollbar-thumb { background: #4d2d1d; }
 
-    /* MOBILE: keep the original left sidebar (do not relocate),
-       but bind sizes so everything stays inside the phone frame */
     @media (max-width: 700px) {
-      .layout {
-        grid-template-columns: 64px 1fr;
-        width: 100%;
-      }
+      .layout { grid-template-columns: 64px 1fr; width: 100%; }
+      .brand-img { width: 28px; }
+      .sidebar { padding: 1.25rem 0; }
+      .nav-vertical { gap: 2.5rem; margin-top: 1.25rem; }
+      .nav-link { font-size: 0.62rem; letter-spacing: 0.28em; }
+      .location-tags { font-size: 0.5rem; letter-spacing: 0.28em; gap: 1.25rem; padding-bottom: 1.25rem; }
 
-      .brand-img {
-        width: 28px;
-      }
+      section { padding: 3.75rem 5vw; min-height: auto; }
+      .hero-title { font-size: 16vw; line-height: 0.9; }
+      .hero-sub { padding-left: 1.25rem; }
+      .hero-sub p:first-child { letter-spacing: 0.14em; font-size: 0.9rem; }
+      .hero-sub p:last-child { font-size: 0.7rem; letter-spacing: 0.14em; }
 
-      .sidebar {
-        padding: 1.25rem 0;
-      }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-title { font-size: 2.4rem; }
 
-      .nav-vertical {
-        gap: 2.5rem;
-        margin-top: 1.25rem;
-      }
+      .gallery-section { padding: 3.75rem 0 3.75rem 5vw; }
+      .section-title { font-size: 2.2rem; }
+      .gallery-filmstrip { gap: 1.25rem; padding-right: 5vw; }
 
-      .nav-link {
-        font-size: 0.62rem;
-        letter-spacing: 0.28em;
-      }
+      /* Keep link wrapper from changing card sizing on mobile */
+      .artwork-link { width: 78vw; max-width: 78vw; }
+      .artwork-card { flex: 0 0 78vw; max-width: 78vw; }
 
-      .location-tags {
-        font-size: 0.5rem;
-        letter-spacing: 0.28em;
-        gap: 1.25rem;
-        padding-bottom: 1.25rem;
-      }
+      .artwork-title { font-size: 1.1rem; }
+      .artwork-meta { font-size: 0.62rem; letter-spacing: 0.08em; white-space: normal; text-align: right; }
 
-      section {
-        padding: 3.75rem 5vw;
-        min-height: auto;
-      }
+      .form-container { padding: 2rem; width: min(900px, 86vw); }
+      .form-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .full-width { grid-column: span 1; }
+      .materials-grid { grid-template-columns: repeat(2, 1fr); }
 
-      .hero-title {
-        font-size: 16vw;
-        line-height: 0.9;
-      }
-
-      .hero-sub {
-        padding-left: 1.25rem;
-      }
-
-      .hero-sub p:first-child {
-        letter-spacing: 0.14em;
-        font-size: 0.9rem;
-      }
-
-      .hero-sub p:last-child {
-        font-size: 0.7rem;
-        letter-spacing: 0.14em;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-
-      .about-title {
-        font-size: 2.4rem;
-      }
-
-      .gallery-section {
-        padding: 3.75rem 0 3.75rem 5vw;
-      }
-
-      .section-title {
-        font-size: 2.2rem;
-      }
-
-      .gallery-filmstrip {
-        gap: 1.25rem;
-        padding-right: 5vw;
-      }
-
-      .artwork-card {
-        flex: 0 0 78vw;
-        max-width: 78vw;
-      }
-
-      .artwork-title {
-        font-size: 1.1rem;
-      }
-
-      .artwork-meta {
-        font-size: 0.62rem;
-        letter-spacing: 0.08em;
-        white-space: normal;
-        text-align: right;
-      }
-
-      .form-container {
-        padding: 2rem;
-        width: min(900px, 86vw);
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .full-width {
-        grid-column: span 1;
-      }
-
-      .materials-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .footer-box {
-        width: min(900px, 86vw);
-        padding: 1.75rem 1.5rem;
-      }
+      .footer-box { width: min(900px, 86vw); padding: 1.75rem 1.5rem; }
     }
 
     @media (max-width: 420px) {
-      .artwork-meta {
-        white-space: normal;
-      }
+      .artwork-meta { white-space: normal; }
     }
   </style>
 </head>
@@ -691,8 +600,7 @@
   <div class="layout" vid="10">
     <aside class="sidebar" vid="11">
       <div class="brand" vid="12">
-        <!-- If your file is actually ogw.jpg, change this to ogw.jpg -->
-        <img class="brand-img" src="ogw.png?v=5" alt="White Logo" />
+        <img class="brand-img" src="ogw.jpg?v=5" alt="White Logo" />
       </div>
 
       <nav class="nav-vertical" vid="13">
@@ -751,6 +659,8 @@
 
         <div class="gallery-filmstrip-container" vid="50">
           <div class="gallery-filmstrip" vid="51">
+
+            <!-- LINKED CARD -->
             <a class="artwork-link" href="archive/steelcagemother.html" aria-label="Open Steel Cage Mother">
               <div class="artwork-card" vid="52">
                 <div class="artwork-image" vid="53">
@@ -762,10 +672,6 @@
                 </div>
               </div>
             </a>
-        
-            <!-- other artwork-card blocks continue here -->
-          </div>
-        </div>
 
             <div class="artwork-card" vid="58">
               <div class="artwork-image" vid="59">
@@ -866,11 +772,11 @@
                 <div class="artwork-meta" vid="117">2015 · Canvas &amp; Oil Paint</div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      <!-- INQUIRE (form is inside the section + centered container) -->
       <section id="inquire" vid="76">
         <div class="form-container" vid="77">
           <div class="form-header" vid="78">
@@ -943,7 +849,6 @@
 
             <div class="form-group full-width" vid="96">
               <label vid="97">Preferred Material Palette</label>
-
               <input type="hidden" name="materials" id="materialsInput" value="Raw Steel">
 
               <div class="materials-grid" vid="98">
@@ -967,13 +872,11 @@
             <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
 
             <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
-
             <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
           </form>
         </div>
       </section>
 
-      <!-- Standalone footer outside the form (centered floating box) -->
       <div class="site-footer" vid="200">
         <div class="footer-box" vid="201">
           <div class="footer-inner" vid="202">
@@ -995,6 +898,7 @@
           </div>
         </div>
       </div>
+
     </main>
   </div>
 
@@ -1020,11 +924,28 @@
       });
     });
 
-    const filmstrip = document.querySelector('.gallery-filmstrip-container');
-    filmstrip.addEventListener('wheel', (evt) => {
-      evt.preventDefault();
-      filmstrip.scrollLeft += evt.deltaY;
-    }, { passive: false });
+    // Horizontal scroll for the filmstrip (mousewheel + trackpad)
+    const filmstripContainer = document.querySelector('.gallery-filmstrip-container');
+    const filmstripInner = document.querySelector('.gallery-filmstrip');
+
+    function handleFilmstripWheel(evt) {
+      // If user is already doing horizontal on trackpad, let it happen naturally
+      const dx = Math.abs(evt.deltaX || 0);
+      const dy = Math.abs(evt.deltaY || 0);
+
+      // Convert vertical wheel into horizontal scroll
+      if (dy > dx) {
+        evt.preventDefault();
+        filmstripContainer.scrollLeft += evt.deltaY;
+      }
+    }
+
+    if (filmstripContainer) {
+      filmstripContainer.addEventListener('wheel', handleFilmstripWheel, { passive: false });
+    }
+    if (filmstripInner) {
+      filmstripInner.addEventListener('wheel', handleFilmstripWheel, { passive: false });
+    }
   </script>
 
   <script>
