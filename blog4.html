@@ -1,0 +1,452 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Echoes of Great Zimbabwe | Akim Farrow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet" vid="7">
+    <style vid="8">
+        :root {
+            --void: #1a0f0a; 
+            --charcoal: #121212; 
+            --rust: #d35400; 
+            --rust-glow: #e67e22; 
+            --oxide-gold: #ff6b35; 
+            --steel: #2c1e18; 
+            --font-display: 'Anton', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--charcoal);
+            color: #e8e0dc;
+            font-family: var(--font-mono);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .sidebar {
+            background: var(--void);
+            border-right: 1px solid #3d2218;
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            position: relative;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #fff;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            letter-spacing: 0.1em;
+            text-decoration: none;
+        }
+
+        .nav-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: #8a665c;
+            text-decoration: none;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--oxide-gold);
+        }
+
+        .scrolling-content {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            background-color: var(--charcoal);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+
+        
+        .artwork-hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 5vw 10vh 5vw;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%) brightness(0.6) contrast(1.1);
+        }
+
+        .hero-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, var(--charcoal) 0%, transparent 100%);
+        }
+
+        .artwork-hero-title {
+            font-family: var(--font-display);
+            font-size: 8vw;
+            line-height: 0.9;
+            color: var(--oxide-gold);
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        
+        .artwork-details {
+            padding: 6rem 5vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+        }
+
+        .detail-col h3 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--rust);
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            border-bottom: 1px solid rgba(211, 84, 0, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .detail-body {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #c8b8b0;
+        }
+
+        
+        .audio-container {
+            grid-column: span 2;
+            background: rgba(26, 15, 10, 0.5);
+            border: 1px solid #3d2218;
+            padding: 2.5rem;
+            margin: 4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--oxide-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .play-btn:hover {
+            background: var(--oxide-gold);
+        }
+
+        .play-btn:hover svg {
+            fill: var(--void);
+        }
+
+        .play-btn svg {
+            width: 20px;
+            fill: var(--oxide-gold);
+        }
+
+        .waveform-visual {
+            flex-grow: 1;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .wave-bar {
+            flex: 1;
+            background: #3d2218;
+            height: 20%;
+            transition: height 0.3s;
+        }
+
+        .wave-bar.active {
+            background: var(--oxide-gold);
+        }
+
+        .audio-meta {
+            text-align: right;
+        }
+
+        .audio-label {
+            font-size: 0.6rem;
+            color: var(--rust);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        
+        .related-section {
+            padding: 4rem 5vw 8rem 5vw;
+        }
+
+        .strip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+        }
+
+        .horizontal-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .strip-card {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .strip-img {
+            aspect-ratio: 4/3;
+            background: #1a0f0a;
+            border: 1px solid #3d2218;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .strip-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.6);
+            transition: all 0.4s ease;
+        }
+
+        .strip-card:hover img {
+            filter: grayscale(0%) brightness(0.8);
+            transform: scale(1.05);
+        }
+
+        .strip-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 0.05em;
+        }
+
+        
+        .cta-container {
+            padding: 4rem 5vw 8rem 5vw;
+            display: flex;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 2rem 4rem;
+            border: 1px solid var(--oxide-gold);
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--oxide-gold);
+            text-transform: uppercase;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.4s;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .action-btn:hover {
+            background: var(--oxide-gold);
+            color: var(--void);
+            box-shadow: 0 0 40px rgba(255, 107, 53, 0.2);
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--charcoal); }
+        ::-webkit-scrollbar-thumb { background: #4d2d1d; }
+
+        @media (max-width: 900px) {
+            .artwork-details { grid-template-columns: 1fr; }
+            .audio-container { flex-direction: column; text-align: center; }
+            .horizontal-strip { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body vid="9">
+
+    <div class="layout" vid="10">
+        <aside class="sidebar" vid="11">
+            <a href="#" class="brand" vid="12">AF.</a>
+            <nav class="nav-vertical" vid="13">
+                <a href="#" class="nav-link" vid="14">ARCHIVE</a>
+                <a href="#" class="nav-link" vid="15">ABOUT</a>
+                <a href="#" class="nav-link active" vid="16">WORKS</a>
+                <a href="#" class="nav-link" vid="17">INQUIRE</a>
+            </nav>
+            <div class="location-tags" style="font-size: 0.6rem; color: var(--rust); letter-spacing: 0.4em; writing-mode: vertical-rl; transform: rotate(180deg); display: flex; gap: 2rem; align-items: center; opacity: 0.5; padding-bottom: 2rem;" vid="18">
+                <span vid="19">ID: 023-A</span>
+                <span vid="20">SERIES: ECHO</span>
+            </div>
+        </aside>
+
+        <main class="scrolling-content" vid="21">
+            <section class="artwork-hero" vid="22">
+                <div class="hero-bg" vid="23">
+                    <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Echoes of Great Zimbabwe" vid="24">
+                    <div class="hero-gradient" vid="25"></div>
+                </div>
+                <h1 class="artwork-hero-title" vid="26">Echoes of Great<br vid="27">Zimbabwe</h1>
+            </section>
+
+            <section class="artwork-details" vid="28">
+                <div class="detail-col" vid="29">
+                    <h3 vid="30">Concept</h3>
+                    <div class="detail-body" vid="31">
+                        This monolithic structure serves as a dialogue between the stone masonry of the Mutapa Empire and the industrial rigidity of the modern era. By reinterpreting the iconic chevron patterns of the Great Enclosure through laser-cut Corten steel, the work interrogates the persistence of ancestral memory within the "rust-belt" aesthetics of contemporary life. It is an altar to the continuity of form across centuries of displacement.
+                    </div>
+                </div>
+                <div class="detail-col" vid="32">
+                    <h3 vid="33">Material Process</h3>
+                    <div class="detail-body" vid="34">
+                        Fabricated from 12mm weather-resistant structural steel, the piece underwent a controlled oxidation process over eighteen months. The surface was treated with a proprietary saline solution to accelerate the development of the hematite patina, mirroring the natural weathering of iron-rich ores found in the Mashonaland plateau. Every seam is hand-welded using archival slag-rich techniques to emphasize the raw industrial labor.
+                    </div>
+                </div>
+
+                <div class="audio-container" vid="35">
+                    <div class="play-btn" vid="36">
+                        <svg viewBox="0 0 24 24" vid="37"><path d="M8 5v14l11-7z" vid="38"></path></svg>
+                    </div>
+                    <div class="waveform-visual" vid="39">
+                        <div class="wave-bar active" style="height: 40%;" vid="40"></div>
+                        <div class="wave-bar active" style="height: 70%;" vid="41"></div>
+                        <div class="wave-bar active" style="height: 50%;" vid="42"></div>
+                        <div class="wave-bar active" style="height: 90%;" vid="43"></div>
+                        <div class="wave-bar active" style="height: 30%;" vid="44"></div>
+                        <div class="wave-bar" style="height: 60%;" vid="45"></div>
+                        <div class="wave-bar" style="height: 80%;" vid="46"></div>
+                        <div class="wave-bar" style="height: 40%;" vid="47"></div>
+                        <div class="wave-bar" style="height: 90%;" vid="48"></div>
+                        <div class="wave-bar" style="height: 20%;" vid="49"></div>
+                        <div class="wave-bar" style="height: 50%;" vid="50"></div>
+                        <div class="wave-bar" style="height: 70%;" vid="51"></div>
+                        <div class="wave-bar" style="height: 40%;" vid="52"></div>
+                        <div class="wave-bar" style="height: 30%;" vid="53"></div>
+                        <div class="wave-bar" style="height: 60%;" vid="54"></div>
+                    </div>
+                    <div class="audio-meta" vid="55">
+                        <div class="audio-label" vid="56">Audio Commentary</div>
+                        <div style="font-size: 0.8rem; color: #fff;" vid="57">ON THE ANCESTRAL FREQUENCY (3:42)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-section" vid="58">
+                <div class="strip-header" vid="59">
+                    <div vid="60">
+                        <div class="section-label" style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--rust); margin-bottom: 0.5rem;" vid="61">Related Studies</div>
+                        <h2 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--oxide-gold);" vid="62">FROM THE SERIES</h2>
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--rust); text-transform: uppercase; letter-spacing: 0.2em;" vid="63">VIEW ALL WORKS →</div>
+                </div>
+                <div class="horizontal-strip" vid="64">
+                    <a href="#" class="strip-card" vid="65">
+                        <div class="strip-img" vid="66"><img src="https://images.unsplash.com/photo-1554188248-986adbb73be0?q=80&amp;w=800&amp;auto=format&amp;fit=crop" vid="67"></div>
+                        <div class="strip-title" vid="68">Orbit of the Ancestors</div>
+                    </a>
+                    <a href="#" class="strip-card" vid="69">
+                        <div class="strip-img" vid="70"><img src="https://images.unsplash.com/photo-1561266436-1e66c98ae795?q=80&amp;w=800&amp;auto=format&amp;fit=crop" vid="71"></div>
+                        <div class="strip-title" vid="72">Oxidized Future V</div>
+                    </a>
+                    <a href="#" class="strip-card" vid="73">
+                        <div class="strip-img" vid="74"><img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&amp;w=800&amp;auto=format&amp;fit=crop" vid="75"></div>
+                        <div class="strip-title" vid="76">Foundry Study No. 4</div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="cta-container" vid="77">
+                <button class="action-btn" vid="78">Commission a Similar Work</button>
+            </section>
+
+            <footer style="padding: 4rem 5vw; border-top: 1px solid #3d2218; display: flex; justify-content: space-between; font-size: 0.6rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.2em;" vid="79">
+                <div vid="80">© 2024 AKIM FARROW STUDIOS</div>
+                <div vid="81">TRANSITION COMPLETE // FOUNDRY SIGNAL</div>
+            </footer>
+        </main>
+    </div>
+
+    <script vid="82">
+        const scrollContainer = document.querySelector('.scrolling-content');
+        const heroBg = document.querySelector('.hero-bg');
+        
+        scrollContainer.addEventListener('scroll', () => {
+            const scroll = scrollContainer.scrollTop;
+            const height = window.innerHeight;
+            const opacity = 1 - (scroll / height);
+            
+            if (scroll < height) {
+                heroBg.style.opacity = Math.max(0, opacity);
+                heroBg.style.transform = `translateY(${scroll * 0.3}px)`;
+            }
+        });
+
+        
+        const bars = document.querySelectorAll('.wave-bar');
+        setInterval(() => {
+            bars.forEach(bar => {
+                if (Math.random() > 0.5) {
+                    bar.style.height = `${Math.random() * 100}%`;
+                }
+            });
+        }, 150);
+    </script>
+</body></html>

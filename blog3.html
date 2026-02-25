@@ -1,0 +1,308 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Echoes of Great Zimbabwe | Akim Farrow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet" vid="7">
+    <style vid="8">
+        :root {
+            --void: #1a0f0a; 
+            --charcoal: #121212; 
+            --rust: #d35400; 
+            --rust-glow: #e67e22; 
+            --oxide-gold: #ff6b35; 
+            --steel: #2c1e18; 
+            --font-display: 'Anton', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--charcoal);
+            color: #e8e0dc;
+            font-family: var(--font-mono);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .sidebar {
+            background: var(--void);
+            border-right: 1px solid #3d2218;
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #fff;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            letter-spacing: 0.1em;
+            text-decoration: none;
+        }
+
+        .nav-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: #8a665c;
+            text-decoration: none;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--oxide-gold);
+        }
+
+        .detail-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        
+        .image-gallery {
+            overflow-y: auto;
+            height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            scroll-behavior: smooth;
+        }
+
+        .gallery-item {
+            width: 100%;
+            border: 1px solid rgba(255, 107, 53, 0.15);
+            background: var(--void);
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            filter: grayscale(30%) contrast(110%);
+            transition: filter 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        
+        .info-panel {
+            height: 100vh;
+            padding: 4rem;
+            overflow-y: auto;
+            border-left: 1px solid #3d2218;
+            background: rgba(26, 15, 10, 0.4);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-nav {
+            margin-bottom: 4rem;
+        }
+
+        .back-link {
+            color: var(--rust);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--oxide-gold);
+        }
+
+        .artwork-header {
+            margin-bottom: 3rem;
+        }
+
+        .artwork-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--rust);
+            margin-bottom: 1rem;
+        }
+
+        .artwork-main-title {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            line-height: 0.9;
+            color: var(--oxide-gold);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .artwork-specs {
+            display: flex;
+            gap: 2rem;
+            border-top: 1px solid #3d2218;
+            padding-top: 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #8a665c;
+        }
+
+        .spec-item span {
+            color: #e8e0dc;
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        .artwork-statement {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #c8b8b0;
+            margin-bottom: 3rem;
+        }
+
+        .fabrication-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-top: auto;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, rgba(211, 84, 0, 0.2), transparent);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .video-label {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            color: var(--oxide-gold);
+            text-transform: uppercase;
+            z-index: 3;
+            background: rgba(0,0,0,0.5);
+            padding: 0.2rem 0.5rem;
+        }
+
+        .fabrication-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3d2218; }
+
+    </style>
+</head>
+<body vid="9">
+
+    <div class="layout" vid="10">
+        <aside class="sidebar" vid="11">
+            <a href="#" class="brand" vid="12">AF.</a>
+            <nav class="nav-vertical" vid="13">
+                <a href="#" class="nav-link active" vid="14">ARCHIVE</a>
+                <a href="#" class="nav-link" vid="15">ABOUT</a>
+                <a href="#" class="nav-link" vid="16">WORKS</a>
+                <a href="#" class="nav-link" vid="17">INQUIRE</a>
+            </nav>
+            <div class="location-tags" vid="18" style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.6rem; color: var(--rust); opacity: 0.5; letter-spacing: 0.4em; padding-bottom: 2rem;">
+                SIGNAL ACTIVE
+            </div>
+        </aside>
+
+        <main class="detail-container" vid="19">
+            <div class="image-gallery" vid="20">
+                <div class="gallery-item" vid="21">
+                    <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Front view" vid="22">
+                </div>
+                <div class="gallery-item" vid="23">
+                    <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Detail texture" vid="24">
+                </div>
+                <div class="gallery-item" vid="25">
+                    <img src="https://images.unsplash.com/photo-1518998053574-53ee81eb3944?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Side profile" vid="26">
+                </div>
+                <div class="gallery-item" vid="27">
+                    <img src="https://images.unsplash.com/photo-1554188248-986adbb73be0?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Contextual view" vid="28">
+                </div>
+            </div>
+
+            <div class="info-panel" vid="29">
+                <div class="back-nav" vid="30">
+                    <a href="#" class="back-link" vid="31">
+                        ← RETURN TO ARCHIVE
+                    </a>
+                </div>
+
+                <div class="artwork-header" vid="32">
+                    <div class="artwork-label" vid="33">Project 01 // Archive</div>
+                    <h1 class="artwork-main-title" vid="34">ECHOES OF GREAT ZIMBABWE</h1>
+                    <div class="artwork-specs" vid="35">
+                        <div class="spec-item" vid="36">YEAR <span vid="37">2023</span></div>
+                        <div class="spec-item" vid="38">MEDIUM <span vid="39">CORTEN STEEL</span></div>
+                        <div class="spec-item" vid="40">SCALE <span vid="41">14' X 8' X 6'</span></div>
+                    </div>
+                </div>
+
+                <div class="artwork-statement" vid="42">
+                    <p vid="43">This piece serves as a structural interrogation of architectural memory. Inspired by the mortarless dry stone walls of Great Zimbabwe, I've reimagined these ancient geometries through the lens of industrial industrialism. The Corten steel, allowed to oxidize naturally, mimics the passage of time on granite, while the jagged, laser-cut apertures reference the loss and reclamation of history.</p>
+                    <p style="margin-top: 1.5rem;" vid="44">It is a monument to the endurance of form and the permeability of borders—both physical and temporal. The weight of the steel anchors the piece in the present, while its negative space invites the viewer to look through the metal into the void of what was left behind.</p>
+                </div>
+
+                <div class="fabrication-video" vid="45">
+                    <div class="video-overlay" vid="46"></div>
+                    <div class="video-label" vid="47">FOUNDRY LOG // FABRICATION PHASE</div>
+                    <video autoplay="" loop="" muted="" playsinline="" vid="48">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-welding-metal-in-a-workshop-4001-large.mp4" type="video/mp4" vid="49">
+                    </video>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body></html>
