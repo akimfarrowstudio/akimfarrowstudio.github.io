@@ -228,8 +228,15 @@
       outline: none;
     }
 
+    /* Remove the focus border ring on the linked card */
     .artwork-link:focus-visible .artwork-card {
-      box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.35);
+      box-shadow: none;
+    }
+    
+    /* Give focus a subtle cue that matches the design */
+    .artwork-link:focus-visible .artwork-title {
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     .artwork-card {
@@ -672,7 +679,6 @@
         <div class="gallery-filmstrip-container" vid="50">
           <div class="gallery-filmstrip" vid="51">
 
-            <!-- LINKED CARD -->
            <!-- LINKED CARD -->
             <a id="scm" class="artwork-link" href="archive/steelcagemother.html" aria-label="Open Steel Cage Mother">
               <div class="artwork-card" vid="52">
