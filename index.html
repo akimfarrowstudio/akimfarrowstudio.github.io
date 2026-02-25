@@ -865,56 +865,98 @@
         </div>
       </section>
 
-      <section id="inquire" vid="76">
-        <div class="form-container" vid="77">
-          <div class="form-header" vid="78">
-            <h2 vid="79">INITIATE COMMISSION</h2>
-            <p style="font-size: 0.8rem; margin-top: 1rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;" vid="80">
-              Custom fabrications require 3-6 months lead time.
-            </p>
-          </div>
+   <form id="commissionForm" vid="81">
+  <div class="form-grid" vid="82">
+    <div class="form-group" vid="83">
+      <label vid="84">Identifier [Name]</label>
+      <input name="name" type="text" placeholder="ENTER FULL NAME" required vid="85">
+    </div>
 
-          <form onsubmit="event.preventDefault();" vid="81">
-            <div class="form-grid" vid="82">
-              <div class="form-group" vid="83">
-                <label vid="84">Identifier [Name]</label>
-                <input type="text" placeholder="ENTER FULL NAME" vid="85">
-              </div>
-              <div class="form-group" vid="86">
-                <label vid="87">Frequency [Email]</label>
-                <input type="email" placeholder="EMAIL@ADDRESS.COM" vid="88">
-              </div>
-            </div>
+    <div class="form-group" vid="86">
+      <label vid="87">Frequency [Email]</label>
+      <input name="email" type="email" placeholder="EMAIL@ADDRESS.COM" required vid="88">
+    </div>
+  </div>
 
-            <div class="form-group full-width" vid="89">
-              <label vid="90">Project Scope</label>
-              <select vid="91">
-                <option vid="92">Public Sculpture Installation</option>
-                <option vid="93">Private Collector Piece</option>
-                <option vid="94">Architectural Integrated Work</option>
-                <option vid="95">Gallery Exhibition Request</option>
-              </select>
-            </div>
+  <div class="form-grid" style="margin-top: 1rem;">
+    <div class="form-group">
+      <label>Signal [Phone] (optional)</label>
+      <input name="phone" type="tel" placeholder="PHONE NUMBER">
+    </div>
 
-            <div class="form-group full-width" vid="96">
-              <label vid="97">Preferred Material Palette</label>
-              <div class="materials-grid" vid="98">
-                <div class="material-option selected" onclick="this.classList.toggle('selected')" vid="99">Raw Steel</div>
-                <div class="material-option" onclick="this.classList.toggle('selected')" vid="100">Oxidized Copper</div>
-                <div class="material-option" onclick="this.classList.toggle('selected')" vid="101">Cast Bronze</div>
-                <div class="material-option" onclick="this.classList.toggle('selected')" vid="102">Rebar / Slag</div>
-              </div>
-            </div>
+    <div class="form-group">
+      <label>Timeline</label>
+      <select name="timeline" required>
+        <option value="" disabled selected>SELECT TIMELINE</option>
+        <option>0–3 months</option>
+        <option>3–6 months</option>
+        <option>6–12 months</option>
+        <option>12+ months</option>
+      </select>
+    </div>
+  </div>
 
-            <div class="form-group full-width" vid="103">
-              <label vid="104">Specifications</label>
-              <textarea rows="4" placeholder="DESCRIBE DIMENSIONS, SITE CONTEXT AND CONCEPT..." vid="105"></textarea>
-            </div>
+  <div class="form-group full-width" vid="89">
+    <label vid="90">Project Scope</label>
+    <select name="scope" required vid="91">
+      <option value="" disabled selected>SELECT SCOPE</option>
+      <option>Public Sculpture Installation</option>
+      <option>Private Collector Piece</option>
+      <option>Architectural Integrated Work</option>
+      <option>Gallery Exhibition Request</option>
+    </select>
+  </div>
 
-            <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
-          </form>
-        </div>
-      </section>
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Install Location</label>
+      <input name="location" type="text" placeholder="CITY, STATE OR COUNTRY" required>
+    </div>
+
+    <div class="form-group">
+      <label>Budget Range</label>
+      <select name="budget" required>
+        <option value="" disabled selected>SELECT BUDGET</option>
+        <option>Under $5k</option>
+        <option>$5k–$15k</option>
+        <option>$15k–$50k</option>
+        <option>$50k+</option>
+        <option>Not sure yet</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group full-width" vid="96">
+    <label vid="97">Preferred Material Palette</label>
+
+    <!-- Hidden input that we fill with selected materials -->
+    <input type="hidden" name="materials" id="materialsInput" value="Raw Steel">
+
+    <div class="materials-grid" vid="98">
+      <div class="material-option selected" data-material="Raw Steel" onclick="toggleMaterial(this)" vid="99">Raw Steel</div>
+      <div class="material-option" data-material="Oxidized Copper" onclick="toggleMaterial(this)" vid="100">Oxidized Copper</div>
+      <div class="material-option" data-material="Cast Bronze" onclick="toggleMaterial(this)" vid="101">Cast Bronze</div>
+      <div class="material-option" data-material="Rebar / Slag" onclick="toggleMaterial(this)" vid="102">Rebar / Slag</div>
+    </div>
+  </div>
+
+  <div class="form-group full-width" vid="103">
+    <label vid="104">Specifications</label>
+    <textarea name="specs" rows="4" placeholder="DIMENSIONS, SITE CONTEXT, CONCEPT, ANY CONSTRAINTS..." required vid="105"></textarea>
+  </div>
+
+  <div class="form-group full-width">
+    <label>Reference Links (optional)</label>
+    <textarea name="links" rows="3" placeholder="PASTE LINKS TO SITE PHOTOS, INSPO, FLOORPLANS, PINTEREST, ETC."></textarea>
+  </div>
+
+  <!-- Honeypot for spam bots (leave hidden) -->
+  <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
+
+  <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
+
+  <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
+</form>
 
       <!-- Standalone footer outside the form (centered floating box) -->
       <div class="site-footer" vid="200">
@@ -969,5 +1011,75 @@
       filmstrip.scrollLeft += evt.deltaY;
     }, { passive: false });
   </script>
+
+  <script>
+  // Materials selection -> keep hidden input updated
+  function toggleMaterial(el) {
+    el.classList.toggle('selected');
+
+    const selected = Array.from(document.querySelectorAll('.material-option.selected'))
+      .map(x => x.getAttribute('data-material'))
+      .filter(Boolean);
+
+    // If none selected, force Raw Steel back on (so it never submits blank)
+    if (selected.length === 0) {
+      const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
+      if (raw) raw.classList.add('selected');
+      selected.push('Raw Steel');
+    }
+
+    document.getElementById('materialsInput').value = selected.join(', ');
+  }
+
+  // Submit form to Google Apps Script Web App
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4z8zveVIrGKpxmYYafzn9nRX4zE7RrvSMGGy-epkSvMr6v9uSIl3Hr0VTi9E1pG-Mbg/exec";
+
+  const form = document.getElementById('commissionForm');
+  const statusEl = document.getElementById('formStatus');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "TRANSMITTING...";
+
+    // Honeypot check
+    const hp = document.getElementById('websiteField');
+    if (hp && hp.value.trim() !== "") {
+      statusEl.textContent = "BLOCKED.";
+      return;
+    }
+
+    const formData = new FormData(form);
+    formData.append("page", window.location.href);
+    formData.append("userAgent", navigator.userAgent);
+
+    try {
+      const res = await fetch(WEB_APP_URL, {
+        method: "POST",
+        body: formData
+      });
+
+      const text = await res.text();
+
+      if (!res.ok) {
+        statusEl.textContent = "ERROR. TRY AGAIN.";
+        return;
+      }
+
+      // Many Apps Script responses are plain text
+      statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
+      form.reset();
+
+      // Re-select default material after reset
+      document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+      const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
+      if (raw) raw.classList.add('selected');
+      document.getElementById('materialsInput').value = "Raw Steel";
+
+    } catch (err) {
+      statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+    }
+  });
+</script>
+  
 </body>
 </html>
