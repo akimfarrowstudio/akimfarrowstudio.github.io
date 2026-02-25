@@ -274,7 +274,7 @@
       .layout { grid-template-columns: 64px 1fr; }
     }
 
-    /* Homepage-style logo */
+    /* Homepage-style logo (upright) */
     .brand {
       display: flex;
       align-items: center;
@@ -289,8 +289,7 @@
       height: auto;
       max-width: 80%;
       display: block;
-      /* If the file is upside down, keep this. If you fix the PNG itself, remove this line. */
-      transform: rotate(180deg);
+      transform: none; /* FIX: no rotation */
     }
   </style>
 </head>
@@ -312,19 +311,15 @@
         <a href="../index.html#inquire" class="nav-link">INQUIRE</a>
       </nav>
 
-      <!-- Add another Return to Index above the bottom ref line -->
-      <div style="display:flex; flex-direction:column; align-items:center; gap:1.25rem;">
-        <a href="../index.html#works" class="back-btn" style="margin-bottom:0;">← RETURN TO INDEX</a>
-
-        <div style="font-size: 0.6rem; color: var(--rust); writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5; padding-bottom: 2rem;">
-          REF_NO: 882-SCM-CH
-        </div>
+      <!-- Bottom ref only (no Return to Index in sidebar) -->
+      <div style="font-size: 0.6rem; color: var(--rust); writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5; padding-bottom: 2rem;">
+        REF_NO: 882-SCM-CH
       </div>
 
     </aside>
 
     <main class="scrolling-content" vid="19">
-      <!-- Main page Return to Index (fixed) -->
+      <!-- Main page Return to Index -->
       <a href="../index.html#works" class="back-btn" vid="20">← RETURN TO INDEX</a>
 
       <div class="dossier-header" vid="21">
@@ -353,9 +348,7 @@
 
         <div class="detail-frame" vid="37">
           <video controls playsinline preload="metadata" vid="38" poster="../assets/images/steelcagemother.jpg">
-            <!-- Prefer MP4 (H.264/AAC) -->
             <source src="../assets/video/SCM.mp4" type="video/mp4">
-            <!-- MOV as fallback (often fails on some browsers) -->
             <source src="../assets/video/SCM.mov" type="video/quicktime">
             Your browser can’t play this video. <a href="../assets/video/SCM.mp4">Download it</a>.
           </video>
@@ -371,6 +364,9 @@
             <p vid="45">The structure was fabricated from square steel tubing into a strict eight-foot volume. The welds remain visible, emphasizing the grid as infrastructure rather than ornament. The steel was left untreated to maintain the neutrality of administrative architecture.</p>
             <p vid="46">The interior is hollow, containing a standard office chair mounted on a steel plate. Under fluorescent light, the structure produces a compressed acoustic field, situating the body between workplace and holding cell.</p>
           </div>
+
+          <!-- MOVED: Return to Index under Field Notes -->
+          <a href="../index.html#works" class="back-btn" style="margin-top: 1rem;">← RETURN TO INDEX</a>
         </div>
 
         <div class="sidebar-data" vid="47">
