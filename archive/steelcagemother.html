@@ -284,24 +284,45 @@
       .stencil-title { font-size: 3.2rem; }
       .layout { grid-template-columns: 64px 1fr; }
     }
+
+        .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 0.5rem;
+    }
+    
+    .brand-img {
+      width: 38px;
+      height: auto;
+      max-width: 80%;
+      display: block;
+      transform: none;
+    }
   </style>
 </head>
 
 <body vid="9">
   <div class="layout" vid="10">
-    <aside class="sidebar" vid="11">
-      <a href="../index.html#works" class="back-btn">← RETURN TO INDEX</a>
-
-      <nav class="nav-vertical" vid="13">
-        <a href="index.html#works" class="nav-link active" vid="14">ARCHIVE</a>
-        <a href="index.html#about" class="nav-link" vid="15">ABOUT</a>
-        <a href="index.html#works" class="nav-link" vid="16">WORKS</a>
-        <a href="index.html#inquire" class="nav-link" vid="17">INQUIRE</a>
-      </nav>
-
-      <div style="font-size: 0.6rem; color: var(--rust); writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5; padding-bottom: 2rem;" vid="18">
-        REF_NO: 882-SCM-CH
+    <aside class="sidebar">
+    
+      <!-- Logo (same as homepage) -->
+      <div class="brand">
+        <img class="brand-img" src="../ogw.png?v=5" alt="White Logo" />
       </div>
+    
+      <!-- Navigation -->
+      <nav class="nav-vertical">
+        <a href="../index.html#hero" class="nav-link">ARCHIVE</a>
+        <a href="../index.html#about" class="nav-link">ABOUT</a>
+        <a href="../index.html#works" class="nav-link active">WORKS</a>
+        <a href="../index.html#inquire" class="nav-link">INQUIRE</a>
+      </nav>
+    
+      <!-- Keep your Return to Index (as requested) -->
+      <a href="../index.html#works" class="back-btn">← RETURN TO INDEX</a>
+    
     </aside>
 
     <main class="scrolling-content" vid="19">
