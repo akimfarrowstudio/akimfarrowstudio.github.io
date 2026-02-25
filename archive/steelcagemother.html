@@ -50,17 +50,6 @@
       z-index: 100;
     }
 
-    .brand {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: #fff;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
     .nav-vertical {
       display: flex;
       flex-direction: column;
@@ -285,20 +274,23 @@
       .layout { grid-template-columns: 64px 1fr; }
     }
 
-        .brand {
+    /* Homepage-style logo */
+    .brand {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
       padding-top: 0.5rem;
+      text-decoration: none;
     }
-    
+
     .brand-img {
       width: 38px;
       height: auto;
       max-width: 80%;
       display: block;
-      transform: none;
+      /* If the file is upside down, keep this. If you fix the PNG itself, remove this line. */
+      transform: rotate(180deg);
     }
   </style>
 </head>
@@ -306,12 +298,12 @@
 <body vid="9">
   <div class="layout" vid="10">
     <aside class="sidebar">
-    
-      <!-- Logo (same as homepage) -->
-      <div class="brand">
+
+      <!-- Logo links to homepage -->
+      <a class="brand" href="../index.html" aria-label="Home">
         <img class="brand-img" src="../ogw.png?v=5" alt="White Logo" />
-      </div>
-    
+      </a>
+
       <!-- Navigation -->
       <nav class="nav-vertical">
         <a href="../index.html#hero" class="nav-link">ARCHIVE</a>
@@ -319,14 +311,21 @@
         <a href="../index.html#works" class="nav-link active">WORKS</a>
         <a href="../index.html#inquire" class="nav-link">INQUIRE</a>
       </nav>
-    
-      <!-- Keep your Return to Index (as requested) -->
-      <a href="../index.html#works" class="back-btn">← RETURN TO INDEX</a>
-    
+
+      <!-- Add another Return to Index above the bottom ref line -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap:1.25rem;">
+        <a href="../index.html#works" class="back-btn" style="margin-bottom:0;">← RETURN TO INDEX</a>
+
+        <div style="font-size: 0.6rem; color: var(--rust); writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5; padding-bottom: 2rem;">
+          REF_NO: 882-SCM-CH
+        </div>
+      </div>
+
     </aside>
 
     <main class="scrolling-content" vid="19">
-      <a href="index.html#works" class="back-btn" vid="20">← RETURN TO INDEX</a>
+      <!-- Main page Return to Index (fixed) -->
+      <a href="../index.html#works" class="back-btn" vid="20">← RETURN TO INDEX</a>
 
       <div class="dossier-header" vid="21">
         <div vid="22">
@@ -346,15 +345,17 @@
           <img src="../assets/images/steelcagemother.jpg" alt="Steel Cage Mother overview" vid="32">
           <div class="detail-label" vid="33">FIG_01: STRUCTURE</div>
         </div>
-      
+
         <div class="detail-frame" vid="34">
           <img src="../assets/images/sideSCM.jpg" alt="Steel Cage Mother side view" vid="35">
           <div class="detail-label" vid="36">FIG_02: SIDE VIEW</div>
         </div>
-      
+
         <div class="detail-frame" vid="37">
-          <video controls playsinline preload="metadata" muted vid="38" poster="../assets/images/steelcagemother.jpg">
+          <video controls playsinline preload="metadata" vid="38" poster="../assets/images/steelcagemother.jpg">
+            <!-- Prefer MP4 (H.264/AAC) -->
             <source src="../assets/video/SCM.mp4" type="video/mp4">
+            <!-- MOV as fallback (often fails on some browsers) -->
             <source src="../assets/video/SCM.mov" type="video/quicktime">
             Your browser can’t play this video. <a href="../assets/video/SCM.mp4">Download it</a>.
           </video>
