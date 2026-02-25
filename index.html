@@ -6,19 +6,17 @@
 
   <title vid="4">Akim Farrow | Afrofuturist Industrialist</title>
 
-  <!-- FAVICON / SITE ICON -->
-  <!-- You said the file is og.jpg in the repo root (same level as index.html) -->
-  <!-- Use root-relative paths so GitHub Pages resolves it reliably -->
-  <link rel="icon" href="/og.jpg?v=2" type="image/jpeg">
-  <link rel="apple-touch-icon" href="/og.jpg?v=2">
-  <link rel="shortcut icon" href="/og.jpg?v=2" type="image/jpeg">
+  <!-- FAVICON / SITE ICON (use relative paths so GitHub Pages works for both root + /repo-name/) -->
+  <link rel="icon" href="og.jpg?v=2" type="image/jpeg">
+  <link rel="apple-touch-icon" href="og.jpg?v=2">
+  <link rel="shortcut icon" href="og.jpg?v=2" type="image/jpeg">
 
-  <!-- Open Graph / Twitter (also use root-relative) -->
+  <!-- Open Graph / Twitter (relative paths) -->
   <meta property="og:title" content="Akim Farrow | Afrofuturist Industrialist">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="/og.jpg?v=2">
+  <meta property="og:image" content="og.jpg?v=2">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="/og.jpg?v=2">
+  <meta name="twitter:image" content="og.jpg?v=2">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
@@ -73,20 +71,23 @@
       align-items: center;
       z-index: 100;
     }
-      .brand {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        padding-top: 0.5rem;
-      }
-      
-      .brand-img {
-        width: 38px;        /* desktop size */
-        height: auto;
-        max-width: 80%;
-        display: block;
-      }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 0.5rem;
+    }
+
+    .brand-img {
+      width: 38px;
+      height: auto;
+      max-width: 80%;
+      display: block;
+      transform: none; /* ensure not flipped */
+    }
+
     .nav-vertical {
       display: flex;
       flex-direction: column;
@@ -565,17 +566,14 @@
       .layout {
         grid-template-columns: 64px 1fr;
         width: 100%;
-          .brand-img {
-    width: 28px;      /* smaller for mobile */
+      }
+
+      .brand-img {
+        width: 28px;
       }
 
       .sidebar {
         padding: 1.25rem 0;
-      }
-
-      .brand {
-        font-size: 1.1rem;
-        letter-spacing: 0.08em;
       }
 
       .nav-vertical {
@@ -693,14 +691,17 @@
   <div class="layout" vid="10">
     <aside class="sidebar" vid="11">
       <div class="brand" vid="12">
-  <img class="brand-img" src="ogw.png?v=6" alt="White Logo" />
-</div>
+        <!-- If your file is actually ogw.jpg, change this to ogw.jpg -->
+        <img class="brand-img" src="ogw.jpg?v=6" alt="White Logo" />
+      </div>
+
       <nav class="nav-vertical" vid="13">
         <a href="#hero" class="nav-link" vid="14">ARCHIVE</a>
         <a href="#about" class="nav-link" vid="15">ABOUT</a>
         <a href="#works" class="nav-link" vid="16">WORKS</a>
         <a href="#inquire" class="nav-link active" vid="17">INQUIRE</a>
       </nav>
+
       <div class="location-tags" vid="18">
         <span vid="19">FURNACE</span>
         <span vid="20">VERMONT</span>
@@ -721,7 +722,7 @@
         <div class="about-grid" vid="30">
           <div class="about-photo-col" vid="31">
             <div class="about-photo-frame" vid="32">
-             <img src="assets/images/me.jpg" alt="Akim Farrow" vid="33">
+              <img src="assets/images/me.jpg" alt="Akim Farrow" vid="33">
             </div>
             <div class="about-location-tag" vid="34">VERMONT — CHICAGO</div>
           </div>
@@ -750,7 +751,6 @@
 
         <div class="gallery-filmstrip-container" vid="50">
           <div class="gallery-filmstrip" vid="51">
-
             <div class="artwork-card" vid="52">
               <div class="artwork-image" vid="53">
                 <img src="assets/images/steelcagemother.jpg" alt="Steel Cage Mother" vid="54">
@@ -860,103 +860,112 @@
                 <div class="artwork-meta" vid="117">2015 · Canvas &amp; Oil Paint</div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-   <form id="commissionForm" vid="81">
-  <div class="form-grid" vid="82">
-    <div class="form-group" vid="83">
-      <label vid="84">Identifier [Name]</label>
-      <input name="name" type="text" placeholder="ENTER FULL NAME" required vid="85">
-    </div>
+      <!-- INQUIRE (form is inside the section + centered container) -->
+      <section id="inquire" vid="76">
+        <div class="form-container" vid="77">
+          <div class="form-header" vid="78">
+            <h2 vid="79">INITIATE COMMISSION</h2>
+            <p style="font-size: 0.8rem; margin-top: 1rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;" vid="80">
+              Custom fabrications require 3-6 months lead time.
+            </p>
+          </div>
 
-    <div class="form-group" vid="86">
-      <label vid="87">Frequency [Email]</label>
-      <input name="email" type="email" placeholder="EMAIL@ADDRESS.COM" required vid="88">
-    </div>
-  </div>
+          <form id="commissionForm" vid="81">
+            <div class="form-grid" vid="82">
+              <div class="form-group" vid="83">
+                <label vid="84">Identifier [Name]</label>
+                <input name="name" type="text" placeholder="ENTER FULL NAME" required vid="85">
+              </div>
 
-  <div class="form-grid" style="margin-top: 1rem;">
-    <div class="form-group">
-      <label>Signal [Phone] (optional)</label>
-      <input name="phone" type="tel" placeholder="PHONE NUMBER">
-    </div>
+              <div class="form-group" vid="86">
+                <label vid="87">Frequency [Email]</label>
+                <input name="email" type="email" placeholder="EMAIL@ADDRESS.COM" required vid="88">
+              </div>
+            </div>
 
-    <div class="form-group">
-      <label>Timeline</label>
-      <select name="timeline" required>
-        <option value="" disabled selected>SELECT TIMELINE</option>
-        <option>0–3 months</option>
-        <option>3–6 months</option>
-        <option>6–12 months</option>
-        <option>12+ months</option>
-      </select>
-    </div>
-  </div>
+            <div class="form-grid" style="margin-top: 1rem;">
+              <div class="form-group">
+                <label>Signal [Phone] (optional)</label>
+                <input name="phone" type="tel" placeholder="PHONE NUMBER">
+              </div>
 
-  <div class="form-group full-width" vid="89">
-    <label vid="90">Project Scope</label>
-    <select name="scope" required vid="91">
-      <option value="" disabled selected>SELECT SCOPE</option>
-      <option>Public Sculpture Installation</option>
-      <option>Private Collector Piece</option>
-      <option>Architectural Integrated Work</option>
-      <option>Gallery Exhibition Request</option>
-    </select>
-  </div>
+              <div class="form-group">
+                <label>Timeline</label>
+                <select name="timeline" required>
+                  <option value="" disabled selected>SELECT TIMELINE</option>
+                  <option>0–3 months</option>
+                  <option>3–6 months</option>
+                  <option>6–12 months</option>
+                  <option>12+ months</option>
+                </select>
+              </div>
+            </div>
 
-  <div class="form-grid">
-    <div class="form-group">
-      <label>Install Location</label>
-      <input name="location" type="text" placeholder="CITY, STATE OR COUNTRY" required>
-    </div>
+            <div class="form-group full-width" vid="89">
+              <label vid="90">Project Scope</label>
+              <select name="scope" required vid="91">
+                <option value="" disabled selected>SELECT SCOPE</option>
+                <option>Public Sculpture Installation</option>
+                <option>Private Collector Piece</option>
+                <option>Architectural Integrated Work</option>
+                <option>Gallery Exhibition Request</option>
+              </select>
+            </div>
 
-    <div class="form-group">
-      <label>Budget Range</label>
-      <select name="budget" required>
-        <option value="" disabled selected>SELECT BUDGET</option>
-        <option>Under $5k</option>
-        <option>$5k–$15k</option>
-        <option>$15k–$50k</option>
-        <option>$50k+</option>
-        <option>Not sure yet</option>
-      </select>
-    </div>
-  </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Install Location</label>
+                <input name="location" type="text" placeholder="CITY, STATE OR COUNTRY" required>
+              </div>
 
-  <div class="form-group full-width" vid="96">
-    <label vid="97">Preferred Material Palette</label>
+              <div class="form-group">
+                <label>Budget Range</label>
+                <select name="budget" required>
+                  <option value="" disabled selected>SELECT BUDGET</option>
+                  <option>Under $5k</option>
+                  <option>$5k–$15k</option>
+                  <option>$15k–$50k</option>
+                  <option>$50k+</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+            </div>
 
-    <!-- Hidden input that we fill with selected materials -->
-    <input type="hidden" name="materials" id="materialsInput" value="Raw Steel">
+            <div class="form-group full-width" vid="96">
+              <label vid="97">Preferred Material Palette</label>
 
-    <div class="materials-grid" vid="98">
-      <div class="material-option selected" data-material="Raw Steel" onclick="toggleMaterial(this)" vid="99">Raw Steel</div>
-      <div class="material-option" data-material="Oxidized Copper" onclick="toggleMaterial(this)" vid="100">Oxidized Copper</div>
-      <div class="material-option" data-material="Cast Bronze" onclick="toggleMaterial(this)" vid="101">Cast Bronze</div>
-      <div class="material-option" data-material="Rebar / Slag" onclick="toggleMaterial(this)" vid="102">Rebar / Slag</div>
-    </div>
-  </div>
+              <input type="hidden" name="materials" id="materialsInput" value="Raw Steel">
 
-  <div class="form-group full-width" vid="103">
-    <label vid="104">Specifications</label>
-    <textarea name="specs" rows="4" placeholder="DIMENSIONS, SITE CONTEXT, CONCEPT, ANY CONSTRAINTS..." required vid="105"></textarea>
-  </div>
+              <div class="materials-grid" vid="98">
+                <div class="material-option selected" data-material="Raw Steel" onclick="toggleMaterial(this)" vid="99">Raw Steel</div>
+                <div class="material-option" data-material="Oxidized Copper" onclick="toggleMaterial(this)" vid="100">Oxidized Copper</div>
+                <div class="material-option" data-material="Cast Bronze" onclick="toggleMaterial(this)" vid="101">Cast Bronze</div>
+                <div class="material-option" data-material="Rebar / Slag" onclick="toggleMaterial(this)" vid="102">Rebar / Slag</div>
+              </div>
+            </div>
 
-  <div class="form-group full-width">
-    <label>Reference Links (optional)</label>
-    <textarea name="links" rows="3" placeholder="PASTE LINKS TO SITE PHOTOS, INSPO, FLOORPLANS, PINTEREST, ETC."></textarea>
-  </div>
+            <div class="form-group full-width" vid="103">
+              <label vid="104">Specifications</label>
+              <textarea name="specs" rows="4" placeholder="DIMENSIONS, SITE CONTEXT, CONCEPT, ANY CONSTRAINTS..." required vid="105"></textarea>
+            </div>
 
-  <!-- Honeypot for spam bots (leave hidden) -->
-  <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
+            <div class="form-group full-width">
+              <label>Reference Links (optional)</label>
+              <textarea name="links" rows="3" placeholder="PASTE LINKS TO SITE PHOTOS, INSPO, FLOORPLANS, PINTEREST, ETC."></textarea>
+            </div>
 
-  <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
+            <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
 
-  <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
-</form>
+            <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
+
+            <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
+          </form>
+        </div>
+      </section>
 
       <!-- Standalone footer outside the form (centered floating box) -->
       <div class="site-footer" vid="200">
@@ -1013,73 +1022,66 @@
   </script>
 
   <script>
-  // Materials selection -> keep hidden input updated
-  function toggleMaterial(el) {
-    el.classList.toggle('selected');
+    function toggleMaterial(el) {
+      el.classList.toggle('selected');
 
-    const selected = Array.from(document.querySelectorAll('.material-option.selected'))
-      .map(x => x.getAttribute('data-material'))
-      .filter(Boolean);
+      const selected = Array.from(document.querySelectorAll('.material-option.selected'))
+        .map(x => x.getAttribute('data-material'))
+        .filter(Boolean);
 
-    // If none selected, force Raw Steel back on (so it never submits blank)
-    if (selected.length === 0) {
-      const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
-      if (raw) raw.classList.add('selected');
-      selected.push('Raw Steel');
+      if (selected.length === 0) {
+        const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
+        if (raw) raw.classList.add('selected');
+        selected.push('Raw Steel');
+      }
+
+      document.getElementById('materialsInput').value = selected.join(', ');
     }
 
-    document.getElementById('materialsInput').value = selected.join(', ');
-  }
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4z8zveVIrGKpxmYYafzn9nRX4zE7RrvSMGGy-epkSvMr6v9uSIl3Hr0VTi9E1pG-Mbg/exec";
 
-  // Submit form to Google Apps Script Web App
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4z8zveVIrGKpxmYYafzn9nRX4zE7RrvSMGGy-epkSvMr6v9uSIl3Hr0VTi9E1pG-Mbg/exec";
+    const form = document.getElementById('commissionForm');
+    const statusEl = document.getElementById('formStatus');
 
-  const form = document.getElementById('commissionForm');
-  const statusEl = document.getElementById('formStatus');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.textContent = "TRANSMITTING...";
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    statusEl.textContent = "TRANSMITTING...";
-
-    // Honeypot check
-    const hp = document.getElementById('websiteField');
-    if (hp && hp.value.trim() !== "") {
-      statusEl.textContent = "BLOCKED.";
-      return;
-    }
-
-    const formData = new FormData(form);
-    formData.append("page", window.location.href);
-    formData.append("userAgent", navigator.userAgent);
-
-    try {
-      const res = await fetch(WEB_APP_URL, {
-        method: "POST",
-        body: formData
-      });
-
-      const text = await res.text();
-
-      if (!res.ok) {
-        statusEl.textContent = "ERROR. TRY AGAIN.";
+      const hp = document.getElementById('websiteField');
+      if (hp && hp.value.trim() !== "") {
+        statusEl.textContent = "BLOCKED.";
         return;
       }
 
-      // Many Apps Script responses are plain text
-      statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
-      form.reset();
+      const formData = new FormData(form);
+      formData.append("page", window.location.href);
+      formData.append("userAgent", navigator.userAgent);
 
-      // Re-select default material after reset
-      document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-      const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
-      if (raw) raw.classList.add('selected');
-      document.getElementById('materialsInput').value = "Raw Steel";
+      try {
+        const res = await fetch(WEB_APP_URL, {
+          method: "POST",
+          body: formData
+        });
 
-    } catch (err) {
-      statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-    }
-  });
-</script>
-  
+        await res.text();
+
+        if (!res.ok) {
+          statusEl.textContent = "ERROR. TRY AGAIN.";
+          return;
+        }
+
+        statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
+        form.reset();
+
+        document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+        const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
+        if (raw) raw.classList.add('selected');
+        document.getElementById('materialsInput').value = "Raw Steel";
+
+      } catch (err) {
+        statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+      }
+    });
+  </script>
 </body>
 </html>
