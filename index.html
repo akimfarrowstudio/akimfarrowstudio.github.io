@@ -2,9 +2,18 @@
     <meta charset="UTF-8" vid="2">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
     <title vid="4">Akim Farrow | Afrofuturist Industrialist</title>
+    <link rel="icon" type="image/png" href="assets/images/og.png">
+<link rel="apple-touch-icon" href="assets/images/og.png">
+
+<meta property="og:title" content="Akim Farrow | Afrofuturist Industrialist">
+<meta property="og:image" content="assets/images/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/images/og.png">
     <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
     <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet" vid="7">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style vid="8">
         :root {
             --void: #1a0f0a; 
@@ -448,6 +457,35 @@
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--charcoal); }
         ::-webkit-scrollbar-thumb { background: #4d2d1d; }
+
+        .footer-social {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+}
+
+.footer-icon {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a665c;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.footer-icon:hover {
+    border-color: var(--oxide-gold);
+    color: var(--oxide-gold);
+}
+
+.footer-icon i {
+    font-size: 18px;
+    line-height: 1;
+}
     </style>
 </head>
 <body vid="9">
@@ -674,8 +712,24 @@
                     </form>
 
                     <footer vid="107">
-                        <div vid="108">© 2024 AKIM FARROW STUDIOS</div>
-                        <div vid="109">SIGNAL ACTIVE // CHICAGO, IL</div>
+                        <div vid="108">© 2026 AKIM FARROW STUDIOS</div>
+                       <footer vid="107">
+  <div vid="108">© 2024 AKIM FARROW STUDIOS</div>
+
+  <div class="footer-social" vid="109">
+    <a class="footer-icon" href="mailto:akimfarrowstudio@gmail.com" aria-label="Email">
+      <i class="ph ph-envelope-simple"></i>
+    </a>
+
+    <a class="footer-icon" href="https://www.linkedin.com/in/akim-farrow-349a98122" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <i class="ph ph-linkedin-logo"></i>
+    </a>
+
+    <a class="footer-icon" href="https://www.instagram.com/blacksmvth/" target="_blank" rel="noopener" aria-label="Instagram">
+      <i class="ph ph-instagram-logo"></i>
+    </a>
+  </div>
+</footer>
                     </footer>
                 </div>
             </section>
