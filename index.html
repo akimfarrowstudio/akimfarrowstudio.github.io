@@ -593,6 +593,18 @@
     @media (max-width: 420px) {
       .artwork-meta { white-space: normal; }
     }
+
+        /* Make the LINK itself the 600px-wide flex item (same as non-linked cards) */
+    .gallery-filmstrip > .artwork-link {
+      flex: 0 0 600px;
+      width: 600px;
+    }
+    
+    /* Let the card fill the link box */
+    .gallery-filmstrip > .artwork-link .artwork-card {
+      width: 100%;
+      flex: none;
+    }
   </style>
 </head>
 
@@ -672,16 +684,6 @@
                 </div>
               </div>
             </a>
-                   /* Ensure linked items keep the exact same size as other filmstrip cards */
-            .gallery-filmstrip > .artwork-link {
-              flex: 0 0 600px;
-              width: 600px;
-            }
-            
-            .artwork-link .artwork-card {
-              width: 100%;
-              flex: none; /* anchor controls sizing */
-            }
 
             <div class="artwork-card" vid="58">
               <div class="artwork-image" vid="59">
