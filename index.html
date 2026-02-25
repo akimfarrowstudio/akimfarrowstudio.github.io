@@ -1011,9 +1011,46 @@
           body: formData
         });
 
-        await res.text();
+    <script>
+  // ... keep everything else the same ...
 
-        if (!res.ok) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "TRANSMITTING...";
+
+    const hp = document.getElementById('websiteField');
+    if (hp && hp.value.trim() !== "") {
+      statusEl.textContent = "BLOCKED.";
+      return;
+    }
+
+    const formData = new FormData(form);
+    formData.append("page", window.location.href);
+    formData.append("userAgent", navigator.userAgent);
+
+    try {
+      const res = await fetch(WEB_APP_URL, { method: "POST", body: formData });
+      const txt = await res.text(); // <- capture it
+
+      if (!res.ok) {
+        statusEl.textContent = `ERROR: ${txt}`;
+        return;
+      }
+
+      // IMPORTANT: show txt even on success so we can see "ok" vs "email_error..."
+      statusEl.textContent = (txt || "RECEIVED. YOU WILL HEAR BACK SOON.").toUpperCase();
+
+      form.reset();
+
+      document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+      const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
+      if (raw) raw.classList.add('selected');
+      document.getElementById('materialsInput').value = "Raw Steel";
+    } catch (err) {
+      statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+    }
+  });
+</script> 
           statusEl.textContent = "ERROR. TRY AGAIN.";
           return;
         }
