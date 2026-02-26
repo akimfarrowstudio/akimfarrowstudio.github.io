@@ -487,7 +487,17 @@
     }
 
     .carousel-strip::-webkit-scrollbar{display:none;}
+    
+    .carousel-strip{
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .carousel-strip.dragging{
+      cursor: grabbing;
+    }
 
+    
     .carousel-slide{
       flex:0 0 100%;
       width:100%;
@@ -797,6 +807,57 @@
       <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
     </div>
   </div>
+
+      let isDragging = false;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+    
+    function getClientX(evt) {
+      if (evt.touches && evt.touches.length) return evt.touches[0].clientX;
+      if (evt.changedTouches && evt.changedTouches.length) return evt.changedTouches[0].clientX;
+      return evt.clientX;
+    }
+    
+    function onDragStart(evt) {
+      if (!overlay.classList.contains('open')) return;
+    
+      isDragging = true;
+      strip.classList.add('dragging');
+    
+      dragStartX = getClientX(evt);
+      dragStartScrollLeft = strip.scrollLeft;
+    
+      // Prevent image dragging / selection
+      evt.preventDefault();
+    }
+    
+    function onDragMove(evt) {
+      if (!isDragging) return;
+    
+      const x = getClientX(evt);
+      const dx = x - dragStartX;
+    
+      // Move strip opposite your drag direction, like a real filmstrip
+      strip.scrollLeft = dragStartScrollLeft - dx;
+    
+      evt.preventDefault();
+    }
+    
+    function onDragEnd() {
+      isDragging = false;
+      strip.classList.remove('dragging');
+    }
+    
+    // Mouse (desktop)
+    strip.addEventListener('mousedown', onDragStart);
+    window.addEventListener('mousemove', onDragMove, { passive: false });
+    window.addEventListener('mouseup', onDragEnd);
+    
+    // Touch (mobile)
+    strip.addEventListener('touchstart', onDragStart, { passive: false });
+    strip.addEventListener('touchmove', onDragMove, { passive: false });
+    strip.addEventListener('touchend', onDragEnd);
+    strip.addEventListener('touchcancel', onDragEnd);
 
   <script>
     const scrollContainer = document.querySelector('.scrolling-content');
