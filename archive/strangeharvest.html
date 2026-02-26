@@ -386,16 +386,19 @@
       pointer-events:none;
     }
 
-    /* Close button INSIDE stage under hint */
+    /* REPLACE your current .carousel-close block with this updated one */
+    /* (everything else can stay the same) */
+    
     .carousel-close{
       position:absolute;
-      top:40px;    /* under the hint */
-      right:16px;
+      /* mirror the FIG tag vibe: slightly inside + lower */
+      top:56px;           /* was 14px */
+      right:18px;         /* aligns with caption padding rhythm */
       width:34px;
       height:34px;
       border-radius:999px;
       border:1px solid rgba(255,107,53,0.35);
-      background:rgba(26,15,10,0.85);
+      background:rgba(26,15,10,0.88);
       color:#fff;
       font-size:16px;
       cursor:pointer;
@@ -403,12 +406,24 @@
       align-items:center;
       justify-content:center;
       line-height:1;
-      z-index:5;
+      z-index:6;          /* above image/caption */
+      box-shadow:0 10px 30px rgba(0,0,0,0.45);
+      /* ok to overlap art slightly */
     }
-
+    
     .carousel-close:hover{
       border-color:var(--oxide-gold);
       color:var(--oxide-gold);
+    }
+    
+    /* Keep it tight on mobile too */
+    @media (max-width: 900px){
+      .carousel-close{
+        top:52px;
+        right:16px;
+        width:32px;
+        height:32px;
+      }
     }
 
     .carousel-strip{
