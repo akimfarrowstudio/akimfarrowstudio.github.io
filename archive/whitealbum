@@ -1,7 +1,7 @@
 <html lang="en" vid="0"><head vid="1">
     <meta charset="UTF-8" vid="2">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
-    <title vid="4">Echoes of Great Zimbabwe | Akim Farrow</title>
+    <title vid="4">White Album | Akim Farrow</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
     <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet" vid="7">
@@ -341,23 +341,23 @@
         <main class="scrolling-content" vid="21">
             <section class="artwork-hero" vid="22">
                 <div class="hero-bg" vid="23">
-                    <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Echoes of Great Zimbabwe" vid="24">
+                    <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="White Album" vid="24">
                     <div class="hero-gradient" vid="25"></div>
                 </div>
-                <h1 class="artwork-hero-title" vid="26">Echoes of Great<br vid="27">Zimbabwe</h1>
+                <h1 class="artwork-hero-title" vid="26">White<br vid="27">Album</h1>
             </section>
 
             <section class="artwork-details" vid="28">
                 <div class="detail-col" vid="29">
                     <h3 vid="30">Concept</h3>
                     <div class="detail-body" vid="31">
-                        This monolithic structure serves as a dialogue between the stone masonry of the Mutapa Empire and the industrial rigidity of the modern era. By reinterpreting the iconic chevron patterns of the Great Enclosure through laser-cut Corten steel, the work interrogates the persistence of ancestral memory within the "rust-belt" aesthetics of contemporary life. It is an altar to the continuity of form across centuries of displacement.
+                        This fourteen-part structure serves as a dialogue between surface and support. By reconfiguring stretched canvas, burlap, timber, and exposed hardware, the series interrogates what remains when the image is withheld. The white field operates as primer and veil, while brackets, hinges, and charred wood assert the architecture beneath. It is an altar to structure without picture.
                     </div>
                 </div>
                 <div class="detail-col" vid="32">
                     <h3 vid="33">Material Process</h3>
                     <div class="detail-body" vid="34">
-                        Fabricated from 12mm weather-resistant structural steel, the piece underwent a controlled oxidation process over eighteen months. The surface was treated with a proprietary saline solution to accelerate the development of the hematite patina, mirroring the natural weathering of iron-rich ores found in the Mashonaland plateau. Every seam is hand-welded using archival slag-rich techniques to emphasize the raw industrial labor.
+                        Fabricated from cotton canvas, burlap, reclaimed lumber, perforated steel, and industrial brackets, the works were assembled through partial disassembly. Standard stretcher frames were cut, rotated, or stripped to reveal their internal grid. Fabric was left unprimed and allowed to crease under gravity. Hardware remains visible to emphasize attachment as gesture and exposure as method.
                     </div>
                 </div>
 
