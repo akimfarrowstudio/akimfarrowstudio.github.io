@@ -438,43 +438,8 @@
       border-color: var(--oxide-gold);
       color: var(--oxide-gold);
     }
-
-    .bbt-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 46px;
-      height: 46px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,107,53,0.30);
-      background: rgba(26,15,10,0.70);
-      color: #fff;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 18px;
-      letter-spacing: 0.05em;
-      user-select: none;
-    }
-
-    .bbt-arrow:hover {
-      border-color: var(--oxide-gold);
-      color: var(--oxide-gold);
-    }
-
-    .bbt-arrow.left { left: 12px; }
-    .bbt-arrow.right { right: 12px; }
-
-    .bbt-arrow[disabled] {
-      opacity: 0.25;
-      cursor: default;
-    }
-
-    /* Hide arrows on mobile */
+  
     @media (max-width: 900px) {
-      .bbt-arrow { display: none; }
       .bbt-slide { padding: 3.25rem 1rem 4.25rem; }
     }
   </style>
@@ -596,10 +561,6 @@
   <div class="bbt-lightbox" id="bbtLightbox" aria-hidden="true">
     <div class="bbt-stage" role="dialog" aria-label="Image viewer">
       <button class="bbt-close" id="bbtClose" aria-label="Close">×</button>
-
-      <button class="bbt-arrow left" id="bbtPrev" aria-label="Previous">&lt;</button>
-      <button class="bbt-arrow right" id="bbtNext" aria-label="Next">&gt;</button>
-
       <div class="bbt-slide" id="bbtSlide">
         <img id="bbtImg" src="" alt="">
       </div>
