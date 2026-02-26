@@ -794,7 +794,7 @@
   <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
     <div class="carousel-stage" role="dialog" aria-modal="true" aria-label="Image carousel">
       <div class="carousel-hint">Swipe / scroll</div>
-      <div class="carousel-strip" id="carouselStrip"></div>
+      <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
     </div>
   </div>
 
@@ -897,14 +897,25 @@
     });
 
     // Optional: allow mousewheel vertical to scroll horizontal in the carousel
+    // Desktop: convert vertical mousewheel into horizontal carousel motion (works anywhere on overlay)
     function handleCarouselWheel(evt) {
+      if (!overlay.classList.contains('open')) return;
+    
+      // If the user is already doing horizontal (trackpad), don't fight it
       const dx = Math.abs(evt.deltaX || 0);
       const dy = Math.abs(evt.deltaY || 0);
+    
+      // Most desktop mice are vertical only
       if (dy > dx) {
         evt.preventDefault();
         strip.scrollLeft += evt.deltaY;
       }
     }
+    
+    // Capture wheel on the overlay so it works even if the cursor is over the image/caption
+    overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
+    
+    // Also keep it on the strip itself (belt + suspenders)
     strip.addEventListener('wheel', handleCarouselWheel, { passive: false });
 
     // Keep slide alignment on resize (so you don’t land between frames)
