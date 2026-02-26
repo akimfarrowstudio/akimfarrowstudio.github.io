@@ -280,6 +280,8 @@
 
     /* -----------------------------
        CAROUSEL OVERLAY (mobile swipe + desktop drag)
+       + subtle filmstrip markers
+       + X moved into top-right under hint
        ----------------------------- */
     .carousel-overlay{
       position:fixed;
@@ -321,6 +323,55 @@
       z-index:2;
     }
 
+    /* Filmstrip markers (14 total, clickable) */
+    .carousel-markers{
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      pointer-events:none; /* enable only on the buttons */
+      z-index:4;
+    }
+
+    .carousel-marker-row{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      width:calc(100% - 32px);
+      max-width:1100px;
+      display:grid;
+      grid-template-columns:repeat(14, 1fr);
+      gap:6px;
+      pointer-events:none;
+    }
+
+    .carousel-marker-row.top{ top:12px; }
+    .carousel-marker-row.bottom{ bottom:12px; }
+
+    .carousel-marker{
+      pointer-events:auto;
+      height:10px;
+      border-radius:2px;
+      border:1px solid rgba(255,107,53,0.14);
+      background:rgba(18,18,18,0.18);
+      cursor:pointer;
+      transition:background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+      opacity:0.85;
+    }
+
+    .carousel-marker:hover{
+      border-color:rgba(255,107,53,0.28);
+      background:rgba(255,107,53,0.10);
+      opacity:1;
+    }
+
+    .carousel-marker.active{
+      border-color:rgba(255,107,53,0.55);
+      background:rgba(255,107,53,0.18);
+      opacity:1;
+    }
+
     .carousel-hint{
       position:absolute;
       top:14px;
@@ -329,10 +380,35 @@
       color:#8a665c;
       text-transform:uppercase;
       letter-spacing:0.2em;
-      z-index:3;
+      z-index:6;
       opacity:0.95;
       user-select:none;
       pointer-events:none;
+    }
+
+    /* Close button INSIDE stage under hint */
+    .carousel-close{
+      position:absolute;
+      top:40px;    /* under the hint */
+      right:16px;
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      border:1px solid rgba(255,107,53,0.35);
+      background:rgba(26,15,10,0.85);
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:1;
+      z-index:5;
+    }
+
+    .carousel-close:hover{
+      border-color:var(--oxide-gold);
+      color:var(--oxide-gold);
     }
 
     .carousel-strip{
@@ -395,6 +471,9 @@
     @media (max-width: 900px){
       .carousel-stage{transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg)}
       .carousel-slide{padding:2.5vh 3vw}
+      .carousel-marker-row{ width:calc(100% - 24px); gap:5px; }
+      .carousel-marker{ height:9px; }
+      .carousel-close{ top:38px; right:14px; width:32px; height:32px; }
     }
   </style>
 </head>
@@ -420,7 +499,7 @@
     </aside>
 
     <main class="detail-container">
-      <!-- LEFT: SHclose.jpeg as the primary left image (plus the rest) -->
+      <!-- LEFT: gallery -->
       <div class="image-gallery" aria-label="Image gallery">
         <a class="gallery-item" href="../assets/images/SHclose.jpeg" data-caption="STRANGE HARVEST — CLOSE VIEW" aria-label="Open Strange Harvest close view">
           <img src="../assets/images/SHclose.jpeg" alt="Strange Harvest close view">
@@ -468,7 +547,6 @@
           </p>
         </div>
 
-        <!-- DETAILS (renamed) and image is SHdown.jpeg -->
         <div class="phase-block">
           <div class="phase-label">DETAILS</div>
           <div class="phase-img">
@@ -476,7 +554,6 @@
           </div>
         </div>
 
-        <!-- FOOTER: EXACT inline style copied from Steel Cage Mother -->
         <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;">
           <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
           <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
@@ -485,10 +562,18 @@
     </main>
   </div>
 
-  <!-- CAROUSEL OVERLAY -->
+  <!-- CAROUSEL OVERLAY (with close + filmstrip markers) -->
   <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
     <div class="carousel-stage" role="dialog" aria-modal="true" aria-label="Image carousel">
       <div class="carousel-hint">Swipe / scroll</div>
+      <button class="carousel-close" id="carouselClose" aria-label="Close">×</button>
+
+      <!-- filmstrip markers injected here -->
+      <div class="carousel-markers" aria-hidden="true">
+        <div class="carousel-marker-row top" id="carouselMarkersTop"></div>
+        <div class="carousel-marker-row bottom" id="carouselMarkersBottom"></div>
+      </div>
+
       <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
     </div>
   </div>
@@ -496,10 +581,21 @@
   <script>
     // -----------------------------
     // CAROUSEL (mobile swipe + desktop drag)
+    // + Close button
+    // + Filmstrip markers (14, clickable)
     // -----------------------------
     const overlay = document.getElementById('carouselOverlay');
     const strip = document.getElementById('carouselStrip');
+    const closeBtn = document.getElementById('carouselClose');
     const galleryLinks = Array.from(document.querySelectorAll('.gallery-item'));
+
+    const markersTop = document.getElementById('carouselMarkersTop');
+    const markersBottom = document.getElementById('carouselMarkersBottom');
+    const MARKER_COUNT = 14;
+
+    let currentIndex = 0;
+
+    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
     function buildSlides() {
       strip.innerHTML = '';
@@ -526,16 +622,62 @@
       });
     }
 
+    function buildMarkers() {
+      if (!markersTop || !markersBottom) return;
+      markersTop.innerHTML = '';
+      markersBottom.innerHTML = '';
+
+      for (let i = 0; i < MARKER_COUNT; i++) {
+        const mkTop = document.createElement('button');
+        mkTop.type = 'button';
+        mkTop.className = 'carousel-marker';
+        mkTop.setAttribute('aria-label', `Go to frame ${i + 1}`);
+        mkTop.addEventListener('click', () => snapToIndex(i));
+
+        const mkBottom = document.createElement('button');
+        mkBottom.type = 'button';
+        mkBottom.className = 'carousel-marker';
+        mkBottom.setAttribute('aria-label', `Go to frame ${i + 1}`);
+        mkBottom.addEventListener('click', () => snapToIndex(i));
+
+        markersTop.appendChild(mkTop);
+        markersBottom.appendChild(mkBottom);
+      }
+
+      syncMarkerState(currentIndex);
+    }
+
+    function syncMarkerState(idx) {
+      if (!markersTop || !markersBottom) return;
+      const topKids = Array.from(markersTop.children);
+      const bottomKids = Array.from(markersBottom.children);
+
+      topKids.forEach((b, i) => b.classList.toggle('active', i === idx));
+      bottomKids.forEach((b, i) => b.classList.toggle('active', i === idx));
+    }
+
+    function getSlideWidth() {
+      return strip.clientWidth || 1;
+    }
+
+    function snapToIndex(idx) {
+      const maxIdx = Math.max(0, galleryLinks.length - 1);
+      currentIndex = clamp(idx, 0, maxIdx);
+      const w = getSlideWidth();
+      strip.scrollLeft = currentIndex * w;
+      syncMarkerState(currentIndex);
+    }
+
     function openCarouselAt(index) {
       if (!strip.children.length) buildSlides();
+      if (markersTop && !markersTop.children.length) buildMarkers();
 
       overlay.classList.add('open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
 
       requestAnimationFrame(() => {
-        const slideWidth = strip.clientWidth || 1;
-        strip.scrollLeft = Math.max(0, index) * slideWidth;
+        snapToIndex(index);
         strip.focus({ preventScroll: true });
       });
     }
@@ -553,15 +695,32 @@
       });
     });
 
+    // Close button
+    if (closeBtn) closeBtn.addEventListener('click', closeCarousel);
+
+    // Close: click outside stage
     overlay.addEventListener('click', (e) => {
       const stage = overlay.querySelector('.carousel-stage');
       if (!stage.contains(e.target)) closeCarousel();
     });
 
+    // Close: ESC
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
     });
 
+    // Fix: keep currentIndex in sync while scrolling
+    strip.addEventListener('scroll', () => {
+      if (!overlay.classList.contains('open')) return;
+      const w = getSlideWidth();
+      const idx = Math.round(strip.scrollLeft / w);
+      if (idx !== currentIndex) {
+        currentIndex = idx;
+        syncMarkerState(currentIndex);
+      }
+    }, { passive: true });
+
+    // Desktop wheel: vertical wheel drives horizontal strip
     function handleCarouselWheel(evt) {
       if (!overlay.classList.contains('open')) return;
 
@@ -611,12 +770,14 @@
     strip.addEventListener('pointercancel', endDrag);
     strip.addEventListener('pointerleave', endDrag);
 
+    // Keep slide alignment on resize
     window.addEventListener('resize', () => {
       if (!overlay.classList.contains('open')) return;
-      const slideWidth = strip.clientWidth || 1;
-      const currentIndex = Math.round(strip.scrollLeft / slideWidth);
-      strip.scrollLeft = currentIndex * slideWidth;
+      snapToIndex(currentIndex);
     });
+
+    // Optional: ensure markers exist even if the user never opens (safe no-op)
+    // buildMarkers();
   </script>
 </body>
 </html>
