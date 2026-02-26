@@ -136,6 +136,7 @@
       overflow: hidden;
       border-top: 1px solid rgba(255, 107, 53, 0.3);
       border-bottom: 1px solid rgba(255, 107, 53, 0.3);
+      cursor: pointer; /* ADDED: clickable to open carousel */
     }
 
     .hero-full img {
@@ -143,6 +144,13 @@
       height: 100%;
       object-fit: cover;
       filter: grayscale(20%) contrast(110%) brightness(0.6);
+      transition: filter 0.25s ease, transform 0.25s ease;
+      display: block;
+    }
+
+    .hero-full:hover img {
+      filter: grayscale(10%) contrast(110%) brightness(0.7);
+      transform: scale(1.01);
     }
 
     .hero-overlay {
@@ -152,6 +160,7 @@
       width: 100%;
       height: 50%;
       background: linear-gradient(to top, var(--charcoal), transparent);
+      pointer-events: none;
     }
 
     .detail-container {
@@ -323,6 +332,151 @@
       .footer-cta { font-size: 2.2rem; }
       .artwork-title { font-size: 12vw; }
     }
+
+    /* =========================
+       CAROUSEL LIGHTBOX (ADDED)
+       ========================= */
+    .bbt-lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 4vh 4vw;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.10) 0%, transparent 70%),
+        rgba(18,18,18,0.92);
+      z-index: 9999;
+    }
+
+    .bbt-lightbox.open { display: flex; }
+
+    .bbt-stage {
+      position: relative;
+      width: min(1200px, 94vw);
+      height: min(86vh, 900px);
+      border: 1px solid rgba(255,107,53,0.25);
+      background: rgba(26,15,10,0.55);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .bbt-slide {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3.5rem 2.5rem 4.25rem;
+      touch-action: pan-y;
+    }
+
+    .bbt-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: grayscale(10%) contrast(1.05);
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+    }
+
+    .bbt-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1.15rem 1.5rem;
+      border-top: 1px solid rgba(255,107,53,0.18);
+      background: rgba(18,18,18,0.60);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .bbt-cap-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #f5f0ee;
+      margin: 0;
+    }
+
+    .bbt-cap-meta {
+      font-size: 0.7rem;
+      color: var(--rust);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    .bbt-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,107,53,0.35);
+      background: rgba(26,15,10,0.85);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .bbt-close:hover {
+      border-color: var(--oxide-gold);
+      color: var(--oxide-gold);
+    }
+
+    .bbt-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,107,53,0.30);
+      background: rgba(26,15,10,0.70);
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      user-select: none;
+    }
+
+    .bbt-arrow:hover {
+      border-color: var(--oxide-gold);
+      color: var(--oxide-gold);
+    }
+
+    .bbt-arrow.left { left: 12px; }
+    .bbt-arrow.right { right: 12px; }
+
+    .bbt-arrow[disabled] {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    /* Hide arrows on mobile */
+    @media (max-width: 900px) {
+      .bbt-arrow { display: none; }
+      .bbt-slide { padding: 3.25rem 1rem 4.25rem; }
+    }
   </style>
 </head>
 
@@ -350,7 +504,8 @@
       <!-- Return to Archive (top, like SCM) -->
       <a href="../index.html#works" class="back-btn">← RETURN TO ARCHIVE</a>
 
-      <div class="hero-full">
+      <!-- CLICKABLE HERO IMAGE OPENS CAROUSEL WINDOW -->
+      <div class="hero-full" id="bbtHero" aria-label="Open image viewer">
         <img src="../assets/images/baobabbottletree.jpg" alt="Baobab Bottle Tree">
         <div class="hero-overlay"></div>
       </div>
@@ -436,5 +591,131 @@
       </article>
     </main>
   </div>
+
+  <!-- CAROUSEL LIGHTBOX WINDOW (ADDED) -->
+  <div class="bbt-lightbox" id="bbtLightbox" aria-hidden="true">
+    <div class="bbt-stage" role="dialog" aria-label="Image viewer">
+      <button class="bbt-close" id="bbtClose" aria-label="Close">×</button>
+
+      <button class="bbt-arrow left" id="bbtPrev" aria-label="Previous">&lt;</button>
+      <button class="bbt-arrow right" id="bbtNext" aria-label="Next">&gt;</button>
+
+      <div class="bbt-slide" id="bbtSlide">
+        <img id="bbtImg" src="" alt="">
+      </div>
+
+      <div class="bbt-caption">
+        <div class="bbt-cap-title" id="bbtCapTitle"></div>
+        <div class="bbt-cap-meta" id="bbtCapMeta"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // CAROUSEL DATA (easy to add more later)
+    const bbtSlides = [
+      {
+        src: "../assets/images/baobabbottletree.jpg",
+        alt: "Baobab Bottle Tree",
+        title: "Baobab Bottle Tree",
+        meta: "2024 · Steel & Glass"
+      }
+    ];
+
+    const bbtHero = document.getElementById("bbtHero");
+    const bbtLightbox = document.getElementById("bbtLightbox");
+    const bbtClose = document.getElementById("bbtClose");
+    const bbtPrev = document.getElementById("bbtPrev");
+    const bbtNext = document.getElementById("bbtNext");
+    const bbtImg = document.getElementById("bbtImg");
+    const bbtCapTitle = document.getElementById("bbtCapTitle");
+    const bbtCapMeta = document.getElementById("bbtCapMeta");
+
+    let bbtIndex = 0;
+
+    function renderBBT() {
+      const s = bbtSlides[bbtIndex];
+      bbtImg.src = s.src;
+      bbtImg.alt = s.alt || "";
+      bbtCapTitle.textContent = s.title || "";
+      bbtCapMeta.textContent = s.meta || "";
+
+      // Disable arrows when only one slide
+      const single = bbtSlides.length <= 1;
+      bbtPrev.disabled = single;
+      bbtNext.disabled = single;
+    }
+
+    function openBBT(startIndex = 0) {
+      bbtIndex = Math.max(0, Math.min(startIndex, bbtSlides.length - 1));
+      renderBBT();
+      bbtLightbox.classList.add("open");
+      bbtLightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeBBT() {
+      bbtLightbox.classList.remove("open");
+      bbtLightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function prevBBT() {
+      if (bbtSlides.length <= 1) return;
+      bbtIndex = (bbtIndex - 1 + bbtSlides.length) % bbtSlides.length;
+      renderBBT();
+    }
+
+    function nextBBT() {
+      if (bbtSlides.length <= 1) return;
+      bbtIndex = (bbtIndex + 1) % bbtSlides.length;
+      renderBBT();
+    }
+
+    if (bbtHero) bbtHero.addEventListener("click", () => openBBT(0));
+    if (bbtClose) bbtClose.addEventListener("click", closeBBT);
+    if (bbtPrev) bbtPrev.addEventListener("click", prevBBT);
+    if (bbtNext) bbtNext.addEventListener("click", nextBBT);
+
+    // Close when clicking outside stage
+    if (bbtLightbox) {
+      bbtLightbox.addEventListener("click", (e) => {
+        if (e.target === bbtLightbox) closeBBT();
+      });
+    }
+
+    // Keyboard
+    window.addEventListener("keydown", (e) => {
+      if (!bbtLightbox.classList.contains("open")) return;
+
+      if (e.key === "Escape") closeBBT;
+      if (e.key === "ArrowLeft") prevBBT();
+      if (e.key === "ArrowRight") nextBBT();
+      if (e.key === "Escape") closeBBT();
+    });
+
+    // Touch swipe (works even with one image, but mainly for future)
+    let touchX = null;
+
+    const bbtSlide = document.getElementById("bbtSlide");
+    if (bbtSlide) {
+      bbtSlide.addEventListener("touchstart", (e) => {
+        touchX = e.touches && e.touches[0] ? e.touches[0].clientX : null;
+      }, { passive: true });
+
+      bbtSlide.addEventListener("touchend", (e) => {
+        if (touchX === null) return;
+        const endX = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : null;
+        if (endX === null) return;
+
+        const dx = endX - touchX;
+        touchX = null;
+
+        if (Math.abs(dx) < 40) return;
+        if (dx > 0) prevBBT();
+        else nextBBT();
+      }, { passive: true });
+    }
+  </script>
 </body>
 </html>
