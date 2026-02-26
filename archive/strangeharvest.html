@@ -608,13 +608,24 @@
       strip.scrollLeft = currentIndex * slideWidth;
     });
   </script>
-</body>
-
-        <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;" vid="70">
-        <div vid="71">DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
-        <div vid="72">CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
-      </footer>
+        <footer class="archive-footer" vid="70">
+          <div vid="71">DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
+          <div vid="72">CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
+        </footer>
+      </div>
     </main>
   </div>
+
+  <!-- CAROUSEL OVERLAY (no arrows/dots) -->
+  <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
+    <div class="carousel-stage" role="dialog" aria-modal="true" aria-label="Image carousel">
+      <div class="carousel-hint">Swipe / scroll</div>
+      <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
+    </div>
+  </div>
+
+  <script>
+    // (keep your existing carousel JS here, unchanged)
+  </script>
 </body>
 </html>
