@@ -559,6 +559,82 @@
         padding:2.5vh 3vw;
       }
     }
+
+    /* -----------------------------
+     FILM STRIP DOTS + OUTSIDE CLOSE
+     ----------------------------- */
+  .film-dots{
+    position:absolute;
+    left:0;
+    right:0;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    padding:10px 14px;
+    z-index:4;
+    pointer-events:auto;
+  }
+  
+  .film-dots-top{ top:10px; }
+  .film-dots-bottom{ bottom:10px; }
+  
+  .film-dot{
+    width:10px;
+    height:10px;
+    border-radius:2px; /* subtle square */
+    border:1px solid rgba(255,107,53,0.18);
+    background:rgba(26,15,10,0.25);
+    cursor:pointer;
+    padding:0;
+    appearance:none;
+  }
+  
+  .film-dot:nth-child(3n){
+    width:16px; /* occasional rectangle for film-strip vibe */
+  }
+  
+  .film-dot:hover{
+    border-color:rgba(255,107,53,0.35);
+    background:rgba(26,15,10,0.35);
+  }
+  
+  .film-dot.active{
+    border-color:rgba(255,107,53,0.65);
+    background:rgba(255,107,53,0.18);
+  }
+  
+  .carousel-close{
+    position:absolute;
+    top:-18px;     /* outside the stage */
+    right:-18px;   /* outside the stage */
+    width:34px;
+    height:34px;
+    border-radius:999px;
+    border:1px solid rgba(255,107,53,0.35);
+    background:rgba(26,15,10,0.85);
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+    z-index:5;
+  }
+  
+  .carousel-close:hover{
+    border-color:var(--oxide-gold);
+    color:var(--oxide-gold);
+  }
+  
+  /* keep dots inside bounds even on small screens */
+  @media (max-width: 900px){
+    .film-dots{ gap:8px; }
+    .film-dot{ width:9px; height:9px; }
+    .film-dot:nth-child(3n){ width:14px; }
+    .carousel-close{ top:-16px; right:-16px; width:32px; height:32px; }
+  }
+    
   </style>
 </head>
 
@@ -802,15 +878,22 @@
     </main>
   </div>
 
-  <!-- CAROUSEL OVERLAY (no arrows/dots) -->
-    <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
-      <div class="carousel-stage" role="dialog" aria-modal="true" aria-label="Image carousel">
-        <div class="carousel-hint">Swipe / scroll</div>
-        <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
-      </div>
+  <!-- CAROUSEL OVERLAY (film-strip dots top + bottom, close outside stage) -->
+  <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
+    <div class="carousel-stage" id="carouselStage" role="dialog" aria-modal="true" aria-label="Image carousel">
+      <button class="carousel-close" id="carouselClose" type="button" aria-label="Close">×</button>
+  
+      <div class="carousel-hint">Swipe / scroll</div>
+  
+      <div class="film-dots film-dots-top" id="filmDotsTop" aria-label="Top film index"></div>
+  
+      <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
+  
+      <div class="film-dots film-dots-bottom" id="filmDotsBottom" aria-label="Bottom film index"></div>
     </div>
-  <!-- REPLACE your entire current <script> ... </script> block with this one -->
-<script>
+  </div>
+  
+  <script>
   const scrollContainer = document.querySelector('.scrolling-content');
   const heroBg = document.querySelector('.hero-bg');
 
@@ -837,13 +920,21 @@
   }
 
   // -----------------------------
-  // CAROUSEL (swipe on mobile, drag on desktop)
+  // CAROUSEL (swipe on mobile, drag on desktop) + FILM DOTS
   // -----------------------------
   const overlay = document.getElementById('carouselOverlay');
+  const stage = document.getElementById('carouselStage');
   const strip = document.getElementById('carouselStrip');
+  const closeBtn = document.getElementById('carouselClose');
+
+  const dotsTop = document.getElementById('filmDotsTop');
+  const dotsBottom = document.getElementById('filmDotsBottom');
+
   const figLinks = Array.from(document.querySelectorAll('.fig-card'));
 
-  // Build slides once
+  let activeIndex = 0;
+  let rafLock = false;
+
   function buildSlides() {
     strip.innerHTML = '';
     figLinks.forEach((a) => {
@@ -868,16 +959,61 @@
     });
   }
 
+  function buildFilmDots() {
+    const count = figLinks.length; // should be 14
+    dotsTop.innerHTML = '';
+    dotsBottom.innerHTML = '';
+
+    for (let i = 0; i < count; i++) {
+      const b1 = document.createElement('button');
+      b1.type = 'button';
+      b1.className = 'film-dot';
+      b1.setAttribute('aria-label', `Go to figure ${i + 1}`);
+      b1.addEventListener('click', () => goToIndex(i));
+
+      const b2 = document.createElement('button');
+      b2.type = 'button';
+      b2.className = 'film-dot';
+      b2.setAttribute('aria-label', `Go to figure ${i + 1}`);
+      b2.addEventListener('click', () => goToIndex(i));
+
+      dotsTop.appendChild(b1);
+      dotsBottom.appendChild(b2);
+    }
+
+    setActiveDot(0);
+  }
+
+  function setActiveDot(idx) {
+    activeIndex = idx;
+    const topButtons = Array.from(dotsTop.querySelectorAll('.film-dot'));
+    const bottomButtons = Array.from(dotsBottom.querySelectorAll('.film-dot'));
+
+    topButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+    bottomButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+  }
+
+  function getIndexFromScroll() {
+    const slideWidth = strip.clientWidth || 1;
+    return Math.max(0, Math.min(figLinks.length - 1, Math.round(strip.scrollLeft / slideWidth)));
+  }
+
+  function goToIndex(idx) {
+    const slideWidth = strip.clientWidth || 1;
+    strip.scrollLeft = idx * slideWidth;
+    setActiveDot(idx);
+  }
+
   function openCarouselAt(index) {
     if (!strip.children.length) buildSlides();
+    if (!dotsTop.children.length) buildFilmDots();
 
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
     requestAnimationFrame(() => {
-      const slideWidth = strip.clientWidth || 1;
-      strip.scrollLeft = Math.max(0, index) * slideWidth;
+      goToIndex(Math.max(0, index));
       strip.focus({ preventScroll: true });
     });
   }
@@ -897,16 +1033,30 @@
 
   // Close: click outside stage
   overlay.addEventListener('click', (e) => {
-    const stage = overlay.querySelector('.carousel-stage');
-    if (!stage.contains(e.target)) closeCarousel();
+    if (e.target === overlay) closeCarousel();
   });
+
+  // Close: explicit close button
+  if (closeBtn) closeBtn.addEventListener('click', closeCarousel);
 
   // Close: ESC
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
   });
 
-  // Desktop wheel: vertical wheel drives horizontal strip (attach ONLY once, to overlay)
+  // Update active dot on scroll (throttled with rAF)
+  strip.addEventListener('scroll', () => {
+    if (!overlay.classList.contains('open')) return;
+    if (rafLock) return;
+    rafLock = true;
+    requestAnimationFrame(() => {
+      rafLock = false;
+      const idx = getIndexFromScroll();
+      if (idx !== activeIndex) setActiveDot(idx);
+    });
+  });
+
+  // Desktop wheel: vertical wheel drives horizontal strip
   function handleCarouselWheel(evt) {
     if (!overlay.classList.contains('open')) return;
 
@@ -920,25 +1070,18 @@
   }
   overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
 
-  // Drag on desktop without breaking mobile swipe:
-  // Use Pointer Events, and ONLY preventDefault for mouse pointers.
+  // Drag on desktop without breaking mobile swipe
   let isDragging = false;
   let dragStartX = 0;
   let dragStartScrollLeft = 0;
 
-  function clientXFromEvent(evt) {
-    return evt.clientX;
-  }
-
   strip.addEventListener('pointerdown', (evt) => {
     if (!overlay.classList.contains('open')) return;
-
-    // Let touch behave natively (swipe). Only custom-drag for mouse/trackpad pointers.
     if (evt.pointerType !== 'mouse') return;
 
     isDragging = true;
     strip.classList.add('dragging');
-    dragStartX = clientXFromEvent(evt);
+    dragStartX = evt.clientX;
     dragStartScrollLeft = strip.scrollLeft;
 
     strip.setPointerCapture(evt.pointerId);
@@ -947,8 +1090,7 @@
 
   strip.addEventListener('pointermove', (evt) => {
     if (!isDragging) return;
-    const x = clientXFromEvent(evt);
-    const dx = x - dragStartX;
+    const dx = evt.clientX - dragStartX;
     strip.scrollLeft = dragStartScrollLeft - dx;
     evt.preventDefault();
   });
@@ -969,7 +1111,7 @@
     if (!overlay.classList.contains('open')) return;
     const slideWidth = strip.clientWidth || 1;
     const currentIndex = Math.round(strip.scrollLeft / slideWidth);
-    strip.scrollLeft = currentIndex * slideWidth;
+    goToIndex(currentIndex);
   });
 </script>
 </body>
