@@ -638,6 +638,379 @@
       width: 100%;
       flex: none;
     }
+    <!-- 1) ADD THIS CSS (paste near the end of your <style> block) -->
+<style>
+  /* --- FILMSTRIP CAROUSEL OVERLAY (homepage) --- */
+  .filmstrip-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 6vh 4vw;
+    background-color: var(--charcoal);
+    background-image:
+      radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.08) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+  .filmstrip-overlay.open{ display:flex; }
+
+  .filmstrip-stage{
+    width: min(1200px, 92vw);
+    height: min(78vh, 760px);
+    border: 1px solid rgba(255,107,53,0.18);
+    background: rgba(26,15,10,0.55);
+    box-shadow: 0 40px 120px rgba(0,0,0,0.75);
+    overflow: hidden;
+    position: relative;
+    transform: perspective(1200px) rotateZ(-1.4deg) rotateY(-3deg);
+    transform-origin: center;
+  }
+
+  .filmstrip-stage::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,107,53,0.10) 0%, transparent 55%),
+      linear-gradient(to bottom, rgba(255,255,255,0.06), transparent 40%, rgba(0,0,0,0.35));
+    mix-blend-mode: screen;
+    opacity: 0.55;
+    z-index: 2;
+  }
+
+  .filmstrip-strip{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    touch-action: pan-x;
+    scrollbar-width: none;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .filmstrip-strip::-webkit-scrollbar{ display:none; }
+  .filmstrip-strip.dragging{ cursor: grabbing; }
+
+  .filmstrip-slide{
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3.5vh 3vw;
+    position: relative;
+  }
+
+  .filmstrip-slide img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(15%) contrast(1.08) brightness(0.92);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,107,53,0.14);
+    background: rgba(18,18,18,0.6);
+    display: block;
+  }
+
+  .filmstrip-caption{
+    position: absolute;
+    left: 18px;
+    bottom: 14px;
+    font-size: 0.65rem;
+    color: #fff;
+    background: rgba(26,15,10,0.85);
+    border: 1px solid rgba(255,107,53,0.35);
+    padding: 6px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    z-index: 3;
+    max-width: calc(100% - 36px);
+  }
+
+  /* Close X (top right) */
+  .filmstrip-close{
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 4;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,107,53,0.35);
+    background: rgba(26,15,10,0.7);
+    color: #e8e0dc;
+    font-size: 16px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .filmstrip-close:hover{
+    border-color: var(--oxide-gold);
+    color: var(--oxide-gold);
+    transform: translateY(-1px);
+  }
+
+  /* Desktop arrows (hidden on mobile) */
+  .filmstrip-arrow{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    border: 1px solid rgba(255,107,53,0.35);
+    background: rgba(26,15,10,0.55);
+    color: #e8e0dc;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    user-select: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .filmstrip-arrow:hover{
+    border-color: var(--oxide-gold);
+    color: var(--oxide-gold);
+  }
+  .filmstrip-arrow.prev{ left: 10px; }
+  .filmstrip-arrow.next{ right: 10px; }
+
+  @media (max-width: 900px){
+    .filmstrip-stage{ transform: perspective(1200px) rotateZ(-1deg) rotateY(-2deg); }
+  }
+  @media (max-width: 700px){
+    .filmstrip-arrow{ display:none; }
+  }
+</style>
+
+<!-- 2) ADD THIS HTML (paste once, near the end of <body>, before your existing <script> tags) -->
+<div class="filmstrip-overlay" id="filmstripOverlay" aria-hidden="true">
+  <div class="filmstrip-stage" role="dialog" aria-modal="true" aria-label="Archive carousel">
+    <button class="filmstrip-close" id="filmstripClose" type="button" aria-label="Close">×</button>
+    <button class="filmstrip-arrow prev" id="filmstripPrev" type="button" aria-label="Previous">&lt;</button>
+    <button class="filmstrip-arrow next" id="filmstripNext" type="button" aria-label="Next">&gt;</button>
+    <div class="filmstrip-strip" id="filmstripStrip" tabindex="0"></div>
+  </div>
+</div>
+
+<!-- 3) ADD THIS JS (paste into your main script area; it can live inside your existing <script vid="110"> block, below the wheel logic) -->
+<script>
+  // -----------------------------
+  // HOMEPAGE FILMSTRIP OVERLAY CAROUSEL
+  // - Click any .artwork-card to open overlay
+  // - Swipe/scroll to move
+  // - Desktop arrows <> (hidden on mobile)
+  // - Close with X, Esc, or click outside
+  // -----------------------------
+  const fsOverlay = document.getElementById('filmstripOverlay');
+  const fsStage = fsOverlay ? fsOverlay.querySelector('.filmstrip-stage') : null;
+  const fsStrip = document.getElementById('filmstripStrip');
+  const fsClose = document.getElementById('filmstripClose');
+  const fsPrev = document.getElementById('filmstripPrev');
+  const fsNext = document.getElementById('filmstripNext');
+
+  // Collect ALL cards (linked + non-linked)
+  const filmstripCards = Array.from(document.querySelectorAll('.gallery-filmstrip .artwork-card'));
+
+  function getCardData(card){
+    const img = card.querySelector('.artwork-image img');
+    const title = card.querySelector('.artwork-title');
+    const meta = card.querySelector('.artwork-meta');
+
+    return {
+      src: img ? img.getAttribute('src') : '',
+      alt: img ? (img.getAttribute('alt') || 'Artwork') : 'Artwork',
+      caption: `${title ? title.textContent.trim() : ''}${meta ? ` — ${meta.textContent.trim()}` : ''}`
+    };
+  }
+
+  function buildFilmstripSlides(){
+    if (!fsStrip) return;
+    fsStrip.innerHTML = '';
+
+    filmstripCards.forEach((card) => {
+      const { src, alt, caption } = getCardData(card);
+
+      const slide = document.createElement('div');
+      slide.className = 'filmstrip-slide';
+
+      const image = document.createElement('img');
+      image.src = src;
+      image.alt = alt;
+
+      const cap = document.createElement('div');
+      cap.className = 'filmstrip-caption';
+      cap.textContent = caption;
+
+      slide.appendChild(image);
+      slide.appendChild(cap);
+      fsStrip.appendChild(slide);
+    });
+  }
+
+  function openFilmstripAt(index){
+    if (!fsOverlay || !fsStrip) return;
+    if (!fsStrip.children.length) buildFilmstripSlides();
+
+    fsOverlay.classList.add('open');
+    fsOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    requestAnimationFrame(() => {
+      const w = fsStrip.clientWidth || 1;
+      fsStrip.scrollLeft = Math.max(0, index) * w;
+      fsStrip.focus({ preventScroll: true });
+    });
+  }
+
+  function closeFilmstrip(){
+    if (!fsOverlay) return;
+    fsOverlay.classList.remove('open');
+    fsOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function currentIndex(){
+    if (!fsStrip) return 0;
+    const w = fsStrip.clientWidth || 1;
+    return Math.round(fsStrip.scrollLeft / w);
+  }
+
+  function goToIndex(i){
+    if (!fsStrip) return;
+    const w = fsStrip.clientWidth || 1;
+    fsStrip.scrollLeft = Math.max(0, i) * w;
+  }
+
+  // Open overlay when clicking a card.
+  // IMPORTANT: don't break normal navigation on linked cards:
+  // - click opens overlay
+  // - cmd/ctrl-click still opens the link in a new tab
+  filmstripCards.forEach((card, idx) => {
+    const link = card.closest('a');
+    card.addEventListener('click', (e) => {
+      const isModifiedClick = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
+      if (isModifiedClick) return; // let the browser do its thing
+      e.preventDefault();
+      openFilmstripAt(idx);
+    });
+
+    // Safety: if the card isn't inside a link, still make it keyboard accessible
+    if (!link) {
+      card.setAttribute('tabindex', '0');
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openFilmstripAt(idx);
+        }
+      });
+    }
+  });
+
+  // Close actions
+  if (fsClose) fsClose.addEventListener('click', closeFilmstrip);
+  if (fsOverlay) {
+    fsOverlay.addEventListener('click', (e) => {
+      if (fsStage && !fsStage.contains(e.target)) closeFilmstrip();
+    });
+  }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fsOverlay && fsOverlay.classList.contains('open')) closeFilmstrip();
+  });
+
+  // Arrows (desktop)
+  if (fsPrev) {
+    fsPrev.addEventListener('click', () => {
+      const i = currentIndex();
+      goToIndex(Math.max(0, i - 1));
+    });
+  }
+  if (fsNext) {
+    fsNext.addEventListener('click', () => {
+      const i = currentIndex();
+      goToIndex(Math.min((fsStrip.children.length || 1) - 1, i + 1));
+    });
+  }
+
+  // Wheel mapping: allow vertical wheel to move horizontally (like your other overlays)
+  function handleOverlayWheel(evt){
+    if (!fsOverlay || !fsOverlay.classList.contains('open')) return;
+
+    const dx = Math.abs(evt.deltaX || 0);
+    const dy = Math.abs(evt.deltaY || 0);
+
+    if (dy > dx) {
+      evt.preventDefault();
+      fsStrip.scrollLeft += (evt.deltaY || 0) * 0.35;
+    }
+  }
+  if (fsOverlay) fsOverlay.addEventListener('wheel', handleOverlayWheel, { passive: false });
+
+  // Desktop drag (mouse only) without breaking mobile swipe
+  let fsDragging = false;
+  let fsDragStartX = 0;
+  let fsDragStartScrollLeft = 0;
+
+  if (fsStrip) {
+    fsStrip.addEventListener('pointerdown', (evt) => {
+      if (!fsOverlay.classList.contains('open')) return;
+      if (evt.pointerType !== 'mouse') return;
+
+      fsDragging = true;
+      fsStrip.classList.add('dragging');
+      fsDragStartX = evt.clientX;
+      fsDragStartScrollLeft = fsStrip.scrollLeft;
+
+      fsStrip.setPointerCapture(evt.pointerId);
+      evt.preventDefault();
+    });
+
+    fsStrip.addEventListener('pointermove', (evt) => {
+      if (!fsDragging) return;
+      const dx = evt.clientX - fsDragStartX;
+      fsStrip.scrollLeft = fsDragStartScrollLeft - dx;
+      evt.preventDefault();
+    });
+
+    function endFsDrag(evt){
+      if (!fsDragging) return;
+      fsDragging = false;
+      fsStrip.classList.remove('dragging');
+      try { fsStrip.releasePointerCapture(evt.pointerId); } catch (_) {}
+    }
+
+    fsStrip.addEventListener('pointerup', endFsDrag);
+    fsStrip.addEventListener('pointercancel', endFsDrag);
+    fsStrip.addEventListener('pointerleave', endFsDrag);
+  }
+
+  // Keep slides aligned on resize
+  window.addEventListener('resize', () => {
+    if (!fsOverlay || !fsOverlay.classList.contains('open')) return;
+    const w = fsStrip.clientWidth || 1;
+    const i = Math.round(fsStrip.scrollLeft / w);
+    fsStrip.scrollLeft = i * w;
+  });
+</script>
+    
   </style>
 </head>
 
