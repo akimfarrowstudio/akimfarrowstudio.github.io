@@ -68,7 +68,6 @@
       position:relative;
     }
 
-    /* Homepage-style logo (upright) */
     .brand{
       display:flex;
       align-items:center;
@@ -279,9 +278,11 @@
     }
 
     /* -----------------------------
-       CAROUSEL OVERLAY (mobile swipe + desktop drag)
-       + subtle filmstrip markers
-       + X moved into top-right under hint
+       CAROUSEL OVERLAY
+       (mobile swipe + desktop drag)
+       film markers:
+       - desktop: top + bottom
+       - mobile: left + right (next to photo, not overlapping)
        ----------------------------- */
     .carousel-overlay{
       position:fixed;
@@ -323,15 +324,50 @@
       z-index:2;
     }
 
-    /* Filmstrip markers (14 total, clickable) */
+    .carousel-hint{
+      position:absolute;
+      top:14px;
+      right:16px;
+      font-size:0.6rem;
+      color:#8a665c;
+      text-transform:uppercase;
+      letter-spacing:0.2em;
+      z-index:6;
+      opacity:0.95;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    .carousel-close{
+      position:absolute;
+      top:56px;
+      right:18px;
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      border:1px solid rgba(255,107,53,0.35);
+      background:rgba(26,15,10,0.88);
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:1;
+      z-index:7;
+      box-shadow:0 10px 30px rgba(0,0,0,0.45);
+    }
+    .carousel-close:hover{
+      border-color:var(--oxide-gold);
+      color:var(--oxide-gold);
+    }
+
+    /* MARKERS (desktop default: top/bottom, centered) */
     .carousel-markers{
       position:absolute;
-      left:0;
-      right:0;
-      top:0;
-      bottom:0;
-      pointer-events:none; /* enable only on the buttons */
-      z-index:4;
+      inset:0;
+      z-index:5;
+      pointer-events:none;
     }
 
     .carousel-marker-row{
@@ -341,7 +377,7 @@
       width:calc(100% - 32px);
       max-width:1100px;
       display:grid;
-      grid-template-columns:repeat(14, 1fr);
+      grid-template-columns:repeat(5, 1fr); /* will be overridden via JS count, but layout stays clean */
       gap:6px;
       pointer-events:none;
     }
@@ -359,71 +395,15 @@
       transition:background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
       opacity:0.85;
     }
-
     .carousel-marker:hover{
       border-color:rgba(255,107,53,0.28);
       background:rgba(255,107,53,0.10);
       opacity:1;
     }
-
     .carousel-marker.active{
       border-color:rgba(255,107,53,0.55);
       background:rgba(255,107,53,0.18);
       opacity:1;
-    }
-
-    .carousel-hint{
-      position:absolute;
-      top:14px;
-      right:16px;
-      font-size:0.6rem;
-      color:#8a665c;
-      text-transform:uppercase;
-      letter-spacing:0.2em;
-      z-index:6;
-      opacity:0.95;
-      user-select:none;
-      pointer-events:none;
-    }
-
-    /* REPLACE your current .carousel-close block with this updated one */
-    /* (everything else can stay the same) */
-    
-    .carousel-close{
-      position:absolute;
-      /* mirror the FIG tag vibe: slightly inside + lower */
-      top:56px;           /* was 14px */
-      right:18px;         /* aligns with caption padding rhythm */
-      width:34px;
-      height:34px;
-      border-radius:999px;
-      border:1px solid rgba(255,107,53,0.35);
-      background:rgba(26,15,10,0.88);
-      color:#fff;
-      font-size:16px;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      line-height:1;
-      z-index:6;          /* above image/caption */
-      box-shadow:0 10px 30px rgba(0,0,0,0.45);
-      /* ok to overlap art slightly */
-    }
-    
-    .carousel-close:hover{
-      border-color:var(--oxide-gold);
-      color:var(--oxide-gold);
-    }
-    
-    /* Keep it tight on mobile too */
-    @media (max-width: 900px){
-      .carousel-close{
-        top:52px;
-        right:16px;
-        width:32px;
-        height:32px;
-      }
     }
 
     .carousel-strip{
@@ -479,16 +459,56 @@
       padding:6px 10px;
       text-transform:uppercase;
       letter-spacing:0.14em;
-      z-index:3;
+      z-index:6;
       max-width:calc(100% - 36px);
     }
 
+    /* MOBILE FIX:
+       move marker rows to the SIDES (left + right) and keep them next to the photo.
+       also give the slide extra side padding so markers never overlap the image. */
     @media (max-width: 900px){
-      .carousel-stage{transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg)}
-      .carousel-slide{padding:2.5vh 3vw}
-      .carousel-marker-row{ width:calc(100% - 24px); gap:5px; }
-      .carousel-marker{ height:9px; }
-      .carousel-close{ top:38px; right:14px; width:32px; height:32px; }
+      .carousel-stage{
+        transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg);
+      }
+
+      .carousel-close{
+        top:38px;
+        right:14px;
+        width:32px;
+        height:32px;
+      }
+
+      .carousel-slide{
+        padding:2.5vh 52px; /* room for side rails */
+      }
+
+      .carousel-marker-row{
+        left:auto;
+        transform:none;
+        width:auto;
+        max-width:none;
+        display:flex;
+        flex-direction:column;
+        gap:8px;
+        top:50%;
+        bottom:auto;
+        pointer-events:none;
+      }
+
+      .carousel-marker-row.top{
+        left:14px;               /* LEFT rail */
+        transform:translateY(-50%);
+      }
+
+      .carousel-marker-row.bottom{
+        right:14px;              /* RIGHT rail */
+        transform:translateY(-50%);
+      }
+
+      .carousel-marker{
+        width:10px;
+        height:10px;
+      }
     }
   </style>
 </head>
@@ -514,7 +534,6 @@
     </aside>
 
     <main class="detail-container">
-      <!-- LEFT: gallery -->
       <div class="image-gallery" aria-label="Image gallery">
         <a class="gallery-item" href="../assets/images/SHclose.jpeg" data-caption="STRANGE HARVEST — CLOSE VIEW" aria-label="Open Strange Harvest close view">
           <img src="../assets/images/SHclose.jpeg" alt="Strange Harvest close view">
@@ -577,13 +596,12 @@
     </main>
   </div>
 
-  <!-- CAROUSEL OVERLAY (with close + filmstrip markers) -->
+  <!-- CAROUSEL OVERLAY -->
   <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
-    <div class="carousel-stage" role="dialog" aria-modal="true" aria-label="Image carousel">
+    <div class="carousel-stage" id="carouselStage" role="dialog" aria-modal="true" aria-label="Image carousel">
       <div class="carousel-hint">Swipe / scroll</div>
-      <button class="carousel-close" id="carouselClose" aria-label="Close">×</button>
+      <button class="carousel-close" id="carouselClose" type="button" aria-label="Close">×</button>
 
-      <!-- filmstrip markers injected here -->
       <div class="carousel-markers" aria-hidden="true">
         <div class="carousel-marker-row top" id="carouselMarkersTop"></div>
         <div class="carousel-marker-row bottom" id="carouselMarkersBottom"></div>
@@ -594,23 +612,20 @@
   </div>
 
   <script>
-    // -----------------------------
-    // CAROUSEL (mobile swipe + desktop drag)
-    // + Close button
-    // + Filmstrip markers (14, clickable)
-    // -----------------------------
     const overlay = document.getElementById('carouselOverlay');
+    const stage = document.getElementById('carouselStage');
     const strip = document.getElementById('carouselStrip');
     const closeBtn = document.getElementById('carouselClose');
     const galleryLinks = Array.from(document.querySelectorAll('.gallery-item'));
 
     const markersTop = document.getElementById('carouselMarkersTop');
     const markersBottom = document.getElementById('carouselMarkersBottom');
-    const MARKER_COUNT = 14;
 
     let currentIndex = 0;
+    let rafLock = false;
 
     function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+    function getSlideWidth(){ return strip.clientWidth || 1; }
 
     function buildSlides() {
       strip.innerHTML = '';
@@ -637,49 +652,49 @@
       });
     }
 
+    function syncMarkerState(idx) {
+      if (!markersTop || !markersBottom) return;
+      const topKids = Array.from(markersTop.children);
+      const bottomKids = Array.from(markersBottom.children);
+      topKids.forEach((b, i) => b.classList.toggle('active', i === idx));
+      bottomKids.forEach((b, i) => b.classList.toggle('active', i === idx));
+    }
+
+    function snapToIndex(idx) {
+      const maxIdx = Math.max(0, galleryLinks.length - 1);
+      currentIndex = clamp(idx, 0, maxIdx);
+      strip.scrollLeft = currentIndex * getSlideWidth();
+      syncMarkerState(currentIndex);
+    }
+
     function buildMarkers() {
       if (!markersTop || !markersBottom) return;
+
+      const count = galleryLinks.length; // IMPORTANT: match Strange Harvest (5)
       markersTop.innerHTML = '';
       markersBottom.innerHTML = '';
 
-      for (let i = 0; i < MARKER_COUNT; i++) {
+      // match the grid count on desktop
+      markersTop.style.gridTemplateColumns = `repeat(${count}, 1fr)`;
+      markersBottom.style.gridTemplateColumns = `repeat(${count}, 1fr)`;
+
+      for (let i = 0; i < count; i++) {
         const mkTop = document.createElement('button');
         mkTop.type = 'button';
         mkTop.className = 'carousel-marker';
-        mkTop.setAttribute('aria-label', `Go to frame ${i + 1}`);
+        mkTop.setAttribute('aria-label', `Go to image ${i + 1}`);
         mkTop.addEventListener('click', () => snapToIndex(i));
 
         const mkBottom = document.createElement('button');
         mkBottom.type = 'button';
         mkBottom.className = 'carousel-marker';
-        mkBottom.setAttribute('aria-label', `Go to frame ${i + 1}`);
+        mkBottom.setAttribute('aria-label', `Go to image ${i + 1}`);
         mkBottom.addEventListener('click', () => snapToIndex(i));
 
         markersTop.appendChild(mkTop);
         markersBottom.appendChild(mkBottom);
       }
 
-      syncMarkerState(currentIndex);
-    }
-
-    function syncMarkerState(idx) {
-      if (!markersTop || !markersBottom) return;
-      const topKids = Array.from(markersTop.children);
-      const bottomKids = Array.from(markersBottom.children);
-
-      topKids.forEach((b, i) => b.classList.toggle('active', i === idx));
-      bottomKids.forEach((b, i) => b.classList.toggle('active', i === idx));
-    }
-
-    function getSlideWidth() {
-      return strip.clientWidth || 1;
-    }
-
-    function snapToIndex(idx) {
-      const maxIdx = Math.max(0, galleryLinks.length - 1);
-      currentIndex = clamp(idx, 0, maxIdx);
-      const w = getSlideWidth();
-      strip.scrollLeft = currentIndex * w;
       syncMarkerState(currentIndex);
     }
 
@@ -710,32 +725,34 @@
       });
     });
 
-    // Close button
     if (closeBtn) closeBtn.addEventListener('click', closeCarousel);
 
-    // Close: click outside stage
     overlay.addEventListener('click', (e) => {
-      const stage = overlay.querySelector('.carousel-stage');
-      if (!stage.contains(e.target)) closeCarousel();
+      if (e.target === overlay) closeCarousel();
     });
 
-    // Close: ESC
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
     });
 
-    // Fix: keep currentIndex in sync while scrolling
+    // keep marker active state synced (throttled)
     strip.addEventListener('scroll', () => {
       if (!overlay.classList.contains('open')) return;
-      const w = getSlideWidth();
-      const idx = Math.round(strip.scrollLeft / w);
-      if (idx !== currentIndex) {
-        currentIndex = idx;
-        syncMarkerState(currentIndex);
-      }
+      if (rafLock) return;
+      rafLock = true;
+
+      requestAnimationFrame(() => {
+        rafLock = false;
+        const w = getSlideWidth();
+        const idx = clamp(Math.round(strip.scrollLeft / w), 0, Math.max(0, galleryLinks.length - 1));
+        if (idx !== currentIndex) {
+          currentIndex = idx;
+          syncMarkerState(currentIndex);
+        }
+      });
     }, { passive: true });
 
-    // Desktop wheel: vertical wheel drives horizontal strip
+    // vertical wheel drives horizontal scroll (desktop)
     function handleCarouselWheel(evt) {
       if (!overlay.classList.contains('open')) return;
 
@@ -749,7 +766,7 @@
     }
     overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
 
-    // Desktop drag (mouse only)
+    // desktop drag (mouse only)
     let isDragging = false;
     let dragStartX = 0;
     let dragStartScrollLeft = 0;
@@ -785,14 +802,11 @@
     strip.addEventListener('pointercancel', endDrag);
     strip.addEventListener('pointerleave', endDrag);
 
-    // Keep slide alignment on resize
+    // keep slide alignment on resize / rotation
     window.addEventListener('resize', () => {
       if (!overlay.classList.contains('open')) return;
       snapToIndex(currentIndex);
     });
-
-    // Optional: ensure markers exist even if the user never opens (safe no-op)
-    // buildMarkers();
   </script>
 </body>
 </html>
