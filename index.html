@@ -1006,37 +1006,28 @@
       formData.append("userAgent", navigator.userAgent);
 
       try {
-     const res = await fetch(WEB_APP_URL, {
-  method: "POST",
-  body: formData
-    });
-    
-    const text = (await res.text()).trim(); // <-- THIS is the key
-    
-    if (!res.ok) {
-      statusEl.textContent = "ERROR. TRY AGAIN.";
-      return;
-    }
-    
-    // Your script should return one of these
-    if (text === "ok") {
-      statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
-      form.reset();
-    
-      document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-      const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
-      if (raw) raw.classList.add('selected');
-      document.getElementById('materialsInput').value = "Raw Steel";
-      return;
-    }
-    
-    if (text === "ok_no_email") {
-      statusEl.textContent = "SAVED. EMAIL FAILED.";
-      return;
-    }
-    
-    // Anything else is an error message from Apps Script like "error: ..."
-    statusEl.textContent = "ERROR: " + text;
+        const res = await fetch(WEB_APP_URL, {
+          method: "POST",
+          body: formData
+        });
+
+        await res.text();
+
+        if (!res.ok) {
+          statusEl.textContent = "ERROR. TRY AGAIN.";
+          return;
+        }
+
+        statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
+        form.reset();
+
+        document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+        const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
+        if (raw) raw.classList.add('selected');
+        document.getElementById('materialsInput').value = "Raw Steel";
+
+      } catch (err) {
+        statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
       }
     });
   </script>
