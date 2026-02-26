@@ -427,7 +427,8 @@
     }
 
    /* -----------------------------
-   CAROUSEL OVERLAY + FILM DOTS
+      CAROUSEL OVERLAY + FILM DOTS
+      (deduped dots CSS + hint/caption moved inside image)
    ----------------------------- */
     .carousel-overlay{
       position:fixed;
@@ -441,7 +442,7 @@
       backdrop-filter: blur(6px);
     }
     .carousel-overlay.open{display:flex}
-    
+
     .carousel-stage{
       width:min(1200px, 92vw);
       height:min(78vh, 760px);
@@ -453,7 +454,7 @@
       transform:perspective(1200px) rotateZ(-1.4deg) rotateY(-3deg);
       transform-origin:center;
     }
-    
+
     .carousel-strip{
       width:100%;
       height:100%;
@@ -472,7 +473,7 @@
     }
     .carousel-strip::-webkit-scrollbar{display:none}
     .carousel-strip.dragging{cursor:grabbing}
-    
+
     .carousel-slide{
       flex:0 0 100%;
       width:100%;
@@ -484,8 +485,16 @@
       padding:3.5vh 3vw;
       position:relative;
     }
-    
-    .carousel-slide img{
+
+    /* NEW: wrapper so hint + caption sit inside the photo */
+    .carousel-media{
+      position:relative;
+      max-width:100%;
+      max-height:100%;
+      display:inline-block;
+    }
+
+    .carousel-media img{
       max-width:100%;
       max-height:100%;
       object-fit:contain;
@@ -495,11 +504,30 @@
       background:rgba(18,18,18,0.6);
       display:block;
     }
-    
+
+    /* Hint INSIDE image (top-right) */
+    .carousel-hint{
+      position:absolute;
+      top:12px;
+      right:12px;
+      font-size:0.6rem;
+      color:#fff;
+      background:rgba(26,15,10,0.75);
+      border:1px solid rgba(255,107,53,0.25);
+      padding:6px 10px;
+      text-transform:uppercase;
+      letter-spacing:0.2em;
+      z-index:3;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    /* Figure note INSIDE image (bottom-right) */
     .carousel-caption{
       position:absolute;
-      left:18px;
-      bottom:14px;
+      right:12px;
+      bottom:12px;
+      left:auto;
       font-size:0.65rem;
       color:#fff;
       background:rgba(26,15,10,0.85);
@@ -508,23 +536,11 @@
       text-transform:uppercase;
       letter-spacing:0.14em;
       z-index:3;
-      max-width:calc(100% - 36px);
-    }
-    
-    .carousel-hint{
-      position:absolute;
-      top:14px;
-      right:16px;
-      font-size:0.6rem;
-      color:#8a665c;
-      text-transform:uppercase;
-      letter-spacing:0.2em;
-      z-index:7;
-      opacity:0.95;
-      user-select:none;
+      max-width:calc(100% - 24px);
+      text-align:right;
       pointer-events:none;
     }
-    
+
     .carousel-close{
       position:absolute;
       top:56px;
@@ -545,7 +561,7 @@
       box-shadow:0 10px 30px rgba(0,0,0,0.45);
     }
     .carousel-close:hover{border-color:var(--oxide-gold);color:var(--oxide-gold)}
-    
+
     .film-dots{
       position:absolute;
       left:0;
@@ -559,7 +575,7 @@
     }
     .film-dots-top{ top:10px; }
     .film-dots-bottom{ bottom:10px; }
-    
+
     .film-dot{
       width:10px;
       height:10px;
@@ -573,54 +589,15 @@
     .film-dot:nth-child(3n){ width:16px; }
     .film-dot:hover{border-color:rgba(255,107,53,0.35);background:rgba(26,15,10,0.35)}
     .film-dot.active{border-color:rgba(255,107,53,0.65);background:rgba(255,107,53,0.18)}
-    
-    /* MOBILE: put dots in their own rows under/over image */
+
+    /* MOBILE: dots are their own rows; hint + caption stay inside photo */
     @media (max-width: 900px){
       .carousel-stage{
         transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg);
         display:grid;
         grid-template-rows:auto 1fr auto;
       }
-    
-      .film-dots{
-        position:relative;
-        top:auto;
-        bottom:auto;
-        padding:12px 14px;
-      }
-    
-      .film-dots-top{ grid-row:1; }
-      .carousel-strip{ grid-row:2; height:100%; }
-      .film-dots-bottom{ grid-row:3; }
-    
-      .carousel-slide{
-        padding:2vh 3vw;
-        flex-direction:column;
-        justify-content:center;
-        gap:12px;
-      }
-    
-      .carousel-slide img{ max-height:60vh; }
-    
-      .carousel-caption{
-        position:relative;
-        left:auto;
-        bottom:auto;
-        max-width:100%;
-        width:100%;
-      }
-    
-      .carousel-close{ top:52px; right:16px; width:32px; height:32px; }
-    }
-  
-      /* turn the stage into 3 rows: top boxes, image area, bottom boxes */
-      .carousel-stage{
-        transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg);
-        display:grid;
-        grid-template-rows:auto 1fr auto;
-      }
-    
-      /* film rows become normal flow rows (no overlay) */
+
       .film-dots{
         position:relative;
         left:auto;
@@ -630,44 +607,20 @@
         padding:12px 14px;
         z-index:4;
       }
-    
-      .film-dots-top{
-        grid-row:1;
-        align-self:center;
-      }
-    
-      .film-dots-bottom{
-        grid-row:3;
-        align-self:center;
-      }
-    
-      /* image strip lives in the middle row */
-      .carousel-strip{
-        grid-row:2;
-        height:100%;
-      }
-    
-      /* slide layout: image first, caption below it (not pinned to bottom) */
+
+      .film-dots-top{ grid-row:1; align-self:center; }
+      .carousel-strip{ grid-row:2; height:100%; }
+      .film-dots-bottom{ grid-row:3; align-self:center; }
+
       .carousel-slide{
         padding:2vh 3vw;
         flex-direction:column;
         justify-content:center;
         gap:12px;
       }
-    
-      .carousel-slide img{
-        max-height:60vh; /* keeps room for caption + bottom boxes */
-      }
-    
-      .carousel-caption{
-        position:relative;
-        left:auto;
-        bottom:auto;
-        max-width:100%;
-        width:100%;
-      }
-    
-      /* keep hint and close floating like you have now */
+
+      .carousel-media img{ max-height:60vh; }
+
       .carousel-close{
         top:52px;
         right:16px;
@@ -675,25 +628,7 @@
         height:32px;
         z-index:7;
       }
-    
-      .carousel-hint{
-        z-index:7;
-      }
     }
-    
-    .film-dot{
-      width:10px;
-      height:10px;
-      border-radius:2px;
-      border:1px solid rgba(255,107,53,0.18);
-      background:rgba(26,15,10,0.25);
-      cursor:pointer;
-      padding:0;
-      appearance:none;
-    }
-    .film-dot:nth-child(3n){ width:16px; }
-    .film-dot:hover{border-color:rgba(255,107,53,0.35);background:rgba(26,15,10,0.35)}
-    .film-dot.active{border-color:rgba(255,107,53,0.65);background:rgba(255,107,53,0.18)}
   </style>
 </head>
 
@@ -908,7 +843,6 @@
 
   <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
     <div class="carousel-stage" id="carouselStage" role="dialog" aria-modal="true" aria-label="Image carousel">
-      <div class="carousel-hint">Swipe / scroll</div>
       <button class="carousel-close" id="carouselClose" type="button" aria-label="Close">×</button>
 
       <div class="film-dots film-dots-top" id="filmDotsTop" aria-hidden="true"></div>
@@ -960,6 +894,7 @@
 
     function buildSlides() {
       strip.innerHTML = '';
+
       figLinks.forEach((a) => {
         const href = a.getAttribute('href');
         const caption = a.getAttribute('data-caption') || '';
@@ -968,16 +903,26 @@
         const slide = document.createElement('div');
         slide.className = 'carousel-slide';
 
+        const media = document.createElement('div');
+        media.className = 'carousel-media';
+
         const img = document.createElement('img');
         img.src = href;
         img.alt = alt;
+
+        const hint = document.createElement('div');
+        hint.className = 'carousel-hint';
+        hint.textContent = 'Swipe / scroll';
 
         const cap = document.createElement('div');
         cap.className = 'carousel-caption';
         cap.textContent = caption;
 
-        slide.appendChild(img);
-        slide.appendChild(cap);
+        media.appendChild(img);
+        media.appendChild(hint);
+        media.appendChild(cap);
+
+        slide.appendChild(media);
         strip.appendChild(slide);
       });
     }
