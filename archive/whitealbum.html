@@ -603,37 +603,39 @@
     background:rgba(255,107,53,0.18);
   }
   
-  .carousel-close{
-    position:absolute;
-    top:-18px;     /* outside the stage */
-    right:-18px;   /* outside the stage */
-    width:34px;
-    height:34px;
-    border-radius:999px;
-    border:1px solid rgba(255,107,53,0.35);
-    background:rgba(26,15,10,0.85);
-    color:#fff;
-    font-size:16px;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    line-height:1;
-    z-index:5;
-  }
-  
-  .carousel-close:hover{
-    border-color:var(--oxide-gold);
-    color:var(--oxide-gold);
-  }
-  
-  /* keep dots inside bounds even on small screens */
-  @media (max-width: 900px){
-    .film-dots{ gap:8px; }
-    .film-dot{ width:9px; height:9px; }
-    .film-dot:nth-child(3n){ width:14px; }
-    .carousel-close{ top:-16px; right:-16px; width:32px; height:32px; }
-  }
+    .carousel-close{
+      position:absolute;
+      top:14px;      /* inside the stage */
+      right:16px;    /* inside the stage */
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      border:1px solid rgba(255,107,53,0.35);
+      background:rgba(26,15,10,0.85);
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:1;
+      z-index:5;
+    }
+    
+    .carousel-close:hover{
+      border-color:var(--oxide-gold);
+      color:var(--oxide-gold);
+    }
+    
+    /* keep spacing on small screens */
+    @media (max-width: 900px){
+      .carousel-close{
+        top:14px;
+        right:14px;
+        width:32px;
+        height:32px;
+      }
+    }
     
   </style>
 </head>
