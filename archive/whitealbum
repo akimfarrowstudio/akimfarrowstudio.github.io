@@ -342,9 +342,8 @@
     .fig-meta{
       padding:0.9rem 1rem 1rem 1rem;
       display:flex;
-      justify-content:space-between;
-      gap:1rem;
-      align-items:baseline;
+      flex-direction:column;
+      gap:0.25rem;
     }
 
     .fig-title{
@@ -355,13 +354,14 @@
       text-transform:uppercase;
     }
 
-    .fig-label{
+    /* NEW: caption like SCM page */
+    .fig-caption{
       font-size:0.65rem;
       color:var(--rust);
       text-transform:uppercase;
       letter-spacing:0.12em;
-      white-space:nowrap;
-      opacity:0.9;
+      line-height:1.45;
+      opacity:0.95;
     }
 
     .cta-container{
@@ -448,7 +448,6 @@
     <main class="scrolling-content">
       <section class="artwork-hero">
         <div class="hero-bg">
-          <!-- Hero uses Figure 1 by default -->
           <img src="../assets/images/fig1WA.jpeg" alt="White Album, Figure 1">
           <div class="hero-gradient"></div>
         </div>
@@ -514,72 +513,114 @@
         <div class="fig-grid">
           <a class="fig-card" href="../assets/images/fig1WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 1">
             <div class="fig-img"><img src="../assets/images/fig1WA.jpeg" alt="White Album, Figure 1"></div>
-            <div class="fig-meta"><div class="fig-title">FIG I</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 1.</div>
+              <div class="fig-caption">Canvas, Burlap</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig2WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 2">
             <div class="fig-img"><img src="../assets/images/fig2WA.jpeg" alt="White Album, Figure 2"></div>
-            <div class="fig-meta"><div class="fig-title">FIG II</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 2.</div>
+              <div class="fig-caption">Canvas, Steel</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig3WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 3">
             <div class="fig-img"><img src="../assets/images/fig3WA.jpeg" alt="White Album, Figure 3"></div>
-            <div class="fig-meta"><div class="fig-title">FIG III</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 3.</div>
+              <div class="fig-caption">Canvas, Pegboard</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig4WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 4">
             <div class="fig-img"><img src="../assets/images/fig4WA.jpeg" alt="White Album, Figure 4"></div>
-            <div class="fig-meta"><div class="fig-title">FIG IV</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 4.</div>
+              <div class="fig-caption">Lumber, Burlap</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig5WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 5">
             <div class="fig-img"><img src="../assets/images/fig5WA.jpeg" alt="White Album, Figure 5"></div>
-            <div class="fig-meta"><div class="fig-title">FIG V</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 5.</div>
+              <div class="fig-caption">Wood, Steel</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig6WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 6">
             <div class="fig-img"><img src="../assets/images/fig6WA.jpeg" alt="White Album, Figure 6"></div>
-            <div class="fig-meta"><div class="fig-title">FIG VI</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 6.</div>
+              <div class="fig-caption">Canvas, Brackets</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig7WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 7">
             <div class="fig-img"><img src="../assets/images/fig7WA.jpeg" alt="White Album, Figure 7"></div>
-            <div class="fig-meta"><div class="fig-title">FIG VII</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 7.</div>
+              <div class="fig-caption">Canvas, Burlap</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig8WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 8">
             <div class="fig-img"><img src="../assets/images/fig8WA.jpeg" alt="White Album, Figure 8"></div>
-            <div class="fig-meta"><div class="fig-title">FIG VIII</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 8.</div>
+              <div class="fig-caption">Canvas, Steel</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig9WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 9">
             <div class="fig-img"><img src="../assets/images/fig9WA.jpeg" alt="White Album, Figure 9"></div>
-            <div class="fig-meta"><div class="fig-title">FIG IX</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 9.</div>
+              <div class="fig-caption">Canvas, Burlap</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig10WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 10">
             <div class="fig-img"><img src="../assets/images/fig10WA.jpeg" alt="White Album, Figure 10"></div>
-            <div class="fig-meta"><div class="fig-title">FIG X</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 10.</div>
+              <div class="fig-caption">Canvas, Wood</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig11WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 11">
             <div class="fig-img"><img src="../assets/images/fig11WA.jpeg" alt="White Album, Figure 11"></div>
-            <div class="fig-meta"><div class="fig-title">FIG XI</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 11.</div>
+              <div class="fig-caption">Canvas, Steel</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig12WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 12">
             <div class="fig-img"><img src="../assets/images/fig12WA.jpeg" alt="White Album, Figure 12"></div>
-            <div class="fig-meta"><div class="fig-title">FIG XII</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 12.</div>
+              <div class="fig-caption">Burlap, Lumber</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig13WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 13">
             <div class="fig-img"><img src="../assets/images/fig13WA.jpeg" alt="White Album, Figure 13"></div>
-            <div class="fig-meta"><div class="fig-title">FIG XIII</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 13.</div>
+              <div class="fig-caption">Canvas, Burlap</div>
+            </div>
           </a>
 
           <a class="fig-card" href="../assets/images/fig14WA.jpeg" target="_blank" rel="noopener" aria-label="Open Figure 14">
             <div class="fig-img"><img src="../assets/images/fig14WA.jpeg" alt="White Album, Figure 14"></div>
-            <div class="fig-meta"><div class="fig-title">FIG XIV</div><div class="fig-label">VIEW</div></div>
+            <div class="fig-meta">
+              <div class="fig-title">FIG. 14.</div>
+              <div class="fig-caption">Wood, Cable</div>
+            </div>
           </a>
         </div>
       </section>
