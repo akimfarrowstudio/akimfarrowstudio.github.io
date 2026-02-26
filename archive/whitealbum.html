@@ -323,7 +323,7 @@
       aspect-ratio:4/3;
       background:#1a0f0a;
       overflow:hidden;
-      position:relative; /* needed for overlay label */
+      position:relative;
     }
 
     .fig-img img{
@@ -340,7 +340,6 @@
       transform:scale(1.03);
     }
 
-    /* FIG tag on photo (SCM-style) */
     .fig-tag{
       position:absolute;
       bottom:10px;
@@ -364,10 +363,9 @@
       gap:0.25rem;
     }
 
-    /* White subtitle like your older “FROM THE SERIES” cards */
     .fig-title{
       font-family:var(--font-display);
-      font-size:1.2rem; /* bumped to match strip-title feel */
+      font-size:1.2rem;
       color:#fff;
       letter-spacing:0.05em;
       text-transform:uppercase;
@@ -430,6 +428,124 @@
 
     @media (max-width: 520px){
       .fig-grid{grid-template-columns:1fr}
+    }
+
+    /* -----------------------------
+       SIMPLE CAROUSEL OVERLAY
+       ----------------------------- */
+    .carousel-overlay{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:6vh 4vw;
+      background-color:var(--charcoal);
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.08) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    }
+
+    .carousel-overlay.open{display:flex;}
+
+    .carousel-stage{
+      width:min(1200px, 92vw);
+      height:min(78vh, 760px);
+      border:1px solid rgba(255,107,53,0.18);
+      background:rgba(26,15,10,0.55);
+      box-shadow:0 40px 120px rgba(0,0,0,0.75);
+      overflow:hidden;
+      position:relative;
+      transform: perspective(1200px) rotateZ(-1.4deg) rotateY(-3deg);
+      transform-origin:center;
+    }
+
+    .carousel-stage::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,107,53,0.10) 0%, transparent 55%),
+        linear-gradient(to bottom, rgba(255,255,255,0.06), transparent 40%, rgba(0,0,0,0.35));
+      mix-blend-mode:screen;
+      opacity:0.55;
+      z-index:2;
+    }
+
+    .carousel-strip{
+      width:100%;
+      height:100%;
+      display:flex;
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior-x:contain;
+      scroll-behavior:smooth;
+    }
+
+    .carousel-strip::-webkit-scrollbar{display:none;}
+
+    .carousel-slide{
+      flex:0 0 100%;
+      width:100%;
+      height:100%;
+      scroll-snap-align:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:3.5vh 3vw;
+      position:relative;
+    }
+
+    .carousel-slide img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      filter:grayscale(15%) contrast(1.08) brightness(0.92);
+      box-shadow:0 30px 80px rgba(0,0,0,0.55);
+      border:1px solid rgba(255,107,53,0.14);
+      background:rgba(18,18,18,0.6);
+      display:block;
+    }
+
+    .carousel-caption{
+      position:absolute;
+      left:18px;
+      bottom:14px;
+      font-size:0.65rem;
+      color:#fff;
+      background:rgba(26,15,10,0.85);
+      border:1px solid rgba(255,107,53,0.35);
+      padding:6px 10px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      z-index:3;
+      max-width:calc(100% - 36px);
+    }
+
+    .carousel-hint{
+      position:absolute;
+      top:14px;
+      right:16px;
+      font-size:0.6rem;
+      color:#8a665c;
+      text-transform:uppercase;
+      letter-spacing:0.2em;
+      z-index:3;
+      opacity:0.95;
+      user-select:none;
+    }
+
+    @media (max-width: 900px){
+      .carousel-stage{
+        transform: perspective(1200px) rotateZ(-1deg) rotateY(-2deg);
+      }
+      .carousel-slide{
+        padding:2.5vh 3vw;
+      }
     }
   </style>
 </head>
@@ -516,11 +632,12 @@
             <h2 class="section-title">WHITE ALBUM (I–XIV)</h2>
           </div>
 
-          <a class="view-all" href="../index.html#works">RETURN TO INDEX →</a>
+          <!-- FIX: include #wa so index-page glow triggers -->
+          <a class="view-all" href="../index.html#wa">RETURN TO INDEX →</a>
         </div>
 
         <div class="fig-grid">
-          <a class="fig-card" href="../assets/images/fig1WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album I">
+          <a class="fig-card" href="../assets/images/fig1WA.jpeg" data-caption="FIG. 1. — CANVAS, BURLAP" aria-label="Open White Album I">
             <div class="fig-img">
               <img src="../assets/images/fig1WA.jpeg" alt="White Album I">
               <div class="fig-tag">FIG. 1. — CANVAS, BURLAP</div>
@@ -530,7 +647,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig2WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album II">
+          <a class="fig-card" href="../assets/images/fig2WA.jpeg" data-caption="FIG. 2. — CANVAS, STEEL" aria-label="Open White Album II">
             <div class="fig-img">
               <img src="../assets/images/fig2WA.jpeg" alt="White Album II">
               <div class="fig-tag">FIG. 2. — CANVAS, STEEL</div>
@@ -540,7 +657,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig3WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album III">
+          <a class="fig-card" href="../assets/images/fig3WA.jpeg" data-caption="FIG. 3. — CANVAS, PEGBOARD" aria-label="Open White Album III">
             <div class="fig-img">
               <img src="../assets/images/fig3WA.jpeg" alt="White Album III">
               <div class="fig-tag">FIG. 3. — CANVAS, PEGBOARD</div>
@@ -550,7 +667,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig4WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album IV">
+          <a class="fig-card" href="../assets/images/fig4WA.jpeg" data-caption="FIG. 4. — LUMBER, BURLAP" aria-label="Open White Album IV">
             <div class="fig-img">
               <img src="../assets/images/fig4WA.jpeg" alt="White Album IV">
               <div class="fig-tag">FIG. 4. — LUMBER, BURLAP</div>
@@ -560,7 +677,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig5WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album V">
+          <a class="fig-card" href="../assets/images/fig5WA.jpeg" data-caption="FIG. 5. — WOOD, STEEL" aria-label="Open White Album V">
             <div class="fig-img">
               <img src="../assets/images/fig5WA.jpeg" alt="White Album V">
               <div class="fig-tag">FIG. 5. — WOOD, STEEL</div>
@@ -570,7 +687,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig6WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album VI">
+          <a class="fig-card" href="../assets/images/fig6WA.jpeg" data-caption="FIG. 6. — CANVAS, BRACKETS" aria-label="Open White Album VI">
             <div class="fig-img">
               <img src="../assets/images/fig6WA.jpeg" alt="White Album VI">
               <div class="fig-tag">FIG. 6. — CANVAS, BRACKETS</div>
@@ -580,7 +697,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig7WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album VII">
+          <a class="fig-card" href="../assets/images/fig7WA.jpeg" data-caption="FIG. 7. — CANVAS, BURLAP" aria-label="Open White Album VII">
             <div class="fig-img">
               <img src="../assets/images/fig7WA.jpeg" alt="White Album VII">
               <div class="fig-tag">FIG. 7. — CANVAS, BURLAP</div>
@@ -590,7 +707,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig8WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album VIII">
+          <a class="fig-card" href="../assets/images/fig8WA.jpeg" data-caption="FIG. 8. — CANVAS, STEEL" aria-label="Open White Album VIII">
             <div class="fig-img">
               <img src="../assets/images/fig8WA.jpeg" alt="White Album VIII">
               <div class="fig-tag">FIG. 8. — CANVAS, STEEL</div>
@@ -600,7 +717,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig9WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album IX">
+          <a class="fig-card" href="../assets/images/fig9WA.jpeg" data-caption="FIG. 9. — CANVAS, BURLAP" aria-label="Open White Album IX">
             <div class="fig-img">
               <img src="../assets/images/fig9WA.jpeg" alt="White Album IX">
               <div class="fig-tag">FIG. 9. — CANVAS, BURLAP</div>
@@ -610,7 +727,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig10WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album X">
+          <a class="fig-card" href="../assets/images/fig10WA.jpeg" data-caption="FIG. 10. — CANVAS, WOOD" aria-label="Open White Album X">
             <div class="fig-img">
               <img src="../assets/images/fig10WA.jpeg" alt="White Album X">
               <div class="fig-tag">FIG. 10. — CANVAS, WOOD</div>
@@ -620,7 +737,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig11WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album XI">
+          <a class="fig-card" href="../assets/images/fig11WA.jpeg" data-caption="FIG. 11. — CANVAS, STEEL" aria-label="Open White Album XI">
             <div class="fig-img">
               <img src="../assets/images/fig11WA.jpeg" alt="White Album XI">
               <div class="fig-tag">FIG. 11. — CANVAS, STEEL</div>
@@ -630,7 +747,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig12WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album XII">
+          <a class="fig-card" href="../assets/images/fig12WA.jpeg" data-caption="FIG. 12. — BURLAP, LUMBER" aria-label="Open White Album XII">
             <div class="fig-img">
               <img src="../assets/images/fig12WA.jpeg" alt="White Album XII">
               <div class="fig-tag">FIG. 12. — BURLAP, LUMBER</div>
@@ -640,7 +757,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig13WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album XIII">
+          <a class="fig-card" href="../assets/images/fig13WA.jpeg" data-caption="FIG. 13. — CANVAS, BURLAP" aria-label="Open White Album XIII">
             <div class="fig-img">
               <img src="../assets/images/fig13WA.jpeg" alt="White Album XIII">
               <div class="fig-tag">FIG. 13. — CANVAS, BURLAP</div>
@@ -650,7 +767,7 @@
             </div>
           </a>
 
-          <a class="fig-card" href="../assets/images/fig14WA.jpeg" target="_blank" rel="noopener" aria-label="Open White Album XIV">
+          <a class="fig-card" href="../assets/images/fig14WA.jpeg" data-caption="FIG. 14. — WOOD, CABLE" aria-label="Open White Album XIV">
             <div class="fig-img">
               <img src="../assets/images/fig14WA.jpeg" alt="White Album XIV">
               <div class="fig-tag">FIG. 14. — WOOD, CABLE</div>
@@ -671,6 +788,14 @@
         <div>WHITE ALBUM ARCHIVE PAGE</div>
       </footer>
     </main>
+  </div>
+
+  <!-- CAROUSEL OVERLAY (no arrows/dots) -->
+  <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
+    <div class="carousel-stage" role="dialog" aria-modal="true" aria-label="Image carousel">
+      <div class="carousel-hint">Swipe / scroll</div>
+      <div class="carousel-strip" id="carouselStrip"></div>
+    </div>
   </div>
 
   <script>
@@ -698,6 +823,97 @@
         });
       }, 150);
     }
+
+    // -----------------------------
+    // SIMPLE CAROUSEL (no arrows/dots)
+    // -----------------------------
+    const overlay = document.getElementById('carouselOverlay');
+    const strip = document.getElementById('carouselStrip');
+    const figLinks = Array.from(document.querySelectorAll('.fig-card'));
+
+    // Build slides once
+    function buildSlides() {
+      strip.innerHTML = '';
+      figLinks.forEach((a) => {
+        const href = a.getAttribute('href');
+        const caption = a.getAttribute('data-caption') || '';
+        const alt = (a.querySelector('img') && a.querySelector('img').getAttribute('alt')) || 'Figure';
+
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+
+        const img = document.createElement('img');
+        img.src = href;
+        img.alt = alt;
+
+        const cap = document.createElement('div');
+        cap.className = 'carousel-caption';
+        cap.textContent = caption;
+
+        slide.appendChild(img);
+        slide.appendChild(cap);
+        strip.appendChild(slide);
+      });
+    }
+
+    function openCarouselAt(index) {
+      if (!strip.children.length) buildSlides();
+
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+
+      // Freeze background scroll
+      document.body.style.overflow = 'hidden';
+
+      // Jump to slide
+      requestAnimationFrame(() => {
+        const slideWidth = strip.clientWidth || 1;
+        strip.scrollLeft = Math.max(0, index) * slideWidth;
+      });
+    }
+
+    function closeCarousel() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    figLinks.forEach((a, idx) => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCarouselAt(idx);
+      });
+    });
+
+    // Close: click outside stage
+    overlay.addEventListener('click', (e) => {
+      const stage = overlay.querySelector('.carousel-stage');
+      if (!stage.contains(e.target)) closeCarousel();
+    });
+
+    // Close: ESC
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
+    });
+
+    // Optional: allow mousewheel vertical to scroll horizontal in the carousel
+    function handleCarouselWheel(evt) {
+      const dx = Math.abs(evt.deltaX || 0);
+      const dy = Math.abs(evt.deltaY || 0);
+      if (dy > dx) {
+        evt.preventDefault();
+        strip.scrollLeft += evt.deltaY;
+      }
+    }
+    strip.addEventListener('wheel', handleCarouselWheel, { passive: false });
+
+    // Keep slide alignment on resize (so you don’t land between frames)
+    window.addEventListener('resize', () => {
+      if (!overlay.classList.contains('open')) return;
+      const slideWidth = strip.clientWidth || 1;
+      const currentIndex = Math.round(strip.scrollLeft / slideWidth);
+      strip.scrollLeft = currentIndex * slideWidth;
+    });
   </script>
 </body>
 </html>
