@@ -136,7 +136,7 @@
       overflow: hidden;
       border-top: 1px solid rgba(255, 107, 53, 0.3);
       border-bottom: 1px solid rgba(255, 107, 53, 0.3);
-      cursor: pointer; /* ADDED: clickable to open carousel */
+      cursor: pointer;
     }
 
     .hero-full img {
@@ -334,7 +334,7 @@
     }
 
     /* =========================
-       CAROUSEL LIGHTBOX (ADDED)
+       LIGHTBOX (NO ARROWS)
        ========================= */
     .bbt-lightbox {
       position: fixed;
@@ -371,7 +371,6 @@
       align-items: center;
       justify-content: center;
       padding: 3.5rem 2.5rem 4.25rem;
-      touch-action: pan-y;
     }
 
     .bbt-slide img {
@@ -381,7 +380,6 @@
       filter: grayscale(10%) contrast(1.05);
       user-select: none;
       -webkit-user-drag: none;
-      pointer-events: none;
     }
 
     .bbt-caption {
@@ -432,13 +430,14 @@
       align-items: center;
       justify-content: center;
       line-height: 1;
+      z-index: 2;
     }
 
     .bbt-close:hover {
       border-color: var(--oxide-gold);
       color: var(--oxide-gold);
     }
-  
+
     @media (max-width: 900px) {
       .bbt-slide { padding: 3.25rem 1rem 4.25rem; }
     }
@@ -448,7 +447,6 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <!-- Logo links to homepage (match SCM) -->
       <a class="brand" href="../index.html" aria-label="Home">
         <img class="brand-img" src="../ogw.png?v=5" alt="White Logo">
       </a>
@@ -466,10 +464,8 @@
     </aside>
 
     <main class="scrolling-content">
-      <!-- Return to Archive (top, like SCM) -->
       <a href="../index.html#works" class="back-btn">← RETURN TO ARCHIVE</a>
 
-      <!-- CLICKABLE HERO IMAGE OPENS CAROUSEL WINDOW -->
       <div class="hero-full" id="bbtHero" aria-label="Open image viewer">
         <img src="../assets/images/baobabbottletree.jpg" alt="Baobab Bottle Tree">
         <div class="hero-overlay"></div>
@@ -502,10 +498,8 @@
         <div class="statement-section">
           <div class="statement-text">
             <p>Baobab Bottle Tree stands as a vertical marker of memory, protection, and migration. The steel armature swells at its midsection and narrows as it rises, echoing the silhouette of the baobab while remaining visibly fabricated. The structure does not conceal its welds or joints; it declares them.</p>
-
             <p>Cobalt bottles extend from the upper branches, catching light and holding it. In Southern yard traditions, bottle trees function as spiritual traps and guardians. Here, they operate as both signal and archive. The glass punctuates the steel with color and fragility, interrupting the severity of the frame.</p>
-
-            <p>The mulch establishes a ground condition rather than a neutral pedestal. It situates the work somewhere between sculpture and site, between monument and living marker. The piece considers how forms travel across continents and generations, carrying protection, belief, and structure with them.</p>
+            <p>The mulch establishes a ground condition. It situates the work somewhere between sculpture and site, between monument and living marker. The piece considers how forms travel across continents and generations, carrying protection, belief, and structure with them.</p>
           </div>
         </div>
 
@@ -548,7 +542,6 @@
           <a href="../index.html#works" class="back-nav">RETURN TO ARCHIVE</a>
         </footer>
 
-        <!-- SCM-style archival footer -->
         <footer class="archive-footer">
           <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
           <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
@@ -557,59 +550,28 @@
     </main>
   </div>
 
-  <!-- CAROUSEL LIGHTBOX WINDOW (ADDED) -->
+  <!-- LIGHTBOX WINDOW -->
   <div class="bbt-lightbox" id="bbtLightbox" aria-hidden="true">
     <div class="bbt-stage" role="dialog" aria-label="Image viewer">
       <button class="bbt-close" id="bbtClose" aria-label="Close">×</button>
-      <div class="bbt-slide" id="bbtSlide">
-        <img id="bbtImg" src="" alt="">
+
+      <div class="bbt-slide">
+        <img id="bbtImg" src="../assets/images/baobabbottletree.jpg" alt="Baobab Bottle Tree">
       </div>
 
       <div class="bbt-caption">
-        <div class="bbt-cap-title" id="bbtCapTitle"></div>
-        <div class="bbt-cap-meta" id="bbtCapMeta"></div>
+        <div class="bbt-cap-title" id="bbtCapTitle">Baobab Bottle Tree</div>
+        <div class="bbt-cap-meta" id="bbtCapMeta">2024 · Steel &amp; Glass</div>
       </div>
     </div>
   </div>
 
   <script>
-    // CAROUSEL DATA (easy to add more later)
-    const bbtSlides = [
-      {
-        src: "../assets/images/baobabbottletree.jpg",
-        alt: "Baobab Bottle Tree",
-        title: "Baobab Bottle Tree",
-        meta: "2024 · Steel & Glass"
-      }
-    ];
-
     const bbtHero = document.getElementById("bbtHero");
     const bbtLightbox = document.getElementById("bbtLightbox");
     const bbtClose = document.getElementById("bbtClose");
-    const bbtPrev = document.getElementById("bbtPrev");
-    const bbtNext = document.getElementById("bbtNext");
-    const bbtImg = document.getElementById("bbtImg");
-    const bbtCapTitle = document.getElementById("bbtCapTitle");
-    const bbtCapMeta = document.getElementById("bbtCapMeta");
 
-    let bbtIndex = 0;
-
-    function renderBBT() {
-      const s = bbtSlides[bbtIndex];
-      bbtImg.src = s.src;
-      bbtImg.alt = s.alt || "";
-      bbtCapTitle.textContent = s.title || "";
-      bbtCapMeta.textContent = s.meta || "";
-
-      // Disable arrows when only one slide
-      const single = bbtSlides.length <= 1;
-      bbtPrev.disabled = single;
-      bbtNext.disabled = single;
-    }
-
-    function openBBT(startIndex = 0) {
-      bbtIndex = Math.max(0, Math.min(startIndex, bbtSlides.length - 1));
-      renderBBT();
+    function openBBT() {
       bbtLightbox.classList.add("open");
       bbtLightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -621,62 +583,19 @@
       document.body.style.overflow = "";
     }
 
-    function prevBBT() {
-      if (bbtSlides.length <= 1) return;
-      bbtIndex = (bbtIndex - 1 + bbtSlides.length) % bbtSlides.length;
-      renderBBT();
-    }
-
-    function nextBBT() {
-      if (bbtSlides.length <= 1) return;
-      bbtIndex = (bbtIndex + 1) % bbtSlides.length;
-      renderBBT();
-    }
-
-    if (bbtHero) bbtHero.addEventListener("click", () => openBBT(0));
+    if (bbtHero) bbtHero.addEventListener("click", openBBT);
     if (bbtClose) bbtClose.addEventListener("click", closeBBT);
-    if (bbtPrev) bbtPrev.addEventListener("click", prevBBT);
-    if (bbtNext) bbtNext.addEventListener("click", nextBBT);
 
-    // Close when clicking outside stage
     if (bbtLightbox) {
       bbtLightbox.addEventListener("click", (e) => {
         if (e.target === bbtLightbox) closeBBT();
       });
     }
 
-    // Keyboard
     window.addEventListener("keydown", (e) => {
       if (!bbtLightbox.classList.contains("open")) return;
-
-      if (e.key === "Escape") closeBBT;
-      if (e.key === "ArrowLeft") prevBBT();
-      if (e.key === "ArrowRight") nextBBT();
       if (e.key === "Escape") closeBBT();
     });
-
-    // Touch swipe (works even with one image, but mainly for future)
-    let touchX = null;
-
-    const bbtSlide = document.getElementById("bbtSlide");
-    if (bbtSlide) {
-      bbtSlide.addEventListener("touchstart", (e) => {
-        touchX = e.touches && e.touches[0] ? e.touches[0].clientX : null;
-      }, { passive: true });
-
-      bbtSlide.addEventListener("touchend", (e) => {
-        if (touchX === null) return;
-        const endX = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : null;
-        if (endX === null) return;
-
-        const dx = endX - touchX;
-        touchX = null;
-
-        if (Math.abs(dx) < 40) return;
-        if (dx > 0) prevBBT();
-        else nextBBT();
-      }, { passive: true });
-    }
   </script>
 </body>
 </html>
