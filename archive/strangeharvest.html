@@ -41,6 +41,20 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{width:100%}
 
+      .archive-footer{
+      margin-top: 8rem;
+      padding: 2rem 0;
+      border-top: 1px solid #3d2218;
+      font-size: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: #8a665c;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      flex-wrap: wrap;
+    }
+
     body{
       background-color:var(--charcoal);
       color:#e8e0dc;
@@ -163,6 +177,47 @@
       filter:grayscale(0%) contrast(100%);
       transform:scale(1.01);
     }
+    /* --- STRIP CUT GALLERY (single source image, sliced) --- */
+    .gallery-item.strip{
+      height: 260px;              /* strip height */
+      border: 1px solid rgba(255,107,53,0.15);
+      background: var(--void);
+      overflow: hidden;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      cursor: zoom-in;
+      position: relative;
+    }
+    
+    /* replace <img> with a background slice */
+    .gallery-item.strip .strip-slice{
+      width: 100%;
+      height: 100%;
+      background-image: url("../assets/images/strangeharvest.jpg");
+      background-size: 100% 500%;  /* 5 strips tall */
+      background-repeat: no-repeat;
+      filter: grayscale(30%) contrast(110%);
+      transform: scale(1);
+      transition: filter 0.5s ease, transform 0.35s ease;
+    }
+    
+    .gallery-item.strip:hover .strip-slice{
+      filter: grayscale(0%) contrast(100%);
+      transform: scale(1.01);
+    }
+    
+    /* Choose which slice each strip shows */
+    .strip-1{ background-position: 50% 0%; }
+    .strip-2{ background-position: 50% 25%; }
+    .strip-3{ background-position: 50% 50%; }
+    .strip-4{ background-position: 50% 75%; }
+    .strip-5{ background-position: 50% 100%; }
+    
+    /* Mobile: make strips a bit shorter */
+    @media (max-width: 980px){
+      .gallery-item.strip{ height: 200px; }
+    }
 
     .info-panel{
       height:100vh;
@@ -175,6 +230,11 @@
       flex-direction:column;
       -webkit-overflow-scrolling:touch;
     }
+    
+    <footer class="archive-footer" vid="70">
+  <div vid="71">DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
+  <div vid="72">CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
+</footer>
 
     .back-nav{margin-bottom:4rem}
 
@@ -420,26 +480,26 @@
 
     <main class="detail-container">
     <div class="image-gallery" aria-label="Image gallery">
-      <a class="gallery-item" href="../assets/images/SH.jpeg" data-caption="STRANGE HARVEST — OVERALL" aria-label="Open Strange Harvest overall">
-        <img src="../assets/images/SH.jpeg" alt="Strange Harvest overall view">
-      </a>
-    
-      <a class="gallery-item" href="../assets/images/SHdown.jpeg" data-caption="STRANGE HARVEST — DOWN VIEW" aria-label="Open Strange Harvest down view">
-        <img src="../assets/images/SHdown.jpeg" alt="Strange Harvest down view">
-      </a>
-    
-      <a class="gallery-item" href="../assets/images/SHclose.jpeg" data-caption="STRANGE HARVEST — CLOSE VIEW" aria-label="Open Strange Harvest close view">
-        <img src="../assets/images/SHclose.jpeg" alt="Strange Harvest close view">
-      </a>
-    
-      <a class="gallery-item" href="../assets/images/SHweld.jpeg" data-caption="STRANGE HARVEST — WELD DETAIL" aria-label="Open Strange Harvest weld detail">
-        <img src="../assets/images/SHweld.jpeg" alt="Strange Harvest weld detail">
-      </a>
-    
-      <a class="gallery-item" href="../assets/images/SHsetup.jpeg" data-caption="STRANGE HARVEST — SET UP" aria-label="Open Strange Harvest setup">
-        <img src="../assets/images/SHsetup.jpeg" alt="Strange Harvest setup / installation phase">
-      </a>
-    </div>
+  <a class="gallery-item strip" href="../assets/images/SH.jpeg" data-caption="STRANGE HARVEST — OVERALL" aria-label="Open Strange Harvest overall">
+    <div class="strip-slice strip-1" aria-hidden="true"></div>
+  </a>
+
+  <a class="gallery-item strip" href="../assets/images/SHdown.jpeg" data-caption="STRANGE HARVEST — DOWN VIEW" aria-label="Open Strange Harvest down view">
+    <div class="strip-slice strip-2" aria-hidden="true"></div>
+  </a>
+
+  <a class="gallery-item strip" href="../assets/images/SHclose.jpeg" data-caption="STRANGE HARVEST — CLOSE VIEW" aria-label="Open Strange Harvest close view">
+    <div class="strip-slice strip-3" aria-hidden="true"></div>
+  </a>
+
+  <a class="gallery-item strip" href="../assets/images/SHweld.jpeg" data-caption="STRANGE HARVEST — WELD DETAIL" aria-label="Open Strange Harvest weld detail">
+    <div class="strip-slice strip-4" aria-hidden="true"></div>
+  </a>
+
+  <a class="gallery-item strip" href="../assets/images/SHsetup.jpeg" data-caption="STRANGE HARVEST — SET UP" aria-label="Open Strange Harvest setup">
+    <div class="strip-slice strip-5" aria-hidden="true"></div>
+  </a>
+</div>
 
       <div class="info-panel">
         <div class="back-nav">
@@ -467,13 +527,12 @@
           </p>
         </div>
 
-    <!-- SET UP // INSTALLATION PHASE -->
-    <div class="phase-block">
-      <div class="phase-label">SET UP // INSTALLATION PHASE</div>
-      <div class="phase-img">
-        <img src="../assets/images/SHsetup.jpeg" alt="Strange Harvest setup / installation phase">
-      </div>
-    </div>
+  <div class="phase-block">
+  <div class="phase-label">SET UP // INSTALLATION PHASE</div>
+  <div class="phase-img">
+    <img src="../assets/images/SHsetup.jpeg" alt="Strange Harvest installation phase">
+  </div>
+</div>
 
   <!-- CAROUSEL OVERLAY (no arrows/dots) -->
   <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
@@ -608,14 +667,7 @@
       strip.scrollLeft = currentIndex * slideWidth;
     });
   </script>
-        <footer class="archive-footer" vid="70">
-          <div vid="71">DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
-          <div vid="72">CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
-        </footer>
-      </div>
-    </main>
-  </div>
-
+    
   <!-- CAROUSEL OVERLAY (no arrows/dots) -->
   <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
     <div class="carousel-stage" role="dialog" aria-modal="true" aria-label="Image carousel">
