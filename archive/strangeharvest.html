@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Strange Harvest | Akim Farrow</title>
 
-  <!-- SITE ICONS (match your other archive pages) -->
+  <!-- SITE ICONS -->
   <link rel="icon" href="../og.jpg?v=2" type="image/jpeg">
   <link rel="apple-touch-icon" href="../og.jpg?v=2">
   <link rel="shortcut icon" href="../og.jpg?v=2" type="image/jpeg">
@@ -68,6 +68,7 @@
       position:relative;
     }
 
+    /* Homepage-style logo (upright) */
     .brand{
       display:flex;
       align-items:center;
@@ -264,21 +265,6 @@
       filter:grayscale(20%) contrast(1.08) brightness(0.9);
     }
 
-    /* Footer (kept consistent with your archive style) */
-    .archive-footer{
-      margin-top: 8rem;
-      padding: 2rem 0;
-      border-top: 1px solid #3d2218;
-      font-size: 0.6rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      color: #8a665c;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      flex-wrap: wrap;
-    }
-
     ::-webkit-scrollbar{width:4px}
     ::-webkit-scrollbar-track{background:transparent}
     ::-webkit-scrollbar-thumb{background:#3d2218}
@@ -434,7 +420,7 @@
     </aside>
 
     <main class="detail-container">
-      <!-- LEFT: use SHclose.jpeg (full-size images, no slicing) -->
+      <!-- LEFT: SHclose.jpeg as the primary left image (plus the rest) -->
       <div class="image-gallery" aria-label="Image gallery">
         <a class="gallery-item" href="../assets/images/SHclose.jpeg" data-caption="STRANGE HARVEST — CLOSE VIEW" aria-label="Open Strange Harvest close view">
           <img src="../assets/images/SHclose.jpeg" alt="Strange Harvest close view">
@@ -477,12 +463,12 @@
           <p>
             This piece serves as a structural study of diasporic ritual and vertical form. Drawing from the silhouette of the baobab and the vernacular language of Southern bottle trees, I translated those references into welded steel rod and suspended cobalt glass. The lattice construction keeps the body open, allowing light to pass through and activate the surrounding space.
           </p>
-          <p>
+          <p style="margin-top:1.25rem;">
             The bottles gather at the crown like fruit or signal markers, holding histories of protection and spiritual presence. The steel framework remains exposed, with visible welds recording heat and labor as surface fact. It stands as a monument to continuity across geographies, carrying ancestral form into contemporary material without sentimentality.
           </p>
         </div>
 
-        <!-- DETAILS (renamed) and use SHdown.jpeg -->
+        <!-- DETAILS (renamed) and image is SHdown.jpeg -->
         <div class="phase-block">
           <div class="phase-label">DETAILS</div>
           <div class="phase-img">
@@ -490,8 +476,8 @@
           </div>
         </div>
 
-        <!-- Footer positioned correctly INSIDE the info panel -->
-        <footer class="archive-footer">
+        <!-- FOOTER: EXACT inline style copied from Steel Cage Mother -->
+        <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;">
           <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
           <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
         </footer>
