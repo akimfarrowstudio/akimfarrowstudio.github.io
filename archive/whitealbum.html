@@ -807,186 +807,168 @@
         <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
       </div>
     </div>
+  <!-- REPLACE your entire current <script> ... </script> block with this one -->
+<script>
+  const scrollContainer = document.querySelector('.scrolling-content');
+  const heroBg = document.querySelector('.hero-bg');
 
-  <script>
-    const scrollContainer = document.querySelector('.scrolling-content');
-    const heroBg = document.querySelector('.hero-bg');
+  if (scrollContainer && heroBg) {
+    scrollContainer.addEventListener('scroll', () => {
+      const scroll = scrollContainer.scrollTop;
+      const height = window.innerHeight || 1;
+      const opacity = 1 - (scroll / height);
 
-    if (scrollContainer && heroBg) {
-      scrollContainer.addEventListener('scroll', () => {
-        const scroll = scrollContainer.scrollTop;
-        const height = window.innerHeight || 1;
-        const opacity = 1 - (scroll / height);
-
-        if (scroll < height) {
-          heroBg.style.opacity = String(Math.max(0, opacity));
-          heroBg.style.transform = `translateY(${scroll * 0.3}px)`;
-        }
-      });
-    }
-
-    const bars = document.querySelectorAll('.wave-bar');
-    if (bars.length) {
-      setInterval(() => {
-        bars.forEach(bar => {
-          if (Math.random() > 0.5) bar.style.height = `${Math.random() * 100}%`;
-        });
-      }, 150);
-    }
-
-    // -----------------------------
-    // SIMPLE CAROUSEL (no arrows/dots)
-    // -----------------------------
-    const overlay = document.getElementById('carouselOverlay');
-    const strip = document.getElementById('carouselStrip');
-    const figLinks = Array.from(document.querySelectorAll('.fig-card'));
-    // -----------------------------
-    // DRAG TO SCROLL (mouse + touch)
-    // -----------------------------
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragStartScrollLeft = 0;
-    
-    function getClientX(evt) {
-      if (evt.touches && evt.touches.length) return evt.touches[0].clientX;
-      if (evt.changedTouches && evt.changedTouches.length) return evt.changedTouches[0].clientX;
-      return evt.clientX;
-    }
-    
-    function onDragStart(evt) {
-      if (!overlay.classList.contains('open')) return;
-    
-      isDragging = true;
-      strip.classList.add('dragging');
-    
-      dragStartX = getClientX(evt);
-      dragStartScrollLeft = strip.scrollLeft;
-    
-      evt.preventDefault();
-    }
-    
-    function onDragMove(evt) {
-      if (!isDragging) return;
-    
-      const x = getClientX(evt);
-      const dx = x - dragStartX;
-    
-      strip.scrollLeft = dragStartScrollLeft - dx;
-    
-      evt.preventDefault();
-    }
-    
-    function onDragEnd() {
-      isDragging = false;
-      strip.classList.remove('dragging');
-    }
-    
-    // Mouse (desktop)
-    strip.addEventListener('mousedown', onDragStart);
-    window.addEventListener('mousemove', onDragMove, { passive: false });
-    window.addEventListener('mouseup', onDragEnd);
-    
-    // Touch (mobile)
-    strip.addEventListener('touchstart', onDragStart, { passive: false });
-    strip.addEventListener('touchmove', onDragMove, { passive: false });
-    strip.addEventListener('touchend', onDragEnd);
-    strip.addEventListener('touchcancel', onDragEnd);
-
-    // Build slides once
-    function buildSlides() {
-      strip.innerHTML = '';
-      figLinks.forEach((a) => {
-        const href = a.getAttribute('href');
-        const caption = a.getAttribute('data-caption') || '';
-        const alt = (a.querySelector('img') && a.querySelector('img').getAttribute('alt')) || 'Figure';
-
-        const slide = document.createElement('div');
-        slide.className = 'carousel-slide';
-
-        const img = document.createElement('img');
-        img.src = href;
-        img.alt = alt;
-
-        const cap = document.createElement('div');
-        cap.className = 'carousel-caption';
-        cap.textContent = caption;
-
-        slide.appendChild(img);
-        slide.appendChild(cap);
-        strip.appendChild(slide);
-      });
-    }
-
-    function openCarouselAt(index) {
-      if (!strip.children.length) buildSlides();
-
-      overlay.classList.add('open');
-      overlay.setAttribute('aria-hidden', 'false');
-
-      // Freeze background scroll
-      document.body.style.overflow = 'hidden';
-
-      // Jump to slide
-      requestAnimationFrame(() => {
-        const slideWidth = strip.clientWidth || 1;
-        strip.scrollLeft = Math.max(0, index) * slideWidth;
-        strip.focus({ preventScroll: true });
-      });
-    }
-  
-    function closeCarousel() {
-      overlay.classList.remove('open');
-      overlay.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    figLinks.forEach((a, idx) => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        openCarouselAt(idx);
-      });
-    });
-
-    // Close: click outside stage
-    overlay.addEventListener('click', (e) => {
-      const stage = overlay.querySelector('.carousel-stage');
-      if (!stage.contains(e.target)) closeCarousel();
-    });
-
-    // Close: ESC
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
-    });
-
-    // Optional: allow mousewheel vertical to scroll horizontal in the carousel
-    // Desktop: convert vertical mousewheel into horizontal carousel motion (works anywhere on overlay)
-    function handleCarouselWheel(evt) {
-      if (!overlay.classList.contains('open')) return;
-    
-      // If the user is already doing horizontal (trackpad), don't fight it
-      const dx = Math.abs(evt.deltaX || 0);
-      const dy = Math.abs(evt.deltaY || 0);
-    
-      // Most desktop mice are vertical only
-      if (dy > dx) {
-        evt.preventDefault();
-       strip.scrollLeft += (evt.deltaY || 0) * 0.35;
+      if (scroll < height) {
+        heroBg.style.opacity = String(Math.max(0, opacity));
+        heroBg.style.transform = `translateY(${scroll * 0.3}px)`;
       }
-    }
-    
-    // Capture wheel on the overlay so it works even if the cursor is over the image/caption
-    overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
-    
-    // Also keep it on the strip itself (belt + suspenders)
-    strip.addEventListener('wheel', handleCarouselWheel, { passive: false });
-
-    // Keep slide alignment on resize (so you don’t land between frames)
-    window.addEventListener('resize', () => {
-      if (!overlay.classList.contains('open')) return;
-      const slideWidth = strip.clientWidth || 1;
-      const currentIndex = Math.round(strip.scrollLeft / slideWidth);
-      strip.scrollLeft = currentIndex * slideWidth;
     });
-  </script>
+  }
+
+  const bars = document.querySelectorAll('.wave-bar');
+  if (bars.length) {
+    setInterval(() => {
+      bars.forEach(bar => {
+        if (Math.random() > 0.5) bar.style.height = `${Math.random() * 100}%`;
+      });
+    }, 150);
+  }
+
+  // -----------------------------
+  // CAROUSEL (swipe on mobile, drag on desktop)
+  // -----------------------------
+  const overlay = document.getElementById('carouselOverlay');
+  const strip = document.getElementById('carouselStrip');
+  const figLinks = Array.from(document.querySelectorAll('.fig-card'));
+
+  // Build slides once
+  function buildSlides() {
+    strip.innerHTML = '';
+    figLinks.forEach((a) => {
+      const href = a.getAttribute('href');
+      const caption = a.getAttribute('data-caption') || '';
+      const alt = (a.querySelector('img') && a.querySelector('img').getAttribute('alt')) || 'Figure';
+
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+
+      const img = document.createElement('img');
+      img.src = href;
+      img.alt = alt;
+
+      const cap = document.createElement('div');
+      cap.className = 'carousel-caption';
+      cap.textContent = caption;
+
+      slide.appendChild(img);
+      slide.appendChild(cap);
+      strip.appendChild(slide);
+    });
+  }
+
+  function openCarouselAt(index) {
+    if (!strip.children.length) buildSlides();
+
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    requestAnimationFrame(() => {
+      const slideWidth = strip.clientWidth || 1;
+      strip.scrollLeft = Math.max(0, index) * slideWidth;
+      strip.focus({ preventScroll: true });
+    });
+  }
+
+  function closeCarousel() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  figLinks.forEach((a, idx) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      openCarouselAt(idx);
+    });
+  });
+
+  // Close: click outside stage
+  overlay.addEventListener('click', (e) => {
+    const stage = overlay.querySelector('.carousel-stage');
+    if (!stage.contains(e.target)) closeCarousel();
+  });
+
+  // Close: ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
+  });
+
+  // Desktop wheel: vertical wheel drives horizontal strip (attach ONLY once, to overlay)
+  function handleCarouselWheel(evt) {
+    if (!overlay.classList.contains('open')) return;
+
+    const dx = Math.abs(evt.deltaX || 0);
+    const dy = Math.abs(evt.deltaY || 0);
+
+    if (dy > dx) {
+      evt.preventDefault();
+      strip.scrollLeft += (evt.deltaY || 0) * 0.35;
+    }
+  }
+  overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
+
+  // Drag on desktop without breaking mobile swipe:
+  // Use Pointer Events, and ONLY preventDefault for mouse pointers.
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScrollLeft = 0;
+
+  function clientXFromEvent(evt) {
+    return evt.clientX;
+  }
+
+  strip.addEventListener('pointerdown', (evt) => {
+    if (!overlay.classList.contains('open')) return;
+
+    // Let touch behave natively (swipe). Only custom-drag for mouse/trackpad pointers.
+    if (evt.pointerType !== 'mouse') return;
+
+    isDragging = true;
+    strip.classList.add('dragging');
+    dragStartX = clientXFromEvent(evt);
+    dragStartScrollLeft = strip.scrollLeft;
+
+    strip.setPointerCapture(evt.pointerId);
+    evt.preventDefault();
+  });
+
+  strip.addEventListener('pointermove', (evt) => {
+    if (!isDragging) return;
+    const x = clientXFromEvent(evt);
+    const dx = x - dragStartX;
+    strip.scrollLeft = dragStartScrollLeft - dx;
+    evt.preventDefault();
+  });
+
+  function endDrag(evt) {
+    if (!isDragging) return;
+    isDragging = false;
+    strip.classList.remove('dragging');
+    try { strip.releasePointerCapture(evt.pointerId); } catch (_) {}
+  }
+
+  strip.addEventListener('pointerup', endDrag);
+  strip.addEventListener('pointercancel', endDrag);
+  strip.addEventListener('pointerleave', endDrag);
+
+  // Keep slide alignment on resize
+  window.addEventListener('resize', () => {
+    if (!overlay.classList.contains('open')) return;
+    const slideWidth = strip.clientWidth || 1;
+    const currentIndex = Math.round(strip.scrollLeft / slideWidth);
+    strip.scrollLeft = currentIndex * slideWidth;
+  });
+</script>
 </body>
 </html>
