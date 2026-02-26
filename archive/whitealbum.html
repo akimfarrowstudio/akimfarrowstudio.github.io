@@ -869,9 +869,10 @@
       requestAnimationFrame(() => {
         const slideWidth = strip.clientWidth || 1;
         strip.scrollLeft = Math.max(0, index) * slideWidth;
+        strip.focus({ preventScroll: true });
       });
     }
-
+  
     function closeCarousel() {
       overlay.classList.remove('open');
       overlay.setAttribute('aria-hidden', 'true');
