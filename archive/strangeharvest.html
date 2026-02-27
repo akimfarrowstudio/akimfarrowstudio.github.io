@@ -5,17 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Strange Harvest | Akim Farrow</title>
 
+  <!-- SITE ICONS -->
   <link rel="icon" href="../og.jpg?v=2" type="image/jpeg">
   <link rel="apple-touch-icon" href="../og.jpg?v=2">
   <link rel="shortcut icon" href="../og.jpg?v=2" type="image/jpeg">
 
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Strange Harvest | Akim Farrow">
   <meta property="og:type" content="website">
   <meta property="og:image" content="../assets/images/main.jpg?v=1">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/jpeg">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Strange Harvest | Akim Farrow">
   <meta name="twitter:image" content="../assets/images/main.jpg?v=1">
@@ -29,9 +30,12 @@
       --void:#1a0f0a;
       --charcoal:#121212;
       --rust:#d35400;
+      --rust-glow:#e67e22;
       --oxide-gold:#ff6b35;
+      --steel:#2c1e18;
       --font-display:'Anton',sans-serif;
       --font-mono:'Space Mono',monospace;
+      --border:1px solid rgba(255,107,53,0.2);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -78,6 +82,7 @@
       height:auto;
       max-width:80%;
       display:block;
+      transform:none;
     }
 
     .nav-vertical{
@@ -95,7 +100,7 @@
       text-decoration:none;
       writing-mode:vertical-rl;
       transform:rotate(180deg);
-      transition:color 0.3s ease;
+      transition:all 0.3s ease;
       white-space:nowrap;
     }
 
@@ -124,86 +129,49 @@
         url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
     }
 
-    /* LEFT: make gallery behave like White Album tiles */
     .image-gallery{
       overflow-y:auto;
       height:100vh;
       padding:2rem;
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:1.75rem;
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+      scroll-behavior:smooth;
       -webkit-overflow-scrolling:touch;
     }
 
     .gallery-item{
+      width:100%;
+      border:1px solid rgba(255,107,53,0.15);
+      background:var(--void);
+      overflow:hidden;
+      display:block;
       text-decoration:none;
       color:inherit;
-      display:block;
-      border:1px solid #3d2218;
-      background:rgba(26,15,10,0.35);
-      transition:transform 0.2s ease, border-color 0.2s ease;
-      overflow:hidden;
-      cursor:pointer;
+      cursor:zoom-in;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .gallery-item:hover{
-      transform:translateY(-2px);
-      border-color:rgba(255,107,53,0.55);
-    }
-
-    .gallery-img{
-      aspect-ratio:4/3;
-      background:#1a0f0a;
-      overflow:hidden;
-      position:relative;
-    }
-
-    .gallery-img img{
+    /* center a visible mid-detail instead of top-cropping */
+    .gallery-item img{
       width:100%;
-      height:100%;
+      height:180px;
       object-fit:cover;
-      filter:grayscale(65%) brightness(0.65);
-      transition:transform 0.4s ease, filter 0.4s ease;
+      object-position:center center;
       display:block;
+      filter:grayscale(30%) contrast(110%);
+      transition:filter 0.5s ease, transform 0.35s ease;
+      transform:scale(1);
+      -webkit-user-select:none;
+      user-select:none;
+      -webkit-touch-callout:none;
     }
 
     .gallery-item:hover img{
-      filter:grayscale(0%) brightness(0.85);
-      transform:scale(1.03);
+      filter:grayscale(0%) contrast(100%);
+      transform:scale(1.01);
     }
 
-    .gallery-tag{
-      position:absolute;
-      bottom:10px;
-      right:10px;
-      font-size:0.6rem;
-      color:#fff;
-      background:var(--void);
-      padding:2px 6px;
-      border:1px solid var(--rust);
-      text-transform:uppercase;
-      letter-spacing:0.12em;
-      line-height:1.35;
-      max-width:calc(100% - 20px);
-      text-align:right;
-    }
-
-    .gallery-meta{
-      padding:0.9rem 1rem 1rem 1rem;
-      display:flex;
-      flex-direction:column;
-      gap:0.25rem;
-    }
-
-    .gallery-title{
-      font-family:var(--font-display);
-      font-size:1.2rem;
-      color:#fff;
-      letter-spacing:0.05em;
-      text-transform:uppercase;
-    }
-
-    /* RIGHT: info panel unchanged */
     .info-panel{
       height:100vh;
       padding:4rem;
@@ -304,13 +272,9 @@
       filter:grayscale(20%) contrast(1.08) brightness(0.9);
     }
 
-    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar{width:4px}
     ::-webkit-scrollbar-track{background:transparent}
     ::-webkit-scrollbar-thumb{background:#3d2218}
-
-    @media (max-width: 1100px){
-      .image-gallery{grid-template-columns:1fr}
-    }
 
     @media (max-width: 980px){
       body{overflow:auto;height:auto}
@@ -319,16 +283,23 @@
       .image-gallery{height:auto}
       .info-panel{height:auto;border-left:none;border-top:1px solid #3d2218}
       .artwork-main-title{font-size:3.5rem}
+      .gallery-item img{ height:160px; }
     }
 
-    /* remove iOS blue tap highlight */
+    /* remove iOS blue tap highlight + iOS focus ring quirks */
     *{ -webkit-tap-highlight-color: transparent; }
     a, button{ -webkit-tap-highlight-color: transparent; }
+    a:focus{ outline:none; }
+    a:focus-visible{ outline:none; }
+    button{ outline:none; }
+    button:focus{ outline:none; }
+    button:focus-visible{ outline: 1px solid rgba(255,107,53,0.45); outline-offset: 2px; }
 
     /* -----------------------------
-       CAROUSEL OVERLAY + FILM DOTS
-       exact same as White Album
-    ----------------------------- */
+       CAROUSEL OVERLAY
+       Markers top/bottom desktop, left/right mobile
+       Corrected: markers count matches slides, and active syncing uses full length.
+       ----------------------------- */
     .carousel-overlay{
       position:fixed;
       inset:0;
@@ -354,9 +325,19 @@
       position:relative;
       transform:perspective(1200px) rotateZ(-1.4deg) rotateY(-3deg);
       transform-origin:center;
+    }
 
-      display:grid;
-      grid-template-rows:auto 1fr auto;
+    .carousel-stage::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,107,53,0.10) 0%, transparent 55%),
+        linear-gradient(to bottom, rgba(255,255,255,0.06), transparent 40%, rgba(0,0,0,0.35));
+      mix-blend-mode:screen;
+      opacity:0.55;
+      z-index:2;
     }
 
     .carousel-close{
@@ -377,39 +358,66 @@
       line-height:1;
       z-index:7;
       box-shadow:0 10px 30px rgba(0,0,0,0.45);
+      -webkit-appearance:none;
+      appearance:none;
     }
-    .carousel-close:hover{border-color:var(--oxide-gold);color:var(--oxide-gold)}
+    .carousel-close:hover{
+      border-color:var(--oxide-gold);
+      color:var(--oxide-gold);
+    }
 
-    .film-dots{
+    /* MARKERS */
+    .carousel-markers{
+      position:absolute;
+      inset:0;
+      z-index:5;
+      pointer-events:none;
+    }
+
+    .carousel-marker-row{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      width:calc(100% - 32px);
+      max-width:1100px;
       display:flex;
-      justify-content:center;
+      justify-content:space-between;
+      pointer-events:none;
       gap:10px;
-      padding:14px 14px;
-      z-index:4;
-      pointer-events:auto;
-      position:relative;
-      background:transparent;
     }
-    .film-dots-top{ grid-row:1; }
-    .film-dots-bottom{ grid-row:3; }
 
-    .film-dot{
-      width:10px;
-      height:10px;
-      border-radius:2px;
-      border:1px solid rgba(255,107,53,0.18);
-      background:rgba(26,15,10,0.25);
+    .carousel-marker-row.top{ top:12px; }
+    .carousel-marker-row.bottom{ bottom:12px; }
+
+    .carousel-marker{
+      pointer-events:auto;
       cursor:pointer;
-      padding:0;
+      border:1px solid rgba(255,107,53,0.14);
+      background:rgba(18,18,18,0.22);
+      transition:all 0.25s ease;
+      opacity:0.85;
+      border-radius:2px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25);
       appearance:none;
       -webkit-appearance:none;
+      padding:0;
+      outline:none;
     }
-    .film-dot:nth-child(3n){ width:16px; }
-    .film-dot:hover{border-color:rgba(255,107,53,0.35);background:rgba(26,15,10,0.35)}
-    .film-dot.active{border-color:rgba(255,107,53,0.65);background:rgba(255,107,53,0.18)}
+
+    /* Default marker sizing: JS will set flex basis via style attr, but keep safe fallback */
+    .carousel-marker{ height:8px; flex:1 1 auto; }
+    .carousel-marker:hover{
+      border-color:rgba(255,107,53,0.35);
+      background:rgba(255,107,53,0.10);
+      opacity:1;
+    }
+    .carousel-marker.active{
+      border-color:rgba(255,107,53,0.65);
+      background:rgba(255,107,53,0.22);
+      opacity:1;
+    }
 
     .carousel-strip{
-      grid-row:2;
       width:100%;
       height:100%;
       display:flex;
@@ -424,7 +432,9 @@
       cursor:grab;
       user-select:none;
       -webkit-user-select:none;
-      background:transparent;
+      position:relative;
+      z-index:3;
+      outline:none;
     }
     .carousel-strip::-webkit-scrollbar{display:none}
     .carousel-strip.dragging{cursor:grabbing}
@@ -437,18 +447,17 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:4.25vh 4vw;
+      padding:3.5vh 3vw;
       position:relative;
-      background:transparent;
+      z-index:3;
     }
 
     .carousel-media{
       position:relative;
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      max-width:100%;
+      max-height:100%;
+      display:inline-block;
+      z-index:4;
     }
 
     .carousel-media img{
@@ -460,22 +469,17 @@
       border:1px solid rgba(255,107,53,0.14);
       background:rgba(18,18,18,0.6);
       display:block;
+      -webkit-user-select:none;
+      user-select:none;
+      -webkit-touch-callout:none;
     }
 
-    .carousel-note{
-      position:absolute;
-      right:14px;
-      bottom:14px;
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      gap:10px;
-      z-index:6;
-      max-width:calc(100% - 28px);
-      pointer-events:none;
-    }
-
+    /* Caption INSIDE image (bottom-right) */
     .carousel-caption{
+      position:absolute;
+      right:12px;
+      bottom:12px;
+      left:auto;
       font-size:0.65rem;
       color:#fff;
       background:rgba(26,15,10,0.85);
@@ -483,24 +487,56 @@
       padding:6px 10px;
       text-transform:uppercase;
       letter-spacing:0.14em;
+      z-index:6;
+      max-width:calc(100% - 24px);
       text-align:right;
+      pointer-events:none;
     }
 
+    /* MOBILE: markers become side rails and do not overlap image */
     @media (max-width: 900px){
       .carousel-stage{
         transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg);
       }
-      .carousel-slide{
-        padding:3vh 4vw;
-      }
+
       .carousel-close{
-        top:52px;
-        right:16px;
+        top:38px;
+        right:14px;
         width:32px;
         height:32px;
       }
-      .carousel-media img{
-        max-height:60vh;
+
+      .carousel-slide{
+        padding:2.5vh 52px;
+      }
+
+      .carousel-marker-row{
+        left:auto;
+        transform:none;
+        width:auto;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        top:50%;
+        height:60%;
+        pointer-events:none;
+        gap:10px;
+      }
+
+      .carousel-marker-row.top{
+        left:14px;
+        transform:translateY(-50%);
+      }
+
+      .carousel-marker-row.bottom{
+        right:14px;
+        transform:translateY(-50%);
+      }
+
+      .carousel-marker{
+        width:10px !important;
+        height:auto !important;
+        flex:1 1 auto !important;
       }
     }
   </style>
@@ -527,50 +563,28 @@
     </aside>
 
     <main class="detail-container">
-      <!-- LEFT: White Album style tiles -->
       <div class="image-gallery" aria-label="Image gallery">
         <a class="gallery-item" href="../assets/images/SHclose.jpeg" data-caption="STRANGE HARVEST — CLOSE VIEW" aria-label="Open Strange Harvest close view">
-          <div class="gallery-img">
-            <img src="../assets/images/SHclose.jpeg" alt="Strange Harvest close view">
-            <div class="gallery-tag">STRANGE HARVEST — CLOSE VIEW</div>
-          </div>
-          <div class="gallery-meta"><div class="gallery-title">Strange Harvest</div></div>
+          <img src="../assets/images/SHclose.jpeg" alt="Strange Harvest close view">
         </a>
 
         <a class="gallery-item" href="../assets/images/SH.jpeg" data-caption="STRANGE HARVEST — OVERALL" aria-label="Open Strange Harvest overall">
-          <div class="gallery-img">
-            <img src="../assets/images/SH.jpeg" alt="Strange Harvest overall view">
-            <div class="gallery-tag">STRANGE HARVEST — OVERALL</div>
-          </div>
-          <div class="gallery-meta"><div class="gallery-title">Strange Harvest</div></div>
+          <img src="../assets/images/SH.jpeg" alt="Strange Harvest overall view">
         </a>
 
         <a class="gallery-item" href="../assets/images/SHweld.jpeg" data-caption="STRANGE HARVEST — WELD DETAIL" aria-label="Open Strange Harvest weld detail">
-          <div class="gallery-img">
-            <img src="../assets/images/SHweld.jpeg" alt="Strange Harvest weld detail">
-            <div class="gallery-tag">STRANGE HARVEST — WELD DETAIL</div>
-          </div>
-          <div class="gallery-meta"><div class="gallery-title">Strange Harvest</div></div>
+          <img src="../assets/images/SHweld.jpeg" alt="Strange Harvest weld detail">
         </a>
 
         <a class="gallery-item" href="../assets/images/SHsetup.jpeg" data-caption="STRANGE HARVEST — SET UP" aria-label="Open Strange Harvest setup">
-          <div class="gallery-img">
-            <img src="../assets/images/SHsetup.jpeg" alt="Strange Harvest setup view">
-            <div class="gallery-tag">STRANGE HARVEST — SET UP</div>
-          </div>
-          <div class="gallery-meta"><div class="gallery-title">Strange Harvest</div></div>
+          <img src="../assets/images/SHsetup.jpeg" alt="Strange Harvest setup view">
         </a>
 
         <a class="gallery-item" href="../assets/images/SHdown.jpeg" data-caption="STRANGE HARVEST — DOWN VIEW" aria-label="Open Strange Harvest down view">
-          <div class="gallery-img">
-            <img src="../assets/images/SHdown.jpeg" alt="Strange Harvest down view">
-            <div class="gallery-tag">STRANGE HARVEST — DOWN VIEW</div>
-          </div>
-          <div class="gallery-meta"><div class="gallery-title">Strange Harvest</div></div>
+          <img src="../assets/images/SHdown.jpeg" alt="Strange Harvest down view">
         </a>
       </div>
 
-      <!-- RIGHT: info panel -->
       <div class="info-panel">
         <div class="back-nav">
           <a href="../index.html#sh" class="back-link">← RETURN TO ARCHIVE</a>
@@ -611,13 +625,17 @@
     </main>
   </div>
 
-  <!-- White Album overlay structure -->
+  <!-- CAROUSEL OVERLAY -->
   <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
     <div class="carousel-stage" id="carouselStage" role="dialog" aria-modal="true" aria-label="Image carousel">
       <button class="carousel-close" id="carouselClose" type="button" aria-label="Close">×</button>
-      <div class="film-dots film-dots-top" id="filmDotsTop" aria-hidden="true"></div>
+
+      <div class="carousel-markers" aria-hidden="true">
+        <div class="carousel-marker-row top" id="carouselMarkersTop"></div>
+        <div class="carousel-marker-row bottom" id="carouselMarkersBottom"></div>
+      </div>
+
       <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
-      <div class="film-dots film-dots-bottom" id="filmDotsBottom" aria-hidden="true"></div>
     </div>
   </div>
 
@@ -625,20 +643,21 @@
     const overlay = document.getElementById('carouselOverlay');
     const strip = document.getElementById('carouselStrip');
     const closeBtn = document.getElementById('carouselClose');
-    const dotsTop = document.getElementById('filmDotsTop');
-    const dotsBottom = document.getElementById('filmDotsBottom');
-    const figLinks = Array.from(document.querySelectorAll('.gallery-item'));
+    const galleryLinks = Array.from(document.querySelectorAll('.gallery-item'));
 
-    let activeIndex = 0;
+    const markersTop = document.getElementById('carouselMarkersTop');
+    const markersBottom = document.getElementById('carouselMarkersBottom');
+
+    let currentIndex = 0;
     let rafLock = false;
 
     function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-    function slideWidth(){ return strip.clientWidth || 1; }
+    function getSlideWidth(){ return strip.clientWidth || 1; }
 
+    /* Build slides once, in the same order as the gallery */
     function buildSlides() {
       strip.innerHTML = '';
-
-      figLinks.forEach((a) => {
+      galleryLinks.forEach((a) => {
         const href = a.getAttribute('href');
         const caption = a.getAttribute('data-caption') || '';
         const imgEl = a.querySelector('img');
@@ -654,71 +673,80 @@
         img.src = href;
         img.alt = alt;
 
-        const note = document.createElement('div');
-        note.className = 'carousel-note';
-
         const cap = document.createElement('div');
         cap.className = 'carousel-caption';
         cap.textContent = caption;
 
-        note.appendChild(cap);
         media.appendChild(img);
-        media.appendChild(note);
+        media.appendChild(cap);
+
         slide.appendChild(media);
         strip.appendChild(slide);
       });
     }
 
-    function setActiveDot(idx) {
-      activeIndex = idx;
-      const topButtons = Array.from(dotsTop.querySelectorAll('.film-dot'));
-      const bottomButtons = Array.from(dotsBottom.querySelectorAll('.film-dot'));
-      topButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
-      bottomButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+    function syncMarkerState(idx) {
+      const topKids = Array.from(markersTop.children);
+      const bottomKids = Array.from(markersBottom.children);
+      topKids.forEach((b, i) => b.classList.toggle('active', i === idx));
+      bottomKids.forEach((b, i) => b.classList.toggle('active', i === idx));
     }
 
-    function goToIndex(idx) {
-      const maxIdx = Math.max(0, figLinks.length - 1);
-      const safe = clamp(idx, 0, maxIdx);
-      strip.scrollLeft = safe * slideWidth();
-      setActiveDot(safe);
+    function snapToIndex(idx) {
+      const maxIdx = Math.max(0, galleryLinks.length - 1);
+      currentIndex = clamp(idx, 0, maxIdx);
+      strip.scrollLeft = currentIndex * getSlideWidth();
+      syncMarkerState(currentIndex);
     }
 
-    function buildFilmDots() {
-      const count = figLinks.length;
-      dotsTop.innerHTML = '';
-      dotsBottom.innerHTML = '';
+    /* Markers: match slide count, but keep your irregular widths/heights pattern */
+    function buildMarkers() {
+      const count = galleryLinks.length;
+      markersTop.innerHTML = '';
+      markersBottom.innerHTML = '';
 
       for (let i = 0; i < count; i++) {
-        const b1 = document.createElement('button');
-        b1.type = 'button';
-        b1.className = 'film-dot';
-        b1.setAttribute('aria-label', `Go to image ${i + 1}`);
-        b1.addEventListener('click', () => goToIndex(i));
+        const mkTop = document.createElement('button');
+        mkTop.type = 'button';
+        mkTop.className = 'carousel-marker';
+        mkTop.setAttribute('aria-label', `Go to image ${i + 1}`);
+        mkTop.addEventListener('click', () => snapToIndex(i));
 
-        const b2 = document.createElement('button');
-        b2.type = 'button';
-        b2.className = 'film-dot';
-        b2.setAttribute('aria-label', `Go to image ${i + 1}`);
-        b2.addEventListener('click', () => goToIndex(i));
+        const mkBottom = document.createElement('button');
+        mkBottom.type = 'button';
+        mkBottom.className = 'carousel-marker';
+        mkBottom.setAttribute('aria-label', `Go to image ${i + 1}`);
+        mkBottom.addEventListener('click', () => snapToIndex(i));
 
-        dotsTop.appendChild(b1);
-        dotsBottom.appendChild(b2);
+        /* Desktop: irregular widths by repeating your 5-step pattern */
+        const pattern = [22, 14, 26, 18, 20];
+        const w = pattern[i % pattern.length];
+        mkTop.style.flex = `${w} 0 0`;
+        mkBottom.style.flex = `${w} 0 0`;
+
+        /* Desktop: subtle height variance, same repeating rhythm */
+        const hPattern = [8, 10, 6, 9, 7];
+        const h = hPattern[i % hPattern.length];
+        mkTop.style.height = `${h}px`;
+        mkBottom.style.height = `${h}px`;
+
+        markersTop.appendChild(mkTop);
+        markersBottom.appendChild(mkBottom);
       }
 
-      setActiveDot(0);
+      syncMarkerState(currentIndex);
     }
 
     function openCarouselAt(index) {
       if (!strip.children.length) buildSlides();
-      if (!dotsTop.children.length) buildFilmDots();
+      if (!markersTop.children.length) buildMarkers();
 
       overlay.classList.add('open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
 
       requestAnimationFrame(() => {
-        goToIndex(index);
+        snapToIndex(index);
         strip.focus({ preventScroll: true });
       });
     }
@@ -729,11 +757,11 @@
       document.body.style.overflow = '';
     }
 
-    figLinks.forEach((a, idx) => {
+    galleryLinks.forEach((a, idx) => {
       a.addEventListener('click', (e) => {
         e.preventDefault();
         openCarouselAt(idx);
-      });
+      }, { passive: false });
     });
 
     if (closeBtn) closeBtn.addEventListener('click', closeCarousel);
@@ -750,17 +778,24 @@
       if (!overlay.classList.contains('open')) return;
       if (rafLock) return;
       rafLock = true;
+
       requestAnimationFrame(() => {
         rafLock = false;
-        const idx = clamp(Math.round(strip.scrollLeft / slideWidth()), 0, Math.max(0, figLinks.length - 1));
-        if (idx !== activeIndex) setActiveDot(idx);
+        const w = getSlideWidth();
+        const idx = clamp(Math.round(strip.scrollLeft / w), 0, Math.max(0, galleryLinks.length - 1));
+        if (idx !== currentIndex) {
+          currentIndex = idx;
+          syncMarkerState(currentIndex);
+        }
       });
     }, { passive: true });
 
     function handleCarouselWheel(evt) {
       if (!overlay.classList.contains('open')) return;
+
       const dx = Math.abs(evt.deltaX || 0);
       const dy = Math.abs(evt.deltaY || 0);
+
       if (dy > dx) {
         evt.preventDefault();
         strip.scrollLeft += (evt.deltaY || 0) * 0.35;
@@ -805,7 +840,7 @@
 
     window.addEventListener('resize', () => {
       if (!overlay.classList.contains('open')) return;
-      goToIndex(activeIndex);
+      snapToIndex(currentIndex);
     });
   </script>
 </body>
