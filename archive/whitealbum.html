@@ -426,16 +426,12 @@
       .fig-grid{grid-template-columns:1fr}
     }
 
-    * {
-  -webkit-tap-highlight-color: transparent;
+    /* remove iOS blue tap highlight */
+    * { -webkit-tap-highlight-color: transparent; }
+    a, button { -webkit-tap-highlight-color: transparent; }
 
     /* -----------------------------
        CAROUSEL OVERLAY + FILM DOTS
-       Fixes:
-       - overlay background matches site "static"
-       - dots never overlap image (stage is a 3-row grid on desktop + mobile)
-       - swipe/scroll label is above the figure label, not merged
-       - image always stays bounded (no weird crop)
     ----------------------------- */
     .carousel-overlay{
       position:fixed;
@@ -446,7 +442,6 @@
       justify-content:center;
       padding:6vh 4vw;
 
-      /* match site background exactly */
       background-color:var(--charcoal);
       background-image:
         radial-gradient(circle at 50% 50%, rgba(211,84,0,0.08) 0%, transparent 70%),
@@ -465,7 +460,6 @@
       transform:perspective(1200px) rotateZ(-1.4deg) rotateY(-3deg);
       transform-origin:center;
 
-      /* desktop + mobile: dots get their own space */
       display:grid;
       grid-template-rows:auto 1fr auto;
     }
@@ -499,12 +493,11 @@
       z-index:4;
       pointer-events:auto;
       position:relative;
+      background:transparent;
     }
     .film-dots-top{ grid-row:1; }
     .film-dots-bottom{ grid-row:3; }
-    .film-dot {
-      -webkit-tap-highlight-color: transparent;
-    }
+
     .film-dot{
       width:10px;
       height:10px;
@@ -535,6 +528,7 @@
       cursor:grab;
       user-select:none;
       -webkit-user-select:none;
+      background:transparent;
     }
     .carousel-strip::-webkit-scrollbar{display:none}
     .carousel-strip.dragging{cursor:grabbing}
@@ -547,13 +541,11 @@
       display:flex;
       align-items:center;
       justify-content:center;
-
-      /* more brown space around the image */
       padding:4.25vh 4vw;
       position:relative;
+      background:transparent;
     }
 
-    /* bounded media box */
     .carousel-media{
       position:relative;
       width:100%;
@@ -574,7 +566,6 @@
       display:block;
     }
 
-    /* bottom-right stack: hint ABOVE figure label, same style but separate boxes */
     .carousel-note{
       position:absolute;
       right:14px;
@@ -586,16 +577,6 @@
       z-index:6;
       max-width:calc(100% - 28px);
       pointer-events:none;
-    }
-
-    .carousel-hint{
-      font-size:0.6rem;
-      color:#fff;
-      background:rgba(26,15,10,0.70);
-      border:1px solid rgba(255,107,53,0.25);
-      padding:6px 10px;
-      text-transform:uppercase;
-      letter-spacing:0.2em;
     }
 
     .carousel-caption{
@@ -713,6 +694,8 @@
         </div>
 
         <div class="fig-grid">
+          <!-- your 14 fig-cards unchanged -->
+          <!-- ... keep as-is ... -->
           <a class="fig-card" href="../assets/images/fig1WA.jpeg" data-caption="FIG. 1. — CANVAS, BURLAP" aria-label="Open White Album I">
             <div class="fig-img">
               <img src="../assets/images/fig1WA.jpeg" alt="White Album I">
@@ -849,7 +832,6 @@
   </div>
 
   <script>
-    // HERO fade on scroll (scoped to .scrolling-content)
     const scrollContainer = document.querySelector('.scrolling-content');
     const heroBg = document.querySelector('.hero-bg');
 
@@ -865,7 +847,6 @@
       }, { passive: true });
     }
 
-    // waveform jiggle (purely visual)
     const bars = document.querySelectorAll('.wave-bar');
     if (bars.length) {
       setInterval(() => {
@@ -875,7 +856,6 @@
       }, 150);
     }
 
-    // CAROUSEL
     const overlay = document.getElementById('carouselOverlay');
     const strip = document.getElementById('carouselStrip');
     const closeBtn = document.getElementById('carouselClose');
@@ -909,16 +889,14 @@
 
         const note = document.createElement('div');
         note.className = 'carousel-note';
-        
+
         const cap = document.createElement('div');
         cap.className = 'carousel-caption';
         cap.textContent = caption;
 
         note.appendChild(cap);
-
         media.appendChild(img);
         media.appendChild(note);
-
         slide.appendChild(media);
         strip.appendChild(slide);
       });
@@ -940,7 +918,7 @@
     }
 
     function buildFilmDots() {
-      const count = figLinks.length; // 14
+      const count = figLinks.length;
       dotsTop.innerHTML = '';
       dotsBottom.innerHTML = '';
 
