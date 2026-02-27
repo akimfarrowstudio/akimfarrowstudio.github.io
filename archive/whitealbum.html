@@ -426,6 +426,9 @@
       .fig-grid{grid-template-columns:1fr}
     }
 
+    * {
+  -webkit-tap-highlight-color: transparent;
+
     /* -----------------------------
        CAROUSEL OVERLAY + FILM DOTS
        Fixes:
@@ -499,7 +502,9 @@
     }
     .film-dots-top{ grid-row:1; }
     .film-dots-bottom{ grid-row:3; }
-
+    .film-dot {
+      -webkit-tap-highlight-color: transparent;
+    }
     .film-dot{
       width:10px;
       height:10px;
@@ -904,16 +909,11 @@
 
         const note = document.createElement('div');
         note.className = 'carousel-note';
-
-        const hint = document.createElement('div');
-        hint.className = 'carousel-hint';
-        hint.textContent = 'Swipe / scroll';
-
+        
         const cap = document.createElement('div');
         cap.className = 'carousel-caption';
         cap.textContent = caption;
 
-        note.appendChild(hint);
         note.appendChild(cap);
 
         media.appendChild(img);
