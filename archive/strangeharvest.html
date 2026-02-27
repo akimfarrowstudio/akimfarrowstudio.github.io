@@ -151,12 +151,12 @@
       cursor:zoom-in;
     }
 
-    /* ✅ FIX: center a visible mid-detail instead of top-cropping */
+    /* center a visible mid-detail instead of top-cropping */
     .gallery-item img{
       width:100%;
-      height:180px;                 /* gives the “small rectangle” a stable window */
+      height:180px;
       object-fit:cover;
-      object-position:center center; /* the actual request */
+      object-position:center center;
       display:block;
       filter:grayscale(30%) contrast(110%);
       transition:filter 0.5s ease, transform 0.35s ease;
@@ -279,16 +279,19 @@
       .image-gallery{height:auto}
       .info-panel{height:auto;border-left:none;border-top:1px solid #3d2218}
       .artwork-main-title{font-size:3.5rem}
-
-      /* keep thumbnail window feeling right on mobile */
       .gallery-item img{ height:160px; }
     }
 
+    /* remove iOS blue tap highlight */
+    * { -webkit-tap-highlight-color: transparent; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    button { outline: none; }
+    button:focus { outline: none; }
+    button:focus-visible { outline: 1px solid rgba(255,107,53,0.45); outline-offset: 2px; }
+
     /* -----------------------------
        CAROUSEL OVERLAY
-       Same "White Album" behavior:
-       - hint + caption inside image
-       - film markers top/bottom desktop, left/right mobile
+       Markers top/bottom desktop, left/right mobile
        ----------------------------- */
     .carousel-overlay{
       position:fixed;
@@ -385,6 +388,8 @@
       opacity:0.85;
       border-radius:2px;
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25);
+      appearance:none;
+      -webkit-appearance:none;
     }
 
     /* 5 markers (kept irregular) */
@@ -440,7 +445,6 @@
       z-index:3;
     }
 
-    /* ✅ wrapper so hint + caption sit INSIDE the photo */
     .carousel-media{
       position:relative;
       max-width:100%;
@@ -458,23 +462,6 @@
       border:1px solid rgba(255,107,53,0.14);
       background:rgba(18,18,18,0.6);
       display:block;
-    }
-
-    /* Hint INSIDE image (top-right) */
-    .carousel-hint{
-      position:absolute;
-      top:12px;
-      right:12px;
-      font-size:0.6rem;
-      color:#fff;
-      background:rgba(26,15,10,0.75);
-      border:1px solid rgba(255,107,53,0.25);
-      padding:6px 10px;
-      text-transform:uppercase;
-      letter-spacing:0.2em;
-      z-index:6;
-      user-select:none;
-      pointer-events:none;
     }
 
     /* Caption INSIDE image (bottom-right) */
@@ -510,7 +497,7 @@
       }
 
       .carousel-slide{
-        padding:2.5vh 52px; /* room for side rails */
+        padding:2.5vh 52px;
       }
 
       .carousel-marker-row{
@@ -678,16 +665,11 @@
         img.src = href;
         img.alt = alt;
 
-        const hint = document.createElement('div');
-        hint.className = 'carousel-hint';
-        hint.textContent = 'Swipe / scroll';
-
         const cap = document.createElement('div');
         cap.className = 'carousel-caption';
         cap.textContent = caption;
 
         media.appendChild(img);
-        media.appendChild(hint);
         media.appendChild(cap);
 
         slide.appendChild(media);
@@ -703,14 +685,14 @@
     }
 
     function snapToIndex(idx) {
-      const maxIdx = Math.max(0, galleryLinks.length - 1); // 5
+      const maxIdx = Math.max(0, galleryLinks.length - 1);
       currentIndex = clamp(idx, 0, maxIdx);
       strip.scrollLeft = currentIndex * getSlideWidth();
       syncMarkerState(currentIndex);
     }
 
     function buildMarkers() {
-      const count = Math.min(5, galleryLinks.length); // ✅ force 5
+      const count = Math.min(5, galleryLinks.length);
       markersTop.innerHTML = '';
       markersBottom.innerHTML = '';
 
@@ -771,7 +753,6 @@
       if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
     });
 
-    // keep marker active state synced (throttled)
     strip.addEventListener('scroll', () => {
       if (!overlay.classList.contains('open')) return;
       if (rafLock) return;
@@ -788,7 +769,6 @@
       });
     }, { passive: true });
 
-    // vertical wheel drives horizontal scroll (desktop)
     function handleCarouselWheel(evt) {
       if (!overlay.classList.contains('open')) return;
 
@@ -802,7 +782,6 @@
     }
     overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
 
-    // desktop drag (mouse only)
     let isDragging = false;
     let dragStartX = 0;
     let dragStartScrollLeft = 0;
@@ -838,7 +817,6 @@
     strip.addEventListener('pointercancel', endDrag);
     strip.addEventListener('pointerleave', endDrag);
 
-    // keep slide alignment on resize / rotation
     window.addEventListener('resize', () => {
       if (!overlay.classList.contains('open')) return;
       snapToIndex(currentIndex);
