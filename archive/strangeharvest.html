@@ -151,8 +151,12 @@
       cursor:zoom-in;
     }
 
+    /* ✅ FIX: center a visible mid-detail instead of top-cropping */
     .gallery-item img{
       width:100%;
+      height:180px;                 /* gives the “small rectangle” a stable window */
+      object-fit:cover;
+      object-position:center center; /* the actual request */
       display:block;
       filter:grayscale(30%) contrast(110%);
       transition:filter 0.5s ease, transform 0.35s ease;
@@ -275,14 +279,16 @@
       .image-gallery{height:auto}
       .info-panel{height:auto;border-left:none;border-top:1px solid #3d2218}
       .artwork-main-title{font-size:3.5rem}
+
+      /* keep thumbnail window feeling right on mobile */
+      .gallery-item img{ height:160px; }
     }
 
     /* -----------------------------
        CAROUSEL OVERLAY
-       (mobile swipe + desktop drag)
-       film markers:
-       - desktop: top + bottom
-       - mobile: left + right (next to photo, not overlapping)
+       Same "White Album" behavior:
+       - hint + caption inside image
+       - film markers top/bottom desktop, left/right mobile
        ----------------------------- */
     .carousel-overlay{
       position:fixed;
@@ -324,20 +330,6 @@
       z-index:2;
     }
 
-    .carousel-hint{
-      position:absolute;
-      top:14px;
-      right:16px;
-      font-size:0.6rem;
-      color:#8a665c;
-      text-transform:uppercase;
-      letter-spacing:0.2em;
-      z-index:6;
-      opacity:0.95;
-      user-select:none;
-      pointer-events:none;
-    }
-
     .carousel-close{
       position:absolute;
       top:56px;
@@ -362,17 +354,13 @@
       color:var(--oxide-gold);
     }
 
-    /* MARKERS (desktop default: top/bottom, centered) */
+    /* MARKERS */
     .carousel-markers{
       position:absolute;
       inset:0;
       z-index:5;
       pointer-events:none;
     }
-
-    /* -----------------------------
-   STRANGE HARVEST FILM STRIP MARKERS (5 only)
-   ----------------------------- */
 
     .carousel-marker-row{
       position:absolute;
@@ -384,11 +372,10 @@
       justify-content:space-between;
       pointer-events:none;
     }
-    
+
     .carousel-marker-row.top{ top:12px; }
     .carousel-marker-row.bottom{ bottom:12px; }
-    
-    /* Each marker becomes a perforation block */
+
     .carousel-marker{
       pointer-events:auto;
       cursor:pointer;
@@ -399,35 +386,20 @@
       border-radius:2px;
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25);
     }
-    
-    /* Make them irregular like real film perforations */
-    .carousel-marker:nth-child(1){
-      width:22%;
-      height:8px;
-    }
-    .carousel-marker:nth-child(2){
-      width:14%;
-      height:10px;
-    }
-    .carousel-marker:nth-child(3){
-      width:26%;
-      height:6px;
-    }
-    .carousel-marker:nth-child(4){
-      width:18%;
-      height:9px;
-    }
-    .carousel-marker:nth-child(5){
-      width:20%;
-      height:7px;
-    }
-    
+
+    /* 5 markers (kept irregular) */
+    .carousel-marker:nth-child(1){ width:22%; height:8px; }
+    .carousel-marker:nth-child(2){ width:14%; height:10px; }
+    .carousel-marker:nth-child(3){ width:26%; height:6px; }
+    .carousel-marker:nth-child(4){ width:18%; height:9px; }
+    .carousel-marker:nth-child(5){ width:20%; height:7px; }
+
     .carousel-marker:hover{
       border-color:rgba(255,107,53,0.35);
       background:rgba(255,107,53,0.10);
       opacity:1;
     }
-    
+
     .carousel-marker.active{
       border-color:rgba(255,107,53,0.65);
       background:rgba(255,107,53,0.22);
@@ -449,6 +421,8 @@
       cursor:grab;
       user-select:none;
       -webkit-user-select:none;
+      position:relative;
+      z-index:3;
     }
     .carousel-strip::-webkit-scrollbar{display:none}
     .carousel-strip.dragging{cursor:grabbing}
@@ -463,9 +437,19 @@
       justify-content:center;
       padding:3.5vh 3vw;
       position:relative;
+      z-index:3;
     }
 
-    .carousel-slide img{
+    /* ✅ wrapper so hint + caption sit INSIDE the photo */
+    .carousel-media{
+      position:relative;
+      max-width:100%;
+      max-height:100%;
+      display:inline-block;
+      z-index:4;
+    }
+
+    .carousel-media img{
       max-width:100%;
       max-height:100%;
       object-fit:contain;
@@ -476,10 +460,29 @@
       display:block;
     }
 
+    /* Hint INSIDE image (top-right) */
+    .carousel-hint{
+      position:absolute;
+      top:12px;
+      right:12px;
+      font-size:0.6rem;
+      color:#fff;
+      background:rgba(26,15,10,0.75);
+      border:1px solid rgba(255,107,53,0.25);
+      padding:6px 10px;
+      text-transform:uppercase;
+      letter-spacing:0.2em;
+      z-index:6;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    /* Caption INSIDE image (bottom-right) */
     .carousel-caption{
       position:absolute;
-      left:18px;
-      bottom:14px;
+      right:12px;
+      bottom:12px;
+      left:auto;
       font-size:0.65rem;
       color:#fff;
       background:rgba(26,15,10,0.85);
@@ -488,12 +491,12 @@
       text-transform:uppercase;
       letter-spacing:0.14em;
       z-index:6;
-      max-width:calc(100% - 36px);
+      max-width:calc(100% - 24px);
+      text-align:right;
+      pointer-events:none;
     }
 
-    /* MOBILE FIX:
-       move marker rows to the SIDES (left + right) and keep them next to the photo.
-       also give the slide extra side padding so markers never overlap the image. */
+    /* MOBILE: markers become side rails and do not overlap image */
     @media (max-width: 900px){
       .carousel-stage{
         transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg);
@@ -521,27 +524,26 @@
         height:60%;
         pointer-events:none;
       }
-    
+
       .carousel-marker-row.top{
         left:14px;
         transform:translateY(-50%);
       }
-    
+
       .carousel-marker-row.bottom{
         right:14px;
         transform:translateY(-50%);
       }
-    
+
       .carousel-marker{
         width:10px !important;
       }
-    
+
       .carousel-marker:nth-child(1){ height:18%; }
       .carousel-marker:nth-child(2){ height:12%; }
       .carousel-marker:nth-child(3){ height:22%; }
       .carousel-marker:nth-child(4){ height:14%; }
       .carousel-marker:nth-child(5){ height:16%; }
-    
     }
   </style>
 </head>
@@ -632,7 +634,6 @@
   <!-- CAROUSEL OVERLAY -->
   <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
     <div class="carousel-stage" id="carouselStage" role="dialog" aria-modal="true" aria-label="Image carousel">
-      <div class="carousel-hint">Swipe / scroll</div>
       <button class="carousel-close" id="carouselClose" type="button" aria-label="Close">×</button>
 
       <div class="carousel-markers" aria-hidden="true">
@@ -646,7 +647,6 @@
 
   <script>
     const overlay = document.getElementById('carouselOverlay');
-    const stage = document.getElementById('carouselStage');
     const strip = document.getElementById('carouselStrip');
     const closeBtn = document.getElementById('carouselClose');
     const galleryLinks = Array.from(document.querySelectorAll('.gallery-item'));
@@ -671,22 +671,31 @@
         const slide = document.createElement('div');
         slide.className = 'carousel-slide';
 
+        const media = document.createElement('div');
+        media.className = 'carousel-media';
+
         const img = document.createElement('img');
         img.src = href;
         img.alt = alt;
+
+        const hint = document.createElement('div');
+        hint.className = 'carousel-hint';
+        hint.textContent = 'Swipe / scroll';
 
         const cap = document.createElement('div');
         cap.className = 'carousel-caption';
         cap.textContent = caption;
 
-        slide.appendChild(img);
-        slide.appendChild(cap);
+        media.appendChild(img);
+        media.appendChild(hint);
+        media.appendChild(cap);
+
+        slide.appendChild(media);
         strip.appendChild(slide);
       });
     }
 
     function syncMarkerState(idx) {
-      if (!markersTop || !markersBottom) return;
       const topKids = Array.from(markersTop.children);
       const bottomKids = Array.from(markersBottom.children);
       topKids.forEach((b, i) => b.classList.toggle('active', i === idx));
@@ -694,16 +703,14 @@
     }
 
     function snapToIndex(idx) {
-      const maxIdx = Math.max(0, galleryLinks.length - 1);
+      const maxIdx = Math.max(0, galleryLinks.length - 1); // 5
       currentIndex = clamp(idx, 0, maxIdx);
       strip.scrollLeft = currentIndex * getSlideWidth();
       syncMarkerState(currentIndex);
     }
 
     function buildMarkers() {
-      if (!markersTop || !markersBottom) return;
-
-      const count = galleryLinks.length; // IMPORTANT: match Strange Harvest (5)
+      const count = Math.min(5, galleryLinks.length); // ✅ force 5
       markersTop.innerHTML = '';
       markersBottom.innerHTML = '';
 
@@ -729,7 +736,7 @@
 
     function openCarouselAt(index) {
       if (!strip.children.length) buildSlides();
-      if (markersTop && !markersTop.children.length) buildMarkers();
+      if (!markersTop.children.length) buildMarkers();
 
       overlay.classList.add('open');
       overlay.setAttribute('aria-hidden', 'false');
@@ -773,7 +780,7 @@
       requestAnimationFrame(() => {
         rafLock = false;
         const w = getSlideWidth();
-        const idx = clamp(Math.round(strip.scrollLeft / w), 0, Math.max(0, galleryLinks.length - 1));
+        const idx = clamp(Math.round(strip.scrollLeft / w), 0, Math.max(0, Math.min(5, galleryLinks.length) - 1));
         if (idx !== currentIndex) {
           currentIndex = idx;
           syncMarkerState(currentIndex);
