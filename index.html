@@ -1050,66 +1050,68 @@
   </script>
 
   <script>
-    function toggleMaterial(el) {
-      el.classList.toggle('selected');
+<script>
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxwP8ujquTv4nhP3FYwWxCGdU_czO50Az4ZQSqYSoAP6EscLLFKWJc3Qo5drJKV-R8E/exec";
 
-      const selected = Array.from(document.querySelectorAll('.material-option.selected'))
-        .map(x => x.getAttribute('data-material'))
-        .filter(Boolean);
+  const form = document.getElementById('commissionForm');
+  const statusEl = document.getElementById('formStatus');
 
-      if (selected.length === 0) {
-        const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
-        if (raw) raw.classList.add('selected');
-        selected.push('Raw Steel');
-      }
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "TRANSMITTING...";
 
-      document.getElementById('materialsInput').value = selected.join(', ');
+    const hp = document.getElementById('websiteField');
+    if (hp && hp.value.trim() !== "") {
+      statusEl.textContent = "BLOCKED.";
+      return;
     }
 
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxwP8ujquTv4nhP3FYwWxCGdU_czO50Az4ZQSqYSoAP6EscLLFKWJc3Qo5drJKV-R8E/exec";
+    const fd = new FormData(form);
+    const payload = Object.fromEntries(fd.entries());
+    payload.page = window.location.href;
+    payload.userAgent = navigator.userAgent;
 
-    const form = document.getElementById('commissionForm');
-    const statusEl = document.getElementById('formStatus');
+    try {
+      const res = await fetch(WEB_APP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      statusEl.textContent = "TRANSMITTING...";
+      const out = await res.json().catch(async () => ({ ok: false, error: await res.text() }));
 
-      const hp = document.getElementById('websiteField');
-      if (hp && hp.value.trim() !== "") {
+      if (!res.ok || out.ok !== true) {
+        statusEl.textContent = "ERROR. TRY AGAIN.";
+        console.log("WEBAPP_ERROR", out);
+        return;
+      }
+
+      if (out.blocked) {
         statusEl.textContent = "BLOCKED.";
         return;
       }
 
-      const formData = new FormData(form);
-      formData.append("page", window.location.href);
-      formData.append("userAgent", navigator.userAgent);
-
-      try {
-        const res = await fetch(WEB_APP_URL, {
-          method: "POST",
-          body: formData
-        });
-
-        await res.text();
-
-        if (!res.ok) {
-          statusEl.textContent = "ERROR. TRY AGAIN.";
-          return;
-        }
-
+      if (out.emailed === false) {
+        statusEl.textContent = "RECEIVED. EMAIL FAILED. CHECK SHEET.";
+        console.log("EMAIL_FAILED", out.emailStatus, out.emailError, out.debug);
+      } else {
         statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
-        form.reset();
-
-        document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-        const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
-        if (raw) raw.classList.add('selected');
-        document.getElementById('materialsInput').value = "Raw Steel";
-
-      } catch (err) {
-        statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
       }
-    });
-  </script>
+
+      form.reset();
+
+      document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+      const raw = document.querySelector('.material-option[data-material="Precious Metals"]');
+      if (raw) raw.classList.add('selected');
+
+      const mi = document.getElementById('materialsInput');
+      if (mi) mi.value = "Precious Metals";
+
+    } catch (err) {
+      statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+      console.log("FETCH_ERROR", err);
+    }
+  });
+</script>
 </body>
 </html>
