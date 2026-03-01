@@ -49,7 +49,6 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html, body { width: 100%; }
 
     body {
@@ -114,9 +113,7 @@
     }
 
     .nav-link:hover,
-    .nav-link.active {
-      color: var(--oxide-gold);
-    }
+    .nav-link.active { color: var(--oxide-gold); }
 
     .location-tags {
       font-size: 0.6rem;
@@ -897,7 +894,7 @@
 
             <div class="form-group full-width" vid="96">
               <label vid="97">Preferred Material Palette</label>
-              <input type="hidden" name="materials" id="materialsInput" value="Precious Metals">
+              <input type="hidden" name="materials" id="materialsInput" value="Precious Metals" data-default="Precious Metals">
 
               <div class="materials-grid" vid="98">
                 <div class="material-option selected" data-material="Precious Metals" onclick="toggleMaterial(this)" vid="99">Precious Metals</div>
@@ -1022,93 +1019,121 @@
     window.addEventListener('hashchange', highlightReturnCard);
   </script>
 
-  <!-- FORM JS (fixed: single script tag, includes toggleMaterial, no nesting) -->
-<script>
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzRNSk_bCZYDmqnFX0ViG9lTvfvgZj9Tbq7oTo00q8NtZKjgAlp2gHoFKNeToqS8eTWZQ/exec";
+  <!-- FORM JS (fixed: multi-select materials + better reset) -->
+  <script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzRNSk_bCZYDmqnFX0ViG9lTvfvgZj9Tbq7oTo00q8NtZKjgAlp2gHoFKNeToqS8eTWZQ/exec";
 
-  const form = document.getElementById('commissionForm');
-  const statusEl = document.getElementById('formStatus');
+    const form = document.getElementById('commissionForm');
+    const statusEl = document.getElementById('formStatus');
 
-  function toUrlEncoded(formEl) {
-    const fd = new FormData(formEl);
+    function syncMaterialsInput() {
+      const selected = Array.from(document.querySelectorAll('.material-option.selected'))
+        .map(x => x.getAttribute('data-material'))
+        .filter(Boolean);
 
-    // add meta
-    fd.append("page", window.location.href);
-    fd.append("userAgent", navigator.userAgent);
+      const input = document.getElementById('materialsInput');
+      if (!input) return;
 
-    // IMPORTANT: turn into URLSearchParams (simple request, no preflight)
-    const params = new URLSearchParams();
-    for (const [k, v] of fd.entries()) params.append(k, v);
-    return params.toString();
-  }
+      if (selected.length === 0) {
+        const def = input.getAttribute('data-default') || input.value || "";
+        const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+        if (defEl) defEl.classList.add('selected');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    statusEl.textContent = "TRANSMITTING...";
+        const selected2 = Array.from(document.querySelectorAll('.material-option.selected'))
+          .map(x => x.getAttribute('data-material'))
+          .filter(Boolean);
 
-    const hp = document.getElementById('websiteField');
-    if (hp && hp.value.trim() !== "") {
-      statusEl.textContent = "BLOCKED.";
-      return;
+        input.value = selected2.join(', ');
+        return;
+      }
+
+      input.value = selected.join(', ');
     }
 
-    const body = toUrlEncoded(form);
+    function toggleMaterial(el) {
+      el.classList.toggle('selected');
+      syncMaterialsInput();
+    }
 
-    try {
-      const res = await fetch(WEB_APP_URL, {
-        method: "POST",
-        redirect: "follow",
-        credentials: "omit",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-        },
-        body
-      });
+    window.addEventListener('load', syncMaterialsInput);
 
-      // If Apps Script returns HTML (auth/redirect), this might throw when parsing JSON
-      const text = await res.text();
-      let payload = null;
-      try { payload = JSON.parse(text); } catch (_) {}
+    function toUrlEncoded(formEl) {
+      const fd = new FormData(formEl);
+      fd.append("page", window.location.href);
+      fd.append("userAgent", navigator.userAgent);
 
-      if (!res.ok) {
-        statusEl.textContent = "ERROR. TRY AGAIN.";
+      const params = new URLSearchParams();
+      for (const [k, v] of fd.entries()) params.append(k, v);
+      return params.toString();
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.textContent = "TRANSMITTING...";
+
+      // Make sure hidden materials reflects current selected UI
+      syncMaterialsInput();
+
+      const hp = document.getElementById('websiteField');
+      if (hp && hp.value.trim() !== "") {
+        statusEl.textContent = "BLOCKED.";
         return;
       }
 
-      // If we got JSON, show better status
-      if (payload && payload.ok) {
-        statusEl.textContent = payload.emailed
-          ? "RECEIVED. CONFIRMATION SENT."
-          : "RECEIVED. EMAIL MAY BE DELAYED.";
+      const body = toUrlEncoded(form);
 
-        form.reset();
-
-        document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-        const first = document.querySelector('.material-option');
-        if (first) first.classList.add('selected');
-
-        // keep hidden materials value sane (optional)
-        const materialsInput = document.getElementById('materialsInput');
-        if (materialsInput) materialsInput.value = (first && first.dataset.material) ? first.dataset.material : "";
-        return;
-      }
-
-      // If it wasn’t JSON, still treat as received because the POST likely worked
-      statusEl.textContent = "RECEIVED.";
-
-    } catch (err) {
-      // FINAL fallback: try sendBeacon so the lead can still hit the script
       try {
-        const ok = navigator.sendBeacon(WEB_APP_URL, new Blob([body], {
-          type: "application/x-www-form-urlencoded;charset=UTF-8"
-        }));
-        statusEl.textContent = ok ? "RECEIVED." : "NETWORK ERROR. TRY AGAIN.";
-      } catch (_) {
-        statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+        const res = await fetch(WEB_APP_URL, {
+          method: "POST",
+          redirect: "follow",
+          credentials: "omit",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+          },
+          body
+        });
+
+        const text = await res.text();
+        let payload = null;
+        try { payload = JSON.parse(text); } catch (_) {}
+
+        if (!res.ok) {
+          statusEl.textContent = "ERROR. TRY AGAIN.";
+          return;
+        }
+
+        if (payload && payload.ok) {
+          statusEl.textContent = payload.emailed
+            ? "RECEIVED. CONFIRMATION SENT."
+            : "RECEIVED. EMAIL MAY BE DELAYED.";
+
+          form.reset();
+
+          // Reset materials to default (but keep multi-select capability)
+          document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+          const input = document.getElementById('materialsInput');
+          const def = (input && input.getAttribute('data-default')) ? input.getAttribute('data-default') : "Precious Metals";
+          const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+          if (defEl) defEl.classList.add('selected');
+          if (input) input.value = def;
+
+          return;
+        }
+
+        statusEl.textContent = "RECEIVED.";
+
+      } catch (err) {
+        try {
+          const ok = navigator.sendBeacon(WEB_APP_URL, new Blob([body], {
+            type: "application/x-www-form-urlencoded;charset=UTF-8"
+          }));
+          statusEl.textContent = ok ? "RECEIVED." : "NETWORK ERROR. TRY AGAIN.";
+        } catch (_) {
+          statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+        }
       }
-    }
-  });
-</script>
+    });
+  </script>
 
 </body>
 </html>
