@@ -1,1115 +1,246 @@
-<!doctype html>
-<html lang="en" vid="0">
-<head vid="1">
-  
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QK7045YE1S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QK7045YE1S');
-</script>
-  
-  <meta charset="UTF-8" vid="2">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
-
-  <title vid="4">Akim Farrow | Artist</title>
-
-  <!-- FAVICON / SITE ICON (relative paths) -->
-  <link rel="icon" href="og.jpg?v=2" type="image/jpeg">
-  <link rel="apple-touch-icon" href="og.jpg?v=2">
-  <link rel="shortcut icon" href="og.jpg?v=2" type="image/jpeg">
-
-  <!-- Open Graph / Twitter (relative paths) -->
-  <meta property="og:image" content="assets/images/main.jpg?v=1">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:type" content="image/jpeg">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="assets/images/main.jpg?v=1">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
-  <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet" vid="7">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-
-  <style vid="8">
-    :root {
-      --void: #1a0f0a;
-      --charcoal: #121212;
-      --rust: #d35400;
-      --rust-glow: #e67e22;
-      --oxide-gold: #ff6b35;
-      --steel: #2c1e18;
-      --font-display: 'Anton', sans-serif;
-      --font-mono: 'Space Mono', monospace;
-      --border: 1px solid rgba(255, 107, 53, 0.2);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body { width: 100%; }
-
-    body {
-      background-color: var(--charcoal);
-      color: #e8e0dc;
-      font-family: var(--font-mono);
-      overflow: hidden;
-      height: 100vh;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      height: 100vh;
-      width: 100vw;
-    }
-
-    .sidebar {
-      background: var(--void);
-      border-right: 1px solid #3d2218;
-      padding: 2rem 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding-top: 0.5rem;
-    }
-
-    .brand-img {
-      width: 38px;
-      height: auto;
-      max-width: 80%;
-      display: block;
-      transform: none;
-    }
-
-    .nav-vertical {
-      display: flex;
-      flex-direction: column;
-      gap: 4rem;
-      margin-top: 2rem;
-    }
-
-    .nav-link {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.4em;
-      color: #8a665c;
-      text-decoration: none;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      transition: all 0.3s ease;
-      white-space: nowrap;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-      color: var(--oxide-gold);
-    }
-
-    .location-tags {
-      font-size: 0.6rem;
-      color: var(--rust);
-      letter-spacing: 0.4em;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      opacity: 0.5;
-      padding-bottom: 2rem;
-    }
-
-    .scrolling-content {
-      height: 100vh;
-      overflow-y: auto;
-      scroll-behavior: smooth;
-      background-color: var(--charcoal);
-      background-image:
-        radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.08) 0%, transparent 70%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-      -webkit-overflow-scrolling: touch;
-      overflow-x: hidden;
-    }
-
-    section {
-      padding: 6rem 5vw;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: 10vw;
-      line-height: 0.85;
-      text-transform: uppercase;
-      color: var(--oxide-gold);
-      margin-bottom: 2rem;
-    }
-
-    .hero-sub {
-      border-left: 4px solid var(--rust);
-      padding-left: 2rem;
-    }
-
-    .hero-sub p:first-child {
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .hero-sub p:last-child {
-      color: var(--rust);
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
-    }
-
-    .gallery-section {
-      padding: 6rem 0 6rem 5vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .section-header {
-      padding-right: 5vw;
-      margin-bottom: 3rem;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.4em;
-      color: var(--rust);
-      margin-bottom: 1rem;
-      opacity: 0.8;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      color: var(--oxide-gold);
-      line-height: 1;
-    }
-
-    .gallery-filmstrip-container {
-      width: 100%;
-      overflow-x: auto;
-      padding-bottom: 2rem;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: contain;
-    }
-
-    .gallery-filmstrip-container::-webkit-scrollbar { display: none; }
-
-    .gallery-filmstrip {
-      display: flex;
-      gap: 2rem;
-      padding-right: 5vw;
-      align-items: stretch;
-    }
-
-    /* Make links behave like cards without breaking flex sizing */
-    .artwork-link {
-      display: block;
-      color: inherit;
-      text-decoration: none;
-      flex: 0 0 auto;
-      outline: none;
-    }
-
-    /* Remove the focus border ring on the linked card */
-    .artwork-link:focus-visible .artwork-card {
-      box-shadow: none;
-    }
-
-    /* Keyboard focus cue without underlining text */
-    .artwork-link:focus-visible .artwork-card {
-      outline: 1px solid rgba(255, 107, 53, 0.6);
-      outline-offset: 6px;
-    }
-
-    /* Safety: never underline titles */
-    .artwork-link .artwork-title { text-decoration: none; }
-    .artwork-link:focus .artwork-title { text-decoration: none; }
-    .artwork-link:focus-visible .artwork-title { text-decoration: none; }
-
-    .artwork-card {
-      flex: 0 0 600px;
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .artwork-image {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background-color: var(--charcoal);
-      border: 1px solid rgba(255, 107, 53, 0.15);
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-      position: relative;
-      transition: border-color 0.2s ease;
-    }
-
-    .artwork-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(60%) contrast(120%) brightness(0.7);
-      transition: transform 0.5s ease, filter 0.5s ease;
-      display: block;
-    }
-
-    .artwork-card:hover .artwork-image img {
-      transform: scale(1.03);
-      filter: grayscale(0%) contrast(110%) brightness(0.9);
-    }
-
-    .artwork-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0 0.5rem;
-      gap: 1rem;
-    }
-
-    .artwork-title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: #f5f0ee;
-      letter-spacing: 0.05em;
-    }
-
-    .artwork-meta {
-      font-size: 0.7rem;
-      color: var(--rust);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    /* RETURN HIGHLIGHT (SCM-style “came back here”) */
-    .artwork-link.return-highlight .artwork-card {
-      transform: translateY(-2px);
-      filter: none;
-    }
-
-    .artwork-link.return-highlight .artwork-image {
-      border-color: rgba(255, 107, 53, 0.55);
-      box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.25), 0 0 40px rgba(255, 107, 53, 0.10);
-    }
-
-    .artwork-link.return-highlight .artwork-image img {
-      filter: grayscale(0%) contrast(110%) brightness(0.9);
-      transform: scale(1.01);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
-      width: 100%;
-    }
-
-    .about-photo-frame {
-      width: 100%;
-      aspect-ratio: 3/4;
-      overflow: hidden;
-      border: var(--border);
-      position: relative;
-    }
-
-    .about-photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(40%) contrast(110%) brightness(0.8);
-      transition: filter 0.5s ease;
-      display: block;
-    }
-
-    .about-photo-frame:hover img {
-      filter: grayscale(0%) contrast(110%) brightness(0.85);
-    }
-
-    .about-photo-frame::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 40%;
-      background: linear-gradient(to top, rgba(26,15,10,0.8), transparent);
-      pointer-events: none;
-    }
-
-    .about-location-tag {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.4em;
-      color: var(--rust);
-      margin-top: 1.2rem;
-      opacity: 0.7;
-    }
-
-    .about-title {
-      font-family: var(--font-display);
-      font-size: 4rem;
-      color: var(--oxide-gold);
-      line-height: 1;
-      margin-bottom: 2.5rem;
-    }
-
-    .about-bio {
-      font-size: 0.82rem;
-      line-height: 1.9;
-      color: #c8b8b0;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.02em;
-    }
-
-    .about-tags {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2.5rem;
-      flex-wrap: wrap;
-    }
-
-    .about-tags span {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.3em;
-      border: 1px solid rgba(255, 107, 53, 0.3);
-      padding: 0.5rem 1.2rem;
-      color: var(--rust);
-    }
-
-    #inquire { align-items: center; }
-
-    .form-container {
-      border: 1px solid rgba(255, 107, 53, 0.2);
-      padding: 4rem;
-      background: rgba(26, 15, 10, 0.95);
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
-      position: relative;
-      max-width: 900px;
-      width: min(900px, 90vw);
-      margin: 0 auto;
-    }
-
-    .form-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust));
-    }
-
-    .form-header { margin-bottom: 4rem; }
-
-    .form-header h2 {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      letter-spacing: 0.05em;
-      color: var(--oxide-gold);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-    }
-
-    .form-group {
-      margin-bottom: 2.5rem;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .full-width { grid-column: span 2; }
-
-    label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: var(--rust);
-      margin-bottom: 0.75rem;
-      letter-spacing: 0.1em;
-    }
-
-    input, select, textarea {
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid #4d2d1d;
-      color: #fff;
-      padding: 1rem 0;
-      font-family: var(--font-mono);
-      font-size: 1rem;
-      transition: border-color 0.3s;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-bottom-color: var(--oxide-gold);
-    }
-
-    .materials-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .material-option {
-      border: 1px solid #4d2d1d;
-      padding: 0.8rem;
-      text-align: center;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #997a6e;
-      user-select: none;
-    }
-
-    .material-option:hover {
-      border-color: var(--rust);
-      color: var(--oxide-gold);
-    }
-
-    .material-option.selected {
-      background: var(--rust);
-      color: #fff;
-      border-color: var(--rust);
-    }
-
-    .submit-btn {
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--oxide-gold);
-      color: var(--oxide-gold);
-      padding: 1.5rem;
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      text-transform: uppercase;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: all 0.3s;
-    }
-
-    .submit-btn:hover {
-      background: var(--oxide-gold);
-      color: var(--void);
-    }
-
-    .site-footer {
-      padding: 0 5vw 6rem;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .footer-box {
-      width: min(900px, 90vw);
-      border: 1px solid rgba(255, 107, 53, 0.2);
-      background: rgba(26, 15, 10, 0.95);
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
-      padding: 2rem 2.25rem;
-      position: relative;
-    }
-
-    .footer-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust));
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      font-size: 0.6rem;
-      color: #8a665c;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      padding-top: 0.5rem;
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 0.9rem;
-      align-items: center;
-    }
-
-    .footer-icon {
-      width: 34px;
-      height: 34px;
-      border: 1px solid rgba(255, 107, 53, 0.25);
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #8a665c;
-      text-decoration: none;
-      transition: all 0.25s ease;
-    }
-
-    .footer-icon:hover {
-      border-color: var(--oxide-gold);
-      color: var(--oxide-gold);
-    }
-
-    .footer-icon i { font-size: 18px; line-height: 1; }
-
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--charcoal); }
-    ::-webkit-scrollbar-thumb { background: #4d2d1d; }
-
-    @media (max-width: 700px) {
-      .layout { grid-template-columns: 64px 1fr; width: 100%; }
-      .brand-img { width: 28px; }
-      .sidebar { padding: 1.25rem 0; }
-      .nav-vertical { gap: 2.5rem; margin-top: 1.25rem; }
-      .nav-link { font-size: 0.62rem; letter-spacing: 0.28em; }
-      .location-tags { font-size: 0.5rem; letter-spacing: 0.28em; gap: 1.25rem; padding-bottom: 1.25rem; }
-
-      section { padding: 3.75rem 5vw; min-height: auto; }
-      .hero-title { font-size: 16vw; line-height: 0.9; }
-      .hero-sub { padding-left: 1.25rem; }
-      .hero-sub p:first-child { letter-spacing: 0.14em; font-size: 0.9rem; }
-      .hero-sub p:last-child { font-size: 0.7rem; letter-spacing: 0.14em; }
-
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .about-title { font-size: 2.4rem; }
-
-      .gallery-section { padding: 3.75rem 0 3.75rem 5vw; }
-      .section-title { font-size: 2.2rem; }
-      .gallery-filmstrip { gap: 1.25rem; padding-right: 5vw; }
-
-      /* Keep link wrapper from changing card sizing on mobile */
-      .artwork-link { width: 78vw; max-width: 78vw; }
-      .artwork-card { flex: 0 0 78vw; max-width: 78vw; }
-
-      .artwork-title { font-size: 1.1rem; }
-      .artwork-meta { font-size: 0.62rem; letter-spacing: 0.08em; white-space: normal; text-align: right; }
-
-      .form-container { padding: 2rem; width: min(900px, 86vw); }
-      .form-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .full-width { grid-column: span 1; }
-      .materials-grid { grid-template-columns: repeat(2, 1fr); }
-
-      .footer-box { width: min(900px, 86vw); padding: 1.75rem 1.5rem; }
-    }
-
-    @media (max-width: 420px) {
-      .artwork-meta { white-space: normal; }
-    }
-
-    /* Make the LINK itself the 600px-wide flex item (same as non-linked cards) */
-    .gallery-filmstrip > .artwork-link {
-      flex: 0 0 600px;
-      width: 600px;
-    }
-
-    /* Let the card fill the link box */
-    .gallery-filmstrip > .artwork-link .artwork-card {
-      width: 100%;
-      flex: none;
-    }
-    
-  </style>
-</head>
-
-<body vid="9">
-  <div class="layout" vid="10">
-    <aside class="sidebar" vid="11">
-      <div class="brand" vid="12">
-        <img class="brand-img" src="ogw.png?v=5" alt="White Logo" />
-      </div>
-
-      <nav class="nav-vertical" vid="13">
-        <a href="#hero" class="nav-link" vid="14">ARTIST</a>
-        <a href="#about" class="nav-link" vid="15">ABOUT</a>
-        <a href="#works" class="nav-link" vid="16">ARCHIVE</a>
-        <a href="#inquire" class="nav-link active" vid="17">INQUIRE</a>
-      </nav>
-
-      <div class="location-tags" vid="18">
-        <span vid="19">FURNACE</span>
-        <span vid="20">VERMONT</span>
-        <span vid="21">CHICAGO</span>
-      </div>
-    </aside>
-
-    <main class="scrolling-content" vid="22">
-      <section id="hero" vid="23">
-        <h1 class="hero-title" vid="24">AKIM<br vid="25">FARROW</h1>
-        <div class="hero-sub" vid="26">
-          <p vid="27">Sculptor of Myth &amp; Metal</p>
-          <p vid="28">Artist</p>
+/**
+ * Akim Farrow website commission intake
+ * HTML form / fetch -> Google Apps Script Web App -> Google Sheet rows + email notify
+ *
+ * KEY FIXES
+ * - Uses SpreadsheetApp.openById(SPREADSHEET_ID) (NOT getActiveSpreadsheet)
+ * - Handles both form-encoded POSTs and JSON POSTs
+ * - Sends formatted HTML email that matches the page styling (inline styles)
+ * - Adds doGet() health check
+ * - Adds LockService to prevent row collisions under simultaneous submits
+ */
+
+const SPREADSHEET_ID = "PASTE_YOUR_SHEET_ID_HERE"; // <-- REQUIRED
+const SHEET_NAME = "requests";
+const NOTIFY_TO = "akimfarrowstudio@gmail.com";
+
+function doGet() {
+  return ContentService
+    .createTextOutput(JSON.stringify({ ok: true, sheet: SHEET_NAME }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  try {
+    const data = getPayload_(e); // handles form params and JSON body
+
+    // Honeypot spam block
+    if (data.website && String(data.website).trim() !== "") {
+      return text_("blocked");
+    }
+
+    const name = (data.name || "").trim();
+    const email = (data.email || "").trim();
+    if (!name || !email) {
+      return text_("missing required fields");
+    }
+
+    const lock = LockService.getScriptLock();
+    lock.waitLock(15000);
+
+    try {
+      const sheet = getSheet_();
+      setupSheet_(sheet);
+
+      const row = [
+        new Date(),
+        name,
+        email,
+        (data.phone || "").trim(),
+        (data.timeline || "").trim(),
+        (data.scope || "").trim(),
+        (data.location || "").trim(),
+        (data.budget || "").trim(),
+        (data.materials || "").trim(),
+        (data.specs || "").trim(),
+        (data.links || "").trim(),
+        (data.page || "").trim(),
+        (data.userAgent || "").trim()
+      ];
+
+      sheet.appendRow(row);
+    } finally {
+      lock.releaseLock();
+    }
+
+    // Email: do not break submission if email fails
+    try {
+      MailApp.sendEmail({
+        to: NOTIFY_TO,
+        replyTo: email,
+        subject: `New Commission Request: ${name}`,
+        htmlBody: buildEmailHtml_(data, name, email)
+      });
+    } catch (mailErr) {
+      console.error("EMAIL_FAILED", mailErr && mailErr.message ? mailErr.message : mailErr);
+    }
+
+    return text_("ok");
+  } catch (err) {
+    console.error("DOPOST_FAILED", err && err.message ? err.message : err);
+    return text_("error");
+  }
+}
+
+/**
+ * Robust payload parsing:
+ * - HTML form submit: e.parameter
+ * - fetch JSON: e.postData.contents (application/json)
+ */
+function getPayload_(e) {
+  const base = (e && e.parameter) ? Object.assign({}, e.parameter) : {};
+
+  // If JSON body exists, merge it (JSON wins)
+  try {
+    const ct = e && e.postData && e.postData.type ? String(e.postData.type) : "";
+    const body = e && e.postData && e.postData.contents ? String(e.postData.contents) : "";
+
+    if (body && ct.indexOf("application/json") !== -1) {
+      const parsed = JSON.parse(body);
+      if (parsed && typeof parsed === "object") {
+        Object.keys(parsed).forEach(k => { base[k] = parsed[k]; });
+      }
+    }
+  } catch (_) {}
+
+  return base;
+}
+
+function getSheet_() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+  return sheet;
+}
+
+function setupSheet_(sheet) {
+  const headers = [
+    "Received At",
+    "Client Name",
+    "Client Email",
+    "Client Phone Number",
+    "Timeline",
+    "Project Scope",
+    "Install Location",
+    "Budget Range",
+    "Preferred Material Palette",
+    "Specifications",
+    "Reference Links",
+    "Page",
+    "User Agent"
+  ];
+
+  const firstRow = sheet.getRange(1, 1, 1, headers.length).getValues()[0];
+  const isEmpty = firstRow.every(cell => !cell);
+  if (isEmpty) sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+}
+
+function buildEmailHtml_(data, name, email) {
+  const v = (k) => esc_(data[k]);
+
+  const phone = v("phone");
+  const timeline = v("timeline");
+  const scope = v("scope");
+  const location = v("location");
+  const budget = v("budget");
+  const materials = v("materials");
+
+  const specs = (esc_(data.specs || "")).replace(/\n/g, "<br>");
+  const links = (esc_(data.links || "")).replace(/\n/g, "<br>");
+  const page = v("page");
+  const userAgent = v("userAgent");
+
+  // “Page formatting” style, but email-safe: inline styles, no Tailwind classes.
+  return `
+  <div style="margin:0;padding:24px;background:#121212;">
+    <div style="
+      max-width:720px;
+      margin:0 auto;
+      border:1px solid rgba(255,107,53,0.20);
+      background:rgba(26,15,10,0.60);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 24px 80px rgba(0,0,0,0.60);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      color:#e8e0dc;
+    ">
+      <div style="padding:18px 20px;border-bottom:1px solid rgba(255,107,53,0.14);">
+        <div style="font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#d35400;opacity:0.9;">
+          Commission Intake
         </div>
-      </section>
-
-      <section id="about" vid="29">
-        <div class="about-grid" vid="30">
-          <div class="about-photo-col" vid="31">
-            <div class="about-photo-frame" vid="32">
-              <img src="assets/images/me.jpg" alt="Akim Farrow" vid="33">
-            </div>
-            <div class="about-location-tag" vid="34">VERMONT — CHICAGO</div>
-          </div>
-
-          <div class="about-text-col" vid="35">
-            <div class="section-label" vid="36">About the Artist</div>
-            <h2 class="about-title" vid="37">MEET AKIM</h2>
-            <p class="about-bio" vid="38">As a first generation Zimbabwean-American artist, grown in the mountains, my perspective is shaped by imbrications of being. My work navigates layerings and liminalities of identity, myth, and storytelling; in-between realms of the self.</p>
-            <p class="about-bio" vid="39">All materiality is a single body, alive with memory, weight, and form. In the Contemporary age, the industrial Anthropocene, where the bones of the world are cast in steel, I often turn to this medium — my first material love — to tell the stories I wish I was told about the world; about myself.</p>
-            <p class="about-bio" vid="40">My sculptures are living objects and sites of story-building, where personal and collective histories collide, transmuting the industrial age into something more intimate. My works celebrate the intricate and infinite imbrications of our shared human experience.</p>
-            <div class="about-tags" vid="41">
-              <span vid="42">STEEL</span>
-              <span vid="43">MYTH</span>
-              <span vid="44">MEMORY</span>
-              <span vid="45">FORM</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="works" class="gallery-section" vid="46">
-        <div class="section-header" vid="47">
-          <div class="section-label" vid="48">Archive Filmstrip</div>
-          <div class="section-title" vid="49">SELECTED WORKS</div>
-        </div>
-
-        <div class="gallery-filmstrip-container" vid="50">
-          <div class="gallery-filmstrip" vid="51">
-
-            <!-- LINKED CARD: STEEL CAGE MOTHER -->
-            <a id="scm" class="artwork-link" href="archive/steelcagemother.html" aria-label="Open Steel Cage Mother">
-              <div class="artwork-card" vid="52">
-                <div class="artwork-image" vid="53">
-                  <img src="assets/images/steelcagemother.jpg" alt="Steel Cage Mother" vid="54">
-                </div>
-                <div class="artwork-info" vid="55">
-                  <div class="artwork-title" vid="56">Steel Cage Mother</div>
-                  <div class="artwork-meta" vid="57">2025 · Steel &amp; Office Chair</div>
-                </div>
-              </div>
-            </a>
-
-            <!-- LINKED CARD: WHITE ALBUM -->
-            <a id="wa" class="artwork-link" href="archive/whitealbum.html" aria-label="Open White Album">
-              <div class="artwork-card" vid="58">
-                <div class="artwork-image" vid="59">
-                  <img src="assets/images/whitealbum.jpg" alt="White Album" vid="60">
-                </div>
-                <div class="artwork-info" vid="61">
-                  <div class="artwork-title" vid="62">White Album</div>
-                  <div class="artwork-meta" vid="63">2025 · Raw Canvas &amp; Wood</div>
-                </div>
-              </div>
-            </a>
-
-            <div class="artwork-card" vid="64">
-              <div class="artwork-image" vid="65">
-                <img src="assets/images/mokumeganerings.jpg" alt="Mokume-gane (木目金) Rings" vid="66">
-              </div>
-              <div class="artwork-info" vid="67">
-                <div class="artwork-title" vid="68">Mokume-gane (木目金) Rings</div>
-                <div class="artwork-meta" vid="69">2024 · Nickel &amp; Copper</div>
-              </div>
-            </div>
-
-                 <!-- LINKED CARD: STRANGE HARVEST -->
-            <a id="sh" class="artwork-link" href="archive/strangeharvest.html" aria-label="Open Strange Harvest">
-              <div class="artwork-card" vid="70">
-                <div class="artwork-image" vid="71">
-                  <img src="assets/images/strangeharvest.jpg" alt="Strange Harvest" vid="72">
-                </div>
-                <div class="artwork-info" vid="73">
-                  <div class="artwork-title" vid="74">Strange Harvest</div>
-                  <div class="artwork-meta" vid="75">2024 · Welded Steel</div>
-                </div>
-              </div>
-            </a>
-
-            <div class="artwork-card" vid="76">
-              <div class="artwork-image" vid="77">
-                <img src="assets/images/autochthon.jpg" alt="Autochthon" vid="78">
-              </div>
-              <div class="artwork-info" vid="79">
-                <div class="artwork-title" vid="80">Autochthon</div>
-                <div class="artwork-meta" vid="81">2024 · Steel &amp; Copper</div>
-              </div>
-            </div>
-
-            <!-- LINKED CARD: BAOBAB BOTTLE TREE -->
-            <a id="bbt" class="artwork-link" href="archive/baobabbottletree.html" aria-label="Open Baobab Bottle Tree">
-              <div class="artwork-card" vid="82">
-                <div class="artwork-image" vid="83">
-                  <img src="assets/images/baobabbottletree.jpg" alt="Baobab Bottle Tree" vid="84">
-                </div>
-                <div class="artwork-info" vid="85">
-                  <div class="artwork-title" vid="86">Baobab Bottle Tree</div>
-                  <div class="artwork-meta" vid="87">2024 · Steel &amp; Glass</div>
-                </div>
-              </div>
-            </a>
-
-            <div class="artwork-card" vid="88">
-              <div class="artwork-image" vid="89">
-                <img src="assets/images/monsterswemake.jpg" alt="Monsters We Make" vid="90">
-              </div>
-              <div class="artwork-info" vid="91">
-                <div class="artwork-title" vid="92">Monsters We Make</div>
-                <div class="artwork-meta" vid="93">2019 · Steel &amp; Glass</div>
-              </div>
-            </div>
-
-            <div class="artwork-card" vid="94">
-              <div class="artwork-image" vid="95">
-                <img src="assets/images/intothewoodsbench.jpg" alt="Into the Woods, Bench" vid="96">
-              </div>
-              <div class="artwork-info" vid="97">
-                <div class="artwork-title" vid="98">Into the Woods, Bench</div>
-                <div class="artwork-meta" vid="99">2018 · Harvested Wood</div>
-              </div>
-            </div>
-
-            <div class="artwork-card" vid="100">
-              <div class="artwork-image" vid="101">
-                <img src="assets/images/bastardsonofaking.jpg" alt="Bastard Son of a King" vid="102">
-              </div>
-              <div class="artwork-info" vid="103">
-                <div class="artwork-title" vid="104">Bastard Son of a King</div>
-                <div class="artwork-meta" vid="105">2016 · Steel &amp; Epoxy</div>
-              </div>
-            </div>
-
-            <div class="artwork-card" vid="106">
-              <div class="artwork-image" vid="107">
-                <img src="assets/images/somegladmorning.jpg" alt="Some Glad Morning" vid="108">
-              </div>
-              <div class="artwork-info" vid="109">
-                <div class="artwork-title" vid="110">Some Glad Morning</div>
-                <div class="artwork-meta" vid="111">2015 · Steel</div>
-              </div>
-            </div>
-
-            <div class="artwork-card" vid="112">
-              <div class="artwork-image" vid="113">
-                <img src="assets/images/selfportrait.jpg" alt="Self Portrait" vid="114">
-              </div>
-              <div class="artwork-info" vid="115">
-                <div class="artwork-title" vid="116">Self Portrait</div>
-                <div class="artwork-meta" vid="117">2015 · Canvas &amp; Oil Paint</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <section id="inquire" vid="76">
-        <div class="form-container" vid="77">
-          <div class="form-header" vid="78">
-            <h2 vid="79">INITIATE COMMISSION</h2>
-            <p style="font-size: 0.8rem; margin-top: 1rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;" vid="80">
-              Custom fabrications require 3-6 months lead time.
-            </p>
-          </div>
-
-          <form id="commissionForm" vid="81">
-            <div class="form-grid" vid="82">
-              <div class="form-group" vid="83">
-                <label vid="84">Identifier [Name]</label>
-                <input name="name" type="text" placeholder="ENTER FULL NAME" required vid="85">
-              </div>
-
-              <div class="form-group" vid="86">
-                <label vid="87">Frequency [Email]</label>
-                <input name="email" type="email" placeholder="EMAIL@ADDRESS.COM" required vid="88">
-              </div>
-            </div>
-
-            <div class="form-grid" style="margin-top: 1rem;">
-              <div class="form-group">
-                <label>Signal [Phone] (optional)</label>
-                <input name="phone" type="tel" placeholder="PHONE NUMBER">
-              </div>
-
-              <div class="form-group">
-                <label>Timeline</label>
-                <select name="timeline" required>
-                  <option value="" disabled selected>SELECT TIMELINE</option>
-                  <option>0–3 months</option>
-                  <option>3–6 months</option>
-                  <option>6–12 months</option>
-                  <option>12+ months</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group full-width" vid="89">
-              <label vid="90">Project Scope</label>
-              <select name="scope" required vid="91">
-                <option value="" disabled selected>SELECT SCOPE</option>
-                <option>Public Sculpture Installation</option>
-                <option>Private Collector Piece</option>
-                <option>Architectural Integrated Work</option>
-                <option>Gallery Exhibition Request</option>
-              </select>
-            </div>
-
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Install Location</label>
-                <input name="location" type="text" placeholder="CITY, STATE OR COUNTRY" required>
-              </div>
-
-              <div class="form-group">
-                <label>Budget Range</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>SELECT BUDGET</option>
-                  <option>Under $5k</option>
-                  <option>$5k–$15k</option>
-                  <option>$15k–$50k</option>
-                  <option>$50k+</option>
-                  <option>Not sure yet</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group full-width" vid="96">
-              <label vid="97">Preferred Material Palette</label>
-              <input type="hidden" name="materials" id="materialsInput" value="Raw Steel">
-
-              <div class="materials-grid" vid="98">
-                <div class="material-option selected" data-material="Raw Steel" onclick="toggleMaterial(this)" vid="99">Precious Metals</div>
-                <div class="material-option" data-material="Oxidized Copper" onclick="toggleMaterial(this)" vid="100">Ferrous Metals</div>
-                <div class="material-option" data-material="Cast Bronze" onclick="toggleMaterial(this)" vid="101">Wood</div>
-                <div class="material-option" data-material="Rebar / Slag" onclick="toggleMaterial(this)" vid="102">Plastic</div>
-                <div class="material-option" data-material="Rebar / Slag" onclick="toggleMaterial(this)" vid="102">Plaster</div>
-                <div class="material-option" data-material="Rebar / Slag" onclick="toggleMaterial(this)" vid="102">Glass</div>
-                <div class="material-option" data-material="Rebar / Slag" onclick="toggleMaterial(this)" vid="102">Clay</div>
-              </div>
-            </div>
-
-            <div class="form-group full-width" vid="103">
-              <label vid="104">Specifications</label>
-              <textarea name="specs" rows="4" placeholder="DIMENSIONS, SITE CONTEXT, CONCEPT, ANY CONSTRAINTS..." required vid="105"></textarea>
-            </div>
-
-            <div class="form-group full-width">
-              <label>Reference Links (optional)</label>
-              <textarea name="links" rows="3" placeholder="PASTE LINKS TO SITE PHOTOS, INSPO, FLOORPLANS, PINTEREST, ETC."></textarea>
-            </div>
-
-            <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
-
-            <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
-            <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
-          </form>
-        </div>
-      </section>
-
-      <div class="site-footer" vid="200">
-        <div class="footer-box" vid="201">
-          <div class="footer-inner" vid="202">
-            <div vid="203">© 2026 AKIM FARROW STUDIOS</div>
-
-            <div class="footer-social" vid="204">
-              <a class="footer-icon" href="mailto:akimfarrowstudio@gmail.com" aria-label="Email">
-                <i class="ph ph-envelope-simple"></i>
-              </a>
-
-              <a class="footer-icon" href="https://www.linkedin.com/in/akim-farrow-349a98122" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <i class="ph ph-linkedin-logo"></i>
-              </a>
-
-              <a class="footer-icon" href="https://www.instagram.com/blacksmvth/" target="_blank" rel="noopener" aria-label="Instagram">
-                <i class="ph ph-instagram-logo"></i>
-              </a>
-            </div>
-          </div>
+        <div style="margin-top:8px;font-family: Arial, sans-serif; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; font-size:28px; line-height:1.1; color:#ff6b35;">
+          New Request
         </div>
       </div>
 
-    </main>
+      <div style="padding:18px 20px;">
+        <table role="presentation" style="width:100%;border-collapse:collapse;">
+          ${row_("Name", esc_(name))}
+          ${row_("Email", esc_(email))}
+          ${row_("Phone", phone || "—")}
+          ${row_("Timeline", timeline || "—")}
+          ${row_("Scope", scope || "—")}
+          ${row_("Location", location || "—")}
+          ${row_("Budget", budget || "—")}
+          ${row_("Materials", materials || "—")}
+        </table>
+
+        <div style="margin-top:16px;border-top:1px solid rgba(255,107,53,0.14);padding-top:16px;">
+          ${block_("Specifications", specs || "—")}
+          ${block_("Reference links", links || "—")}
+        </div>
+
+        <div style="margin-top:18px;border-top:1px solid rgba(255,107,53,0.14);padding-top:14px;color:#8a665c;font-size:11px;letter-spacing:0.06em;">
+          <div><b style="color:#d35400;letter-spacing:0.20em;text-transform:uppercase;">Page:</b> <span style="color:#c8b8b0;">${page || "—"}</span></div>
+          <div style="margin-top:6px;"><b style="color:#d35400;letter-spacing:0.20em;text-transform:uppercase;">User Agent:</b> <span style="color:#c8b8b0;">${userAgent || "—"}</span></div>
+          <div style="margin-top:6px;"><b style="color:#d35400;letter-spacing:0.20em;text-transform:uppercase;">Received:</b> <span style="color:#c8b8b0;">${esc_(new Date().toString())}</span></div>
+        </div>
+      </div>
+    </div>
   </div>
+  `;
+}
 
-  <script vid="110">
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const scrollContainer = document.querySelector('.scrolling-content');
+function row_(label, value) {
+  return `
+    <tr>
+      <td style="vertical-align:top;padding:10px 0;width:160px;">
+        <div style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#d35400;opacity:0.9;">
+          ${esc_(label)}
+        </div>
+      </td>
+      <td style="vertical-align:top;padding:10px 0;">
+        <div style="font-size:14px;line-height:1.6;color:#e8e0dc;">
+          ${value}
+        </div>
+      </td>
+    </tr>
+  `;
+}
 
-    scrollContainer.addEventListener('scroll', () => {
-      let current = "";
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (scrollContainer.scrollTop >= sectionTop - 100) {
-          current = section.getAttribute('id');
-        }
-      });
+function block_(label, htmlValue) {
+  return `
+    <div style="margin-top:14px;">
+      <div style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#d35400;opacity:0.9;margin-bottom:8px;">
+        ${esc_(label)}
+      </div>
+      <div style="font-size:14px;line-height:1.7;color:#c8b8b0;">
+        ${htmlValue}
+      </div>
+    </div>
+  `;
+}
 
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) {
-          link.classList.add('active');
-        }
-      });
-    });
+function esc_(v) {
+  return (v == null ? "" : String(v))
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
-    // Horizontal scroll for the filmstrip (mousewheel + trackpad)
-    const filmstripContainer = document.querySelector('.gallery-filmstrip-container');
-    const filmstripInner = document.querySelector('.gallery-filmstrip');
-
-    function handleFilmstripWheel(evt) {
-      const dx = Math.abs(evt.deltaX || 0);
-      const dy = Math.abs(evt.deltaY || 0);
-
-      if (dy > dx) {
-        evt.preventDefault();
-        filmstripContainer.scrollLeft += evt.deltaY;
-      }
-    }
-
-    if (filmstripContainer) {
-      filmstripContainer.addEventListener('wheel', handleFilmstripWheel, { passive: false });
-    }
-    if (filmstripInner) {
-      filmstripInner.addEventListener('wheel', handleFilmstripWheel, { passive: false });
-    }
-
-    // RETURN HIGHLIGHT: when arriving with #scm or #wa, bring card into view and glow it briefly
-    function highlightReturnCard() {
-      const hash = (window.location.hash || '').replace('#', '');
-      if (!hash) return;
-
-      const target = document.getElementById(hash);
-      if (!target) return;
-
-      // Ensure we are at the works section so the filmstrip is actually in view
-      const worksSection = document.getElementById('works');
-      if (worksSection) {
-        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      // After the vertical scroll settles a bit, scroll the filmstrip horizontally to the card
-      setTimeout(() => {
-        const container = document.querySelector('.gallery-filmstrip-container');
-        if (!container) return;
-
-        // scrollIntoView with inline:'center' gives the “SCM return” feel
-        target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-
-        // Add glow class, then remove after a moment
-        target.classList.add('return-highlight');
-        setTimeout(() => target.classList.remove('return-highlight'), 2200);
-
-        // Optional: clear hash so refresh doesn’t keep re-triggering
-        // history.replaceState(null, '', window.location.pathname);
-      }, 450);
-    }
-
-    window.addEventListener('load', highlightReturnCard);
-    window.addEventListener('hashchange', highlightReturnCard);
-  </script>
-
-  <script>
-    function toggleMaterial(el) {
-      el.classList.toggle('selected');
-
-      const selected = Array.from(document.querySelectorAll('.material-option.selected'))
-        .map(x => x.getAttribute('data-material'))
-        .filter(Boolean);
-
-      if (selected.length === 0) {
-        const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
-        if (raw) raw.classList.add('selected');
-        selected.push('Raw Steel');
-      }
-
-      document.getElementById('materialsInput').value = selected.join(', ');
-    }
-
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxuMjJPx4fj4bF1veeE2xYiTDoprcSGn9cGEzkirV5XWlZ0BVDsnyQKNHjlu4kiUHrFwg/exec";
-
-    const form = document.getElementById('commissionForm');
-    const statusEl = document.getElementById('formStatus');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      statusEl.textContent = "TRANSMITTING...";
-
-      const hp = document.getElementById('websiteField');
-      if (hp && hp.value.trim() !== "") {
-        statusEl.textContent = "BLOCKED.";
-        return;
-      }
-
-      const formData = new FormData(form);
-      formData.append("page", window.location.href);
-      formData.append("userAgent", navigator.userAgent);
-
-      try {
-        const res = await fetch(WEB_APP_URL, {
-          method: "POST",
-          body: formData
-        });
-
-        await res.text();
-
-        if (!res.ok) {
-          statusEl.textContent = "ERROR. TRY AGAIN.";
-          return;
-        }
-
-        statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
-        form.reset();
-
-        document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-        const raw = document.querySelector('.material-option[data-material="Raw Steel"]');
-        if (raw) raw.classList.add('selected');
-        document.getElementById('materialsInput').value = "Raw Steel";
-
-      } catch (err) {
-        statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-      }
-    });
-  </script>
-</body>
-</html>
+function text_(s) {
+  return ContentService
+    .createTextOutput(String(s))
+    .setMimeType(ContentService.MimeType.TEXT);
+}
