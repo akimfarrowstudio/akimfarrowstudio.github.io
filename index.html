@@ -1,20 +1,18 @@
 <!doctype html>
 <html lang="en" vid="0">
 <head vid="1">
-  
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QK7045YE1S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-QK7045YE1S');
-</script>
-  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QK7045YE1S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QK7045YE1S');
+  </script>
+
   <meta charset="UTF-8" vid="2">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
-
   <title vid="4">Akim Farrow | Artist</title>
 
   <!-- FAVICON / SITE ICON (relative paths) -->
@@ -27,7 +25,6 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/jpeg">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="assets/images/main.jpg?v=1">
 
@@ -232,7 +229,6 @@
       align-items: stretch;
     }
 
-    /* Make links behave like cards without breaking flex sizing */
     .artwork-link {
       display: block;
       color: inherit;
@@ -241,18 +237,13 @@
       outline: none;
     }
 
-    /* Remove the focus border ring on the linked card */
-    .artwork-link:focus-visible .artwork-card {
-      box-shadow: none;
-    }
+    .artwork-link:focus-visible .artwork-card { box-shadow: none; }
 
-    /* Keyboard focus cue without underlining text */
     .artwork-link:focus-visible .artwork-card {
       outline: 1px solid rgba(255, 107, 53, 0.6);
       outline-offset: 6px;
     }
 
-    /* Safety: never underline titles */
     .artwork-link .artwork-title { text-decoration: none; }
     .artwork-link:focus .artwork-title { text-decoration: none; }
     .artwork-link:focus-visible .artwork-title { text-decoration: none; }
@@ -313,7 +304,6 @@
       white-space: nowrap;
     }
 
-    /* RETURN HIGHLIGHT (SCM-style “came back here”) */
     .artwork-link.return-highlight .artwork-card {
       transform: translateY(-2px);
       filter: none;
@@ -619,7 +609,6 @@
       .section-title { font-size: 2.2rem; }
       .gallery-filmstrip { gap: 1.25rem; padding-right: 5vw; }
 
-      /* Keep link wrapper from changing card sizing on mobile */
       .artwork-link { width: 78vw; max-width: 78vw; }
       .artwork-card { flex: 0 0 78vw; max-width: 78vw; }
 
@@ -638,18 +627,15 @@
       .artwork-meta { white-space: normal; }
     }
 
-    /* Make the LINK itself the 600px-wide flex item (same as non-linked cards) */
     .gallery-filmstrip > .artwork-link {
       flex: 0 0 600px;
       width: 600px;
     }
 
-    /* Let the card fill the link box */
     .gallery-filmstrip > .artwork-link .artwork-card {
       width: 100%;
       flex: none;
     }
-    
   </style>
 </head>
 
@@ -717,7 +703,6 @@
         <div class="gallery-filmstrip-container" vid="50">
           <div class="gallery-filmstrip" vid="51">
 
-            <!-- LINKED CARD: STEEL CAGE MOTHER -->
             <a id="scm" class="artwork-link" href="archive/steelcagemother.html" aria-label="Open Steel Cage Mother">
               <div class="artwork-card" vid="52">
                 <div class="artwork-image" vid="53">
@@ -730,7 +715,6 @@
               </div>
             </a>
 
-            <!-- LINKED CARD: WHITE ALBUM -->
             <a id="wa" class="artwork-link" href="archive/whitealbum.html" aria-label="Open White Album">
               <div class="artwork-card" vid="58">
                 <div class="artwork-image" vid="59">
@@ -753,7 +737,6 @@
               </div>
             </div>
 
-                 <!-- LINKED CARD: STRANGE HARVEST -->
             <a id="sh" class="artwork-link" href="archive/strangeharvest.html" aria-label="Open Strange Harvest">
               <div class="artwork-card" vid="70">
                 <div class="artwork-image" vid="71">
@@ -776,7 +759,6 @@
               </div>
             </div>
 
-            <!-- LINKED CARD: BAOBAB BOTTLE TREE -->
             <a id="bbt" class="artwork-link" href="archive/baobabbottletree.html" aria-label="Open Baobab Bottle Tree">
               <div class="artwork-card" vid="82">
                 <div class="artwork-image" vid="83">
@@ -915,7 +897,7 @@
 
             <div class="form-group full-width" vid="96">
               <label vid="97">Preferred Material Palette</label>
-              <input type="hidden" name="materials" id="materialsInput" value="Raw Steel">
+              <input type="hidden" name="materials" id="materialsInput" value="Precious Metals">
 
               <div class="materials-grid" vid="98">
                 <div class="material-option selected" data-material="Precious Metals" onclick="toggleMaterial(this)" vid="99">Precious Metals</div>
@@ -971,6 +953,7 @@
     </main>
   </div>
 
+  <!-- NAV + FILMSTRIP JS (yours, unchanged) -->
   <script vid="110">
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -993,14 +976,12 @@
       });
     });
 
-    // Horizontal scroll for the filmstrip (mousewheel + trackpad)
     const filmstripContainer = document.querySelector('.gallery-filmstrip-container');
     const filmstripInner = document.querySelector('.gallery-filmstrip');
 
     function handleFilmstripWheel(evt) {
       const dx = Math.abs(evt.deltaX || 0);
       const dy = Math.abs(evt.deltaY || 0);
-
       if (dy > dx) {
         evt.preventDefault();
         filmstripContainer.scrollLeft += evt.deltaY;
@@ -1014,7 +995,6 @@
       filmstripInner.addEventListener('wheel', handleFilmstripWheel, { passive: false });
     }
 
-    // RETURN HIGHLIGHT: when arriving with #scm or #wa, bring card into view and glow it briefly
     function highlightReturnCard() {
       const hash = (window.location.hash || '').replace('#', '');
       if (!hash) return;
@@ -1022,26 +1002,19 @@
       const target = document.getElementById(hash);
       if (!target) return;
 
-      // Ensure we are at the works section so the filmstrip is actually in view
       const worksSection = document.getElementById('works');
       if (worksSection) {
         worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
-      // After the vertical scroll settles a bit, scroll the filmstrip horizontally to the card
       setTimeout(() => {
         const container = document.querySelector('.gallery-filmstrip-container');
         if (!container) return;
 
-        // scrollIntoView with inline:'center' gives the “SCM return” feel
         target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 
-        // Add glow class, then remove after a moment
         target.classList.add('return-highlight');
         setTimeout(() => target.classList.remove('return-highlight'), 2200);
-
-        // Optional: clear hash so refresh doesn’t keep re-triggering
-        // history.replaceState(null, '', window.location.pathname);
       }, 450);
     }
 
@@ -1049,69 +1022,84 @@
     window.addEventListener('hashchange', highlightReturnCard);
   </script>
 
+  <!-- FORM JS (fixed: single script tag, includes toggleMaterial, no nesting) -->
   <script>
-<script>
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxwP8ujquTv4nhP3FYwWxCGdU_czO50Az4ZQSqYSoAP6EscLLFKWJc3Qo5drJKV-R8E/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxwP8ujquTv4nhP3FYwWxCGdU_czO50Az4ZQSqYSoAP6EscLLFKWJc3Qo5drJKV-R8E/exec";
 
-  const form = document.getElementById('commissionForm');
-  const statusEl = document.getElementById('formStatus');
+    function toggleMaterial(el) {
+      el.classList.toggle("selected");
+      const selected = Array.from(document.querySelectorAll(".material-option.selected"))
+        .map(x => x.getAttribute("data-material"))
+        .filter(Boolean);
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    statusEl.textContent = "TRANSMITTING...";
-
-    const hp = document.getElementById('websiteField');
-    if (hp && hp.value.trim() !== "") {
-      statusEl.textContent = "BLOCKED.";
-      return;
+      const mi = document.getElementById("materialsInput");
+      if (mi) mi.value = selected.length ? selected.join(", ") : "";
     }
 
-    const fd = new FormData(form);
-    const payload = Object.fromEntries(fd.entries());
-    payload.page = window.location.href;
-    payload.userAgent = navigator.userAgent;
+    const form = document.getElementById("commissionForm");
+    const statusEl = document.getElementById("formStatus");
 
-    try {
-      const res = await fetch(WEB_APP_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        statusEl.textContent = "TRANSMITTING...";
+
+        const hp = document.getElementById("websiteField");
+        if (hp && hp.value.trim() !== "") {
+          statusEl.textContent = "BLOCKED.";
+          return;
+        }
+
+        const fd = new FormData(form);
+        const payload = Object.fromEntries(fd.entries());
+        payload.page = window.location.href;
+        payload.userAgent = navigator.userAgent;
+
+        try {
+          const res = await fetch(WEB_APP_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const text = await res.text();
+          let out;
+          try { out = JSON.parse(text); }
+          catch { out = { ok: false, error: text }; }
+
+          if (!res.ok || out.ok !== true) {
+            statusEl.textContent = "ERROR. TRY AGAIN.";
+            console.log("WEBAPP_ERROR", out);
+            return;
+          }
+
+          if (out.blocked) {
+            statusEl.textContent = "BLOCKED.";
+            return;
+          }
+
+          if (out.emailed === false) {
+            statusEl.textContent = "RECEIVED. EMAIL FAILED. CHECK SHEET.";
+            console.log("EMAIL_FAILED", out.emailStatus, out.emailError, out.debug);
+          } else {
+            statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
+          }
+
+          form.reset();
+
+          document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
+          const def = document.querySelector('.material-option[data-material="Precious Metals"]');
+          if (def) def.classList.add("selected");
+          const mi = document.getElementById("materialsInput");
+          if (mi) mi.value = "Precious Metals";
+
+        } catch (err) {
+          statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+          console.log("FETCH_ERROR", err);
+        }
       });
-
-      const out = await res.json().catch(async () => ({ ok: false, error: await res.text() }));
-
-      if (!res.ok || out.ok !== true) {
-        statusEl.textContent = "ERROR. TRY AGAIN.";
-        console.log("WEBAPP_ERROR", out);
-        return;
-      }
-
-      if (out.blocked) {
-        statusEl.textContent = "BLOCKED.";
-        return;
-      }
-
-      if (out.emailed === false) {
-        statusEl.textContent = "RECEIVED. EMAIL FAILED. CHECK SHEET.";
-        console.log("EMAIL_FAILED", out.emailStatus, out.emailError, out.debug);
-      } else {
-        statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
-      }
-
-      form.reset();
-
-      document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-      const raw = document.querySelector('.material-option[data-material="Precious Metals"]');
-      if (raw) raw.classList.add('selected');
-
-      const mi = document.getElementById('materialsInput');
-      if (mi) mi.value = "Precious Metals";
-
-    } catch (err) {
-      statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-      console.log("FETCH_ERROR", err);
     }
-  });
-</script>
+  </script>
+
 </body>
 </html>
