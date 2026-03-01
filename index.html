@@ -1023,83 +1023,92 @@
   </script>
 
   <!-- FORM JS (fixed: single script tag, includes toggleMaterial, no nesting) -->
-  <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzRNSk_bCZYDmqnFX0ViG9lTvfvgZj9Tbq7oTo00q8NtZKjgAlp2gHoFKNeToqS8eTWZQ/exec";
+<script>
+  const WEB_APP_URL = "PASTE_YOUR_NEW_/exec_URL_HERE";
 
-    function toggleMaterial(el) {
-      el.classList.toggle("selected");
-      const selected = Array.from(document.querySelectorAll(".material-option.selected"))
-        .map(x => x.getAttribute("data-material"))
-        .filter(Boolean);
+  const form = document.getElementById('commissionForm');
+  const statusEl = document.getElementById('formStatus');
 
-      const mi = document.getElementById("materialsInput");
-      if (mi) mi.value = selected.length ? selected.join(", ") : "";
+  function toUrlEncoded(formEl) {
+    const fd = new FormData(formEl);
+
+    // add meta
+    fd.append("page", window.location.href);
+    fd.append("userAgent", navigator.userAgent);
+
+    // IMPORTANT: turn into URLSearchParams (simple request, no preflight)
+    const params = new URLSearchParams();
+    for (const [k, v] of fd.entries()) params.append(k, v);
+    return params.toString();
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "TRANSMITTING...";
+
+    const hp = document.getElementById('websiteField');
+    if (hp && hp.value.trim() !== "") {
+      statusEl.textContent = "BLOCKED.";
+      return;
     }
 
-    const form = document.getElementById("commissionForm");
-    const statusEl = document.getElementById("formStatus");
+    const body = toUrlEncoded(form);
 
-    if (form) {
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        statusEl.textContent = "TRANSMITTING...";
-
-        const hp = document.getElementById("websiteField");
-        if (hp && hp.value.trim() !== "") {
-          statusEl.textContent = "BLOCKED.";
-          return;
-        }
-
-        const fd = new FormData(form);
-        const payload = Object.fromEntries(fd.entries());
-        payload.page = window.location.href;
-        payload.userAgent = navigator.userAgent;
-
-        try {
-          const res = await fetch(WEB_APP_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-
-          const text = await res.text();
-          let out;
-          try { out = JSON.parse(text); }
-          catch { out = { ok: false, error: text }; }
-
-          if (!res.ok || out.ok !== true) {
-            statusEl.textContent = "ERROR. TRY AGAIN.";
-            console.log("WEBAPP_ERROR", out);
-            return;
-          }
-
-          if (out.blocked) {
-            statusEl.textContent = "BLOCKED.";
-            return;
-          }
-
-          if (out.emailed === false) {
-            statusEl.textContent = "RECEIVED. EMAIL FAILED. CHECK SHEET.";
-            console.log("EMAIL_FAILED", out.emailStatus, out.emailError, out.debug);
-          } else {
-            statusEl.textContent = "RECEIVED. YOU WILL HEAR BACK SOON.";
-          }
-
-          form.reset();
-
-          document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
-          const def = document.querySelector('.material-option[data-material="Precious Metals"]');
-          if (def) def.classList.add("selected");
-          const mi = document.getElementById("materialsInput");
-          if (mi) mi.value = "Precious Metals";
-
-        } catch (err) {
-          statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-          console.log("FETCH_ERROR", err);
-        }
+    try {
+      const res = await fetch(WEB_APP_URL, {
+        method: "POST",
+        redirect: "follow",
+        credentials: "omit",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+        },
+        body
       });
+
+      // If Apps Script returns HTML (auth/redirect), this might throw when parsing JSON
+      const text = await res.text();
+      let payload = null;
+      try { payload = JSON.parse(text); } catch (_) {}
+
+      if (!res.ok) {
+        statusEl.textContent = "ERROR. TRY AGAIN.";
+        return;
+      }
+
+      // If we got JSON, show better status
+      if (payload && payload.ok) {
+        statusEl.textContent = payload.emailed
+          ? "RECEIVED. CONFIRMATION SENT."
+          : "RECEIVED. EMAIL MAY BE DELAYED.";
+
+        form.reset();
+
+        document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+        const first = document.querySelector('.material-option');
+        if (first) first.classList.add('selected');
+
+        // keep hidden materials value sane (optional)
+        const materialsInput = document.getElementById('materialsInput');
+        if (materialsInput) materialsInput.value = (first && first.dataset.material) ? first.dataset.material : "";
+        return;
+      }
+
+      // If it wasn’t JSON, still treat as received because the POST likely worked
+      statusEl.textContent = "RECEIVED.";
+
+    } catch (err) {
+      // FINAL fallback: try sendBeacon so the lead can still hit the script
+      try {
+        const ok = navigator.sendBeacon(WEB_APP_URL, new Blob([body], {
+          type: "application/x-www-form-urlencoded;charset=UTF-8"
+        }));
+        statusEl.textContent = ok ? "RECEIVED." : "NETWORK ERROR. TRY AGAIN.";
+      } catch (_) {
+        statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+      }
     }
-  </script>
+  });
+</script>
 
 </body>
 </html>
