@@ -516,6 +516,21 @@
       color: var(--void);
     }
 
+    /* NEW: debug panel */
+    .debug-panel {
+      margin-top: 14px;
+      border: 1px solid rgba(255, 107, 53, 0.22);
+      background: rgba(18, 18, 18, 0.55);
+      padding: 12px 12px;
+      border-radius: 10px;
+      color: #c8b8b0;
+      font-size: 12px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+      display: none;
+    }
+
     .site-footer {
       padding: 0 5vw 6rem;
       width: 100%;
@@ -699,7 +714,6 @@
 
         <div class="gallery-filmstrip-container" vid="50">
           <div class="gallery-filmstrip" vid="51">
-
             <a id="scm" class="artwork-link" href="archive/steelcagemother.html" aria-label="Open Steel Cage Mother">
               <div class="artwork-card" vid="52">
                 <div class="artwork-image" vid="53">
@@ -921,6 +935,9 @@
 
             <button type="submit" class="submit-btn" vid="106">Transmit Request</button>
             <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
+
+            <!-- NEW: Debug output (only shows after submit) -->
+            <pre id="debugOut" class="debug-panel"></pre>
           </form>
         </div>
       </section>
@@ -1019,12 +1036,27 @@
     window.addEventListener('hashchange', highlightReturnCard);
   </script>
 
-  <!-- FORM JS (fixed: multi-select materials + better reset) -->
+  <!-- FORM JS (UPDATED: show server payload + rely on emailedClient) -->
   <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzRNSk_bCZYDmqnFX0ViG9lTvfvgZj9Tbq7oTo00q8NtZKjgAlp2gHoFKNeToqS8eTWZQ/exec";
 
     const form = document.getElementById('commissionForm');
     const statusEl = document.getElementById('formStatus');
+    const debugEl = document.getElementById('debugOut');
+
+    function showDebug(objOrText) {
+      if (!debugEl) return;
+      debugEl.style.display = "block";
+      if (typeof objOrText === "string") {
+        debugEl.textContent = objOrText;
+        return;
+      }
+      try {
+        debugEl.textContent = JSON.stringify(objOrText, null, 2);
+      } catch (_) {
+        debugEl.textContent = String(objOrText || "");
+      }
+    }
 
     function syncMaterialsInput() {
       const selected = Array.from(document.querySelectorAll('.material-option.selected'))
@@ -1070,8 +1102,8 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       statusEl.textContent = "TRANSMITTING...";
+      if (debugEl) debugEl.style.display = "none";
 
-      // Make sure hidden materials reflects current selected UI
       syncMaterialsInput();
 
       const hp = document.getElementById('websiteField');
@@ -1083,8 +1115,12 @@
       const body = toUrlEncoded(form);
 
       try {
-        const res = await fetch(WEB_APP_URL, {
+        // Cache buster to avoid any weird intermediary caching
+        const url = WEB_APP_URL + "?t=" + Date.now();
+
+        const res = await fetch(url, {
           method: "POST",
+          mode: "cors",
           redirect: "follow",
           credentials: "omit",
           headers: {
@@ -1097,25 +1133,35 @@
         let payload = null;
         try { payload = JSON.parse(text); } catch (_) {}
 
+        // Always show what came back so you can tell if you hit the right deploy
+        showDebug(payload || text);
+
         if (!res.ok) {
           statusEl.textContent = "ERROR. TRY AGAIN.";
           return;
         }
 
         if (payload && payload.ok) {
-          statusEl.textContent = payload.emailed
+          const emailedClient =
+            !!payload.emailedClient ||
+            payload.clientEmailStatus === "sent" ||
+            payload.clientEmailStatus === "sent_via_fallback";
+
+          statusEl.textContent = emailedClient
             ? "RECEIVED. CONFIRMATION SENT."
-            : "RECEIVED. EMAIL MAY BE DELAYED.";
+            : "RECEIVED. CONFIRMATION NOT SENT.";
 
-          form.reset();
+          // Only reset if we wrote the row successfully
+          if (payload.wroteRow) {
+            form.reset();
 
-          // Reset materials to default (but keep multi-select capability)
-          document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-          const input = document.getElementById('materialsInput');
-          const def = (input && input.getAttribute('data-default')) ? input.getAttribute('data-default') : "Precious Metals";
-          const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-          if (defEl) defEl.classList.add('selected');
-          if (input) input.value = def;
+            document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+            const input = document.getElementById('materialsInput');
+            const def = (input && input.getAttribute('data-default')) ? input.getAttribute('data-default') : "Precious Metals";
+            const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+            if (defEl) defEl.classList.add('selected');
+            if (input) input.value = def;
+          }
 
           return;
         }
@@ -1123,6 +1169,8 @@
         statusEl.textContent = "RECEIVED.";
 
       } catch (err) {
+        showDebug("NETWORK ERROR:\n" + (err && err.message ? err.message : String(err)));
+
         try {
           const ok = navigator.sendBeacon(WEB_APP_URL, new Blob([body], {
             type: "application/x-www-form-urlencoded;charset=UTF-8"
