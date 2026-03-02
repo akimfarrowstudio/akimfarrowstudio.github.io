@@ -1076,7 +1076,7 @@
   <script>
     "use strict";
   
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyRkPcDYVE-rP2_ZryDZOUh0NN_OlG_Kn0XhtU4v4aMWD3z9NcejQsjjAmi32UlCrbKeA/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBII2XPFJnqsQ2k5_03hsj0_daIQWJaUs3Z-NQwSXzAz3PvNEtbSY19En3OF8tK-KW/exec";
   
     const form = document.getElementById("commissionForm");
     const statusEl = document.getElementById("formStatus");
@@ -1233,10 +1233,7 @@
             mode: "cors",
             redirect: "follow",
             credentials: "omit",
-            const res = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(obj)
+            body: JSON.stringify(obj) // defaults to text/plain;charset=UTF-8
           });
   
           const text = await res.text();
