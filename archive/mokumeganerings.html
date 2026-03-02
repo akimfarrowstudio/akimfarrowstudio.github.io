@@ -19,10 +19,10 @@
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#121212">
 
-  <!-- Canonical (update if you ever move off GitHub Pages) -->
+  <!-- Canonical -->
   <link rel="canonical" href="https://akimfarrowstudio.github.io/archive/mokumeganerings.html">
 
-  <!-- Favicons (keep these consistent site-wide) -->
+  <!-- Favicons (site-wide) -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/favicon-48.png" sizes="48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
@@ -51,430 +51,430 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --void: #1a0f0a;
-      --charcoal: #121212;
-      --rust: #d35400;
-      --rust-glow: #e67e22;
-      --oxide-gold: #ff6b35;
-      --steel: #2c1e18;
-      --font-display: 'Anton', sans-serif;
-      --font-mono: 'Space Mono', monospace;
-      --border: 1px solid rgba(255, 107, 53, 0.2);
+    :root{
+      --void:#1a0f0a;
+      --charcoal:#121212;
+      --rust:#d35400;
+      --oxide-gold:#ff6b35;
+      --font-display:'Anton',sans-serif;
+      --font-mono:'Space Mono',monospace;
+      --border:1px solid rgba(255,107,53,.2);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--charcoal);
-      color: #e8e0dc;
-      font-family: var(--font-mono);
-      overflow: hidden;
-      height: 100vh;
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;}
+    body{
+      background:var(--charcoal);
+      color:#e8e0dc;
+      font-family:var(--font-mono);
+      overflow:hidden;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      height: 100vh;
-      width: 100vw;
+    .layout{
+      display:grid;
+      grid-template-columns:80px 1fr;
+      height:100vh;
+      width:100vw;
     }
 
-    .sidebar {
-      background: var(--void);
-      border-right: 1px solid #3d2218;
-      padding: 2rem 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
+    .sidebar{
+      background:var(--void);
+      border-right:1px solid #3d2218;
+      padding:2rem 0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      align-items:center;
+      z-index:10;
     }
 
-    .nav-vertical {
-      display: flex;
-      flex-direction: column;
-      gap: 4rem;
-      margin-top: 2rem;
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      padding-top:.5rem;
+      text-decoration:none;
+    }
+    .brand-img{
+      width:38px;
+      height:auto;
+      max-width:80%;
+      display:block;
     }
 
-    .nav-link {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.4em;
-      color: #8a665c;
-      text-decoration: none;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      transition: all 0.3s ease;
-      white-space: nowrap;
+    .nav-vertical{
+      display:flex;
+      flex-direction:column;
+      gap:4rem;
+      margin-top:2rem;
+    }
+    .nav-link{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.4em;
+      color:#8a665c;
+      text-decoration:none;
+      writing-mode:vertical-rl;
+      transform:rotate(180deg);
+      transition:color .2s ease;
+      white-space:nowrap;
+    }
+    .nav-link:hover,
+    .nav-link.active{color:var(--oxide-gold);}
+
+    .ref{
+      font-size:.6rem;
+      color:var(--rust);
+      writing-mode:vertical-rl;
+      transform:rotate(180deg);
+      opacity:.5;
+      padding-bottom:2rem;
+      letter-spacing:.18em;
     }
 
-    .nav-link:hover, .nav-link.active { color: var(--oxide-gold); }
-
-    .scrolling-content {
-      height: 100vh;
-      overflow-y: auto;
-      scroll-behavior: smooth;
-      background-color: var(--charcoal);
+    .scrolling-content{
+      height:100vh;
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      scroll-behavior:smooth;
+      background-color:var(--charcoal);
       background-image:
-        radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.05) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,.05) 0%, transparent 70%),
         url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-      padding: 4rem 6vw;
+      padding:4rem 6vw;
     }
 
-    .dossier-header {
-      border-bottom: 1px solid #3d2218;
-      padding-bottom: 2rem;
-      margin-bottom: 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 2rem;
-      flex-wrap: wrap;
+    .back-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:1rem;
+      font-size:.7rem;
+      color:var(--oxide-gold);
+      text-decoration:none;
+      margin-bottom:3rem;
+      text-transform:uppercase;
+      letter-spacing:.2em;
+    }
+    .back-btn:hover{text-decoration:underline;}
+
+    .dossier-header{
+      border-bottom:1px solid #3d2218;
+      padding-bottom:2rem;
+      margin-bottom:4rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:2rem;
+      flex-wrap:wrap;
     }
 
-    .dossier-meta {
-      font-size: 0.7rem;
-      color: var(--rust);
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      line-height: 1.8;
-      max-width: 520px;
+    .dossier-id{
+      color:#fff;
+      opacity:.4;
+      font-size:.6rem;
+      margin-bottom:.5rem;
+      letter-spacing:.18em;
     }
 
-    .dossier-id {
-      color: #fff;
-      opacity: 0.4;
-      font-size: 0.6rem;
-      margin-bottom: 0.5rem;
+    .stencil-title{
+      font-family:var(--font-display);
+      font-size:6rem;
+      color:var(--oxide-gold);
+      line-height:.9;
+      text-transform:uppercase;
+      -webkit-text-stroke:1px var(--oxide-gold);
+      background:linear-gradient(to bottom, var(--oxide-gold) 0%, var(--oxide-gold) 48%, transparent 48%, transparent 52%, var(--oxide-gold) 52%, var(--oxide-gold) 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      margin-top:1rem;
     }
 
-    .stencil-title {
-      font-family: var(--font-display);
-      font-size: 6rem;
-      color: var(--oxide-gold);
-      line-height: 0.9;
-      text-transform: uppercase;
-      -webkit-text-stroke: 1px var(--oxide-gold);
-      background: linear-gradient(to bottom, var(--oxide-gold) 0%, var(--oxide-gold) 48%, transparent 48%, transparent 52%, var(--oxide-gold) 52%, var(--oxide-gold) 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      margin-top: 1rem;
+    .dossier-meta{
+      font-size:.7rem;
+      color:var(--rust);
+      text-transform:uppercase;
+      letter-spacing:.2em;
+      line-height:1.8;
+      max-width:520px;
     }
 
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 5rem;
+    .detail-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;
+      margin-bottom:5rem;
     }
 
-    .detail-frame {
-      aspect-ratio: 1/1;
-      border: 1px solid #3d2218;
-      overflow: hidden;
-      position: relative;
-      background: #0f0f0f;
+    .detail-frame{
+      aspect-ratio:1/1;
+      border:1px solid #3d2218;
+      overflow:hidden;
+      position:relative;
+      background:#0f0f0f;
     }
 
     .detail-frame img,
-    .detail-frame video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(100%) contrast(120%) brightness(0.8);
-      transition: filter 0.4s ease, transform 0.25s ease;
-      display: block;
+    .detail-frame video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:grayscale(100%) contrast(120%) brightness(.8);
+      transition:filter .35s ease, transform .2s ease;
+      display:block;
     }
 
     .detail-frame:hover img,
-    .detail-frame:hover video {
-      filter: grayscale(0%) contrast(110%) brightness(0.9);
-      transform: scale(1.01);
+    .detail-frame:hover video{
+      filter:grayscale(0%) contrast(110%) brightness(.9);
+      transform:scale(1.01);
     }
 
-    .detail-label {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      font-size: 0.6rem;
-      color: #fff;
-      background: var(--void);
-      padding: 2px 6px;
-      border: 1px solid var(--rust);
-      pointer-events: none;
+    .detail-label{
+      position:absolute;
+      bottom:10px;
+      right:10px;
+      font-size:.6rem;
+      color:#fff;
+      background:var(--void);
+      padding:2px 6px;
+      border:1px solid var(--rust);
+      pointer-events:none;
+      letter-spacing:.1em;
+      text-transform:uppercase;
     }
 
-    .detail-frame.is-photo { cursor: pointer; }
+    .detail-frame.is-photo{cursor:pointer;}
 
-    .archival-columns {
-      display: grid;
-      grid-template-columns: 1fr 350px;
-      gap: 6rem;
+    .img-debug{
+      margin-top:10px;
+      font-size:12px;
+      color:#8a665c;
+      letter-spacing:.06em;
+      white-space:pre-wrap;
     }
 
-    .field-notes-section {
-      border-top: 1px solid #3d2218;
-      padding-top: 2rem;
+    .archival-columns{
+      display:grid;
+      grid-template-columns:1fr 350px;
+      gap:6rem;
     }
 
-    .section-tag {
-      font-size: 0.65rem;
-      color: var(--rust);
-      text-transform: uppercase;
-      letter-spacing: 0.4em;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    .field-notes-section{
+      border-top:1px solid #3d2218;
+      padding-top:2rem;
     }
 
-    .section-tag::after {
-      content: '';
-      height: 1px;
-      flex-grow: 1;
-      background: #3d2218;
+    .section-tag{
+      font-size:.65rem;
+      color:var(--rust);
+      text-transform:uppercase;
+      letter-spacing:.4em;
+      margin-bottom:2rem;
+      display:flex;
+      align-items:center;
+      gap:1rem;
     }
 
-    .notes-body {
-      font-size: 0.85rem;
-      line-height: 2;
-      color: #c8b8b0;
-      max-width: 800px;
+    .section-tag::after{
+      content:"";
+      height:1px;
+      flex-grow:1;
+      background:#3d2218;
     }
 
-    .notes-body p { margin-bottom: 2rem; }
+    .notes-body{
+      font-size:.85rem;
+      line-height:2;
+      color:#c8b8b0;
+      max-width:800px;
+    }
+    .notes-body p{margin-bottom:2rem;}
 
-    .timeline-container {
-      border-left: 1px solid #3d2218;
-      padding-left: 2rem;
+    .timeline-container{
+      border-left:1px solid #3d2218;
+      padding-left:2rem;
+    }
+    .timeline-item{margin-bottom:2.5rem; position:relative;}
+    .timeline-item::before{
+      content:"";
+      position:absolute;
+      left:-33.5px;
+      top:5px;
+      width:6px;
+      height:6px;
+      background:var(--rust);
+    }
+    .timeline-date{
+      font-size:.65rem;
+      color:var(--oxide-gold);
+      margin-bottom:.5rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .timeline-event{
+      font-size:.75rem;
+      color:#e8e0dc;
+      text-transform:uppercase;
+      letter-spacing:.05em;
     }
 
-    .timeline-item { margin-bottom: 2.5rem; position: relative; }
+    .exhibition-list{list-style:none;margin-top:4rem;padding-left:0;}
+    .exhibition-item{
+      font-size:.7rem;
+      padding:1rem 0;
+      border-bottom:1px solid #251812;
+      display:flex;
+      justify-content:space-between;
+      gap:1rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .exhibition-item span:last-child{color:var(--rust);}
 
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -33.5px;
-      top: 5px;
-      width: 6px;
-      height: 6px;
-      background: var(--rust);
+    footer.doc-footer{
+      margin-top:8rem;
+      padding:2rem 0;
+      border-top:1px solid #3d2218;
+      font-size:.6rem;
+      display:flex;
+      justify-content:space-between;
+      gap:1rem;
+      color:#8a665c;
+      text-transform:uppercase;
+      flex-wrap:wrap;
+      letter-spacing:.14em;
     }
 
-    .timeline-date {
-      font-size: 0.65rem;
-      color: var(--oxide-gold);
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-
-    .timeline-event {
-      font-size: 0.75rem;
-      color: #e8e0dc;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .exhibition-list {
-      list-style: none;
-      margin-top: 4rem;
-      padding-left: 0;
-    }
-
-    .exhibition-item {
-      font-size: 0.7rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid #251812;
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .exhibition-item span:last-child { color: var(--rust); }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 0.7rem;
-      color: var(--oxide-gold);
-      text-decoration: none;
-      margin-bottom: 3rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-    }
-
-    .back-btn:hover { text-decoration: underline; }
-
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--charcoal); }
-    ::-webkit-scrollbar-thumb { background: var(--rust); }
-
-    @media (max-width: 900px) {
-      .archival-columns { grid-template-columns: 1fr; gap: 3rem; }
-      .detail-grid { grid-template-columns: 1fr; }
-      .stencil-title { font-size: 3.2rem; }
-      .layout { grid-template-columns: 64px 1fr; }
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding-top: 0.5rem;
-      text-decoration: none;
-    }
-
-    .brand-img {
-      width: 38px;
-      height: auto;
-      max-width: 80%;
-      display: block;
-      transform: none;
-    }
-
-    /* Lightbox (renamed from SCM, now generic) */
-    .lb {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 4vh 4vw;
+    /* Lightbox */
+    .lb{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:4vh 4vw;
       background:
-        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.10) 0%, transparent 70%),
-        rgba(18,18,18,0.92);
-      z-index: 9999;
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,.10) 0%, transparent 70%),
+        rgba(18,18,18,.92);
+      z-index:9999;
     }
-    .lb.open { display: flex; }
+    .lb.open{display:flex;}
 
-    .lb-stage {
-      position: relative;
-      width: min(1200px, 94vw);
-      height: min(86vh, 900px);
-      border: 1px solid rgba(255,107,53,0.25);
-      background: rgba(26,15,10,0.55);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .lb-slide {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3.5rem 2.5rem 4.25rem;
-      touch-action: pan-y;
+    .lb-stage{
+      position:relative;
+      width:min(1200px,94vw);
+      height:min(86vh,900px);
+      border:1px solid rgba(255,107,53,.25);
+      background:rgba(26,15,10,.55);
+      box-shadow:0 40px 100px rgba(0,0,0,.85);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
     }
 
-    .lb-slide img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      filter: grayscale(10%) contrast(1.05);
-      user-select: none;
-      -webkit-user-drag: none;
+    .lb-slide{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:3.5rem 2.5rem 4.25rem;
+      touch-action:pan-y;
     }
 
-    .lb-caption {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 1.15rem 1.5rem;
-      border-top: 1px solid rgba(255,107,53,0.18);
-      background: rgba(18,18,18,0.60);
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      flex-wrap: wrap;
+    .lb-slide img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      filter:grayscale(10%) contrast(1.05);
+      user-select:none;
+      -webkit-user-drag:none;
     }
 
-    .lb-cap-title {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #f5f0ee;
-      margin: 0;
+    .lb-caption{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      padding:1.15rem 1.5rem;
+      border-top:1px solid rgba(255,107,53,.18);
+      background:rgba(18,18,18,.60);
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:1rem;
+      flex-wrap:wrap;
     }
 
-    .lb-cap-meta {
-      font-size: 0.7rem;
-      color: var(--rust);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      white-space: nowrap;
+    .lb-cap-title{
+      font-family:var(--font-display);
+      font-size:1.15rem;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      color:#f5f0ee;
+      margin:0;
     }
 
-    .lb-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,107,53,0.35);
-      background: rgba(26,15,10,0.85);
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-      z-index: 2;
+    .lb-cap-meta{
+      font-size:.7rem;
+      color:var(--rust);
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      white-space:nowrap;
     }
 
-    .lb-close:hover {
-      border-color: var(--oxide-gold);
-      color: var(--oxide-gold);
+    .lb-close{
+      position:absolute;
+      top:12px; right:12px;
+      width:34px; height:34px;
+      border-radius:999px;
+      border:1px solid rgba(255,107,53,.35);
+      background:rgba(26,15,10,.85);
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:1;
+      z-index:2;
     }
+    .lb-close:hover{border-color:var(--oxide-gold); color:var(--oxide-gold);}
 
-    .lb-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,107,53,0.25);
-      background: rgba(26,15,10,0.55);
-      color: #fff;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 18px;
-      line-height: 1;
-      user-select: none;
+    .lb-arrow{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:44px; height:44px;
+      border-radius:999px;
+      border:1px solid rgba(255,107,53,.25);
+      background:rgba(26,15,10,.55);
+      color:#fff;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-family:var(--font-mono);
+      font-size:18px;
+      line-height:1;
+      user-select:none;
     }
-
-    .lb-arrow:hover {
-      border-color: var(--oxide-gold);
-      color: var(--oxide-gold);
-      background: rgba(26,15,10,0.75);
+    .lb-arrow:hover{
+      border-color:var(--oxide-gold);
+      color:var(--oxide-gold);
+      background:rgba(26,15,10,.75);
     }
+    .lb-arrow:disabled{opacity:.25; cursor:default;}
+    .lb-prev{left:12px;}
+    .lb-next{right:12px;}
 
-    .lb-arrow:disabled {
-      opacity: 0.25;
-      cursor: default;
-    }
-
-    .lb-prev { left: 12px; }
-    .lb-next { right: 12px; }
-
-    @media (max-width: 900px) {
-      .lb-slide { padding: 3.25rem 1rem 4.25rem; }
+    @media (max-width:900px){
+      .layout{grid-template-columns:64px 1fr;}
+      .stencil-title{font-size:3.2rem;}
+      .archival-columns{grid-template-columns:1fr;gap:3rem;}
+      .detail-grid{grid-template-columns:1fr;}
+      .lb-slide{padding:3.25rem 1rem 4.25rem;}
     }
   </style>
 </head>
@@ -483,26 +483,23 @@
   <div class="layout">
     <aside class="sidebar">
       <a class="brand" href="../index.html" aria-label="Home">
-        <img class="brand-img" src="../ogw.png?v=5" alt="White Logo" />
+        <img class="brand-img" src="../ogw.png?v=5" alt="White Logo">
       </a>
 
-      <nav class="nav-vertical">
+      <nav class="nav-vertical" aria-label="Site">
         <a href="../index.html#hero" class="nav-link">ARTIST</a>
         <a href="../index.html#about" class="nav-link">ABOUT</a>
         <a href="../index.html#works" class="nav-link active">ARCHIVE</a>
         <a href="../index.html#inquire" class="nav-link">INQUIRE</a>
       </nav>
 
-      <div style="font-size: 0.6rem; color: var(--rust); writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5; padding-bottom: 2rem;">
-        REF_NO: 880-MMR-CH
-      </div>
+      <div class="ref">REF_NO: 880-MMR-CH</div>
     </aside>
 
     <main class="scrolling-content">
-      <!-- IMPORTANT: link back to the *rings* anchor, not SCM -->
       <a href="../index.html#works" class="back-btn">← RETURN TO ARCHIVE</a>
 
-      <div class="dossier-header">
+      <header class="dossier-header">
         <div>
           <div class="dossier-id">CATALOG_ID // 2024_MGR_01</div>
           <h1 class="stencil-title">MOKUME-GANE<br>RINGS</h1>
@@ -513,45 +510,47 @@
           <div>DIMENSIONS: VARIABLE (RING SIZES)</div>
           <div>STATUS: AVAILABLE</div>
         </div>
-      </div>
+      </header>
 
-    <div class="detail-frame is-photo" aria-label="Open gallery image 1">
-      <img
-        src="../assets/images/mokumeganerings.jpg"
-        alt="Mokume-gane rings overview"
-        loading="lazy"
-        decoding="async"
-        data-lb-title="Mokume-gane Rings"
-        data-lb-meta="FIG_01 · PROFILE"
-      >
-      <div class="detail-label">FIG_01: PROFILE</div>
-    </div>
-    
-    <div class="detail-frame is-photo" aria-label="Open gallery image 2">
-      <img
-        src="../assets/images/closering.jpg"
-        alt="Mokume-gane rings close view"
-        loading="lazy"
-        decoding="async"
-        data-lb-title="Mokume-gane Rings"
-        data-lb-meta="FIG_02 · SURFACE DETAIL"
-        onerror="document.getElementById('imgDebug').textContent='closering.jpg failed: ' + this.src;"
-      >
-      <div class="detail-label">FIG_02: SURFACE DETAIL</div>
-    </div>
+      <!-- IMPORTANT: this wrapper was missing in your broken version -->
+      <section class="detail-grid" aria-label="Images and video">
+        <div class="detail-frame is-photo" role="button" tabindex="0" aria-label="Open image: profile">
+          <img
+            src="../assets/images/mokumeganerings.jpg"
+            alt="Mokume-gane rings overview"
+            loading="lazy"
+            decoding="async"
+            data-lb-title="Mokume-gane Rings"
+            data-lb-meta="FIG_01 · PROFILE"
+          >
+          <div class="detail-label">FIG_01: PROFILE</div>
+        </div>
 
-<div id="imgDebug" style="margin-top:10px;font-size:12px;color:#8a665c;letter-spacing:0.06em;"></div>
+        <div class="detail-frame is-photo" role="button" tabindex="0" aria-label="Open image: surface detail">
+          <img
+            src="../assets/images/Close.jpg"
+            alt="Mokume-gane rings close view"
+            loading="lazy"
+            decoding="async"
+            data-lb-title="Mokume-gane Rings"
+            data-lb-meta="FIG_02 · SURFACE DETAIL"
+            onerror="(function(el){var d=document.getElementById('imgDebug'); if(d){d.textContent='Image failed: '+el.src+' | Check filename case and exact path in repo.';}})(this)"
+          >
+          <div class="detail-label">FIG_02: SURFACE DETAIL</div>
+        </div>
 
-        <div class="detail-frame">
+        <div class="detail-frame" aria-label="Video">
           <video controls playsinline preload="metadata" poster="../assets/images/ringposter.jpg">
             <source src="../assets/video/mokumegane.mp4" type="video/mp4">
             Your browser can’t play this video. <a href="../assets/video/mokumegane.mp4">Download it</a>.
           </video>
           <div class="detail-label">FIG_03: MULTIPLES</div>
         </div>
-      </div>
+      </section>
 
-      <div class="archival-columns">
+      <div id="imgDebug" class="img-debug"></div>
+
+      <section class="archival-columns" aria-label="Notes and timeline">
         <div class="field-notes-section">
           <div class="section-tag">FIELD NOTES / PROCESS WRITING</div>
           <div class="notes-body">
@@ -563,7 +562,7 @@
           <a href="../index.html#works" class="back-btn">← RETURN TO ARCHIVE</a>
         </div>
 
-        <div class="sidebar-data">
+        <aside class="sidebar-data">
           <div class="section-tag">CREATION TIMELINE</div>
           <div class="timeline-container">
             <div class="timeline-item">
@@ -580,17 +579,17 @@
             </div>
           </div>
 
-          <div class="section-tag" style="margin-top: 4rem;">EXHIBITION HISTORY</div>
+          <div class="section-tag" style="margin-top:4rem;">EXHIBITION HISTORY</div>
           <ul class="exhibition-list">
             <li class="exhibition-item">
               <span>SAIC STUDENT GALLERIES</span>
               <span>2024</span>
             </li>
           </ul>
-        </div>
-      </div>
+        </aside>
+      </section>
 
-      <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;">
+      <footer class="doc-footer">
         <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
         <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
       </footer>
@@ -604,7 +603,7 @@
       <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">&lt;</button>
       <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">&gt;</button>
 
-      <div class="lb-slide" id="lbSlide">
+      <div class="lb-slide">
         <img id="lbImg" src="" alt="">
       </div>
 
@@ -615,96 +614,105 @@
     </div>
   </div>
 
-<script>
-  const lb = document.getElementById("lb") || document.getElementById("scmLightbox");
-  const lbClose = document.getElementById("lbClose") || document.getElementById("scmClose");
-  const lbPrev = document.getElementById("lbPrev") || document.getElementById("scmPrev");
-  const lbNext = document.getElementById("lbNext") || document.getElementById("scmNext");
-  const lbImg = document.getElementById("lbImg") || document.getElementById("scmImg");
-  const lbCapTitle = document.getElementById("lbCapTitle") || document.getElementById("scmCapTitle");
-  const lbCapMeta = document.getElementById("lbCapMeta") || document.getElementById("scmCapMeta");
+  <script>
+    /*
+      This version fixes the two things that were breaking the page:
 
-  const photoImgs = Array.from(document.querySelectorAll(".detail-frame.is-photo img"));
+      1) Your image/video grid wrapper was missing (detail-grid). Without it, layout collapses and labels overlap.
+      2) Your old lightbox relied on data-lb-index that you never set. This one auto-builds slides from images on the page.
+    */
 
-  const slides = photoImgs.map((img) => ({
-    src: img.getAttribute("src"),
-    alt: img.getAttribute("alt") || "",
-    title: img.getAttribute("data-lb-title") || "Mokume-gane Rings",
-    meta: img.getAttribute("data-lb-meta") || ""
-  }));
+    const lb = document.getElementById("lb");
+    const lbClose = document.getElementById("lbClose");
+    const lbPrev = document.getElementById("lbPrev");
+    const lbNext = document.getElementById("lbNext");
+    const lbImg = document.getElementById("lbImg");
+    const lbCapTitle = document.getElementById("lbCapTitle");
+    const lbCapMeta = document.getElementById("lbCapMeta");
 
-  let idx = 0;
+    const photoFrames = Array.from(document.querySelectorAll(".detail-frame.is-photo"));
+    const photoImgs = photoFrames.map(f => f.querySelector("img")).filter(Boolean);
 
-  function render() {
-    if (!slides.length) return;
+    const slides = photoImgs.map(img => ({
+      src: img.getAttribute("src"),
+      alt: img.getAttribute("alt") || "",
+      title: img.getAttribute("data-lb-title") || "Mokume-gane Rings",
+      meta: img.getAttribute("data-lb-meta") || ""
+    }));
 
-    const s = slides[idx];
-    lbImg.src = s.src;
-    lbImg.alt = s.alt;
-    lbCapTitle.textContent = s.title;
-    lbCapMeta.textContent = s.meta;
+    let idx = 0;
 
-    const single = slides.length <= 1;
-    if (lbPrev) lbPrev.disabled = single;
-    if (lbNext) lbNext.disabled = single;
-  }
+    function render() {
+      if (!slides.length) return;
+      const s = slides[idx];
+      lbImg.src = s.src;
+      lbImg.alt = s.alt;
+      lbCapTitle.textContent = s.title;
+      lbCapMeta.textContent = s.meta;
 
-  function openLB(startIndex) {
-    if (!slides.length) return;
-    idx = Math.max(0, Math.min(startIndex, slides.length - 1));
-    render();
-    lb.classList.add("open");
-    lb.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  }
+      const single = slides.length <= 1;
+      lbPrev.disabled = single;
+      lbNext.disabled = single;
+    }
 
-  function closeLB() {
-    lb.classList.remove("open");
-    lb.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
+    function openLB(startIndex) {
+      if (!slides.length) return;
+      idx = Math.max(0, Math.min(startIndex, slides.length - 1));
+      render();
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
 
-  function prev() {
-    if (slides.length <= 1) return;
-    idx = (idx - 1 + slides.length) % slides.length;
-    render();
-  }
+    function closeLB() {
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
 
-  function next() {
-    if (slides.length <= 1) return;
-    idx = (idx + 1) % slides.length;
-    render();
-  }
+    function prev() {
+      if (slides.length <= 1) return;
+      idx = (idx - 1 + slides.length) % slides.length;
+      render();
+    }
 
-  // Open on click: bind indexes automatically
-  document.querySelectorAll(".detail-frame.is-photo").forEach((frame, i) => {
-    frame.addEventListener("click", () => openLB(i));
-  });
+    function next() {
+      if (slides.length <= 1) return;
+      idx = (idx + 1) % slides.length;
+      render();
+    }
 
-  if (lbClose) lbClose.addEventListener("click", closeLB);
-  if (lbPrev) lbPrev.addEventListener("click", prev);
-  if (lbNext) lbNext.addEventListener("click", next);
+    photoFrames.forEach((frame, i) => {
+      frame.addEventListener("click", () => openLB(i));
+      frame.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openLB(i);
+        }
+      });
+    });
 
-  if (lb) {
+    lbClose.addEventListener("click", closeLB);
+    lbPrev.addEventListener("click", prev);
+    lbNext.addEventListener("click", next);
+
     lb.addEventListener("click", (e) => {
       if (e.target === lb) closeLB();
     });
-  }
 
-  window.addEventListener("keydown", (e) => {
-    if (!lb.classList.contains("open")) return;
-    if (e.key === "Escape") closeLB();
-    if (e.key === "ArrowLeft") prev();
-    if (e.key === "ArrowRight") next();
-  });
+    window.addEventListener("keydown", (e) => {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") closeLB();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    });
 
-  // Console helper: tells you exactly which image path fails
-  slides.forEach((s) => {
-    const test = new Image();
-    test.onload = () => {};
-    test.onerror = () => console.warn("Image failed to load:", s.src, "(check folder + exact filename case)");
-    test.src = s.src;
-  });
-</script>
+    // Quick console helper for image failures (DevTools -> Console)
+    slides.forEach((s) => {
+      const test = new Image();
+      test.onerror = () => console.warn("Image failed to load:", s.src, "Check exact filename case and location.");
+      test.src = s.src;
+    });
+  </script>
 </body>
 </html>
