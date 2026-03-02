@@ -515,20 +515,32 @@
         </div>
       </div>
 
-      <div class="detail-grid">
-        <!-- FIX: use RELATIVE paths from /archive/ page, not root "/" -->
-        <!-- From /archive/mokumeganerings.html -> ../assets/images/... -->
-        <div class="detail-frame is-photo" data-lb-index="0" aria-label="Open gallery image 1">
-          <img src="../assets/images/mokumeganerings.jpg" alt="Mokume-gane rings overview" loading="lazy" decoding="async">
-          <div class="detail-label">FIG_01: PROFILE</div>
-        </div>
+    <div class="detail-frame is-photo" aria-label="Open gallery image 1">
+      <img
+        src="../assets/images/mokumeganerings.jpg"
+        alt="Mokume-gane rings overview"
+        loading="lazy"
+        decoding="async"
+        data-lb-title="Mokume-gane Rings"
+        data-lb-meta="FIG_01 · PROFILE"
+      >
+      <div class="detail-label">FIG_01: PROFILE</div>
+    </div>
+    
+    <div class="detail-frame is-photo" aria-label="Open gallery image 2">
+      <img
+        src="../assets/images/Close.jpg"
+        alt="Mokume-gane rings close view"
+        loading="lazy"
+        decoding="async"
+        data-lb-title="Mokume-gane Rings"
+        data-lb-meta="FIG_02 · SURFACE DETAIL"
+        onerror="document.getElementById('imgDebug').textContent='Close.jpg failed: ' + this.src;"
+      >
+      <div class="detail-label">FIG_02: SURFACE DETAIL</div>
+    </div>
 
-        <!-- This was failing because it used /assets/... and/or the file name doesn’t match exactly.
-             Keep the path relative AND make sure the file is EXACTLY named closering.jpg (case-sensitive on GitHub). -->
-        <div class="detail-frame is-photo" data-lb-index="1" aria-label="Open gallery image 2">
-          <img src="../assets/images/closering.jpg" alt="Mokume-gane rings close view" loading="lazy" decoding="async">
-          <div class="detail-label">FIG_02: SURFACE DETAIL</div>
-        </div>
+<div id="imgDebug" style="margin-top:10px;font-size:12px;color:#8a665c;letter-spacing:0.06em;"></div>
 
         <div class="detail-frame">
           <video controls playsinline preload="metadata" poster="../assets/images/ringposter.jpg">
