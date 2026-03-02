@@ -1072,203 +1072,147 @@
     window.addEventListener('hashchange', highlightReturnCard);
   </script>
 
-  <!-- FORM + MATERIALS + PDF + SUBMIT -->
-  <script>
-    "use strict";
-  
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx5X4162JMmNh9QA-paOAlvrFOwgHCVeQGLRlDmpyw7Jsd3btVb989FS0UhuOHyst5i3Q/exec";
-  
-    const form = document.getElementById("commissionForm");
-    const statusEl = document.getElementById("formStatus");
-  
-    // 4MB raw -> ~5.3MB base64. Keep conservative.
-    const MAX_PDF_BYTES = 4 * 1024 * 1024;
-  
-    function syncMaterialsInput() {
-      const selected = Array.from(document.querySelectorAll(".material-option.selected"))
-        .map(x => x.getAttribute("data-material"))
-        .filter(Boolean);
-  
-      const input = document.getElementById("materialsInput");
-      if (!input) return;
-  
-      if (selected.length === 0) {
-        const def = input.getAttribute("data-default") || input.value || "";
+<script>
+"use strict";
+
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx5X4162JMmNh9QA-paOAlvrFOwgHCVeQGLRlDmpyw7Jsd3btVb989FS0UhuOHyst5i3Q/exec";
+const MAX_PDF_BYTES = 4 * 1024 * 1024;
+
+const form = document.getElementById("commissionForm");
+const statusEl = document.getElementById("formStatus");
+
+function syncMaterialsInput() {
+  const selected = Array.from(document.querySelectorAll(".material-option.selected"))
+    .map(x => x.getAttribute("data-material"))
+    .filter(Boolean);
+
+  const input = document.getElementById("materialsInput");
+  if (!input) return;
+
+  if (selected.length === 0) {
+    const def = input.getAttribute("data-default") || input.value || "Precious Metals";
+    const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+    if (defEl) defEl.classList.add("selected");
+    input.value = def;
+    return;
+  }
+  input.value = selected.join(", ");
+}
+
+function toggleMaterial(el) {
+  if (!el) return;
+  el.classList.toggle("selected");
+  syncMaterialsInput();
+}
+window.toggleMaterial = toggleMaterial;
+window.addEventListener("load", syncMaterialsInput);
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("File read failed"));
+    reader.onload = () => {
+      const result = String(reader.result || "");
+      const comma = result.indexOf(",");
+      resolve(comma >= 0 ? result.slice(comma + 1) : result);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function formDataToObject(fd) {
+  const obj = {};
+  for (const [k, v] of fd.entries()) {
+    if (v instanceof File) continue;
+    obj[k] = String(v);
+  }
+  return obj;
+}
+
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const pdfErrorEl = document.getElementById("pdfError");
+    if (pdfErrorEl) pdfErrorEl.style.display = "none";
+
+    statusEl.textContent = "TRANSMITTING...";
+    syncMaterialsInput();
+
+    const hp = document.getElementById("websiteField");
+    if (hp && hp.value.trim() !== "") {
+      statusEl.textContent = "BLOCKED.";
+      return;
+    }
+
+    const pdfInput = document.getElementById("refPdf");
+    const file = (pdfInput && pdfInput.files && pdfInput.files[0]) ? pdfInput.files[0] : null;
+
+    const fd = new FormData(form);
+    fd.append("page", window.location.href);
+    fd.append("userAgent", navigator.userAgent);
+
+    const url = WEB_APP_URL + "?t=" + Date.now();
+
+    // No PDF: send as FormData (simple request)
+    if (!file) {
+      try {
+        await fetch(url, {
+          method: "POST",
+          mode: "no-cors",
+          body: fd
+        });
+
+        statusEl.textContent = "RECEIVED.";
+        form.reset();
+        document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
+        const input = document.getElementById("materialsInput");
+        const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
         const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
         if (defEl) defEl.classList.add("selected");
-  
-        const selected2 = Array.from(document.querySelectorAll(".material-option.selected"))
-          .map(x => x.getAttribute("data-material"))
-          .filter(Boolean);
-  
-        input.value = selected2.join(", ");
-        return;
+        if (input) input.value = def;
+      } catch (err) {
+        statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
       }
-  
-      input.value = selected.join(", ");
+      return;
     }
-  
-    function toggleMaterial(el) {
-      if (!el) return;
-      el.classList.toggle("selected");
-      syncMaterialsInput();
+
+    // PDF present: size gate
+    if (file.size > MAX_PDF_BYTES) {
+      if (pdfErrorEl) pdfErrorEl.style.display = "block";
+      if (pdfInput) pdfInput.value = "";
+      statusEl.textContent = "PDF TOO BIG. SUBMIT AS DRIVE LINK IN REFERENCE LINKS.";
+      return;
     }
-  
-    window.toggleMaterial = toggleMaterial;
-    window.addEventListener("load", syncMaterialsInput);
-  
-    function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onerror = () => reject(new Error("File read failed"));
-        reader.onload = () => {
-          const result = String(reader.result || "");
-          const comma = result.indexOf(",");
-          resolve(comma >= 0 ? result.slice(comma + 1) : result);
-        };
-        reader.readAsDataURL(file);
+
+    // PDF present: send JSON as TEXT (no headers) to avoid preflight patterns
+    try {
+      const b64 = await fileToBase64(file);
+      const obj = formDataToObject(fd);
+      obj.refPdfName = file.name || "reference.pdf";
+      obj.refPdfMime = file.type || "application/pdf";
+      obj.refPdfBase64 = b64;
+
+      await fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(obj)
       });
+
+      statusEl.textContent = "RECEIVED.";
+      form.reset();
+      document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
+      const input = document.getElementById("materialsInput");
+      const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
+      const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+      if (defEl) defEl.classList.add("selected");
+      if (input) input.value = def;
+    } catch (err) {
+      statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
     }
-  
-    function formDataToObject(fd) {
-      const obj = {};
-      for (const [k, v] of fd.entries()) {
-        // ignore browser file field in JSON mode
-        if (v instanceof File) continue;
-        obj[k] = String(v);
-      }
-      return obj;
-    }
-  
-    if (form) {
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-  
-        const pdfErrorEl = document.getElementById("pdfError");
-        if (pdfErrorEl) pdfErrorEl.style.display = "none";
-  
-        statusEl.textContent = "TRANSMITTING...";
-  
-        syncMaterialsInput();
-  
-        // honeypot
-        const hp = document.getElementById("websiteField");
-        if (hp && hp.value.trim() !== "") {
-          statusEl.textContent = "BLOCKED.";
-          return;
-        }
-  
-        const pdfInput = document.getElementById("refPdf");
-        const file = (pdfInput && pdfInput.files && pdfInput.files[0]) ? pdfInput.files[0] : null;
-  
-        let pdfTooBig = false;
-  
-        // Build base FormData for normal fields
-        const fd = new FormData(form);
-        fd.append("page", window.location.href);
-        fd.append("userAgent", navigator.userAgent);
-  
-        // If no PDF, keep your existing FormData POST (simple + reliable)
-        if (!file) {
-          try {
-            const url = WEB_APP_URL + "?t=" + Date.now();
-            const res = await fetch(url, {
-              method: "POST",
-              mode: "cors",
-              redirect: "follow",
-              credentials: "omit",
-              body: fd
-            });
-  
-            const text = await res.text();
-            let payload = null;
-            try { payload = JSON.parse(text); } catch (_) {}
-  
-            if (!res.ok) {
-              statusEl.textContent = "ERROR. TRY AGAIN.";
-              return;
-            }
-  
-            statusEl.textContent = (payload && payload.ok)
-              ? "RECEIVED."
-              : "RECEIVED.";
-  
-            if (payload && payload.ok && payload.wroteRow) {
-              form.reset();
-              document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
-              const input = document.getElementById("materialsInput");
-              const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
-              const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-              if (defEl) defEl.classList.add("selected");
-              if (input) input.value = def;
-            }
-            return;
-          } catch (_) {
-            statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-            return;
-          }
-        }
-  
-        // PDF present: enforce size client-side
-        if (file.size > MAX_PDF_BYTES) {
-          pdfTooBig = true;
-          if (pdfErrorEl) pdfErrorEl.style.display = "block";
-          if (pdfInput) pdfInput.value = "";
-          statusEl.textContent = "PDF TOO BIG. SUBMIT AS DRIVE LINK IN REFERENCE LINKS.";
-          return;
-        }
-  
-        // PDF present and OK: send JSON body (no custom headers)
-        try {
-          const b64 = await fileToBase64(file);
-  
-          const obj = formDataToObject(fd);
-          obj.refPdfName = file.name || "reference.pdf";
-          obj.refPdfMime = file.type || "application/pdf";
-          obj.refPdfBase64 = b64;
-  
-          const url = WEB_APP_URL + "?t=" + Date.now();
-          const res = await fetch(url, {
-            method: "POST",
-            mode: "cors",
-            redirect: "follow",
-            credentials: "omit",
-            body: JSON.stringify(obj) // defaults to text/plain;charset=UTF-8
-          });
-  
-          const text = await res.text();
-          let payload = null;
-          try { payload = JSON.parse(text); } catch (_) {}
-  
-          if (!res.ok) {
-            statusEl.textContent = "ERROR. TRY AGAIN.";
-            return;
-          }
-  
-          if (payload && payload.ok) {
-            const uploaded = payload.pdf && payload.pdf.status === "uploaded";
-            statusEl.textContent = uploaded
-              ? "RECEIVED. PDF UPLOADED."
-              : "RECEIVED. PDF NOT UPLOADED.";
-  
-            if (payload.wroteRow) {
-              form.reset();
-              document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
-              const input = document.getElementById("materialsInput");
-              const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
-              const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-              if (defEl) defEl.classList.add("selected");
-              if (input) input.value = def;
-            }
-            return;
-          }
-  
-          statusEl.textContent = "RECEIVED.";
-        } catch (_) {
-          statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-        }
-      });
-    }
+  });
+}
+</script>
   </script>
 </body>
 </html>
