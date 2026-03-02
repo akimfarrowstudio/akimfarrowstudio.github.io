@@ -1091,152 +1091,225 @@
     window.addEventListener('hashchange', highlightReturnCard);
   </script>
 
-  <!-- FORM JS (UPDATED: show server payload + rely on emailedClient) -->
-  <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBII2XPFJnqsQ2k5_03hsj0_daIQWJaUs3Z-NQwSXzAz3PvNEtbSY19En3OF8tK-KW/exec";
+<script>
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBII2XPFJnqsQ2k5_03hsj0_daIQWJaUs3Z-NQwSXzAz3PvNEtbSY19En3OF8tK-KW/exec";
 
-    const form = document.getElementById('commissionForm');
-    const statusEl = document.getElementById('formStatus');
-    const debugEl = document.getElementById('debugOut');
+  const form = document.getElementById('commissionForm');
+  const statusEl = document.getElementById('formStatus');
+  const debugEl = document.getElementById('debugOut');
 
-    function showDebug(objOrText) {
-      if (!debugEl) return;
-      debugEl.style.display = "block";
-      if (typeof objOrText === "string") {
-        debugEl.textContent = objOrText;
-        return;
-      }
-      try {
-        debugEl.textContent = JSON.stringify(objOrText, null, 2);
-      } catch (_) {
-        debugEl.textContent = String(objOrText || "");
-      }
+  const pdfEl = document.getElementById('refPdf');
+  const pdfErrEl = document.getElementById('pdfError');
+
+  // Set your PDF limit here (example: 5MB)
+  const MAX_PDF_BYTES = 5 * 1024 * 1024;
+
+  function showDebug(objOrText) {
+    if (!debugEl) return;
+    debugEl.style.display = "block";
+    if (typeof objOrText === "string") {
+      debugEl.textContent = objOrText;
+      return;
     }
+    try {
+      debugEl.textContent = JSON.stringify(objOrText, null, 2);
+    } catch (_) {
+      debugEl.textContent = String(objOrText || "");
+    }
+  }
 
-    function syncMaterialsInput() {
-      const selected = Array.from(document.querySelectorAll('.material-option.selected'))
+  function clearPdfError() {
+    if (pdfErrEl) pdfErrEl.style.display = "none";
+  }
+
+  function showPdfTooBig() {
+    const msg = "ERROR: FILE TOO BIG. SUBMIT AS GOOGLE DRIVE LINK IN REFERENCE LINK.";
+    if (pdfErrEl) {
+      pdfErrEl.textContent = msg;
+      pdfErrEl.style.display = "block";
+    }
+    if (statusEl) statusEl.textContent = msg;
+  }
+
+  function syncMaterialsInput() {
+    const selected = Array.from(document.querySelectorAll('.material-option.selected'))
+      .map(x => x.getAttribute('data-material'))
+      .filter(Boolean);
+
+    const input = document.getElementById('materialsInput');
+    if (!input) return;
+
+    if (selected.length === 0) {
+      const def = input.getAttribute('data-default') || input.value || "";
+      const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+      if (defEl) defEl.classList.add('selected');
+
+      const selected2 = Array.from(document.querySelectorAll('.material-option.selected'))
         .map(x => x.getAttribute('data-material'))
         .filter(Boolean);
 
-      const input = document.getElementById('materialsInput');
-      if (!input) return;
-
-      if (selected.length === 0) {
-        const def = input.getAttribute('data-default') || input.value || "";
-        const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-        if (defEl) defEl.classList.add('selected');
-
-        const selected2 = Array.from(document.querySelectorAll('.material-option.selected'))
-          .map(x => x.getAttribute('data-material'))
-          .filter(Boolean);
-
-        input.value = selected2.join(', ');
-        return;
-      }
-
-      input.value = selected.join(', ');
+      input.value = selected2.join(', ');
+      return;
     }
 
-    function toggleMaterial(el) {
-      el.classList.toggle('selected');
-      syncMaterialsInput();
-    }
+    input.value = selected.join(', ');
+  }
 
-    window.addEventListener('load', syncMaterialsInput);
+  function toggleMaterial(el) {
+    el.classList.toggle('selected');
+    syncMaterialsInput();
+  }
 
-    function toUrlEncoded(formEl) {
-      const fd = new FormData(formEl);
-      fd.append("page", window.location.href);
-      fd.append("userAgent", navigator.userAgent);
+  window.addEventListener('load', syncMaterialsInput);
 
-      const params = new URLSearchParams();
-      for (const [k, v] of fd.entries()) params.append(k, v);
-      return params.toString();
-    }
+  // Instant feedback on file selection
+  if (pdfEl) {
+    pdfEl.addEventListener('change', () => {
+      clearPdfError();
+      const f = pdfEl.files && pdfEl.files[0] ? pdfEl.files[0] : null;
+      if (!f) return;
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      statusEl.textContent = "TRANSMITTING...";
-      if (debugEl) debugEl.style.display = "none";
-
-      syncMaterialsInput();
-
-      const hp = document.getElementById('websiteField');
-      if (hp && hp.value.trim() !== "") {
-        statusEl.textContent = "BLOCKED.";
-        return;
-      }
-
-      const body = toUrlEncoded(form);
-
-      try {
-        // Cache buster to avoid any weird intermediary caching
-        const url = WEB_APP_URL + "?t=" + Date.now();
-
-        const res = await fetch(url, {
-          method: "POST",
-          mode: "cors",
-          redirect: "follow",
-          credentials: "omit",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-          },
-          body
-        });
-
-        const text = await res.text();
-        let payload = null;
-        try { payload = JSON.parse(text); } catch (_) {}
-
-        // Always show what came back so you can tell if you hit the right deploy
-        showDebug(payload || text);
-
-        if (!res.ok) {
-          statusEl.textContent = "ERROR. TRY AGAIN.";
-          return;
-        }
-
-        if (payload && payload.ok) {
-          const emailedClient =
-            !!payload.emailedClient ||
-            payload.clientEmailStatus === "sent" ||
-            payload.clientEmailStatus === "sent_via_fallback";
-
-          statusEl.textContent = emailedClient
-            ? "RECEIVED. CONFIRMATION SENT."
-            : "RECEIVED. CONFIRMATION NOT SENT.";
-
-          // Only reset if we wrote the row successfully
-          if (payload.wroteRow) {
-            form.reset();
-
-            document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-            const input = document.getElementById('materialsInput');
-            const def = (input && input.getAttribute('data-default')) ? input.getAttribute('data-default') : "Precious Metals";
-            const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-            if (defEl) defEl.classList.add('selected');
-            if (input) input.value = def;
-          }
-
-          return;
-        }
-
-        statusEl.textContent = "RECEIVED.";
-
-      } catch (err) {
-        showDebug("NETWORK ERROR:\n" + (err && err.message ? err.message : String(err)));
-
-        try {
-          const ok = navigator.sendBeacon(WEB_APP_URL, new Blob([body], {
-            type: "application/x-www-form-urlencoded;charset=UTF-8"
-          }));
-          statusEl.textContent = ok ? "RECEIVED." : "NETWORK ERROR. TRY AGAIN.";
-        } catch (_) {
-          statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-        }
+      if (f.size > MAX_PDF_BYTES) {
+        pdfEl.value = "";
+        showPdfTooBig();
       }
     });
-  </script>
+  }
+
+  // Convert File -> base64 (without data: prefix)
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error("File read failed"));
+      reader.onload = () => {
+        const result = String(reader.result || "");
+        // result looks like: data:application/pdf;base64,XXXX
+        const comma = result.indexOf(",");
+        resolve(comma >= 0 ? result.slice(comma + 1) : result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Build JSON payload from the form
+  async function buildJsonPayload(formEl) {
+    const fd = new FormData(formEl);
+
+    // Add meta
+    fd.append("page", window.location.href);
+    fd.append("userAgent", navigator.userAgent);
+
+    // Start with plain fields
+    const payload = {};
+    for (const [k, v] of fd.entries()) {
+      // Skip file here, we handle it explicitly
+      if (k === "refPdf") continue;
+      payload[k] = v;
+    }
+
+    // Attach PDF if present and within limit
+    const f = pdfEl && pdfEl.files && pdfEl.files[0] ? pdfEl.files[0] : null;
+    if (f) {
+      if (f.size > MAX_PDF_BYTES) {
+        pdfEl.value = "";
+        showPdfTooBig();
+        throw new Error("pdf_too_big");
+      }
+
+      const base64 = await fileToBase64(f);
+      payload.refPdfName = f.name || "reference.pdf";
+      payload.refPdfMime = f.type || "application/pdf";
+      payload.refPdfBase64 = base64;
+    }
+
+    return payload;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "TRANSMITTING...";
+    if (debugEl) debugEl.style.display = "none";
+    clearPdfError();
+
+    syncMaterialsInput();
+
+    const hp = document.getElementById('websiteField');
+    if (hp && hp.value.trim() !== "") {
+      statusEl.textContent = "BLOCKED.";
+      return;
+    }
+
+    let payloadObj;
+    try {
+      payloadObj = await buildJsonPayload(form);
+    } catch (err) {
+      if (String(err && err.message) === "pdf_too_big") return;
+      showDebug("FILE ERROR:\n" + (err && err.message ? err.message : String(err)));
+      statusEl.textContent = "ERROR. TRY AGAIN.";
+      return;
+    }
+
+    try {
+      const url = WEB_APP_URL + "?t=" + Date.now();
+
+      const res = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        redirect: "follow",
+        credentials: "omit",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payloadObj)
+      });
+
+      const text = await res.text();
+      let payload = null;
+      try { payload = JSON.parse(text); } catch (_) {}
+
+      showDebug(payload || text);
+
+      if (!res.ok) {
+        statusEl.textContent = "ERROR. TRY AGAIN.";
+        return;
+      }
+
+      if (payload && payload.ok) {
+        const emailedClient =
+          !!payload.emailedClient ||
+          payload.clientEmailStatus === "sent" ||
+          payload.clientEmailStatus === "sent_via_fallback";
+
+        statusEl.textContent = emailedClient
+          ? "RECEIVED. CONFIRMATION SENT."
+          : "RECEIVED. CONFIRMATION NOT SENT.";
+
+        if (payload.wroteRow) {
+          form.reset();
+
+          document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+          const input = document.getElementById('materialsInput');
+          const def = (input && input.getAttribute('data-default')) ? input.getAttribute('data-default') : "Precious Metals";
+          const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+          if (defEl) defEl.classList.add('selected');
+          if (input) input.value = def;
+
+          // clear pdf + error state
+          if (pdfEl) pdfEl.value = "";
+          clearPdfError();
+        }
+
+        return;
+      }
+
+      statusEl.textContent = "RECEIVED.";
+
+    } catch (err) {
+      showDebug("NETWORK ERROR:\n" + (err && err.message ? err.message : String(err)));
+      statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+    }
+  });
+</script>
 
 </body>
 </html>
