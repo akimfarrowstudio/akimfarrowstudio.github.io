@@ -34,16 +34,19 @@
   <meta property="og:site_name" content="Akim Farrow Studios">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Akim Farrow | Sculptor">
-  <meta property="og:description" content="Zimbabwean-American sculptor working with steel, myth, and memory. Selected works, archive, and commission inquiries.">
+  <meta property="og:description" content="Akim Farrow is a Zimbabwean-American sculptor working with steel, myth, and memory. Selected works, archive, and commission inquiries.">
   <meta property="og:url" content="https://akimfarrow.com/">
   <meta property="og:image" content="https://akimfarrow.com/assets/images/main.jpg">
+  <meta property="og:image:secure_url" content="https://akimfarrow.com/assets/images/main.jpg">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Akim Farrow — Sculptor">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Akim Farrow | Sculptor">
-  <meta name="twitter:description" content="Zimbabwean-American sculptor working with steel, myth, and memory. Selected works, archive, and commission inquiries.">
+  <meta name="twitter:description" content="Akim Farrow is a Zimbabwean-American sculptor working with steel, myth, and memory. Selected works, archive, and commission inquiries.">
   <meta name="twitter:image" content="https://akimfarrow.com/assets/images/main.jpg">
 
   <!-- Structured data -->
@@ -51,9 +54,11 @@
   {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://akimfarrow.com/#person",
     "name": "Akim Farrow",
     "jobTitle": "Sculptor",
     "url": "https://akimfarrow.com/",
+    "image": "https://akimfarrow.com/assets/images/main.jpg",
     "sameAs": [
       "https://www.instagram.com/blacksmvth/",
       "https://www.linkedin.com/in/akim-farrow-349a98122"
@@ -973,7 +978,7 @@
              </div>
            
              <p id="pdfError" style="margin-top: 0.75rem; font-size: 0.72rem; color:#8a665c; text-transform: uppercase; letter-spacing: 0.08em; display:none;">
-               ERROR: FILE TOO BIG. SUBMIT AS GOOGLE DRIVE LINK IN REFERENCE LINK.
+               ERROR: FILE TOO BIG. SUBMIT AS GOOGLE DRIVE LINK IN REFERENCE LINKS.
              </p>
            
             <div class="form-group full-width" vid="103">
@@ -1184,21 +1189,25 @@
 
     // Optional PDF handling
     const pdfInput = document.getElementById("refPdf");
-    const file = pdfInput && pdfInput.files && pdfInput.files[0] ? pdfInput.files[0] : null;
+    const pdfErrorEl = document.getElementById("pdfError");
+    const file = (pdfInput && pdfInput.files && pdfInput.files[0]) ? pdfInput.files[0] : null;
 
     let pdfTooBig = false;
+    if (pdfErrorEl) pdfErrorEl.style.display = "none";
 
     if (file) {
       if (file.size > MAX_PDF_BYTES) {
         pdfTooBig = true;
-    
+
         if (pdfErrorEl) pdfErrorEl.style.display = "block";
-    
-        // Optional: clear the file input so it doesn't look "stuck"
+
+        // Clear the file input so it doesn't look "attached"
         if (pdfInput) pdfInput.value = "";
-    
+
+        // Important: do NOT attach file data if too big.
+        // Still submit the form without the PDF.
         statusEl.textContent = "PDF TOO BIG. SUBMITTING WITHOUT PDF. ADD DRIVE LINK IN REFERENCE LINKS.";
-    
+
         showDebug({
           ok: true,
           warning: "file_too_big",
@@ -1207,6 +1216,17 @@
           fileBytes: file.size,
           fileName: file.name
         });
+      } else {
+        try {
+          const b64 = await fileToBase64(file);
+          fd.append("refPdfName", file.name || "reference.pdf");
+          fd.append("refPdfMime", file.type || "application/pdf");
+          fd.append("refPdfBase64", b64);
+        } catch (err) {
+          showDebug("PDF READ ERROR:\n" + (err && err.message ? err.message : String(err)));
+        }
+      }
+    }
     
         // Do NOT attach base64
       } else {
