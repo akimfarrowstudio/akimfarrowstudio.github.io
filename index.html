@@ -35,7 +35,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Akim Farrow | Sculptor">
   <meta property="og:description" content="Zimbabwean-American sculptor working with steel, myth, and memory. Selected works, archive, and commission inquiries.">
-  <meta property="og:url" content="https://akimfarrow.ccom/">
+  <meta property="og:url" content="https://akimfarrow.com/">
   <meta property="og:image" content="https://akimfarrow.com/assets/images/main.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -53,7 +53,7 @@
     "@type": "Person",
     "name": "Akim Farrow",
     "jobTitle": "Sculptor",
-    "url": "https://YOURDOMAIN.COM/",
+    "url": "https://akimfarrow.com/",
     "sameAs": [
       "https://www.instagram.com/blacksmvth/",
       "https://www.linkedin.com/in/akim-farrow-349a98122"
@@ -1120,7 +1120,8 @@
     const selected = Array.from(document.querySelectorAll('.material-option.selected'))
       .map(x => x.getAttribute('data-material'))
       .filter(Boolean);
-
+   const pdfErrorEl = document.getElementById('pdfError');
+   const pdfInput = document.getElementById("refPdf");
     const input = document.getElementById('materialsInput');
     if (!input) return;
 
@@ -1165,6 +1166,7 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     statusEl.textContent = "TRANSMITTING...";
+    if (pdfErrorEl) pdfErrorEl.style.display = "none";
     if (debugEl) debugEl.style.display = "none";
 
     syncMaterialsInput();
@@ -1189,23 +1191,24 @@
     if (file) {
       if (file.size > MAX_PDF_BYTES) {
         pdfTooBig = true;
-
-        // IMPORTANT: do NOT attach file data if too big.
-        // Tell them to paste Drive link in Reference Links.
-        statusEl.textContent = "ERROR: FILE TOO BIG. SUBMIT AS GOOGLE DRIVE LINK IN REFERENCE LINKS.";
-
+    
+        if (pdfErrorEl) pdfErrorEl.style.display = "block";
+    
+        // Optional: clear the file input so it doesn't look "stuck"
+        if (pdfInput) pdfInput.value = "";
+    
+        statusEl.textContent = "PDF TOO BIG. SUBMITTING WITHOUT PDF. ADD DRIVE LINK IN REFERENCE LINKS.";
+    
         showDebug({
-          ok: false,
-          error: "file_too_big",
-          message: "File too big. Submit as Google Drive link in Reference Links.",
+          ok: true,
+          warning: "file_too_big",
+          message: "Submitting without PDF. Paste a Google Drive link in Reference Links.",
           maxBytes: MAX_PDF_BYTES,
           fileBytes: file.size,
           fileName: file.name
         });
-
-        // Still allow the rest of the form to submit (without PDF)
-        // If you want to BLOCK submit entirely, uncomment the next line:
-        // return;
+    
+        // Do NOT attach base64
       } else {
         try {
           const b64 = await fileToBase64(file);
