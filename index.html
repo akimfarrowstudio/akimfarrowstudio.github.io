@@ -974,8 +974,6 @@
 
             <button type="submit" class="submit-btn" vid="209">Transmit Request</button>
             <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
-
-            <pre id="debugOut" class="debug-panel"></pre>
           </form>
         </div>
       </section>
@@ -1077,64 +1075,48 @@
   <!-- FORM + MATERIALS + PDF + SUBMIT -->
   <script>
     "use strict";
-
+  
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBII2XPFJnqsQ2k5_03hsj0_daIQWJaUs3Z-NQwSXzAz3PvNEtbSY19En3OF8tK-KW/exec";
-
-    const form = document.getElementById('commissionForm');
-    const statusEl = document.getElementById('formStatus');
-    const debugEl = document.getElementById('debugOut');
-
+  
+    const form = document.getElementById("commissionForm");
+    const statusEl = document.getElementById("formStatus");
+  
     // 4MB raw -> ~5.3MB base64. Keep conservative.
     const MAX_PDF_BYTES = 4 * 1024 * 1024;
-
-    function showDebug(objOrText) {
-      if (!debugEl) return;
-      debugEl.style.display = "block";
-      if (typeof objOrText === "string") {
-        debugEl.textContent = objOrText;
-        return;
-      }
-      try {
-        debugEl.textContent = JSON.stringify(objOrText, null, 2);
-      } catch (_) {
-        debugEl.textContent = String(objOrText || "");
-      }
-    }
-
+  
     function syncMaterialsInput() {
-      const selected = Array.from(document.querySelectorAll('.material-option.selected'))
-        .map(x => x.getAttribute('data-material'))
+      const selected = Array.from(document.querySelectorAll(".material-option.selected"))
+        .map(x => x.getAttribute("data-material"))
         .filter(Boolean);
-
-      const input = document.getElementById('materialsInput');
+  
+      const input = document.getElementById("materialsInput");
       if (!input) return;
-
+  
       if (selected.length === 0) {
-        const def = input.getAttribute('data-default') || input.value || "";
+        const def = input.getAttribute("data-default") || input.value || "";
         const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-        if (defEl) defEl.classList.add('selected');
-
-        const selected2 = Array.from(document.querySelectorAll('.material-option.selected'))
-          .map(x => x.getAttribute('data-material'))
+        if (defEl) defEl.classList.add("selected");
+  
+        const selected2 = Array.from(document.querySelectorAll(".material-option.selected"))
+          .map(x => x.getAttribute("data-material"))
           .filter(Boolean);
-
-        input.value = selected2.join(', ');
+  
+        input.value = selected2.join(", ");
         return;
       }
-
-      input.value = selected.join(', ');
+  
+      input.value = selected.join(", ");
     }
-
+  
     function toggleMaterial(el) {
       if (!el) return;
-      el.classList.toggle('selected');
+      el.classList.toggle("selected");
       syncMaterialsInput();
     }
-
-    // expose for inline onclick=""
+  
     window.toggleMaterial = toggleMaterial;
-    window.addEventListener('load', syncMaterialsInput);
-
+    window.addEventListener("load", syncMaterialsInput);
+  
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -1147,132 +1129,143 @@
         reader.readAsDataURL(file);
       });
     }
-
+  
+    function formDataToObject(fd) {
+      const obj = {};
+      for (const [k, v] of fd.entries()) {
+        // ignore browser file field in JSON mode
+        if (v instanceof File) continue;
+        obj[k] = String(v);
+      }
+      return obj;
+    }
+  
     if (form) {
-      form.addEventListener('submit', async (e) => {
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
-
+  
         const pdfErrorEl = document.getElementById("pdfError");
         if (pdfErrorEl) pdfErrorEl.style.display = "none";
-
+  
         statusEl.textContent = "TRANSMITTING...";
-        if (debugEl) debugEl.style.display = "none";
-
+  
         syncMaterialsInput();
-
-        const hp = document.getElementById('websiteField');
+  
+        // honeypot
+        const hp = document.getElementById("websiteField");
         if (hp && hp.value.trim() !== "") {
           statusEl.textContent = "BLOCKED.";
           return;
         }
-
-        // Build FormData (no custom headers)
+  
+        const pdfInput = document.getElementById("refPdf");
+        const file = (pdfInput && pdfInput.files && pdfInput.files[0]) ? pdfInput.files[0] : null;
+  
+        let pdfTooBig = false;
+  
+        // Build base FormData for normal fields
         const fd = new FormData(form);
         fd.append("page", window.location.href);
         fd.append("userAgent", navigator.userAgent);
-
-        // Optional PDF handling
-        const pdfInput = document.getElementById("refPdf");
-        const file = (pdfInput && pdfInput.files && pdfInput.files[0]) ? pdfInput.files[0] : null;
-
-        let pdfTooBig = false;
-
-        if (file) {
-          if (file.size > MAX_PDF_BYTES) {
-            pdfTooBig = true;
-
-            if (pdfErrorEl) pdfErrorEl.style.display = "block";
-            if (pdfInput) pdfInput.value = "";
-
-            statusEl.textContent = "PDF TOO BIG. SUBMITTING WITHOUT PDF. ADD DRIVE LINK IN REFERENCE LINKS.";
-
-            showDebug({
-              ok: true,
-              warning: "file_too_big",
-              message: "Submitting without PDF. Paste a Google Drive link in Reference Links.",
-              maxBytes: MAX_PDF_BYTES,
-              fileBytes: file.size,
-              fileName: file.name
+  
+        // If no PDF, keep your existing FormData POST (simple + reliable)
+        if (!file) {
+          try {
+            const url = WEB_APP_URL + "?t=" + Date.now();
+            const res = await fetch(url, {
+              method: "POST",
+              mode: "cors",
+              redirect: "follow",
+              credentials: "omit",
+              body: fd
             });
-          } else {
-            try {
-              const b64 = await fileToBase64(file);
-              fd.append("refPdfName", file.name || "reference.pdf");
-              fd.append("refPdfMime", file.type || "application/pdf");
-              fd.append("refPdfBase64", b64);
-            } catch (err) {
-              showDebug("PDF READ ERROR:\n" + (err && err.message ? err.message : String(err)));
+  
+            const text = await res.text();
+            let payload = null;
+            try { payload = JSON.parse(text); } catch (_) {}
+  
+            if (!res.ok) {
+              statusEl.textContent = "ERROR. TRY AGAIN.";
+              return;
             }
+  
+            statusEl.textContent = (payload && payload.ok)
+              ? "RECEIVED."
+              : "RECEIVED.";
+  
+            if (payload && payload.ok && payload.wroteRow) {
+              form.reset();
+              document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
+              const input = document.getElementById("materialsInput");
+              const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
+              const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+              if (defEl) defEl.classList.add("selected");
+              if (input) input.value = def;
+            }
+            return;
+          } catch (_) {
+            statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+            return;
           }
         }
-
+  
+        // PDF present: enforce size client-side
+        if (file.size > MAX_PDF_BYTES) {
+          pdfTooBig = true;
+          if (pdfErrorEl) pdfErrorEl.style.display = "block";
+          if (pdfInput) pdfInput.value = "";
+          statusEl.textContent = "PDF TOO BIG. SUBMIT AS DRIVE LINK IN REFERENCE LINKS.";
+          return;
+        }
+  
+        // PDF present and OK: send JSON body (no custom headers)
         try {
+          const b64 = await fileToBase64(file);
+  
+          const obj = formDataToObject(fd);
+          obj.refPdfName = file.name || "reference.pdf";
+          obj.refPdfMime = file.type || "application/pdf";
+          obj.refPdfBase64 = b64;
+  
           const url = WEB_APP_URL + "?t=" + Date.now();
-
           const res = await fetch(url, {
             method: "POST",
             mode: "cors",
             redirect: "follow",
             credentials: "omit",
-            body: fd
+            body: JSON.stringify(obj) // defaults to text/plain;charset=UTF-8
           });
-
+  
           const text = await res.text();
           let payload = null;
           try { payload = JSON.parse(text); } catch (_) {}
-
-          showDebug(payload || text);
-
+  
           if (!res.ok) {
-            statusEl.textContent = pdfTooBig
-              ? "SENT WITHOUT PDF. ADD DRIVE LINK IN REFERENCE LINKS."
-              : "ERROR. TRY AGAIN.";
+            statusEl.textContent = "ERROR. TRY AGAIN.";
             return;
           }
-
+  
           if (payload && payload.ok) {
-            const emailedClient =
-              !!payload.emailedClient ||
-              payload.clientEmailStatus === "sent" ||
-              payload.clientEmailStatus === "sent_via_fallback";
-
-            if (pdfTooBig) {
-              statusEl.textContent = "RECEIVED. PDF TOO BIG. ADD DRIVE LINK IN REFERENCE LINKS.";
-            } else {
-              statusEl.textContent = emailedClient
-                ? "RECEIVED. CONFIRMATION SENT."
-                : "RECEIVED. CONFIRMATION NOT SENT.";
-            }
-
+            const uploaded = payload.pdf && payload.pdf.status === "uploaded";
+            statusEl.textContent = uploaded
+              ? "RECEIVED. PDF UPLOADED."
+              : "RECEIVED. PDF NOT UPLOADED.";
+  
             if (payload.wroteRow) {
               form.reset();
-
-              document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-              const input = document.getElementById('materialsInput');
-              const def = (input && input.getAttribute('data-default')) ? input.getAttribute('data-default') : "Precious Metals";
+              document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
+              const input = document.getElementById("materialsInput");
+              const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
               const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-              if (defEl) defEl.classList.add('selected');
+              if (defEl) defEl.classList.add("selected");
               if (input) input.value = def;
             }
-
             return;
           }
-
-          statusEl.textContent = pdfTooBig
-            ? "SENT WITHOUT PDF. ADD DRIVE LINK IN REFERENCE LINKS."
-            : "RECEIVED.";
-
-        } catch (err) {
-          showDebug("NETWORK ERROR:\n" + (err && err.message ? err.message : String(err)));
-
-          try {
-            const ok = navigator.sendBeacon(WEB_APP_URL, fd);
-            statusEl.textContent = ok
-              ? (pdfTooBig ? "SENT WITHOUT PDF. ADD DRIVE LINK IN REFERENCE LINKS." : "RECEIVED.")
-              : "NETWORK ERROR. TRY AGAIN.";
-          } catch (_) {
-            statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-          }
+  
+          statusEl.textContent = "RECEIVED.";
+        } catch (_) {
+          statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
         }
       });
     }
