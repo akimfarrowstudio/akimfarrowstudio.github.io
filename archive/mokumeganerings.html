@@ -1,33 +1,56 @@
 <!doctype html>
-<html lang="en" vid="0">
-<head vid="1">
-  <meta charset="UTF-8" vid="2">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
-  <title vid="4">Mokume Gane Rings</title>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QK7045YE1S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QK7045YE1S');
+  </script>
 
-  <link rel="icon" href="../og.jpg?v=2" type="image/jpeg">
-  <link rel="apple-touch-icon" href="../og.jpg?v=2">
-  <link rel="shortcut icon" href="../og.jpg?v=2" type="image/jpeg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta property="og:title" content="Steel Cage Mother | Akim Farrow">
+  <!-- Primary SEO -->
+  <title>Mokume-gane Rings | Akim Farrow</title>
+  <meta name="description" content="Mokume-gane rings by Akim Farrow. Laminated alloys forged, carved, and finished to reveal internal strata. Process notes, images, and video.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#121212">
+
+  <!-- Canonical (update if you ever move off GitHub Pages) -->
+  <link rel="canonical" href="https://akimfarrowstudio.github.io/archive/mokumeganerings.html">
+
+  <!-- Favicons (keep these consistent site-wide) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Akim Farrow Studios">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://akimfarrowstudio.github.io/archive/steelcagemother.html">
-  <meta property="og:image" content="../assets/images/SCMpage.jpg?v=1">
+  <meta property="og:title" content="Mokume-gane Rings | Akim Farrow">
+  <meta property="og:description" content="Laminated alloys forged, carved, and finished to reveal internal strata. Process notes, images, and video.">
+  <meta property="og:url" content="https://akimfarrowstudio.github.io/archive/mokumeganerings.html">
+  <meta property="og:image" content="https://akimfarrowstudio.github.io/assets/images/mokumeganerings.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:description" content="Steel Cage Mother. Welded steel installation exploring containment, labor, and institutional architecture.">
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mokume Gane Rings | Akim Farrow">
-  <meta name="twitter:description" content="Welded steel installation exploring containment, labor, and institutional architecture.">
-  <meta name="twitter:image" content="../assets/images/SCMpage.jpg?v=1">
+  <meta name="twitter:title" content="Mokume-gane Rings | Akim Farrow">
+  <meta name="twitter:description" content="Laminated alloys forged, carved, and finished to reveal internal strata. Process notes, images, and video.">
+  <meta name="twitter:image" content="https://akimfarrowstudio.github.io/assets/images/mokumeganerings.jpg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" vid="7">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-  <style vid="8">
+  <style>
     :root {
       --void: #1a0f0a;
       --charcoal: #121212;
@@ -183,7 +206,6 @@
       pointer-events: none;
     }
 
-    /* ADDED: only make image frames clickable, not the video */
     .detail-frame.is-photo { cursor: pointer; }
 
     .archival-columns {
@@ -297,7 +319,6 @@
       .layout { grid-template-columns: 64px 1fr; }
     }
 
-    /* Homepage-style logo (upright) */
     .brand {
       display: flex;
       align-items: center;
@@ -315,10 +336,8 @@
       transform: none;
     }
 
-    /* =========================
-       ADDED: LIGHTBOX GALLERY (WITH ARROWS)
-       ========================= */
-    .scm-lightbox {
+    /* Lightbox (renamed from SCM, now generic) */
+    .lb {
       position: fixed;
       inset: 0;
       display: none;
@@ -330,9 +349,9 @@
         rgba(18,18,18,0.92);
       z-index: 9999;
     }
-    .scm-lightbox.open { display: flex; }
+    .lb.open { display: flex; }
 
-    .scm-stage {
+    .lb-stage {
       position: relative;
       width: min(1200px, 94vw);
       height: min(86vh, 900px);
@@ -345,7 +364,7 @@
       overflow: hidden;
     }
 
-    .scm-slide {
+    .lb-slide {
       width: 100%;
       height: 100%;
       display: flex;
@@ -355,7 +374,7 @@
       touch-action: pan-y;
     }
 
-    .scm-slide img {
+    .lb-slide img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
@@ -364,7 +383,7 @@
       -webkit-user-drag: none;
     }
 
-    .scm-caption {
+    .lb-caption {
       position: absolute;
       left: 0;
       right: 0;
@@ -379,7 +398,7 @@
       flex-wrap: wrap;
     }
 
-    .scm-cap-title {
+    .lb-cap-title {
       font-family: var(--font-display);
       font-size: 1.15rem;
       letter-spacing: 0.05em;
@@ -388,7 +407,7 @@
       margin: 0;
     }
 
-    .scm-cap-meta {
+    .lb-cap-meta {
       font-size: 0.7rem;
       color: var(--rust);
       text-transform: uppercase;
@@ -396,7 +415,7 @@
       white-space: nowrap;
     }
 
-    .scm-close {
+    .lb-close {
       position: absolute;
       top: 12px;
       right: 12px;
@@ -415,12 +434,12 @@
       z-index: 2;
     }
 
-    .scm-close:hover {
+    .lb-close:hover {
       border-color: var(--oxide-gold);
       color: var(--oxide-gold);
     }
 
-    .scm-arrow {
+    .lb-arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -440,28 +459,28 @@
       user-select: none;
     }
 
-    .scm-arrow:hover {
+    .lb-arrow:hover {
       border-color: var(--oxide-gold);
       color: var(--oxide-gold);
       background: rgba(26,15,10,0.75);
     }
 
-    .scm-arrow:disabled {
+    .lb-arrow:disabled {
       opacity: 0.25;
       cursor: default;
     }
 
-    .scm-prev { left: 12px; }
-    .scm-next { right: 12px; }
+    .lb-prev { left: 12px; }
+    .lb-next { right: 12px; }
 
     @media (max-width: 900px) {
-      .scm-slide { padding: 3.25rem 1rem 4.25rem; }
+      .lb-slide { padding: 3.25rem 1rem 4.25rem; }
     }
   </style>
 </head>
 
-<body vid="9">
-  <div class="layout" vid="10">
+<body>
+  <div class="layout">
     <aside class="sidebar">
       <a class="brand" href="../index.html" aria-label="Home">
         <img class="brand-img" src="../ogw.png?v=5" alt="White Logo" />
@@ -479,198 +498,213 @@
       </div>
     </aside>
 
-    <main class="scrolling-content" vid="19">
-      <a href="../index.html#scm" class="back-btn">← RETURN TO ARCHIVE</a>
+    <main class="scrolling-content">
+      <!-- IMPORTANT: link back to the *rings* anchor, not SCM -->
+      <a href="../index.html#works" class="back-btn">← RETURN TO ARCHIVE</a>
 
-      <div class="dossier-header" vid="21">
-        <div vid="22">
-          <div class="dossier-id" vid="23">CATALOG_ID // 2023_MGR_01</div>
-          <h1 class="stencil-title" vid="24">MOKUME GANE<br vid="25">RINGS</h1>
+      <div class="dossier-header">
+        <div>
+          <div class="dossier-id">CATALOG_ID // 2024_MGR_01</div>
+          <h1 class="stencil-title">MOKUME-GANE<br>RINGS</h1>
         </div>
 
-        <div class="dossier-meta" vid="26">
-          <div vid="27">MATERIAL: FORGED STEEL / LAMINATED ALLOYS</div>
-          <div vid="28">DIMENSIONS: VARIABLE (RING SIZES)</div>
-          <div vid="29">STATUS: AVAILABLE</div>
+        <div class="dossier-meta">
+          <div>MATERIAL: LAMINATED ALLOYS</div>
+          <div>DIMENSIONS: VARIABLE (RING SIZES)</div>
+          <div>STATUS: AVAILABLE</div>
         </div>
       </div>
 
-      <div class="detail-grid" vid="30">
-        <!-- ADDED: make photo frames clickable -->
-        <div class="detail-frame is-photo" vid="31" data-scm-index="0" aria-label="Open gallery image 1">
-          <img src="/assets/images/mokumeganerings.jpg" alt="Mokume Gane Rings overview" vid="32">
-          <div class="detail-label" vid="33">FIG_01: PROFILE</div>
+      <div class="detail-grid">
+        <!-- FIX: use RELATIVE paths from /archive/ page, not root "/" -->
+        <!-- From /archive/mokumeganerings.html -> ../assets/images/... -->
+        <div class="detail-frame is-photo" data-lb-index="0" aria-label="Open gallery image 1">
+          <img src="../assets/images/mokumeganerings.jpg" alt="Mokume-gane rings overview" loading="lazy" decoding="async">
+          <div class="detail-label">FIG_01: PROFILE</div>
         </div>
 
-        <div class="detail-frame is-photo" vid="34" data-scm-index="1" aria-label="Open gallery image 2">
-          <img src="/assets/images/closering.jpg" alt="Mokume Gane Rings close view" vid="35">
-          <div class="detail-label" vid="36">FIG_02: SURFACE DETAIL</div>
+        <!-- This was failing because it used /assets/... and/or the file name doesn’t match exactly.
+             Keep the path relative AND make sure the file is EXACTLY named closering.jpg (case-sensitive on GitHub). -->
+        <div class="detail-frame is-photo" data-lb-index="1" aria-label="Open gallery image 2">
+          <img src="../assets/images/closering.jpg" alt="Mokume-gane rings close view" loading="lazy" decoding="async">
+          <div class="detail-label">FIG_02: SURFACE DETAIL</div>
         </div>
 
-        <div class="detail-frame" vid="37">
-          <video controls playsinline preload="metadata" vid="38" poster="/assets/images/ringposter.jpg">
-            <source src="/assets/video/mokumegane.mp4" type="video/mp4">
-            Your browser can’t play this video. <a href="../assets/video/SCM.mp4">Download it</a>.
+        <div class="detail-frame">
+          <video controls playsinline preload="metadata" poster="../assets/images/ringposter.jpg">
+            <source src="../assets/video/mokumegane.mp4" type="video/mp4">
+            Your browser can’t play this video. <a href="../assets/video/mokumegane.mp4">Download it</a>.
           </video>
-          <div class="detail-label" vid="39">FIG_03: MULTIPLES</div>
+          <div class="detail-label">FIG_03: MULTIPLES</div>
         </div>
       </div>
 
-      <div class="archival-columns" vid="40">
-        <div class="field-notes-section" vid="41">
-          <div class="section-tag" vid="42">FIELD NOTES / PROCESS WRITING</div>
-          <div class="notes-body" vid="43">
-            <p vid="44">This work was formed through lamination and pressure. Mokume gane depends on stacking dissimilar metals, bringing them to welding heat, and compressing them into a single body. I was interested in how difference could register as pattern.</p>
-            <p vid="45">Each billet was layered, fused, and consolidated through hammering. The surface was carved and ground back to expose the internal strata. What reads as ornament is the trace of compression made visible.</p>
-            <p vid="46">Every ring carries its own deformation. No pattern repeats because heat and force never distribute identically. The interior remains smooth and continuous, while the exterior holds the record of its making.</p>
+      <div class="archival-columns">
+        <div class="field-notes-section">
+          <div class="section-tag">FIELD NOTES / PROCESS WRITING</div>
+          <div class="notes-body">
+            <p>This work was formed through lamination and pressure. Mokume-gane depends on stacking dissimilar metals, bringing them to welding heat, and compressing them into a single body. I was interested in how difference could register as pattern.</p>
+            <p>Each billet was layered, fused, and consolidated through hammering. The surface was carved and ground back to expose the internal strata. What reads as ornament is the trace of compression made visible.</p>
+            <p>Every ring carries its own deformation. No pattern repeats because heat and force never distribute identically. The interior remains smooth and continuous, while the exterior holds the record of its making.</p>
           </div>
 
-          <a href="../index.html#scm" class="back-btn">← RETURN TO ARCHIVE</a>
+          <a href="../index.html#works" class="back-btn">← RETURN TO ARCHIVE</a>
         </div>
 
-        <div class="sidebar-data" vid="47">
-          <div class="section-tag" vid="48">CREATION TIMELINE</div>
-          <div class="timeline-container" vid="49">
-            <div class="timeline-item" vid="50">
-              <div class="timeline-date" vid="51">SEPT 2024</div>
-              <div class="timeline-event" vid="52">MATERIAL TESTING &amp; BILLET DEVELOPMENT</div>
+        <div class="sidebar-data">
+          <div class="section-tag">CREATION TIMELINE</div>
+          <div class="timeline-container">
+            <div class="timeline-item">
+              <div class="timeline-date">SEPT 2024</div>
+              <div class="timeline-event">MATERIAL TESTING &amp; BILLET DEVELOPMENT</div>
             </div>
-            <div class="timeline-item" vid="53">
-              <div class="timeline-date" vid="54">MAR 2025</div>
-              <div class="timeline-event" vid="55">FORGING &amp; SURFACE CARVING</div>
+            <div class="timeline-item">
+              <div class="timeline-date">MAR 2025</div>
+              <div class="timeline-event">FORGING &amp; SURFACE CARVING</div>
             </div>
-            <div class="timeline-item" vid="56">
-              <div class="timeline-date" vid="57">APR 2025</div>
-              <div class="timeline-event" vid="58">FINISHING &amp; PATINAION</div>
+            <div class="timeline-item">
+              <div class="timeline-date">APR 2025</div>
+              <div class="timeline-event">FINISHING &amp; PATINATION</div>
             </div>
           </div>
 
-          <div class="section-tag" style="margin-top: 4rem;" vid="60">EXHIBITION HISTORY</div>
-          <ul class="exhibition-list" vid="59">
-            <li class="exhibition-item" vid="61">
-              <span vid="62">SAIC STUDENT GALLERIES</span>
-              <span vid="63">2023</span>
+          <div class="section-tag" style="margin-top: 4rem;">EXHIBITION HISTORY</div>
+          <ul class="exhibition-list">
+            <li class="exhibition-item">
+              <span>SAIC STUDENT GALLERIES</span>
+              <span>2024</span>
             </li>
           </ul>
         </div>
       </div>
 
-      <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;" vid="70">
-        <div vid="71">DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
-        <div vid="72">CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
+      <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;">
+        <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
+        <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
       </footer>
     </main>
   </div>
 
-  <!-- ADDED: LIGHTBOX GALLERY -->
-  <div class="scm-lightbox" id="scmLightbox" aria-hidden="true">
-    <div class="scm-stage" role="dialog" aria-label="Image viewer">
-      <button class="scm-close" id="scmClose" aria-label="Close">×</button>
+  <!-- Lightbox -->
+  <div class="lb" id="lb" aria-hidden="true">
+    <div class="lb-stage" role="dialog" aria-label="Image viewer">
+      <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+      <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">&lt;</button>
+      <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">&gt;</button>
 
-      <button class="scm-arrow scm-prev" id="scmPrev" aria-label="Previous">&lt;</button>
-      <button class="scm-arrow scm-next" id="scmNext" aria-label="Next">&gt;</button>
-
-      <div class="scm-slide" id="scmSlide">
-        <img id="scmImg" src="" alt="">
+      <div class="lb-slide" id="lbSlide">
+        <img id="lbImg" src="" alt="">
       </div>
 
-      <div class="scm-caption">
-        <div class="scm-cap-title" id="scmCapTitle"></div>
-        <div class="scm-cap-meta" id="scmCapMeta"></div>
+      <div class="lb-caption">
+        <div class="lb-cap-title" id="lbCapTitle"></div>
+        <div class="lb-cap-meta" id="lbCapMeta"></div>
       </div>
     </div>
   </div>
 
   <script>
-    // ADDED: gallery-only data (images only)
-    const scmSlides = [
+    /*
+      WHY closering.jpg wasn’t loading (most likely):
+      1) GitHub Pages is case-sensitive. If the real file is CloseRing.jpg or closeRing.jpg, "../assets/images/closering.jpg" will 404.
+      2) You used an absolute path before: "/assets/images/closering.jpg". That works only if the site is served from the domain root.
+         On GitHub Pages project sites, absolute paths often break because the site lives under a repo path.
+      Fix: use relative paths from /archive/ and match filename case exactly.
+    */
+
+    const slides = [
       {
-        src: "../assets/images/steelcagemother.jpg",
-        alt: "Steel Cage Mother overview",
-        title: "Steel Cage Mother",
-        meta: "FIG_01 · STRUCTURE"
+        src: "../assets/images/mokumeganerings.jpg",
+        alt: "Mokume-gane rings overview",
+        title: "Mokume-gane Rings",
+        meta: "FIG_01 · PROFILE"
       },
       {
-        src: "../assets/images/sideSCM.jpg",
-        alt: "Steel Cage Mother side view",
-        title: "Steel Cage Mother",
-        meta: "FIG_02 · SIDE VIEW"
+        src: "../assets/images/closering.jpg",
+        alt: "Mokume-gane rings close view",
+        title: "Mokume-gane Rings",
+        meta: "FIG_02 · SURFACE DETAIL"
       }
     ];
 
-    const scmLightbox = document.getElementById("scmLightbox");
-    const scmClose = document.getElementById("scmClose");
-    const scmPrev = document.getElementById("scmPrev");
-    const scmNext = document.getElementById("scmNext");
-    const scmImg = document.getElementById("scmImg");
-    const scmCapTitle = document.getElementById("scmCapTitle");
-    const scmCapMeta = document.getElementById("scmCapMeta");
+    const lb = document.getElementById("lb");
+    const lbClose = document.getElementById("lbClose");
+    const lbPrev = document.getElementById("lbPrev");
+    const lbNext = document.getElementById("lbNext");
+    const lbImg = document.getElementById("lbImg");
+    const lbCapTitle = document.getElementById("lbCapTitle");
+    const lbCapMeta = document.getElementById("lbCapMeta");
 
-    let scmIndex = 0;
+    let idx = 0;
 
-    function renderSCM() {
-      const s = scmSlides[scmIndex];
-      scmImg.src = s.src;
-      scmImg.alt = s.alt || "";
-      scmCapTitle.textContent = s.title || "";
-      scmCapMeta.textContent = s.meta || "";
-
-      const single = scmSlides.length <= 1;
-      scmPrev.disabled = single;
-      scmNext.disabled = single;
+    function render() {
+      const s = slides[idx];
+      lbImg.src = s.src;
+      lbImg.alt = s.alt || "";
+      lbCapTitle.textContent = s.title || "";
+      lbCapMeta.textContent = s.meta || "";
+      const single = slides.length <= 1;
+      lbPrev.disabled = single;
+      lbNext.disabled = single;
     }
 
-    function openSCM(startIndex = 0) {
-      scmIndex = Math.max(0, Math.min(startIndex, scmSlides.length - 1));
-      renderSCM();
-      scmLightbox.classList.add("open");
-      scmLightbox.setAttribute("aria-hidden", "false");
+    function openLB(startIndex = 0) {
+      idx = Math.max(0, Math.min(startIndex, slides.length - 1));
+      render();
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
     }
 
-    function closeSCM() {
-      scmLightbox.classList.remove("open");
-      scmLightbox.setAttribute("aria-hidden", "true");
+    function closeLB() {
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
     }
 
-    function prevSCM() {
-      if (scmSlides.length <= 1) return;
-      scmIndex = (scmIndex - 1 + scmSlides.length) % scmSlides.length;
-      renderSCM();
+    function prev() {
+      if (slides.length <= 1) return;
+      idx = (idx - 1 + slides.length) % slides.length;
+      render();
     }
 
-    function nextSCM() {
-      if (scmSlides.length <= 1) return;
-      scmIndex = (scmIndex + 1) % scmSlides.length;
-      renderSCM();
+    function next() {
+      if (slides.length <= 1) return;
+      idx = (idx + 1) % slides.length;
+      render();
     }
 
-    // Click to open (only photo frames)
     document.querySelectorAll(".detail-frame.is-photo").forEach((el) => {
       el.addEventListener("click", () => {
-        const idx = Number(el.getAttribute("data-scm-index") || "0");
-        openSCM(idx);
+        const start = Number(el.getAttribute("data-lb-index") || "0");
+        openLB(start);
       });
     });
 
-    if (scmClose) scmClose.addEventListener("click", closeSCM);
-    if (scmPrev) scmPrev.addEventListener("click", prevSCM);
-    if (scmNext) scmNext.addEventListener("click", nextSCM);
+    if (lbClose) lbClose.addEventListener("click", closeLB);
+    if (lbPrev) lbPrev.addEventListener("click", prev);
+    if (lbNext) lbNext.addEventListener("click", next);
 
-    // Close when clicking outside stage
-    if (scmLightbox) {
-      scmLightbox.addEventListener("click", (e) => {
-        if (e.target === scmLightbox) closeSCM();
+    if (lb) {
+      lb.addEventListener("click", (e) => {
+        if (e.target === lb) closeLB();
       });
     }
 
-    // Keyboard
     window.addEventListener("keydown", (e) => {
-      if (!scmLightbox.classList.contains("open")) return;
-      if (e.key === "Escape") closeSCM();
-      if (e.key === "ArrowLeft") prevSCM();
-      if (e.key === "ArrowRight") nextSCM();
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") closeLB();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    });
+
+    // Optional: quick console helper so you can instantly confirm 404s
+    // (Open DevTools -> Console)
+    slides.forEach((s) => {
+      const i = new Image();
+      i.onload = () => {};
+      i.onerror = () => console.warn("Image failed to load:", s.src, "(check filename + case)");
+      i.src = s.src;
     });
   </script>
 </body>
