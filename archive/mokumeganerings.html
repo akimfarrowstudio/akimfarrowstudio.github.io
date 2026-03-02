@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en" vid="0">
+<head vid="1">
+  <meta charset="UTF-8" vid="2">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+  <title vid="4">Steel Cage Mother</title>
+
+  <link rel="icon" href="../og.jpg?v=2" type="image/jpeg">
+  <link rel="apple-touch-icon" href="../og.jpg?v=2">
+  <link rel="shortcut icon" href="../og.jpg?v=2" type="image/jpeg">
+
+  <meta property="og:title" content="Steel Cage Mother | Akim Farrow">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akimfarrowstudio.github.io/archive/steelcagemother.html">
+  <meta property="og:image" content="../assets/images/SCMpage.jpg?v=1">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:description" content="Steel Cage Mother. Welded steel installation exploring containment, labor, and institutional architecture.">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Steel Cage Mother | Akim Farrow">
+  <meta name="twitter:description" content="Welded steel installation exploring containment, labor, and institutional architecture.">
+  <meta name="twitter:image" content="../assets/images/SCMpage.jpg?v=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" vid="7">
+
+  <style vid="8">
+    :root {
+      --void: #1a0f0a;
+      --charcoal: #121212;
+      --rust: #d35400;
+      --rust-glow: #e67e22;
+      --oxide-gold: #ff6b35;
+      --steel: #2c1e18;
+      --font-display: 'Anton', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --border: 1px solid rgba(255, 107, 53, 0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--charcoal);
+      color: #e8e0dc;
+      font-family: var(--font-mono);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .sidebar {
+      background: var(--void);
+      border-right: 1px solid #3d2218;
+      padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .nav-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      margin-top: 2rem;
+    }
+
+    .nav-link {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: #8a665c;
+      text-decoration: none;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover, .nav-link.active { color: var(--oxide-gold); }
+
+    .scrolling-content {
+      height: 100vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      background-color: var(--charcoal);
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.05) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      padding: 4rem 6vw;
+    }
+
+    .dossier-header {
+      border-bottom: 1px solid #3d2218;
+      padding-bottom: 2rem;
+      margin-bottom: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .dossier-meta {
+      font-size: 0.7rem;
+      color: var(--rust);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      line-height: 1.8;
+      max-width: 520px;
+    }
+
+    .dossier-id {
+      color: #fff;
+      opacity: 0.4;
+      font-size: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stencil-title {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      color: var(--oxide-gold);
+      line-height: 0.9;
+      text-transform: uppercase;
+      -webkit-text-stroke: 1px var(--oxide-gold);
+      background: linear-gradient(to bottom, var(--oxide-gold) 0%, var(--oxide-gold) 48%, transparent 48%, transparent 52%, var(--oxide-gold) 52%, var(--oxide-gold) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      margin-top: 1rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .detail-frame {
+      aspect-ratio: 1/1;
+      border: 1px solid #3d2218;
+      overflow: hidden;
+      position: relative;
+      background: #0f0f0f;
+    }
+
+    .detail-frame img,
+    .detail-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(120%) brightness(0.8);
+      transition: filter 0.4s ease, transform 0.25s ease;
+      display: block;
+    }
+
+    .detail-frame:hover img,
+    .detail-frame:hover video {
+      filter: grayscale(0%) contrast(110%) brightness(0.9);
+      transform: scale(1.01);
+    }
+
+    .detail-label {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.6rem;
+      color: #fff;
+      background: var(--void);
+      padding: 2px 6px;
+      border: 1px solid var(--rust);
+      pointer-events: none;
+    }
+
+    /* ADDED: only make image frames clickable, not the video */
+    .detail-frame.is-photo { cursor: pointer; }
+
+    .archival-columns {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 6rem;
+    }
+
+    .field-notes-section {
+      border-top: 1px solid #3d2218;
+      padding-top: 2rem;
+    }
+
+    .section-tag {
+      font-size: 0.65rem;
+      color: var(--rust);
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-tag::after {
+      content: '';
+      height: 1px;
+      flex-grow: 1;
+      background: #3d2218;
+    }
+
+    .notes-body {
+      font-size: 0.85rem;
+      line-height: 2;
+      color: #c8b8b0;
+      max-width: 800px;
+    }
+
+    .notes-body p { margin-bottom: 2rem; }
+
+    .timeline-container {
+      border-left: 1px solid #3d2218;
+      padding-left: 2rem;
+    }
+
+    .timeline-item { margin-bottom: 2.5rem; position: relative; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -33.5px;
+      top: 5px;
+      width: 6px;
+      height: 6px;
+      background: var(--rust);
+    }
+
+    .timeline-date {
+      font-size: 0.65rem;
+      color: var(--oxide-gold);
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .timeline-event {
+      font-size: 0.75rem;
+      color: #e8e0dc;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .exhibition-list {
+      list-style: none;
+      margin-top: 4rem;
+      padding-left: 0;
+    }
+
+    .exhibition-item {
+      font-size: 0.7rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #251812;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .exhibition-item span:last-child { color: var(--rust); }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.7rem;
+      color: var(--oxide-gold);
+      text-decoration: none;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .back-btn:hover { text-decoration: underline; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--charcoal); }
+    ::-webkit-scrollbar-thumb { background: var(--rust); }
+
+    @media (max-width: 900px) {
+      .archival-columns { grid-template-columns: 1fr; gap: 3rem; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .stencil-title { font-size: 3.2rem; }
+      .layout { grid-template-columns: 64px 1fr; }
+    }
+
+    /* Homepage-style logo (upright) */
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 0.5rem;
+      text-decoration: none;
+    }
+
+    .brand-img {
+      width: 38px;
+      height: auto;
+      max-width: 80%;
+      display: block;
+      transform: none;
+    }
+
+    /* =========================
+       ADDED: LIGHTBOX GALLERY (WITH ARROWS)
+       ========================= */
+    .scm-lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 4vh 4vw;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.10) 0%, transparent 70%),
+        rgba(18,18,18,0.92);
+      z-index: 9999;
+    }
+    .scm-lightbox.open { display: flex; }
+
+    .scm-stage {
+      position: relative;
+      width: min(1200px, 94vw);
+      height: min(86vh, 900px);
+      border: 1px solid rgba(255,107,53,0.25);
+      background: rgba(26,15,10,0.55);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .scm-slide {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3.5rem 2.5rem 4.25rem;
+      touch-action: pan-y;
+    }
+
+    .scm-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: grayscale(10%) contrast(1.05);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .scm-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1.15rem 1.5rem;
+      border-top: 1px solid rgba(255,107,53,0.18);
+      background: rgba(18,18,18,0.60);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .scm-cap-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #f5f0ee;
+      margin: 0;
+    }
+
+    .scm-cap-meta {
+      font-size: 0.7rem;
+      color: var(--rust);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    .scm-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,107,53,0.35);
+      background: rgba(26,15,10,0.85);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      z-index: 2;
+    }
+
+    .scm-close:hover {
+      border-color: var(--oxide-gold);
+      color: var(--oxide-gold);
+    }
+
+    .scm-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,107,53,0.25);
+      background: rgba(26,15,10,0.55);
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .scm-arrow:hover {
+      border-color: var(--oxide-gold);
+      color: var(--oxide-gold);
+      background: rgba(26,15,10,0.75);
+    }
+
+    .scm-arrow:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    .scm-prev { left: 12px; }
+    .scm-next { right: 12px; }
+
+    @media (max-width: 900px) {
+      .scm-slide { padding: 3.25rem 1rem 4.25rem; }
+    }
+  </style>
+</head>
+
+<body vid="9">
+  <div class="layout" vid="10">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html" aria-label="Home">
+        <img class="brand-img" src="../ogw.png?v=5" alt="White Logo" />
+      </a>
+
+      <nav class="nav-vertical">
+        <a href="../index.html#hero" class="nav-link">ARTIST</a>
+        <a href="../index.html#about" class="nav-link">ABOUT</a>
+        <a href="../index.html#works" class="nav-link active">ARCHIVE</a>
+        <a href="../index.html#inquire" class="nav-link">INQUIRE</a>
+      </nav>
+
+      <div style="font-size: 0.6rem; color: var(--rust); writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5; padding-bottom: 2rem;">
+        REF_NO: 882-SCM-CH
+      </div>
+    </aside>
+
+    <main class="scrolling-content" vid="19">
+      <a href="../index.html#scm" class="back-btn">← RETURN TO ARCHIVE</a>
+
+      <div class="dossier-header" vid="21">
+        <div vid="22">
+          <div class="dossier-id" vid="23">CATALOG_ID // 2023_SCM_01</div>
+          <h1 class="stencil-title" vid="24">STEEL CAGE<br vid="25">MOTHER</h1>
+        </div>
+
+        <div class="dossier-meta" vid="26">
+          <div vid="27">MATERIAL: WELDED STEEL / OFFICE CHAIRS</div>
+          <div vid="28">DIMENSIONS: 250CM X 250CM X 250CM</div>
+          <div vid="29">STATUS: EXHIBITED</div>
+        </div>
+      </div>
+
+      <div class="detail-grid" vid="30">
+        <!-- ADDED: make photo frames clickable -->
+        <div class="detail-frame is-photo" vid="31" data-scm-index="0" aria-label="Open gallery image 1">
+          <img src="../assets/images/steelcagemother.jpg" alt="Steel Cage Mother overview" vid="32">
+          <div class="detail-label" vid="33">FIG_01: STRUCTURE</div>
+        </div>
+
+        <div class="detail-frame is-photo" vid="34" data-scm-index="1" aria-label="Open gallery image 2">
+          <img src="../assets/images/sideSCM.jpg" alt="Steel Cage Mother side view" vid="35">
+          <div class="detail-label" vid="36">FIG_02: SIDE VIEW</div>
+        </div>
+
+        <div class="detail-frame" vid="37">
+          <video controls playsinline preload="metadata" vid="38" poster="../assets/images/steelcagemother.jpg">
+            <source src="../assets/video/SCM.mp4" type="video/mp4">
+            <source src="../assets/video/SCM.mov" type="video/quicktime">
+            Your browser can’t play this video. <a href="../assets/video/SCM.mp4">Download it</a>.
+          </video>
+          <div class="detail-label" vid="39">FIG_03: VIDEO</div>
+        </div>
+      </div>
+
+      <div class="archival-columns" vid="40">
+        <div class="field-notes-section" vid="41">
+          <div class="section-tag" vid="42">FIELD NOTES / PROCESS WRITING</div>
+          <div class="notes-body" vid="43">
+            <p vid="44">The genesis of this work began with the geometry of containment. I wanted to translate institutional frameworks of care into the industrial language of welded steel. The challenge was preserving the psychological “breath” of open space while constructing a rigid cubic perimeter.</p>
+            <p vid="45">The structure was fabricated from square steel tubing into a strict eight-foot volume. The welds remain visible, emphasizing the grid as infrastructure rather than ornament. The steel was left untreated to maintain the neutrality of administrative architecture.</p>
+            <p vid="46">The interior is hollow, containing a standard office chair mounted on a steel plate. Under fluorescent light, the structure produces a compressed acoustic field, situating the body between workplace and holding cell.</p>
+          </div>
+
+          <a href="../index.html#scm" class="back-btn">← RETURN TO ARCHIVE</a>
+        </div>
+
+        <div class="sidebar-data" vid="47">
+          <div class="section-tag" vid="48">CREATION TIMELINE</div>
+          <div class="timeline-container" vid="49">
+            <div class="timeline-item" vid="50">
+              <div class="timeline-date" vid="51">APR 2023</div>
+              <div class="timeline-event" vid="52">CONCEPT DEVELOPMENT &amp; STRUCTURAL STUDIES</div>
+            </div>
+            <div class="timeline-item" vid="53">
+              <div class="timeline-date" vid="54">NOV 2023</div>
+              <div class="timeline-event" vid="55">PRIMARY FABRICATION &amp; EXHIBITION</div>
+            </div>
+            <div class="timeline-item" vid="56">
+              <div class="timeline-date" vid="57">DEC 2025</div>
+              <div class="timeline-event" vid="58">WELDING &amp; SURFACING</div>
+            </div>
+          </div>
+
+          <div class="section-tag" style="margin-top: 4rem;" vid="60">EXHIBITION HISTORY</div>
+          <ul class="exhibition-list" vid="59">
+            <li class="exhibition-item" vid="61">
+              <span vid="62">SAIC STUDENT GALLERIES</span>
+              <span vid="63">2023</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;" vid="70">
+        <div vid="71">DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
+        <div vid="72">CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ADDED: LIGHTBOX GALLERY -->
+  <div class="scm-lightbox" id="scmLightbox" aria-hidden="true">
+    <div class="scm-stage" role="dialog" aria-label="Image viewer">
+      <button class="scm-close" id="scmClose" aria-label="Close">×</button>
+
+      <button class="scm-arrow scm-prev" id="scmPrev" aria-label="Previous">&lt;</button>
+      <button class="scm-arrow scm-next" id="scmNext" aria-label="Next">&gt;</button>
+
+      <div class="scm-slide" id="scmSlide">
+        <img id="scmImg" src="" alt="">
+      </div>
+
+      <div class="scm-caption">
+        <div class="scm-cap-title" id="scmCapTitle"></div>
+        <div class="scm-cap-meta" id="scmCapMeta"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ADDED: gallery-only data (images only)
+    const scmSlides = [
+      {
+        src: "../assets/images/steelcagemother.jpg",
+        alt: "Steel Cage Mother overview",
+        title: "Steel Cage Mother",
+        meta: "FIG_01 · STRUCTURE"
+      },
+      {
+        src: "../assets/images/sideSCM.jpg",
+        alt: "Steel Cage Mother side view",
+        title: "Steel Cage Mother",
+        meta: "FIG_02 · SIDE VIEW"
+      }
+    ];
+
+    const scmLightbox = document.getElementById("scmLightbox");
+    const scmClose = document.getElementById("scmClose");
+    const scmPrev = document.getElementById("scmPrev");
+    const scmNext = document.getElementById("scmNext");
+    const scmImg = document.getElementById("scmImg");
+    const scmCapTitle = document.getElementById("scmCapTitle");
+    const scmCapMeta = document.getElementById("scmCapMeta");
+
+    let scmIndex = 0;
+
+    function renderSCM() {
+      const s = scmSlides[scmIndex];
+      scmImg.src = s.src;
+      scmImg.alt = s.alt || "";
+      scmCapTitle.textContent = s.title || "";
+      scmCapMeta.textContent = s.meta || "";
+
+      const single = scmSlides.length <= 1;
+      scmPrev.disabled = single;
+      scmNext.disabled = single;
+    }
+
+    function openSCM(startIndex = 0) {
+      scmIndex = Math.max(0, Math.min(startIndex, scmSlides.length - 1));
+      renderSCM();
+      scmLightbox.classList.add("open");
+      scmLightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeSCM() {
+      scmLightbox.classList.remove("open");
+      scmLightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function prevSCM() {
+      if (scmSlides.length <= 1) return;
+      scmIndex = (scmIndex - 1 + scmSlides.length) % scmSlides.length;
+      renderSCM();
+    }
+
+    function nextSCM() {
+      if (scmSlides.length <= 1) return;
+      scmIndex = (scmIndex + 1) % scmSlides.length;
+      renderSCM();
+    }
+
+    // Click to open (only photo frames)
+    document.querySelectorAll(".detail-frame.is-photo").forEach((el) => {
+      el.addEventListener("click", () => {
+        const idx = Number(el.getAttribute("data-scm-index") || "0");
+        openSCM(idx);
+      });
+    });
+
+    if (scmClose) scmClose.addEventListener("click", closeSCM);
+    if (scmPrev) scmPrev.addEventListener("click", prevSCM);
+    if (scmNext) scmNext.addEventListener("click", nextSCM);
+
+    // Close when clicking outside stage
+    if (scmLightbox) {
+      scmLightbox.addEventListener("click", (e) => {
+        if (e.target === scmLightbox) closeSCM();
+      });
+    }
+
+    // Keyboard
+    window.addEventListener("keydown", (e) => {
+      if (!scmLightbox.classList.contains("open")) return;
+      if (e.key === "Escape") closeSCM();
+      if (e.key === "ArrowLeft") prevSCM();
+      if (e.key === "ArrowRight") nextSCM();
+    });
+  </script>
+</body>
+</html>
