@@ -615,109 +615,96 @@
     </div>
   </div>
 
-  <script>
-    /*
-      WHY closering.jpg wasn’t loading (most likely):
-      1) GitHub Pages is case-sensitive. If the real file is CloseRing.jpg or closeRing.jpg, "../assets/images/closering.jpg" will 404.
-      2) You used an absolute path before: "/assets/images/closering.jpg". That works only if the site is served from the domain root.
-         On GitHub Pages project sites, absolute paths often break because the site lives under a repo path.
-      Fix: use relative paths from /archive/ and match filename case exactly.
-    */
+<script>
+  const lb = document.getElementById("lb") || document.getElementById("scmLightbox");
+  const lbClose = document.getElementById("lbClose") || document.getElementById("scmClose");
+  const lbPrev = document.getElementById("lbPrev") || document.getElementById("scmPrev");
+  const lbNext = document.getElementById("lbNext") || document.getElementById("scmNext");
+  const lbImg = document.getElementById("lbImg") || document.getElementById("scmImg");
+  const lbCapTitle = document.getElementById("lbCapTitle") || document.getElementById("scmCapTitle");
+  const lbCapMeta = document.getElementById("lbCapMeta") || document.getElementById("scmCapMeta");
 
-    const slides = [
-      {
-        src: "../assets/images/mokumeganerings.jpg",
-        alt: "Mokume-gane rings overview",
-        title: "Mokume-gane Rings",
-        meta: "FIG_01 · PROFILE"
-      },
-      {
-        src: "../assets/images/closering.jpg",
-        alt: "Mokume-gane rings close view",
-        title: "Mokume-gane Rings",
-        meta: "FIG_02 · SURFACE DETAIL"
-      }
-    ];
+  const photoImgs = Array.from(document.querySelectorAll(".detail-frame.is-photo img"));
 
-    const lb = document.getElementById("lb");
-    const lbClose = document.getElementById("lbClose");
-    const lbPrev = document.getElementById("lbPrev");
-    const lbNext = document.getElementById("lbNext");
-    const lbImg = document.getElementById("lbImg");
-    const lbCapTitle = document.getElementById("lbCapTitle");
-    const lbCapMeta = document.getElementById("lbCapMeta");
+  const slides = photoImgs.map((img) => ({
+    src: img.getAttribute("src"),
+    alt: img.getAttribute("alt") || "",
+    title: img.getAttribute("data-lb-title") || "Mokume-gane Rings",
+    meta: img.getAttribute("data-lb-meta") || ""
+  }));
 
-    let idx = 0;
+  let idx = 0;
 
-    function render() {
-      const s = slides[idx];
-      lbImg.src = s.src;
-      lbImg.alt = s.alt || "";
-      lbCapTitle.textContent = s.title || "";
-      lbCapMeta.textContent = s.meta || "";
-      const single = slides.length <= 1;
-      lbPrev.disabled = single;
-      lbNext.disabled = single;
-    }
+  function render() {
+    if (!slides.length) return;
 
-    function openLB(startIndex = 0) {
-      idx = Math.max(0, Math.min(startIndex, slides.length - 1));
-      render();
-      lb.classList.add("open");
-      lb.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
+    const s = slides[idx];
+    lbImg.src = s.src;
+    lbImg.alt = s.alt;
+    lbCapTitle.textContent = s.title;
+    lbCapMeta.textContent = s.meta;
 
-    function closeLB() {
-      lb.classList.remove("open");
-      lb.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
+    const single = slides.length <= 1;
+    if (lbPrev) lbPrev.disabled = single;
+    if (lbNext) lbNext.disabled = single;
+  }
 
-    function prev() {
-      if (slides.length <= 1) return;
-      idx = (idx - 1 + slides.length) % slides.length;
-      render();
-    }
+  function openLB(startIndex) {
+    if (!slides.length) return;
+    idx = Math.max(0, Math.min(startIndex, slides.length - 1));
+    render();
+    lb.classList.add("open");
+    lb.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
 
-    function next() {
-      if (slides.length <= 1) return;
-      idx = (idx + 1) % slides.length;
-      render();
-    }
+  function closeLB() {
+    lb.classList.remove("open");
+    lb.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
 
-    document.querySelectorAll(".detail-frame.is-photo").forEach((el) => {
-      el.addEventListener("click", () => {
-        const start = Number(el.getAttribute("data-lb-index") || "0");
-        openLB(start);
-      });
+  function prev() {
+    if (slides.length <= 1) return;
+    idx = (idx - 1 + slides.length) % slides.length;
+    render();
+  }
+
+  function next() {
+    if (slides.length <= 1) return;
+    idx = (idx + 1) % slides.length;
+    render();
+  }
+
+  // Open on click: bind indexes automatically
+  document.querySelectorAll(".detail-frame.is-photo").forEach((frame, i) => {
+    frame.addEventListener("click", () => openLB(i));
+  });
+
+  if (lbClose) lbClose.addEventListener("click", closeLB);
+  if (lbPrev) lbPrev.addEventListener("click", prev);
+  if (lbNext) lbNext.addEventListener("click", next);
+
+  if (lb) {
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) closeLB();
     });
+  }
 
-    if (lbClose) lbClose.addEventListener("click", closeLB);
-    if (lbPrev) lbPrev.addEventListener("click", prev);
-    if (lbNext) lbNext.addEventListener("click", next);
+  window.addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") closeLB();
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
 
-    if (lb) {
-      lb.addEventListener("click", (e) => {
-        if (e.target === lb) closeLB();
-      });
-    }
-
-    window.addEventListener("keydown", (e) => {
-      if (!lb.classList.contains("open")) return;
-      if (e.key === "Escape") closeLB();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    });
-
-    // Optional: quick console helper so you can instantly confirm 404s
-    // (Open DevTools -> Console)
-    slides.forEach((s) => {
-      const i = new Image();
-      i.onload = () => {};
-      i.onerror = () => console.warn("Image failed to load:", s.src, "(check filename + case)");
-      i.src = s.src;
-    });
-  </script>
+  // Console helper: tells you exactly which image path fails
+  slides.forEach((s) => {
+    const test = new Image();
+    test.onload = () => {};
+    test.onerror = () => console.warn("Image failed to load:", s.src, "(check folder + exact filename case)");
+    test.src = s.src;
+  });
+</script>
 </body>
 </html>
