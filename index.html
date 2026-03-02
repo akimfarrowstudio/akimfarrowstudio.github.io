@@ -1,12 +1,6 @@
-<!-- =========================
-     index.html (FULL, WORKING)
-     - Uses a hidden iframe POST for the no-PDF path (avoids CORS issues entirely)
-     - Uses fetch JSON for the PDF path (base64) with application/json
-     - Fixes the biggest mismatch: URL + payload parsing expectations
-     ========================= -->
 <!doctype html>
-<html lang="en">
-<head>
+<html lang="en" vid="0">
+<head vid="1">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QK7045YE1S"></script>
   <script>
@@ -16,16 +10,17 @@
     gtag('config', 'G-QK7045YE1S');
   </script>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="UTF-8" vid="2">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
 
-  <title>Akim Farrow | Sculptor</title>
+  <!-- Primary SEO -->
+  <title vid="4">Akim Farrow | Sculptor</title>
   <meta name="description" content="Akim Farrow is a Zimbabwean-American sculptor working with steel, myth, and memory. Selected works, archive, and commission inquiries.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#121212">
   <link rel="canonical" href="https://akimfarrow.com/">
 
-  <!-- Favicons -->
+  <!-- Favicons (PUT THESE FILES AT SITE ROOT) -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/favicon-48.png" sizes="48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
@@ -67,18 +62,21 @@
   }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin vid="6">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" vid="7">
 
+  <!-- Icons -->
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 
-  <style>
+  <style vid="8">
     :root {
       --void: #1a0f0a;
       --charcoal: #121212;
       --rust: #d35400;
+      --rust-glow: #e67e22;
       --oxide-gold: #ff6b35;
+      --steel: #2c1e18;
       --font-display: 'Anton', sans-serif;
       --font-mono: 'Space Mono', monospace;
       --border: 1px solid rgba(255, 107, 53, 0.2);
@@ -113,10 +111,28 @@
       z-index: 100;
     }
 
-    .brand { display: flex; align-items: center; justify-content: center; width: 100%; padding-top: 0.5rem; }
-    .brand-img { width: 38px; height: auto; max-width: 80%; display: block; }
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 0.5rem;
+    }
 
-    .nav-vertical { display: flex; flex-direction: column; gap: 4rem; margin-top: 2rem; }
+    .brand-img {
+      width: 38px;
+      height: auto;
+      max-width: 80%;
+      display: block;
+      transform: none;
+    }
+
+    .nav-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      margin-top: 2rem;
+    }
 
     .nav-link {
       font-size: 0.75rem;
@@ -129,7 +145,9 @@
       transition: all 0.3s ease;
       white-space: nowrap;
     }
-    .nav-link:hover, .nav-link.active { color: var(--oxide-gold); }
+
+    .nav-link:hover,
+    .nav-link.active { color: var(--oxide-gold); }
 
     .location-tags {
       font-size: 0.6rem;
@@ -173,9 +191,25 @@
       color: var(--oxide-gold);
       margin-bottom: 2rem;
     }
-    .hero-sub { border-left: 4px solid var(--rust); padding-left: 2rem; }
-    .hero-sub p:first-child { text-transform: uppercase; letter-spacing: 0.2em; font-weight: bold; color: #fff; }
-    .hero-sub p:last-child { color: var(--rust); text-transform: uppercase; font-size: 0.8rem; margin-top: 0.5rem; }
+
+    .hero-sub {
+      border-left: 4px solid var(--rust);
+      padding-left: 2rem;
+    }
+
+    .hero-sub p:first-child {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .hero-sub p:last-child {
+      color: var(--rust);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
 
     .gallery-section {
       padding: 6rem 0 6rem 5vw;
@@ -186,9 +220,26 @@
       width: 100%;
     }
 
-    .section-header { padding-right: 5vw; margin-bottom: 3rem; }
-    .section-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--rust); margin-bottom: 1rem; opacity: 0.8; }
-    .section-title { font-family: var(--font-display); font-size: 3rem; color: var(--oxide-gold); line-height: 1; }
+    .section-header {
+      padding-right: 5vw;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: var(--rust);
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--oxide-gold);
+      line-height: 1;
+    }
 
     .gallery-filmstrip-container {
       width: 100%;
@@ -199,14 +250,35 @@
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: contain;
     }
+
     .gallery-filmstrip-container::-webkit-scrollbar { display: none; }
 
-    .gallery-filmstrip { display: flex; gap: 2rem; padding-right: 5vw; align-items: stretch; }
+    .gallery-filmstrip {
+      display: flex;
+      gap: 2rem;
+      padding-right: 5vw;
+      align-items: stretch;
+    }
 
-    .artwork-link { display: block; color: inherit; text-decoration: none; flex: 0 0 auto; outline: none; }
-    .artwork-link:focus-visible .artwork-card { outline: 1px solid rgba(255, 107, 53, 0.6); outline-offset: 6px; }
+    .artwork-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      flex: 0 0 auto;
+      outline: none;
+    }
 
-    .artwork-card { flex: 0 0 600px; cursor: pointer; position: relative; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+    .artwork-link:focus-visible .artwork-card {
+      outline: 1px solid rgba(255, 107, 53, 0.6);
+      outline-offset: 6px;
+    }
+
+    .artwork-card {
+      flex: 0 0 600px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
 
     .artwork-image {
       width: 100%;
@@ -218,6 +290,7 @@
       position: relative;
       transition: border-color 0.2s ease;
     }
+
     .artwork-image img {
       width: 100%;
       height: 100%;
@@ -226,23 +299,126 @@
       transition: transform 0.5s ease, filter 0.5s ease;
       display: block;
     }
-    .artwork-card:hover .artwork-image img { transform: scale(1.03); filter: grayscale(0%) contrast(110%) brightness(0.9); }
 
-    .artwork-info { display: flex; justify-content: space-between; align-items: baseline; padding: 0 0.5rem; gap: 1rem; }
-    .artwork-title { font-family: var(--font-display); font-size: 1.5rem; color: #f5f0ee; letter-spacing: 0.05em; }
-    .artwork-meta { font-size: 0.7rem; color: var(--rust); text-transform: uppercase; letter-spacing: 0.1em; text-align: right; white-space: nowrap; }
+    .artwork-card:hover .artwork-image img {
+      transform: scale(1.03);
+      filter: grayscale(0%) contrast(110%) brightness(0.9);
+    }
 
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; width: 100%; }
-    .about-photo-frame { width: 100%; aspect-ratio: 3/4; overflow: hidden; border: var(--border); position: relative; }
-    .about-photo-frame img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(40%) contrast(110%) brightness(0.8); transition: filter 0.5s ease; display: block; }
-    .about-photo-frame:hover img { filter: grayscale(0%) contrast(110%) brightness(0.85); }
-    .about-photo-frame::after { content:''; position:absolute; bottom:0; left:0; right:0; height:40%; background: linear-gradient(to top, rgba(26,15,10,0.8), transparent); pointer-events:none; }
+    .artwork-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0 0.5rem;
+      gap: 1rem;
+    }
 
-    .about-location-tag { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.4em; color: var(--rust); margin-top: 1.2rem; opacity: 0.7; }
-    .about-title { font-family: var(--font-display); font-size: 4rem; color: var(--oxide-gold); line-height: 1; margin-bottom: 2.5rem; }
-    .about-bio { font-size: 0.82rem; line-height: 1.9; color: #c8b8b0; margin-bottom: 1.5rem; letter-spacing: 0.02em; }
-    .about-tags { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
-    .about-tags span { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.3em; border: 1px solid rgba(255, 107, 53, 0.3); padding: 0.5rem 1.2rem; color: var(--rust); }
+    .artwork-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: #f5f0ee;
+      letter-spacing: 0.05em;
+    }
+
+    .artwork-meta {
+      font-size: 0.7rem;
+      color: var(--rust);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .artwork-link.return-highlight .artwork-card { transform: translateY(-2px); }
+    .artwork-link.return-highlight .artwork-image {
+      border-color: rgba(255, 107, 53, 0.55);
+      box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.25), 0 0 40px rgba(255, 107, 53, 0.10);
+    }
+    .artwork-link.return-highlight .artwork-image img {
+      filter: grayscale(0%) contrast(110%) brightness(0.9);
+      transform: scale(1.01);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .about-photo-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border: var(--border);
+      position: relative;
+    }
+
+    .about-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(40%) contrast(110%) brightness(0.8);
+      transition: filter 0.5s ease;
+      display: block;
+    }
+
+    .about-photo-frame:hover img {
+      filter: grayscale(0%) contrast(110%) brightness(0.85);
+    }
+
+    .about-photo-frame::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(26,15,10,0.8), transparent);
+      pointer-events: none;
+    }
+
+    .about-location-tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: var(--rust);
+      margin-top: 1.2rem;
+      opacity: 0.7;
+    }
+
+    .about-title {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      color: var(--oxide-gold);
+      line-height: 1;
+      margin-bottom: 2.5rem;
+    }
+
+    .about-bio {
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: #c8b8b0;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .about-tags {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .about-tags span {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      padding: 0.5rem 1.2rem;
+      color: var(--rust);
+    }
 
     #inquire { align-items: center; }
 
@@ -256,15 +432,47 @@
       width: min(900px, 90vw);
       margin: 0 auto;
     }
-    .form-container::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust)); }
-    .form-header { margin-bottom: 4rem; }
-    .form-header h2 { font-family: var(--font-display); font-size: 3rem; letter-spacing: 0.05em; color: var(--oxide-gold); }
 
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    .form-group { margin-bottom: 2.5rem; display: flex; flex-direction: column; }
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust));
+    }
+
+    .form-header { margin-bottom: 4rem; }
+
+    .form-header h2 {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      letter-spacing: 0.05em;
+      color: var(--oxide-gold);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
     .full-width { grid-column: span 2; }
 
-    label { font-size: 0.75rem; text-transform: uppercase; color: var(--rust); margin-bottom: 0.75rem; letter-spacing: 0.1em; }
+    label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.1em;
+    }
 
     input, select, textarea {
       background: transparent;
@@ -276,9 +484,19 @@
       font-size: 1rem;
       transition: border-color 0.3s;
     }
-    input:focus, select:focus, textarea:focus { outline: none; border-bottom-color: var(--oxide-gold); }
 
-    .materials-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 0.5rem; }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-bottom-color: var(--oxide-gold);
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
     .material-option {
       border: 1px solid #4d2d1d;
       padding: 0.8rem;
@@ -290,8 +508,17 @@
       color: #997a6e;
       user-select: none;
     }
-    .material-option:hover { border-color: var(--rust); color: var(--oxide-gold); }
-    .material-option.selected { background: var(--rust); color: #fff; border-color: var(--rust); }
+
+    .material-option:hover {
+      border-color: var(--rust);
+      color: var(--oxide-gold);
+    }
+
+    .material-option.selected {
+      background: var(--rust);
+      color: #fff;
+      border-color: var(--rust);
+    }
 
     .submit-btn {
       width: 100%;
@@ -306,7 +533,11 @@
       margin-top: 1rem;
       transition: all 0.3s;
     }
-    .submit-btn:hover { background: var(--oxide-gold); color: var(--void); }
+
+    .submit-btn:hover {
+      background: var(--oxide-gold);
+      color: var(--void);
+    }
 
     .debug-panel {
       margin-top: 14px;
@@ -322,7 +553,13 @@
       display: none;
     }
 
-    .site-footer { padding: 0 5vw 6rem; width: 100%; display: flex; justify-content: center; }
+    .site-footer {
+      padding: 0 5vw 6rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
     .footer-box {
       width: min(900px, 90vw);
       border: 1px solid rgba(255, 107, 53, 0.2);
@@ -331,19 +568,59 @@
       padding: 2rem 2.25rem;
       position: relative;
     }
-    .footer-box::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust)); }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-size: 0.6rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.2em; padding-top: 0.5rem; }
-    .footer-social { display: flex; gap: 0.9rem; align-items: center; }
+
+    .footer-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--rust), var(--oxide-gold), var(--rust));
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.6rem;
+      color: #8a665c;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      padding-top: 0.5rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
     .footer-icon {
-      width: 34px; height: 34px;
+      width: 34px;
+      height: 34px;
       border: 1px solid rgba(255, 107, 53, 0.25);
       border-radius: 999px;
-      display: inline-flex; align-items: center; justify-content: center;
-      color: #8a665c; text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #8a665c;
+      text-decoration: none;
       transition: all 0.25s ease;
     }
-    .footer-icon:hover { border-color: var(--oxide-gold); color: var(--oxide-gold); }
+
+    .footer-icon:hover {
+      border-color: var(--oxide-gold);
+      color: var(--oxide-gold);
+    }
+
     .footer-icon i { font-size: 18px; line-height: 1; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--charcoal); }
+    ::-webkit-scrollbar-thumb { background: #4d2d1d; }
 
     @media (max-width: 700px) {
       .layout { grid-template-columns: 64px 1fr; width: 100%; }
@@ -366,195 +643,216 @@
       .section-title { font-size: 2.2rem; }
       .gallery-filmstrip { gap: 1.25rem; padding-right: 5vw; }
 
+      .artwork-link { width: 78vw; max-width: 78vw; }
+      .artwork-card { flex: 0 0 78vw; max-width: 78vw; }
+
+      .artwork-title { font-size: 1.1rem; }
+      .artwork-meta { font-size: 0.62rem; letter-spacing: 0.08em; white-space: normal; text-align: right; }
+
       .form-container { padding: 2rem; width: min(900px, 86vw); }
       .form-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .full-width { grid-column: span 1; }
       .materials-grid { grid-template-columns: repeat(2, 1fr); }
+
       .footer-box { width: min(900px, 86vw); padding: 1.75rem 1.5rem; }
+    }
+
+    @media (max-width: 420px) {
+      .artwork-meta { white-space: normal; }
+    }
+
+    .gallery-filmstrip > .artwork-link {
+      flex: 0 0 600px;
+      width: 600px;
+    }
+
+    .gallery-filmstrip > .artwork-link .artwork-card {
+      width: 100%;
+      flex: none;
     }
   </style>
 </head>
 
-<body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="brand">
+<body vid="9">
+  <div class="layout" vid="10">
+    <aside class="sidebar" vid="11">
+      <div class="brand" vid="12">
         <img class="brand-img" src="ogw.png?v=5" alt="White Logo" />
       </div>
 
-      <nav class="nav-vertical">
-        <a href="#hero" class="nav-link">ARTIST</a>
-        <a href="#about" class="nav-link">ABOUT</a>
-        <a href="#works" class="nav-link">ARCHIVE</a>
-        <a href="#inquire" class="nav-link active">INQUIRE</a>
+      <nav class="nav-vertical" vid="13">
+        <a href="#hero" class="nav-link" vid="14">ARTIST</a>
+        <a href="#about" class="nav-link" vid="15">ABOUT</a>
+        <a href="#works" class="nav-link" vid="16">ARCHIVE</a>
+        <a href="#inquire" class="nav-link active" vid="17">INQUIRE</a>
       </nav>
 
-      <div class="location-tags">
-        <span>FURNACE</span>
-        <span>VERMONT</span>
-        <span>CHICAGO</span>
+      <div class="location-tags" vid="18">
+        <span vid="19">FURNACE</span>
+        <span vid="20">VERMONT</span>
+        <span vid="21">CHICAGO</span>
       </div>
     </aside>
 
-    <main class="scrolling-content">
-      <section id="hero">
-        <h1 class="hero-title">AKIM<br>FARROW</h1>
-        <div class="hero-sub">
-          <p>Sculptor of Myth &amp; Metal</p>
-          <p>Artist</p>
+    <main class="scrolling-content" vid="22">
+      <section id="hero" vid="23">
+        <h1 class="hero-title" vid="24">AKIM<br vid="25">FARROW</h1>
+        <div class="hero-sub" vid="26">
+          <p vid="27">Sculptor of Myth &amp; Metal</p>
+          <p vid="28">Artist</p>
         </div>
       </section>
 
-      <section id="about">
-        <div class="about-grid">
-          <div class="about-photo-col">
-            <div class="about-photo-frame">
-              <img src="assets/images/me.jpg" alt="Akim Farrow">
+      <section id="about" vid="29">
+        <div class="about-grid" vid="30">
+          <div class="about-photo-col" vid="31">
+            <div class="about-photo-frame" vid="32">
+              <img src="assets/images/me.jpg" alt="Akim Farrow" vid="33">
             </div>
-            <div class="about-location-tag">VERMONT - CHICAGO</div>
+            <div class="about-location-tag" vid="34">VERMONT - CHICAGO</div>
           </div>
 
-          <div class="about-text-col">
-            <div class="section-label">About the Artist</div>
-            <h2 class="about-title">MEET AKIM</h2>
-            <p class="about-bio">As a first generation Zimbabwean-American artist, grown in the mountains, my perspective is shaped by imbrications of being. My work navigates layerings and liminalities of identity, myth, and storytelling; in-between realms of the self.</p>
-            <p class="about-bio">All materiality is a single body, alive with memory, weight, and form. In the Contemporary age, the industrial Anthropocene, where the bones of the world are cast in steel, I often turn to this medium - my first material love - to tell the stories I wish I was told about the world; about myself.</p>
-            <p class="about-bio">My sculptures are living objects and sites of story-building, where personal and collective histories collide, transmuting the industrial age into something more intimate. My works celebrate the intricate and infinite imbrications of our shared human experience.</p>
-            <div class="about-tags">
-              <span>STEEL</span>
-              <span>MYTH</span>
-              <span>MEMORY</span>
-              <span>FORM</span>
+          <div class="about-text-col" vid="35">
+            <div class="section-label" vid="36">About the Artist</div>
+            <h2 class="about-title" vid="37">MEET AKIM</h2>
+            <p class="about-bio" vid="38">As a first generation Zimbabwean-American artist, grown in the mountains, my perspective is shaped by imbrications of being. My work navigates layerings and liminalities of identity, myth, and storytelling; in-between realms of the self.</p>
+            <p class="about-bio" vid="39">All materiality is a single body, alive with memory, weight, and form. In the Contemporary age, the industrial Anthropocene, where the bones of the world are cast in steel, I often turn to this medium - my first material love - to tell the stories I wish I was told about the world; about myself.</p>
+            <p class="about-bio" vid="40">My sculptures are living objects and sites of story-building, where personal and collective histories collide, transmuting the industrial age into something more intimate. My works celebrate the intricate and infinite imbrications of our shared human experience.</p>
+            <div class="about-tags" vid="41">
+              <span vid="42">STEEL</span>
+              <span vid="43">MYTH</span>
+              <span vid="44">MEMORY</span>
+              <span vid="45">FORM</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="works" class="gallery-section">
-        <div class="section-header">
-          <div class="section-label">Archive Filmstrip</div>
-          <div class="section-title">SELECTED WORKS</div>
+      <section id="works" class="gallery-section" vid="46">
+        <div class="section-header" vid="47">
+          <div class="section-label" vid="48">Archive Filmstrip</div>
+          <div class="section-title" vid="49">SELECTED WORKS</div>
         </div>
 
-        <div class="gallery-filmstrip-container">
-          <div class="gallery-filmstrip">
+        <div class="gallery-filmstrip-container" vid="50">
+          <div class="gallery-filmstrip" vid="51">
             <a id="scm" class="artwork-link" href="archive/steelcagemother.html" aria-label="Open Steel Cage Mother">
-              <div class="artwork-card">
-                <div class="artwork-image">
-                  <img src="assets/images/steelcagemother.jpg" alt="Steel Cage Mother">
+              <div class="artwork-card" vid="52">
+                <div class="artwork-image" vid="53">
+                  <img src="assets/images/steelcagemother.jpg" alt="Steel Cage Mother" vid="54">
                 </div>
-                <div class="artwork-info">
-                  <div class="artwork-title">Steel Cage Mother</div>
-                  <div class="artwork-meta">2025 · Steel &amp; Office Chair</div>
+                <div class="artwork-info" vid="55">
+                  <div class="artwork-title" vid="56">Steel Cage Mother</div>
+                  <div class="artwork-meta" vid="57">2025 · Steel &amp; Office Chair</div>
                 </div>
               </div>
             </a>
 
             <a id="wa" class="artwork-link" href="archive/whitealbum.html" aria-label="Open White Album">
-              <div class="artwork-card">
-                <div class="artwork-image">
-                  <img src="assets/images/whitealbum.jpg" alt="White Album">
+              <div class="artwork-card" vid="58">
+                <div class="artwork-image" vid="59">
+                  <img src="assets/images/whitealbum.jpg" alt="White Album" vid="60">
                 </div>
-                <div class="artwork-info">
-                  <div class="artwork-title">White Album</div>
-                  <div class="artwork-meta">2025 · Raw Canvas &amp; Wood</div>
+                <div class="artwork-info" vid="61">
+                  <div class="artwork-title" vid="62">White Album</div>
+                  <div class="artwork-meta" vid="63">2025 · Raw Canvas &amp; Wood</div>
                 </div>
               </div>
             </a>
 
             <a id="mmr" class="artwork-link" href="archive/mokumeganerings.html" aria-label="Open Mokume-Gane Rings">
-              <div class="artwork-card">
-                <div class="artwork-image">
-                  <img src="assets/images/mokumeganerings.jpg" alt="Mokume-gane (木目金) Rings">
+              <div class="artwork-card" vid="64">
+                <div class="artwork-image" vid="65">
+                  <img src="assets/images/mokumeganerings.jpg" alt="Mokume-gane (木目金) Rings" vid="66">
                 </div>
-                <div class="artwork-info">
-                  <div class="artwork-title">Mokume-gane (木目金) Rings</div>
-                  <div class="artwork-meta">2024 · Nickel &amp; Copper</div>
+                <div class="artwork-info" vid="67">
+                  <div class="artwork-title" vid="68">Mokume-gane (木目金) Rings</div>
+                  <div class="artwork-meta" vid="69">2024 · Nickel &amp; Copper</div>
                 </div>
               </div>
             </a>
 
             <a id="sh" class="artwork-link" href="archive/strangeharvest.html" aria-label="Open Strange Harvest">
-              <div class="artwork-card">
-                <div class="artwork-image">
-                  <img src="assets/images/strangeharvest.jpg" alt="Strange Harvest">
+              <div class="artwork-card" vid="70">
+                <div class="artwork-image" vid="71">
+                  <img src="assets/images/strangeharvest.jpg" alt="Strange Harvest" vid="72">
                 </div>
-                <div class="artwork-info">
-                  <div class="artwork-title">Strange Harvest</div>
-                  <div class="artwork-meta">2024 · Welded Steel</div>
+                <div class="artwork-info" vid="73">
+                  <div class="artwork-title" vid="74">Strange Harvest</div>
+                  <div class="artwork-meta" vid="75">2024 · Welded Steel</div>
                 </div>
               </div>
             </a>
 
-            <div class="artwork-card">
-              <div class="artwork-image">
-                <img src="assets/images/autochthon.jpg" alt="Autochthon">
+            <div class="artwork-card" vid="76">
+              <div class="artwork-image" vid="77">
+                <img src="assets/images/autochthon.jpg" alt="Autochthon" vid="78">
               </div>
-              <div class="artwork-info">
-                <div class="artwork-title">Autochthon</div>
-                <div class="artwork-meta">2024 · Steel &amp; Copper</div>
+              <div class="artwork-info" vid="79">
+                <div class="artwork-title" vid="80">Autochthon</div>
+                <div class="artwork-meta" vid="81">2024 · Steel &amp; Copper</div>
               </div>
             </div>
 
             <a id="bbt" class="artwork-link" href="archive/baobabbottletree.html" aria-label="Open Baobab Bottle Tree">
-              <div class="artwork-card">
-                <div class="artwork-image">
-                  <img src="assets/images/baobabbottletree.jpg" alt="Baobab Bottle Tree">
+              <div class="artwork-card" vid="82">
+                <div class="artwork-image" vid="83">
+                  <img src="assets/images/baobabbottletree.jpg" alt="Baobab Bottle Tree" vid="84">
                 </div>
-                <div class="artwork-info">
-                  <div class="artwork-title">Baobab Bottle Tree</div>
-                  <div class="artwork-meta">2024 · Steel &amp; Glass</div>
+                <div class="artwork-info" vid="85">
+                  <div class="artwork-title" vid="86">Baobab Bottle Tree</div>
+                  <div class="artwork-meta" vid="87">2024 · Steel &amp; Glass</div>
                 </div>
               </div>
             </a>
 
-            <div class="artwork-card">
-              <div class="artwork-image">
-                <img src="assets/images/monsterswemake.jpg" alt="Monsters We Make">
+            <div class="artwork-card" vid="88">
+              <div class="artwork-image" vid="89">
+                <img src="assets/images/monsterswemake.jpg" alt="Monsters We Make" vid="90">
               </div>
-              <div class="artwork-info">
-                <div class="artwork-title">Monsters We Make</div>
-                <div class="artwork-meta">2019 · Steel &amp; Glass</div>
-              </div>
-            </div>
-
-            <div class="artwork-card">
-              <div class="artwork-image">
-                <img src="assets/images/intothewoodsbench.jpg" alt="Into the Woods, Bench">
-              </div>
-              <div class="artwork-info">
-                <div class="artwork-title">Into the Woods, Bench</div>
-                <div class="artwork-meta">2018 · Harvested Wood</div>
+              <div class="artwork-info" vid="91">
+                <div class="artwork-title" vid="92">Monsters We Make</div>
+                <div class="artwork-meta" vid="93">2019 · Steel &amp; Glass</div>
               </div>
             </div>
 
-            <div class="artwork-card">
-              <div class="artwork-image">
-                <img src="assets/images/bastardsonofaking.jpg" alt="Bastard Son of a King">
+            <div class="artwork-card" vid="94">
+              <div class="artwork-image" vid="95">
+                <img src="assets/images/intothewoodsbench.jpg" alt="Into the Woods, Bench" vid="96">
               </div>
-              <div class="artwork-info">
-                <div class="artwork-title">Bastard Son of a King</div>
-                <div class="artwork-meta">2016 · Steel &amp; Epoxy</div>
-              </div>
-            </div>
-
-            <div class="artwork-card">
-              <div class="artwork-image">
-                <img src="assets/images/somegladmorning.jpg" alt="Some Glad Morning">
-              </div>
-              <div class="artwork-info">
-                <div class="artwork-title">Some Glad Morning</div>
-                <div class="artwork-meta">2015 · Steel</div>
+              <div class="artwork-info" vid="97">
+                <div class="artwork-title" vid="98">Into the Woods, Bench</div>
+                <div class="artwork-meta" vid="99">2018 · Harvested Wood</div>
               </div>
             </div>
 
-            <div class="artwork-card">
-              <div class="artwork-image">
-                <img src="assets/images/selfportrait.jpg" alt="Self Portrait">
+            <div class="artwork-card" vid="100">
+              <div class="artwork-image" vid="101">
+                <img src="assets/images/bastardsonofaking.jpg" alt="Bastard Son of a King" vid="102">
               </div>
-              <div class="artwork-info">
-                <div class="artwork-title">Self Portrait</div>
-                <div class="artwork-meta">2015 · Canvas &amp; Oil Paint</div>
+              <div class="artwork-info" vid="103">
+                <div class="artwork-title" vid="104">Bastard Son of a King</div>
+                <div class="artwork-meta" vid="105">2016 · Steel &amp; Epoxy</div>
+              </div>
+            </div>
+
+            <div class="artwork-card" vid="106">
+              <div class="artwork-image" vid="107">
+                <img src="assets/images/somegladmorning.jpg" alt="Some Glad Morning" vid="108">
+              </div>
+              <div class="artwork-info" vid="109">
+                <div class="artwork-title" vid="110">Some Glad Morning</div>
+                <div class="artwork-meta" vid="111">2015 · Steel</div>
+              </div>
+            </div>
+
+            <div class="artwork-card" vid="112">
+              <div class="artwork-image" vid="113">
+                <img src="assets/images/selfportrait.jpg" alt="Self Portrait" vid="114">
+              </div>
+              <div class="artwork-info" vid="115">
+                <div class="artwork-title" vid="116">Self Portrait</div>
+                <div class="artwork-meta" vid="117">2015 · Canvas &amp; Oil Paint</div>
               </div>
             </div>
 
@@ -562,35 +860,34 @@
         </div>
       </section>
 
-      <section id="inquire">
-        <div class="form-container">
-          <div class="form-header">
-            <h2>INITIATE COMMISSION</h2>
-            <p style="font-size:0.8rem;margin-top:1rem;color:#8a665c;text-transform:uppercase;letter-spacing:0.1em;">
+      <section id="inquire" vid="176">
+        <div class="form-container" vid="177">
+          <div class="form-header" vid="178">
+            <h2 vid="179">INITIATE COMMISSION</h2>
+            <p style="font-size: 0.8rem; margin-top: 1rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;" vid="180">
               Custom fabrications require 3-6 months lead time.
             </p>
           </div>
 
-          <!-- Hidden iframe for no-PDF submissions -->
-          <iframe id="gsIFrame" name="gsIFrame" style="display:none;"></iframe>
-
-          <form id="commissionForm" target="gsIFrame" method="POST" enctype="application/x-www-form-urlencoded">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Identifier [Name]</label>
-                <input name="name" type="text" placeholder="ENTER FULL NAME" required>
+          <form id="commissionForm" vid="181">
+            <div class="form-grid" vid="182">
+              <div class="form-group" vid="183">
+                <label vid="184">Identifier [Name]</label>
+                <input name="name" type="text" placeholder="ENTER FULL NAME" required vid="185">
               </div>
-              <div class="form-group">
-                <label>Frequency [Email]</label>
-                <input name="email" type="email" placeholder="EMAIL@ADDRESS.COM" required>
+
+              <div class="form-group" vid="186">
+                <label vid="187">Frequency [Email]</label>
+                <input name="email" type="email" placeholder="EMAIL@ADDRESS.COM" required vid="188">
               </div>
             </div>
 
-            <div class="form-grid" style="margin-top:1rem;">
+            <div class="form-grid" style="margin-top: 1rem;">
               <div class="form-group">
                 <label>Signal [Phone] (optional)</label>
                 <input name="phone" type="tel" placeholder="PHONE NUMBER">
               </div>
+
               <div class="form-group">
                 <label>Timeline</label>
                 <select name="timeline" required>
@@ -603,9 +900,9 @@
               </div>
             </div>
 
-            <div class="form-group full-width">
-              <label>Project Scope</label>
-              <select name="scope" required>
+            <div class="form-group full-width" vid="189">
+              <label vid="190">Project Scope</label>
+              <select name="scope" required vid="191">
                 <option value="" disabled selected>SELECT SCOPE</option>
                 <option>Public Sculpture Installation</option>
                 <option>Private Collector Piece</option>
@@ -619,6 +916,7 @@
                 <label>Install Location</label>
                 <input name="location" type="text" placeholder="CITY, STATE OR COUNTRY" required>
               </div>
+
               <div class="form-group">
                 <label>Budget Range</label>
                 <select name="budget" required>
@@ -632,34 +930,39 @@
               </div>
             </div>
 
-            <div class="form-group full-width">
-              <label>Preferred Material Palette</label>
+            <div class="form-group full-width" vid="196">
+              <label vid="197">Preferred Material Palette</label>
               <input type="hidden" name="materials" id="materialsInput" value="Precious Metals" data-default="Precious Metals">
-              <div class="materials-grid">
-                <div class="material-option selected" data-material="Precious Metals" onclick="toggleMaterial(this)">Precious Metals</div>
-                <div class="material-option" data-material="Ferrous Metals" onclick="toggleMaterial(this)">Ferrous Metals</div>
-                <div class="material-option" data-material="Wood" onclick="toggleMaterial(this)">Wood</div>
-                <div class="material-option" data-material="Plastic" onclick="toggleMaterial(this)">Plastic</div>
-                <div class="material-option" data-material="Plaster" onclick="toggleMaterial(this)">Plaster</div>
-                <div class="material-option" data-material="Glass" onclick="toggleMaterial(this)">Glass</div>
-                <div class="material-option" data-material="Clay" onclick="toggleMaterial(this)">Clay</div>
+
+              <div class="materials-grid" vid="198">
+                <div class="material-option selected" data-material="Precious Metals" onclick="toggleMaterial(this)" vid="199">Precious Metals</div>
+                <div class="material-option" data-material="Ferrous Metals" onclick="toggleMaterial(this)" vid="200">Ferrous Metals</div>
+                <div class="material-option" data-material="Wood" onclick="toggleMaterial(this)" vid="201">Wood</div>
+                <div class="material-option" data-material="Plastic" onclick="toggleMaterial(this)" vid="202">Plastic</div>
+                <div class="material-option" data-material="Plaster" onclick="toggleMaterial(this)" vid="203">Plaster</div>
+                <div class="material-option" data-material="Glass" onclick="toggleMaterial(this)" vid="204">Glass</div>
+                <div class="material-option" data-material="Clay" onclick="toggleMaterial(this)" vid="205">Clay</div>
               </div>
             </div>
 
-            <div class="form-group full-width" style="margin-top:1.25rem;">
+            <!-- PDF upload (optional) -->
+            <div class="form-group full-width" style="margin-top: 1.25rem;">
               <label>Reference PDF (optional)</label>
+
               <input id="refPdf" name="refPdf" type="file" accept="application/pdf" />
-              <p style="margin-top:0.75rem;font-size:0.72rem;color:#8a665c;text-transform:uppercase;letter-spacing:0.08em;">
+
+              <p style="margin-top: 0.75rem; font-size: 0.72rem; color:#8a665c; text-transform: uppercase; letter-spacing: 0.08em;">
                 PDF will be uploaded to Drive with your submission.
               </p>
-              <p id="pdfError" style="margin-top:0.75rem;font-size:0.72rem;color:#8a665c;text-transform:uppercase;letter-spacing:0.08em;display:none;">
+
+              <p id="pdfError" style="margin-top: 0.75rem; font-size: 0.72rem; color:#8a665c; text-transform: uppercase; letter-spacing: 0.08em; display:none;">
                 ERROR: FILE TOO BIG. SUBMIT AS GOOGLE DRIVE LINK IN REFERENCE LINKS.
               </p>
             </div>
 
-            <div class="form-group full-width">
-              <label>Specifications</label>
-              <textarea name="specs" rows="4" placeholder="DIMENSIONS, SITE CONTEXT, CONCEPT, ANY CONSTRAINTS..." required></textarea>
+            <div class="form-group full-width" vid="206">
+              <label vid="207">Specifications</label>
+              <textarea name="specs" rows="4" placeholder="DIMENSIONS, SITE CONTEXT, CONCEPT, ANY CONSTRAINTS..." required vid="208"></textarea>
             </div>
 
             <div class="form-group full-width">
@@ -669,29 +972,26 @@
 
             <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
 
-            <!-- these two are filled before submit so both modes get them -->
-            <input type="hidden" name="page" id="pageField" value="">
-            <input type="hidden" name="userAgent" id="uaField" value="">
-
-            <button type="submit" class="submit-btn">Transmit Request</button>
-            <p id="formStatus" style="margin-top:1rem;font-size:0.8rem;color:#8a665c;text-transform:uppercase;letter-spacing:0.1em;"></p>
-
-            <div id="debugPanel" class="debug-panel"></div>
+            <button type="submit" class="submit-btn" vid="209">Transmit Request</button>
+            <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
           </form>
         </div>
       </section>
 
-      <div class="site-footer">
-        <div class="footer-box">
-          <div class="footer-inner">
-            <div>© 2026 AKIM FARROW STUDIOS</div>
-            <div class="footer-social">
+      <div class="site-footer" vid="2000">
+        <div class="footer-box" vid="2001">
+          <div class="footer-inner" vid="2002">
+            <div vid="2003">© 2026 AKIM FARROW STUDIOS</div>
+
+            <div class="footer-social" vid="2004">
               <a class="footer-icon" href="mailto:akimfarrowstudio@gmail.com" aria-label="Email">
                 <i class="ph ph-envelope-simple"></i>
               </a>
+
               <a class="footer-icon" href="https://www.linkedin.com/in/akim-farrow-349a98122" target="_blank" rel="noopener" aria-label="LinkedIn">
                 <i class="ph ph-linkedin-logo"></i>
               </a>
+
               <a class="footer-icon" href="https://www.instagram.com/blacksmvth/" target="_blank" rel="noopener" aria-label="Instagram">
                 <i class="ph ph-instagram-logo"></i>
               </a>
@@ -704,7 +1004,7 @@
   </div>
 
   <!-- NAV + FILMSTRIP JS -->
-  <script>
+  <script vid="110">
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
     const scrollContainer = document.querySelector('.scrolling-content');
@@ -713,11 +1013,16 @@
       let current = "";
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        if (scrollContainer.scrollTop >= sectionTop - 100) current = section.getAttribute('id');
+        if (scrollContainer.scrollTop >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
       });
+
       navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) link.classList.add('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
       });
     });
 
@@ -733,22 +1038,36 @@
       }
     }
 
-    if (filmstripContainer) filmstripContainer.addEventListener('wheel', handleFilmstripWheel, { passive: false });
-    if (filmstripInner) filmstripInner.addEventListener('wheel', handleFilmstripWheel, { passive: false });
+    if (filmstripContainer) {
+      filmstripContainer.addEventListener('wheel', handleFilmstripWheel, { passive: false });
+    }
+    if (filmstripInner) {
+      filmstripInner.addEventListener('wheel', handleFilmstripWheel, { passive: false });
+    }
 
     function highlightReturnCard() {
       const hash = (window.location.hash || '').replace('#', '');
       if (!hash) return;
+
       const target = document.getElementById(hash);
       if (!target) return;
+
       const worksSection = document.getElementById('works');
-      if (worksSection) worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (worksSection) {
+        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
       setTimeout(() => {
+        const container = document.querySelector('.gallery-filmstrip-container');
+        if (!container) return;
+
         target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
         target.classList.add('return-highlight');
         setTimeout(() => target.classList.remove('return-highlight'), 2200);
       }, 450);
     }
+
     window.addEventListener('load', highlightReturnCard);
     window.addEventListener('hashchange', highlightReturnCard);
   </script>
@@ -756,51 +1075,48 @@
   <!-- FORM + MATERIALS + PDF + SUBMIT -->
   <script>
     "use strict";
-
-    // IMPORTANT: this must match your current deployed web app /exec URL
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_ICvLT-Mz4B-s1Dbj154ZzmQpGZQY1b_XNDpM6-99E3KkmRZ4hC8DXoP02kC-vmwvhw/exec";
-
+  
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz5Fexyvlh4UI0LEwH6si0AvocE-C4YWDza8EVLG1OE363wt3_CjEiX5zX3o_QzPJMT6g/exec";
+  
     const form = document.getElementById("commissionForm");
     const statusEl = document.getElementById("formStatus");
-    const debugEl = document.getElementById("debugPanel");
-
+  
+    // 4MB raw -> ~5.3MB base64. Keep conservative.
     const MAX_PDF_BYTES = 4 * 1024 * 1024;
-
-    function setDebug(on, msg) {
-      if (!debugEl) return;
-      debugEl.style.display = on ? "block" : "none";
-      debugEl.textContent = msg || "";
-    }
-
+  
     function syncMaterialsInput() {
       const selected = Array.from(document.querySelectorAll(".material-option.selected"))
         .map(x => x.getAttribute("data-material"))
         .filter(Boolean);
-
+  
       const input = document.getElementById("materialsInput");
       if (!input) return;
-
+  
       if (selected.length === 0) {
         const def = input.getAttribute("data-default") || input.value || "";
         const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
         if (defEl) defEl.classList.add("selected");
+  
         const selected2 = Array.from(document.querySelectorAll(".material-option.selected"))
           .map(x => x.getAttribute("data-material"))
           .filter(Boolean);
+  
         input.value = selected2.join(", ");
         return;
       }
-
+  
       input.value = selected.join(", ");
     }
-
+  
     function toggleMaterial(el) {
       if (!el) return;
       el.classList.toggle("selected");
       syncMaterialsInput();
     }
+  
     window.toggleMaterial = toggleMaterial;
-
+    window.addEventListener("load", syncMaterialsInput);
+  
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -813,115 +1129,143 @@
         reader.readAsDataURL(file);
       });
     }
-
+  
     function formDataToObject(fd) {
       const obj = {};
       for (const [k, v] of fd.entries()) {
+        // ignore browser file field in JSON mode
         if (v instanceof File) continue;
         obj[k] = String(v);
       }
       return obj;
     }
-
-    function resetMaterialsToDefault() {
-      document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
-      const input = document.getElementById("materialsInput");
-      const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
-      const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-      if (defEl) defEl.classList.add("selected");
-      if (input) input.value = def;
-    }
-
-    window.addEventListener("load", () => {
-      syncMaterialsInput();
-      document.getElementById("pageField").value = window.location.href;
-      document.getElementById("uaField").value = navigator.userAgent;
-
-      // Set form action here so you never forget it in HTML
-      form.action = WEB_APP_URL;
-    });
-
+  
     if (form) {
       form.addEventListener("submit", async (e) => {
-        setDebug(false, "");
+        e.preventDefault();
+  
+        const pdfErrorEl = document.getElementById("pdfError");
+        if (pdfErrorEl) pdfErrorEl.style.display = "none";
+  
+        statusEl.textContent = "TRANSMITTING...";
+  
         syncMaterialsInput();
-
+  
         // honeypot
         const hp = document.getElementById("websiteField");
         if (hp && hp.value.trim() !== "") {
-          e.preventDefault();
           statusEl.textContent = "BLOCKED.";
           return;
         }
-
-        const pdfErrorEl = document.getElementById("pdfError");
-        if (pdfErrorEl) pdfErrorEl.style.display = "none";
-
+  
         const pdfInput = document.getElementById("refPdf");
         const file = (pdfInput && pdfInput.files && pdfInput.files[0]) ? pdfInput.files[0] : null;
-
-        // If no PDF: let the browser submit the form to hidden iframe (no CORS)
+  
+        let pdfTooBig = false;
+  
+        // Build base FormData for normal fields
+        const fd = new FormData(form);
+        fd.append("page", window.location.href);
+        fd.append("userAgent", navigator.userAgent);
+  
+        // If no PDF, keep your existing FormData POST (simple + reliable)
         if (!file) {
-          statusEl.textContent = "TRANSMITTING...";
-          // Allow default submission to iframe
-          // Then mark received after a brief delay (web apps don't give us a readable response in iframe reliably)
-          setTimeout(() => { statusEl.textContent = "RECEIVED."; }, 900);
-          setTimeout(() => {
-            form.reset();
-            resetMaterialsToDefault();
-          }, 1100);
-          return;
+          try {
+            const url = WEB_APP_URL + "?t=" + Date.now();
+            const res = await fetch(url, {
+              method: "POST",
+              mode: "cors",
+              redirect: "follow",
+              credentials: "omit",
+              body: fd
+            });
+  
+            const text = await res.text();
+            let payload = null;
+            try { payload = JSON.parse(text); } catch (_) {}
+  
+            if (!res.ok) {
+              statusEl.textContent = "ERROR. TRY AGAIN.";
+              return;
+            }
+  
+            statusEl.textContent = (payload && payload.ok)
+              ? "RECEIVED."
+              : "RECEIVED.";
+  
+            if (payload && payload.ok && payload.wroteRow) {
+              form.reset();
+              document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
+              const input = document.getElementById("materialsInput");
+              const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
+              const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+              if (defEl) defEl.classList.add("selected");
+              if (input) input.value = def;
+            }
+            return;
+          } catch (_) {
+            statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
+            return;
+          }
         }
-
-        // PDF present: handle ourselves (prevent default), send JSON
-        e.preventDefault();
-        statusEl.textContent = "UPLOADING PDF...";
-
+  
+        // PDF present: enforce size client-side
         if (file.size > MAX_PDF_BYTES) {
+          pdfTooBig = true;
           if (pdfErrorEl) pdfErrorEl.style.display = "block";
           if (pdfInput) pdfInput.value = "";
           statusEl.textContent = "PDF TOO BIG. SUBMIT AS DRIVE LINK IN REFERENCE LINKS.";
           return;
         }
-
+  
+        // PDF present and OK: send JSON body (no custom headers)
         try {
-          const fd = new FormData(form);
+          const b64 = await fileToBase64(file);
+  
           const obj = formDataToObject(fd);
-
-          obj.page = window.location.href;
-          obj.userAgent = navigator.userAgent;
-
           obj.refPdfName = file.name || "reference.pdf";
           obj.refPdfMime = file.type || "application/pdf";
-          obj.refPdfBase64 = await fileToBase64(file);
-
+          obj.refPdfBase64 = b64;
+  
           const url = WEB_APP_URL + "?t=" + Date.now();
           const res = await fetch(url, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(obj)
+            mode: "cors",
+            redirect: "follow",
+            credentials: "omit",
+            body: JSON.stringify(obj) // defaults to text/plain;charset=UTF-8
           });
-
+  
           const text = await res.text();
           let payload = null;
           try { payload = JSON.parse(text); } catch (_) {}
-
-          if (!res.ok || !payload || !payload.ok) {
+  
+          if (!res.ok) {
             statusEl.textContent = "ERROR. TRY AGAIN.";
-            setDebug(true, text || "No response body");
             return;
           }
-
-          const uploaded = payload.pdf && payload.pdf.status === "uploaded";
-          statusEl.textContent = uploaded ? "RECEIVED. PDF UPLOADED." : "RECEIVED.";
-
-          form.reset();
-          resetMaterialsToDefault();
-          if (pdfInput) pdfInput.value = "";
-
-        } catch (err) {
+  
+          if (payload && payload.ok) {
+            const uploaded = payload.pdf && payload.pdf.status === "uploaded";
+            statusEl.textContent = uploaded
+              ? "RECEIVED. PDF UPLOADED."
+              : "RECEIVED. PDF NOT UPLOADED.";
+  
+            if (payload.wroteRow) {
+              form.reset();
+              document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
+              const input = document.getElementById("materialsInput");
+              const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
+              const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+              if (defEl) defEl.classList.add("selected");
+              if (input) input.value = def;
+            }
+            return;
+          }
+  
+          statusEl.textContent = "RECEIVED.";
+        } catch (_) {
           statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-          setDebug(true, String(err && err.message ? err.message : err));
         }
       });
     }
