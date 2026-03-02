@@ -1,3 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QK7045YE1S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QK7045YE1S');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>Mokume-gane Rings | Akim Farrow</title>
+  <meta name="description" content="Mokume-gane rings by Akim Farrow. Laminated alloys forged, carved, and finished to reveal internal strata. Process notes, images, and video.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#121212">
+
+  <!-- Canonical (update if you ever move off GitHub Pages) -->
+  <link rel="canonical" href="https://akimfarrowstudio.github.io/archive/mokumeganerings.html">
+
+  <!-- Favicons (keep these consistent site-wide) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Akim Farrow Studios">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Mokume-gane Rings | Akim Farrow">
+  <meta property="og:description" content="Laminated alloys forged, carved, and finished to reveal internal strata. Process notes, images, and video.">
+  <meta property="og:url" content="https://akimfarrowstudio.github.io/archive/mokumeganerings.html">
+  <meta property="og:image" content="https://akimfarrowstudio.github.io/assets/images/mokumeganerings.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mokume-gane Rings | Akim Farrow">
+  <meta name="twitter:description" content="Laminated alloys forged, carved, and finished to reveal internal strata. Process notes, images, and video.">
+  <meta name="twitter:image" content="https://akimfarrowstudio.github.io/assets/images/mokumeganerings.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --void: #1a0f0a;
+      --charcoal: #121212;
+      --rust: #d35400;
+      --rust-glow: #e67e22;
+      --oxide-gold: #ff6b35;
+      --steel: #2c1e18;
+      --font-display: 'Anton', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --border: 1px solid rgba(255, 107, 53, 0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--charcoal);
+      color: #e8e0dc;
+      font-family: var(--font-mono);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .sidebar {
+      background: var(--void);
+      border-right: 1px solid #3d2218;
+      padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .nav-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      margin-top: 2rem;
+    }
+
+    .nav-link {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: #8a665c;
+      text-decoration: none;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover, .nav-link.active { color: var(--oxide-gold); }
+
+    .scrolling-content {
+      height: 100vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      background-color: var(--charcoal);
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.05) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      padding: 4rem 6vw;
+    }
+
+    .dossier-header {
+      border-bottom: 1px solid #3d2218;
+      padding-bottom: 2rem;
+      margin-bottom: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .dossier-meta {
+      font-size: 0.7rem;
+      color: var(--rust);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      line-height: 1.8;
+      max-width: 520px;
+    }
+
+    .dossier-id {
+      color: #fff;
+      opacity: 0.4;
+      font-size: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stencil-title {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      color: var(--oxide-gold);
+      line-height: 0.9;
+      text-transform: uppercase;
+      -webkit-text-stroke: 1px var(--oxide-gold);
+      background: linear-gradient(to bottom, var(--oxide-gold) 0%, var(--oxide-gold) 48%, transparent 48%, transparent 52%, var(--oxide-gold) 52%, var(--oxide-gold) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      margin-top: 1rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .detail-frame {
+      aspect-ratio: 1/1;
+      border: 1px solid #3d2218;
+      overflow: hidden;
+      position: relative;
+      background: #0f0f0f;
+    }
+
+    .detail-frame img,
+    .detail-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(120%) brightness(0.8);
+      transition: filter 0.4s ease, transform 0.25s ease;
+      display: block;
+    }
+
+    .detail-frame:hover img,
+    .detail-frame:hover video {
+      filter: grayscale(0%) contrast(110%) brightness(0.9);
+      transform: scale(1.01);
+    }
+
+    .detail-label {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.6rem;
+      color: #fff;
+      background: var(--void);
+      padding: 2px 6px;
+      border: 1px solid var(--rust);
+      pointer-events: none;
+    }
+
+    .detail-frame.is-photo { cursor: pointer; }
+
+    .archival-columns {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 6rem;
+    }
+
+    .field-notes-section {
+      border-top: 1px solid #3d2218;
+      padding-top: 2rem;
+    }
+
+    .section-tag {
+      font-size: 0.65rem;
+      color: var(--rust);
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-tag::after {
+      content: '';
+      height: 1px;
+      flex-grow: 1;
+      background: #3d2218;
+    }
+
+    .notes-body {
+      font-size: 0.85rem;
+      line-height: 2;
+      color: #c8b8b0;
+      max-width: 800px;
+    }
+
+    .notes-body p { margin-bottom: 2rem; }
+
+    .timeline-container {
+      border-left: 1px solid #3d2218;
+      padding-left: 2rem;
+    }
+
+    .timeline-item { margin-bottom: 2.5rem; position: relative; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -33.5px;
+      top: 5px;
+      width: 6px;
+      height: 6px;
+      background: var(--rust);
+    }
+
+    .timeline-date {
+      font-size: 0.65rem;
+      color: var(--oxide-gold);
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .timeline-event {
+      font-size: 0.75rem;
+      color: #e8e0dc;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .exhibition-list {
+      list-style: none;
+      margin-top: 4rem;
+      padding-left: 0;
+    }
+
+    .exhibition-item {
+      font-size: 0.7rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #251812;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .exhibition-item span:last-child { color: var(--rust); }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.7rem;
+      color: var(--oxide-gold);
+      text-decoration: none;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .back-btn:hover { text-decoration: underline; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--charcoal); }
+    ::-webkit-scrollbar-thumb { background: var(--rust); }
+
+    @media (max-width: 900px) {
+      .archival-columns { grid-template-columns: 1fr; gap: 3rem; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .stencil-title { font-size: 3.2rem; }
+      .layout { grid-template-columns: 64px 1fr; }
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 0.5rem;
+      text-decoration: none;
+    }
+
+    .brand-img {
+      width: 38px;
+      height: auto;
+      max-width: 80%;
+      display: block;
+      transform: none;
+    }
+
+    /* Lightbox (renamed from SCM, now generic) */
+    .lb {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 4vh 4vw;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.10) 0%, transparent 70%),
+        rgba(18,18,18,0.92);
+      z-index: 9999;
+    }
+    .lb.open { display: flex; }
+
+    .lb-stage {
+      position: relative;
+      width: min(1200px, 94vw);
+      height: min(86vh, 900px);
+      border: 1px solid rgba(255,107,53,0.25);
+      background: rgba(26,15,10,0.55);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .lb-slide {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3.5rem 2.5rem 4.25rem;
+      touch-action: pan-y;
+    }
+
+    .lb-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: grayscale(10%) contrast(1.05);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .lb-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1.15rem 1.5rem;
+      border-top: 1px solid rgba(255,107,53,0.18);
+      background: rgba(18,18,18,0.60);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .lb-cap-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #f5f0ee;
+      margin: 0;
+    }
+
+    .lb-cap-meta {
+      font-size: 0.7rem;
+      color: var(--rust);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,107,53,0.35);
+      background: rgba(26,15,10,0.85);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      z-index: 2;
+    }
+
+    .lb-close:hover {
+      border-color: var(--oxide-gold);
+      color: var(--oxide-gold);
+    }
+
+    .lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,107,53,0.25);
+      background: rgba(26,15,10,0.55);
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .lb-arrow:hover {
+      border-color: var(--oxide-gold);
+      color: var(--oxide-gold);
+      background: rgba(26,15,10,0.75);
+    }
+
+    .lb-arrow:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    .lb-prev { left: 12px; }
+    .lb-next { right: 12px; }
+
+    @media (max-width: 900px) {
+      .lb-slide { padding: 3.25rem 1rem 4.25rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="../index.html" aria-label="Home">
+        <img class="brand-img" src="../ogw.png?v=5" alt="White Logo" />
+      </a>
+
+      <nav class="nav-vertical">
+        <a href="../index.html#hero" class="nav-link">ARTIST</a>
+        <a href="../index.html#about" class="nav-link">ABOUT</a>
+        <a href="../index.html#works" class="nav-link active">ARCHIVE</a>
+        <a href="../index.html#inquire" class="nav-link">INQUIRE</a>
+      </nav>
+
+      <div style="font-size: 0.6rem; color: var(--rust); writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5; padding-bottom: 2rem;">
+        REF_NO: 880-MMR-CH
+      </div>
+    </aside>
+
+    <main class="scrolling-content">
+      <!-- IMPORTANT: link back to the *rings* anchor, not SCM -->
+      <a href="../index.html#works" class="back-btn">← RETURN TO ARCHIVE</a>
+
+      <div class="dossier-header">
+        <div>
+          <div class="dossier-id">CATALOG_ID // 2024_MGR_01</div>
+          <h1 class="stencil-title">MOKUME-GANE<br>RINGS</h1>
+        </div>
+
+        <div class="dossier-meta">
+          <div>MATERIAL: LAMINATED ALLOYS</div>
+          <div>DIMENSIONS: VARIABLE (RING SIZES)</div>
+          <div>STATUS: AVAILABLE</div>
+        </div>
+      </div>
+
+    <div class="detail-frame is-photo" aria-label="Open gallery image 1">
+      <img
+        src="../assets/images/mokumeganerings.jpg"
+        alt="Mokume-gane rings overview"
+        loading="lazy"
+        decoding="async"
+        data-lb-title="Mokume-gane Rings"
+        data-lb-meta="FIG_01 · PROFILE"
+      >
+      <div class="detail-label">FIG_01: PROFILE</div>
+    </div>
+    
+    <div class="detail-frame is-photo" aria-label="Open gallery image 2">
+      <img
+        src="../assets/images/closering.jpg"
+        alt="Mokume-gane rings close view"
+        loading="lazy"
+        decoding="async"
+        data-lb-title="Mokume-gane Rings"
+        data-lb-meta="FIG_02 · SURFACE DETAIL"
+        onerror="document.getElementById('imgDebug').textContent='closering.jpg failed: ' + this.src;"
+      >
+      <div class="detail-label">FIG_02: SURFACE DETAIL</div>
+    </div>
+
+<div id="imgDebug" style="margin-top:10px;font-size:12px;color:#8a665c;letter-spacing:0.06em;"></div>
+
+        <div class="detail-frame">
+          <video controls playsinline preload="metadata" poster="../assets/images/ringposter.jpg">
+            <source src="../assets/video/mokumegane.mp4" type="video/mp4">
+            Your browser can’t play this video. <a href="../assets/video/mokumegane.mp4">Download it</a>.
+          </video>
+          <div class="detail-label">FIG_03: MULTIPLES</div>
+        </div>
+      </div>
+
+      <div class="archival-columns">
+        <div class="field-notes-section">
+          <div class="section-tag">FIELD NOTES / PROCESS WRITING</div>
+          <div class="notes-body">
+            <p>This work was formed through lamination and pressure. Mokume-gane depends on stacking dissimilar metals, bringing them to welding heat, and compressing them into a single body. I was interested in how difference could register as pattern.</p>
+            <p>Each billet was layered, fused, and consolidated through hammering. The surface was carved and ground back to expose the internal strata. What reads as ornament is the trace of compression made visible.</p>
+            <p>Every ring carries its own deformation. No pattern repeats because heat and force never distribute identically. The interior remains smooth and continuous, while the exterior holds the record of its making.</p>
+          </div>
+
+          <a href="../index.html#works" class="back-btn">← RETURN TO ARCHIVE</a>
+        </div>
+
+        <div class="sidebar-data">
+          <div class="section-tag">CREATION TIMELINE</div>
+          <div class="timeline-container">
+            <div class="timeline-item">
+              <div class="timeline-date">SEPT 2024</div>
+              <div class="timeline-event">MATERIAL TESTING &amp; BILLET DEVELOPMENT</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">MAR 2025</div>
+              <div class="timeline-event">FORGING &amp; SURFACE CARVING</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">APR 2025</div>
+              <div class="timeline-event">FINISHING &amp; PATINATION</div>
+            </div>
+          </div>
+
+          <div class="section-tag" style="margin-top: 4rem;">EXHIBITION HISTORY</div>
+          <ul class="exhibition-list">
+            <li class="exhibition-item">
+              <span>SAIC STUDENT GALLERIES</span>
+              <span>2024</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;">
+        <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
+        <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lb" id="lb" aria-hidden="true">
+    <div class="lb-stage" role="dialog" aria-label="Image viewer">
+      <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+      <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">&lt;</button>
+      <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">&gt;</button>
+
+      <div class="lb-slide" id="lbSlide">
+        <img id="lbImg" src="" alt="">
+      </div>
+
+      <div class="lb-caption">
+        <div class="lb-cap-title" id="lbCapTitle"></div>
+        <div class="lb-cap-meta" id="lbCapMeta"></div>
+      </div>
+    </div>
+  </div>
+
 <script>
   const lb = document.getElementById("lb") || document.getElementById("scmLightbox");
   const lbClose = document.getElementById("lbClose") || document.getElementById("scmClose");
@@ -89,3 +706,5 @@
     test.src = s.src;
   });
 </script>
+</body>
+</html>
