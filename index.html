@@ -1233,7 +1233,10 @@
             mode: "cors",
             redirect: "follow",
             credentials: "omit",
-            body: JSON.stringify(obj) // defaults to text/plain;charset=UTF-8
+            const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(obj)
           });
   
           const text = await res.text();
