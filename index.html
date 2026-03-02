@@ -944,28 +944,42 @@
             <div class="form-group full-width" vid="96">
               <label vid="97">Preferred Material Palette</label>
               <input type="hidden" name="materials" id="materialsInput" value="Precious Metals" data-default="Precious Metals">
-
+            
               <div class="materials-grid" vid="98">
                 <div class="material-option selected" data-material="Precious Metals" onclick="toggleMaterial(this)" vid="99">Precious Metals</div>
                 <div class="material-option" data-material="Ferrous Metals" onclick="toggleMaterial(this)" vid="100">Ferrous Metals</div>
                 <div class="material-option" data-material="Wood" onclick="toggleMaterial(this)" vid="101">Wood</div>
                 <div class="material-option" data-material="Plastic" onclick="toggleMaterial(this)" vid="102">Plastic</div>
-                <div class="material-option" data-material="Plaster" onclick="toggleMaterial(this)" vid="102">Plaster</div>
-                <div class="material-option" data-material="Glass" onclick="toggleMaterial(this)" vid="102">Glass</div>
-                <div class="material-option" data-material="Clay" onclick="toggleMaterial(this)" vid="102">Clay</div>
+                <div class="material-option" data-material="Plaster" onclick="toggleMaterial(this)">Plaster</div>
+                <div class="material-option" data-material="Glass" onclick="toggleMaterial(this)">Glass</div>
+                <div class="material-option" data-material="Clay" onclick="toggleMaterial(this)">Clay</div>
+              </div>
+            
+              <!-- NEW: PDF upload (goes to YOUR Drive via Apps Script) -->
+              <div style="margin-top:18px;">
+                <label>Reference PDF (optional)</label>
+                <input
+                  id="refPdf"
+                  name="refPdf"
+                  type="file"
+                  accept="application/pdf"
+                  style="padding: 0.9rem 0; border-bottom: 1px solid #4d2d1d; color: #c8b8b0;"
+                >
+                <div style="margin-top:10px;font-size:12px;color:#8a665c;letter-spacing:0.06em;line-height:1.5;">
+                  PDF uploads save to Google Drive. Please keep files under ~5MB.
+                </div>
+              </div>
+            
+              <!-- OPTIONAL: if someone prefers their own Drive link instead of uploading -->
+              <div style="margin-top:18px;">
+                <label>Google Drive Link (optional)</label>
+                <input
+                  name="driveLink"
+                  type="url"
+                  placeholder="PASTE A SHARE LINK (ANYONE WITH LINK CAN VIEW)"
+                >
               </div>
             </div>
-
-           <!-- NEW: PDF upload (optional) -->
-             <div class="form-group full-width" style="margin-top: 1.25rem;">
-               <label>Reference PDF (optional)</label>
-             
-               <input
-                 id="refPdf"
-                 name="refPdf"
-                 type="file"
-                 accept="application/pdf"
-               />
              
                <p style="margin-top: 0.75rem; font-size: 0.72rem; color:#8a665c; text-transform: uppercase; letter-spacing: 0.08em;">
                  PDF will be uploaded to Drive with your submission.
@@ -1088,151 +1102,182 @@
   </script>
 
   <!-- FORM JS (UPDATED: show server payload + rely on emailedClient) -->
-  <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBII2XPFJnqsQ2k5_03hsj0_daIQWJaUs3Z-NQwSXzAz3PvNEtbSY19En3OF8tK-KW/exec";
+<script>
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBII2XPFJnqsQ2k5_03hsj0_daIQWJaUs3Z-NQwSXzAz3PvNEtbSY19En3OF8tK-KW/exec";
 
-    const form = document.getElementById('commissionForm');
-    const statusEl = document.getElementById('formStatus');
-    const debugEl = document.getElementById('debugOut');
+  const form = document.getElementById('commissionForm');
+  const statusEl = document.getElementById('formStatus');
+  const debugEl = document.getElementById('debugOut');
 
-    function showDebug(objOrText) {
-      if (!debugEl) return;
-      debugEl.style.display = "block";
-      if (typeof objOrText === "string") {
-        debugEl.textContent = objOrText;
-        return;
-      }
-      try {
-        debugEl.textContent = JSON.stringify(objOrText, null, 2);
-      } catch (_) {
-        debugEl.textContent = String(objOrText || "");
-      }
+  function showDebug(objOrText) {
+    if (!debugEl) return;
+    debugEl.style.display = "block";
+    if (typeof objOrText === "string") {
+      debugEl.textContent = objOrText;
+      return;
     }
+    try {
+      debugEl.textContent = JSON.stringify(objOrText, null, 2);
+    } catch (_) {
+      debugEl.textContent = String(objOrText || "");
+    }
+  }
 
-    function syncMaterialsInput() {
-      const selected = Array.from(document.querySelectorAll('.material-option.selected'))
+  function syncMaterialsInput() {
+    const selected = Array.from(document.querySelectorAll('.material-option.selected'))
+      .map(x => x.getAttribute('data-material'))
+      .filter(Boolean);
+
+    const input = document.getElementById('materialsInput');
+    if (!input) return;
+
+    if (selected.length === 0) {
+      const def = input.getAttribute('data-default') || input.value || "";
+      const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+      if (defEl) defEl.classList.add('selected');
+
+      const selected2 = Array.from(document.querySelectorAll('.material-option.selected'))
         .map(x => x.getAttribute('data-material'))
         .filter(Boolean);
 
-      const input = document.getElementById('materialsInput');
-      if (!input) return;
+      input.value = selected2.join(', ');
+      return;
+    }
 
-      if (selected.length === 0) {
-        const def = input.getAttribute('data-default') || input.value || "";
+    input.value = selected.join(', ');
+  }
+
+  function toggleMaterial(el) {
+    el.classList.toggle('selected');
+    syncMaterialsInput();
+  }
+
+  window.addEventListener('load', syncMaterialsInput);
+
+  function readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error("File read failed"));
+      reader.onload = () => {
+        // reader.result is like "data:application/pdf;base64,AAAA..."
+        const result = String(reader.result || "");
+        const comma = result.indexOf(",");
+        if (comma === -1) return reject(new Error("Bad file encoding"));
+        resolve(result.slice(comma + 1));
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function pick(formEl, name) {
+    const el = formEl.elements[name];
+    return el ? String(el.value || "").trim() : "";
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = "TRANSMITTING...";
+    if (debugEl) debugEl.style.display = "none";
+
+    syncMaterialsInput();
+
+    // Honeypot
+    const hp = document.getElementById('websiteField');
+    if (hp && hp.value.trim() !== "") {
+      statusEl.textContent = "BLOCKED.";
+      return;
+    }
+
+    // Build payload (JSON)
+    const payload = {
+      name: pick(form, "name"),
+      email: pick(form, "email"),
+      phone: pick(form, "phone"),
+      timeline: pick(form, "timeline"),
+      scope: pick(form, "scope"),
+      location: pick(form, "location"),
+      budget: pick(form, "budget"),
+      materials: (document.getElementById("materialsInput")?.value || "").trim(),
+      specs: pick(form, "specs"),
+      links: pick(form, "links"),
+      driveLink: pick(form, "driveLink"),
+      page: window.location.href,
+      userAgent: navigator.userAgent
+    };
+
+    // Attach optional PDF
+    const fileEl = document.getElementById("refPdf");
+    const file = fileEl && fileEl.files && fileEl.files[0] ? fileEl.files[0] : null;
+
+    try {
+      if (file) {
+        // basic safety: Apps Script requests can fail if huge
+        if (file.size > 6 * 1024 * 1024) {
+          statusEl.textContent = "PDF TOO LARGE. USE DRIVE LINK.";
+          showDebug({ ok: false, error: "PDF too large for reliable upload. Paste a Drive link instead.", bytes: file.size });
+          return;
+        }
+
+        payload.refPdfName = file.name || "reference.pdf";
+        payload.refPdfMime = file.type || "application/pdf";
+        payload.refPdfBase64 = await readFileAsBase64(file);
+      }
+
+      // Cache buster
+      const url = WEB_APP_URL + "?t=" + Date.now();
+
+      const res = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        redirect: "follow",
+        credentials: "omit",
+        headers: { "Content-Type": "application/json;charset=UTF-8" },
+        body: JSON.stringify(payload)
+      });
+
+      const text = await res.text();
+      let out = null;
+      try { out = JSON.parse(text); } catch (_) {}
+
+      showDebug(out || text);
+
+      if (!res.ok || !out || !out.ok) {
+        statusEl.textContent = "ERROR. TRY AGAIN.";
+        return;
+      }
+
+      // Success
+      const emailedClient =
+        !!out.emailedClient ||
+        out.clientEmailStatus === "sent" ||
+        out.clientEmailStatus === "sent_via_fallback";
+
+      const wroteRow = !!out.wroteRow;
+
+      const pdfInfo = out.pdf || {};
+      const pdfMsg =
+        pdfInfo.status === "uploaded" ? "PDF SAVED." :
+        pdfInfo.status === "failed" ? "PDF FAILED." :
+        "NO PDF.";
+
+      statusEl.textContent = (emailedClient ? "RECEIVED. CONFIRMATION SENT. " : "RECEIVED. ") + pdfMsg;
+
+      if (wroteRow) {
+        form.reset();
+        document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
+        const input = document.getElementById('materialsInput');
+        const def = (input && input.getAttribute('data-default')) ? input.getAttribute('data-default') : "Precious Metals";
         const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
         if (defEl) defEl.classList.add('selected');
-
-        const selected2 = Array.from(document.querySelectorAll('.material-option.selected'))
-          .map(x => x.getAttribute('data-material'))
-          .filter(Boolean);
-
-        input.value = selected2.join(', ');
-        return;
+        if (input) input.value = def;
       }
 
-      input.value = selected.join(', ');
+    } catch (err) {
+      showDebug("NETWORK ERROR:\n" + (err && err.message ? err.message : String(err)));
+      statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
     }
-
-    function toggleMaterial(el) {
-      el.classList.toggle('selected');
-      syncMaterialsInput();
-    }
-
-    window.addEventListener('load', syncMaterialsInput);
-
-    function toUrlEncoded(formEl) {
-      const fd = new FormData(formEl);
-      fd.append("page", window.location.href);
-      fd.append("userAgent", navigator.userAgent);
-
-      const params = new URLSearchParams();
-      for (const [k, v] of fd.entries()) params.append(k, v);
-      return params.toString();
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      statusEl.textContent = "TRANSMITTING...";
-      if (debugEl) debugEl.style.display = "none";
-
-      syncMaterialsInput();
-
-      const hp = document.getElementById('websiteField');
-      if (hp && hp.value.trim() !== "") {
-        statusEl.textContent = "BLOCKED.";
-        return;
-      }
-
-      const body = toUrlEncoded(form);
-
-      try {
-        // Cache buster to avoid any weird intermediary caching
-        const url = WEB_APP_URL + "?t=" + Date.now();
-
-        const res = await fetch(url, {
-          method: "POST",
-          mode: "cors",
-          redirect: "follow",
-          credentials: "omit",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-          },
-          body
-        });
-
-        const text = await res.text();
-        let payload = null;
-        try { payload = JSON.parse(text); } catch (_) {}
-
-        // Always show what came back so you can tell if you hit the right deploy
-        showDebug(payload || text);
-
-        if (!res.ok) {
-          statusEl.textContent = "ERROR. TRY AGAIN.";
-          return;
-        }
-
-        if (payload && payload.ok) {
-          const emailedClient =
-            !!payload.emailedClient ||
-            payload.clientEmailStatus === "sent" ||
-            payload.clientEmailStatus === "sent_via_fallback";
-
-          statusEl.textContent = emailedClient
-            ? "RECEIVED. CONFIRMATION SENT."
-            : "RECEIVED. CONFIRMATION NOT SENT.";
-
-          // Only reset if we wrote the row successfully
-          if (payload.wroteRow) {
-            form.reset();
-
-            document.querySelectorAll('.material-option').forEach(x => x.classList.remove('selected'));
-            const input = document.getElementById('materialsInput');
-            const def = (input && input.getAttribute('data-default')) ? input.getAttribute('data-default') : "Precious Metals";
-            const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-            if (defEl) defEl.classList.add('selected');
-            if (input) input.value = def;
-          }
-
-          return;
-        }
-
-        statusEl.textContent = "RECEIVED.";
-
-      } catch (err) {
-        showDebug("NETWORK ERROR:\n" + (err && err.message ? err.message : String(err)));
-
-        try {
-          const ok = navigator.sendBeacon(WEB_APP_URL, new Blob([body], {
-            type: "application/x-www-form-urlencoded;charset=UTF-8"
-          }));
-          statusEl.textContent = ok ? "RECEIVED." : "NETWORK ERROR. TRY AGAIN.";
-        } catch (_) {
-          statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
-        }
-      }
-    });
-  </script>
+  });
+</script>
 
 </body>
 </html>
