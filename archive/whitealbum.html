@@ -842,215 +842,222 @@
     </div>
   </div>
 
-  <script>
-    const scrollContainer = document.querySelector('.scrolling-content');
-    const heroBg = document.querySelector('.hero-bg');
+<script>
+  const scrollContainer = document.querySelector('.scrolling-content');
+  const heroBg = document.querySelector('.hero-bg');
 
-    if (scrollContainer && heroBg) {
-      scrollContainer.addEventListener('scroll', () => {
-        const scroll = scrollContainer.scrollTop;
-        const height = window.innerHeight || 1;
-        const opacity = 1 - (scroll / height);
-        if (scroll < height) {
-          heroBg.style.opacity = String(Math.max(0, opacity));
-          heroBg.style.transform = `translateY(${scroll * 0.3}px)`;
-        }
-      }, { passive: true });
-    }
-
-    const bars = document.querySelectorAll('.wave-bar');
-    if (bars.length) {
-      setInterval(() => {
-        bars.forEach(bar => {
-          if (Math.random() > 0.5) bar.style.height = `${Math.random() * 100}%`;
-        });
-      }, 150);
-    }
-
-    const overlay = document.getElementById('carouselOverlay');
-    const strip = document.getElementById('carouselStrip');
-    const closeBtn = document.getElementById('carouselClose');
-    const dotsTop = document.getElementById('filmDotsTop');
-    const dotsBottom = document.getElementById('filmDotsBottom');
-    const figLinks = Array.from(document.querySelectorAll('.fig-card'));
-
-    let activeIndex = 0;
-    let rafLock = false;
-
-    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-    function slideWidth(){ return strip.clientWidth || 1; }
-
-    function buildSlides() {
-      strip.innerHTML = '';
-
-      figLinks.forEach((a) => {
-        const href = a.getAttribute('href');
-        const caption = a.getAttribute('data-caption') || '';
-        const alt = (a.querySelector('img') && a.querySelector('img').getAttribute('alt')) || 'Figure';
-
-        const slide = document.createElement('div');
-        slide.className = 'carousel-slide';
-
-        const media = document.createElement('div');
-        media.className = 'carousel-media';
-
-        const img = document.createElement('img');
-        img.src = href;
-        img.alt = alt;
-
-        const note = document.createElement('div');
-        note.className = 'carousel-note';
-
-        const cap = document.createElement('div');
-        cap.className = 'carousel-caption';
-        cap.textContent = caption;
-
-        note.appendChild(cap);
-        media.appendChild(img);
-        media.appendChild(note);
-        slide.appendChild(media);
-        strip.appendChild(slide);
-      });
-    }
-
-    function setActiveDot(idx) {
-      activeIndex = idx;
-      const topButtons = Array.from(dotsTop.querySelectorAll('.film-dot'));
-      const bottomButtons = Array.from(dotsBottom.querySelectorAll('.film-dot'));
-      topButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
-      bottomButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
-    }
-
-    function goToIndex(idx) {
-      const maxIdx = Math.max(0, figLinks.length - 1);
-      const safe = clamp(idx, 0, maxIdx);
-      strip.scrollLeft = safe * slideWidth();
-      setActiveDot(safe);
-    }
-
-    function buildFilmDots() {
-      const count = figLinks.length;
-      dotsTop.innerHTML = '';
-      dotsBottom.innerHTML = '';
-
-      for (let i = 0; i < count; i++) {
-        const b1 = document.createElement('button');
-        b1.type = 'button';
-        b1.className = 'film-dot';
-        b1.setAttribute('aria-label', `Go to figure ${i + 1}`);
-        b1.addEventListener('click', () => goToIndex(i));
-
-        const b2 = document.createElement('button');
-        b2.type = 'button';
-        b2.className = 'film-dot';
-        b2.setAttribute('aria-label', `Go to figure ${i + 1}`);
-        b2.addEventListener('click', () => goToIndex(i));
-
-        dotsTop.appendChild(b1);
-        dotsBottom.appendChild(b2);
+  if (scrollContainer && heroBg) {
+    scrollContainer.addEventListener('scroll', () => {
+      const scroll = scrollContainer.scrollTop;
+      const height = window.innerHeight || 1;
+      const opacity = 1 - (scroll / height);
+      if (scroll < height) {
+        heroBg.style.opacity = String(Math.max(0, opacity));
+        heroBg.style.transform = `translateY(${scroll * 0.3}px)`;
       }
-
-      setActiveDot(0);
-    }
-
-    function openCarouselAt(index) {
-      if (!strip.children.length) buildSlides();
-      if (!dotsTop.children.length) buildFilmDots();
-
-      overlay.classList.add('open');
-      overlay.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-
-      requestAnimationFrame(() => {
-        goToIndex(index);
-        strip.focus({ preventScroll: true });
-      });
-    }
-
-    function closeCarousel() {
-      overlay.classList.remove('open');
-      overlay.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    figLinks.forEach((a, idx) => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        openCarouselAt(idx);
-      });
-    });
-
-    if (closeBtn) closeBtn.addEventListener('click', closeCarousel);
-
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeCarousel();
-    });
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
-    });
-
-    strip.addEventListener('scroll', () => {
-      if (!overlay.classList.contains('open')) return;
-      if (rafLock) return;
-      rafLock = true;
-      requestAnimationFrame(() => {
-        rafLock = false;
-        const idx = clamp(Math.round(strip.scrollLeft / slideWidth()), 0, Math.max(0, figLinks.length - 1));
-        if (idx !== activeIndex) setActiveDot(idx);
-      });
     }, { passive: true });
+  }
 
-    function handleCarouselWheel(evt) {
-      if (!overlay.classList.contains('open')) return;
-      const dx = Math.abs(evt.deltaX || 0);
-      const dy = Math.abs(evt.deltaY || 0);
-      if (dy > dx) {
-        evt.preventDefault();
-        strip.scrollLeft += (evt.deltaY || 0) * 0.35;
-      }
+  const bars = document.querySelectorAll('.wave-bar');
+  if (bars.length) {
+    setInterval(() => {
+      bars.forEach(bar => {
+        if (Math.random() > 0.5) bar.style.height = `${Math.random() * 100}%`;
+      });
+    }, 150);
+  }
+
+  // ====== Strange Harvest carousel logic, adapted for .fig-card ======
+  const overlay = document.getElementById('carouselOverlay');
+  const strip = document.getElementById('carouselStrip');
+  const closeBtn = document.getElementById('carouselClose');
+  const dotsTop = document.getElementById('filmDotsTop');
+  const dotsBottom = document.getElementById('filmDotsBottom');
+  const figLinks = Array.from(document.querySelectorAll('.fig-card'));
+
+  let activeIndex = 0;
+  let rafLock = false;
+
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+  function slideWidth(){ return strip.clientWidth || 1; }
+
+  function buildSlides() {
+    strip.innerHTML = '';
+
+    figLinks.forEach((a) => {
+      const href = a.getAttribute('href');
+      const caption = a.getAttribute('data-caption') || '';
+      const imgEl = a.querySelector('img');
+      const alt = (imgEl && imgEl.getAttribute('alt')) || 'Figure';
+
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+
+      const media = document.createElement('div');
+      media.className = 'carousel-media';
+
+      const img = document.createElement('img');
+      img.src = href;
+      img.alt = alt;
+
+      const note = document.createElement('div');
+      note.className = 'carousel-note';
+
+      const cap = document.createElement('div');
+      cap.className = 'carousel-caption';
+      cap.textContent = caption;
+
+      note.appendChild(cap);
+      media.appendChild(img);
+      media.appendChild(note);
+      slide.appendChild(media);
+      strip.appendChild(slide);
+    });
+  }
+
+  function setActiveDot(idx) {
+    activeIndex = idx;
+    const topButtons = Array.from(dotsTop.querySelectorAll('.film-dot'));
+    const bottomButtons = Array.from(dotsBottom.querySelectorAll('.film-dot'));
+    topButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+    bottomButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+  }
+
+  function goToIndex(idx) {
+    const maxIdx = Math.max(0, figLinks.length - 1);
+    const safe = clamp(idx, 0, maxIdx);
+    strip.scrollLeft = safe * slideWidth();
+    setActiveDot(safe);
+  }
+
+  function buildFilmDots() {
+    const count = figLinks.length;
+    dotsTop.innerHTML = '';
+    dotsBottom.innerHTML = '';
+
+    for (let i = 0; i < count; i++) {
+      const b1 = document.createElement('button');
+      b1.type = 'button';
+      b1.className = 'film-dot';
+      b1.setAttribute('aria-label', `Go to figure ${i + 1}`);
+      b1.addEventListener('click', () => goToIndex(i));
+
+      const b2 = document.createElement('button');
+      b2.type = 'button';
+      b2.className = 'film-dot';
+      b2.setAttribute('aria-label', `Go to figure ${i + 1}`);
+      b2.addEventListener('click', () => goToIndex(i));
+
+      dotsTop.appendChild(b1);
+      dotsBottom.appendChild(b2);
     }
-    overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
 
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragStartScrollLeft = 0;
+    setActiveDot(0);
+  }
 
-    strip.addEventListener('pointerdown', (evt) => {
-      if (!overlay.classList.contains('open')) return;
-      if (evt.pointerType !== 'mouse') return;
+  function openCarouselAt(index) {
+    if (strip.children.length !== figLinks.length) buildSlides();
+    if (dotsTop.children.length !== figLinks.length) buildFilmDots();
 
-      isDragging = true;
-      strip.classList.add('dragging');
-      dragStartX = evt.clientX;
-      dragStartScrollLeft = strip.scrollLeft;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
 
-      strip.setPointerCapture(evt.pointerId);
-      evt.preventDefault();
+    requestAnimationFrame(() => {
+      goToIndex(index);
+      strip.setAttribute('tabindex', '0');
     });
+  }
 
-    strip.addEventListener('pointermove', (evt) => {
-      if (!isDragging) return;
-      const dx = evt.clientX - dragStartX;
-      strip.scrollLeft = dragStartScrollLeft - dx;
-      evt.preventDefault();
+  function closeCarousel() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  figLinks.forEach((a, idx) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      openCarouselAt(idx);
     });
+  });
 
-    function endDrag(evt) {
-      if (!isDragging) return;
-      isDragging = false;
-      strip.classList.remove('dragging');
-      try { strip.releasePointerCapture(evt.pointerId); } catch (_) {}
+  if (closeBtn) closeBtn.addEventListener('click', closeCarousel);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeCarousel();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
+  });
+
+  strip.addEventListener('scroll', () => {
+    if (!overlay.classList.contains('open')) return;
+    if (rafLock) return;
+    rafLock = true;
+    requestAnimationFrame(() => {
+      rafLock = false;
+      const idx = clamp(
+        Math.round(strip.scrollLeft / slideWidth()),
+        0,
+        Math.max(0, figLinks.length - 1)
+      );
+      if (idx !== activeIndex) setActiveDot(idx);
+    });
+  }, { passive: true });
+
+  function handleCarouselWheel(evt) {
+    if (!overlay.classList.contains('open')) return;
+    const dx = Math.abs(evt.deltaX || 0);
+    const dy = Math.abs(evt.deltaY || 0);
+    if (dy > dx) {
+      evt.preventDefault();
+      strip.scrollLeft += (evt.deltaY || 0) * 0.35;
     }
+  }
+  overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
 
-    strip.addEventListener('pointerup', endDrag);
-    strip.addEventListener('pointercancel', endDrag);
-    strip.addEventListener('pointerleave', endDrag);
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScrollLeft = 0;
 
-    window.addEventListener('resize', () => {
-      if (!overlay.classList.contains('open')) return;
-      goToIndex(activeIndex);
-    });
-  </script>
+  strip.addEventListener('pointerdown', (evt) => {
+    if (!overlay.classList.contains('open')) return;
+    if (evt.pointerType !== 'mouse') return;
+
+    isDragging = true;
+    strip.classList.add('dragging');
+    dragStartX = evt.clientX;
+    dragStartScrollLeft = strip.scrollLeft;
+
+    strip.setPointerCapture(evt.pointerId);
+    evt.preventDefault();
+  });
+
+  strip.addEventListener('pointermove', (evt) => {
+    if (!isDragging) return;
+    const dx = evt.clientX - dragStartX;
+    strip.scrollLeft = dragStartScrollLeft - dx;
+    evt.preventDefault();
+  });
+
+  function endDrag(evt) {
+    if (!isDragging) return;
+    isDragging = false;
+    strip.classList.remove('dragging');
+    try { strip.releasePointerCapture(evt.pointerId); } catch (_) {}
+  }
+
+  strip.addEventListener('pointerup', endDrag);
+  strip.addEventListener('pointercancel', endDrag);
+  strip.addEventListener('pointerleave', endDrag);
+
+  window.addEventListener('resize', () => {
+    if (!overlay.classList.contains('open')) return;
+    goToIndex(activeIndex);
+  });
+</script>
+
 </body>
 </html>
