@@ -139,6 +139,10 @@ text-transform:uppercase;
 letter-spacing:.2em;
 }
 
+.back-btn:hover{
+text-decoration:underline;
+}
+
 .hero-full{
 width:100%;
 height:70vh;
@@ -176,6 +180,10 @@ pointer-events:none;
 max-width:1000px;
 margin:0 auto;
 padding:4rem 2rem 8rem;
+}
+
+.artwork-header{
+margin-bottom:4rem;
 }
 
 .artwork-title{
@@ -216,7 +224,9 @@ color:#fff;
 text-transform:uppercase;
 }
 
-.statement-section{margin:6rem 0;}
+.statement-section{
+margin:6rem 0;
+}
 
 .statement-text{
 font-size:1.1rem;
@@ -224,7 +234,45 @@ line-height:2;
 color:#c8b8b0;
 }
 
-.statement-text p{margin-bottom:2rem;}
+.statement-text p{
+margin-bottom:2rem;
+}
+
+.action-footer{
+margin-top:8rem;
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
+gap:1.25rem;
+}
+
+.footer-cta{
+font-family:var(--font-display);
+font-size:3rem;
+color:#fff;
+text-decoration:none;
+transition:color .3s;
+}
+
+.footer-cta:hover{
+color:var(--oxide-gold);
+}
+
+.back-nav{
+font-size:.7rem;
+text-transform:uppercase;
+letter-spacing:.3em;
+color:var(--rust);
+text-decoration:none;
+display:inline-flex;
+align-items:center;
+gap:1rem;
+}
+
+.back-nav::before{
+content:'←';
+}
 
 .archive-footer{
 margin-top:8rem;
@@ -236,6 +284,7 @@ justify-content:space-between;
 color:#8a665c;
 text-transform:uppercase;
 flex-wrap:wrap;
+gap:1rem;
 }
 
 .bbt-lightbox{
@@ -249,7 +298,9 @@ background:rgba(18,18,18,.92);
 z-index:9999;
 }
 
-.bbt-lightbox.open{display:flex;}
+.bbt-lightbox.open{
+display:flex;
+}
 
 .bbt-stage{
 position:relative;
@@ -279,6 +330,36 @@ border:1px solid rgba(255,107,53,.35);
 background:rgba(26,15,10,.85);
 color:#fff;
 cursor:pointer;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+font-size:16px;
+line-height:1;
+}
+
+.bbt-close:hover{
+border-color:var(--oxide-gold);
+color:var(--oxide-gold);
+}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--charcoal)}
+::-webkit-scrollbar-thumb{background:#4d2d1d}
+
+@media (max-width:900px){
+
+.layout{
+grid-template-columns:64px 1fr;
+}
+
+.artwork-title{
+font-size:12vw;
+}
+
+.footer-cta{
+font-size:2.2rem;
+}
+
 }
 
 </style>
@@ -291,7 +372,7 @@ cursor:pointer;
 <aside class="sidebar">
 
 <a class="brand" href="../index.html">
-<img class="brand-img" src="../ogw.png?v=5">
+<img class="brand-img" src="../ogw.png?v=5" alt="White Logo">
 </a>
 
 <nav class="nav-vertical">
@@ -362,6 +443,11 @@ STAPLES
 </div>
 </div>
 
+<footer class="action-footer">
+<a href="../index.html#inquire" class="footer-cta">COMMISSION A SIMILAR WORK</a>
+<a href="../index.html#works" class="back-nav">RETURN TO ARCHIVE</a>
+</footer>
+
 <footer class="archive-footer">
 <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
 <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
@@ -375,10 +461,10 @@ STAPLES
 
 <div class="bbt-stage">
 
-<button class="bbt-close" id="bbtClose">×</button>
+<button class="bbt-close" id="bbtClose" aria-label="Close">×</button>
 
 <div class="bbt-slide">
-<img src="../assets/images/vince.jpg">
+<img src="../assets/images/vince.jpg" alt="Vince Staples Portrait">
 </div>
 
 </div>
@@ -402,6 +488,14 @@ document.body.style.overflow="";
 
 lightbox.addEventListener("click",(e)=>{
 if(e.target===lightbox){
+lightbox.classList.remove("open");
+document.body.style.overflow="";
+}
+});
+
+window.addEventListener("keydown",(e)=>{
+if(!lightbox.classList.contains("open")) return;
+if(e.key==="Escape"){
 lightbox.classList.remove("open");
 document.body.style.overflow="";
 }
