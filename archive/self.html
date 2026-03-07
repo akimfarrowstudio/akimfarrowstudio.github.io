@@ -77,7 +77,6 @@
       z-index: 100;
     }
 
-    /* Upright logo like SCM */
     .brand {
       display: flex;
       align-items: center;
@@ -126,7 +125,6 @@
         url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
     }
 
-    /* Match SCM placement: main Return to Index at top of content */
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -230,62 +228,58 @@
 
     .statement-text p { margin-bottom: 2rem; }
 
-    .audio-player {
-      background: rgba(26, 15, 10, 0.6);
+    .audio-container {
+      background: rgba(26,15,10,0.5);
       border: 1px solid #3d2218;
-      padding: 2rem;
+      padding: 2.5rem;
       margin: 4rem 0;
       display: flex;
       align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
+      gap: 3rem;
     }
 
     .play-btn {
       width: 60px;
       height: 60px;
+      border: 1px solid var(--oxide-gold);
       border-radius: 50%;
-      background: var(--rust);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: transform 0.2s, background 0.2s;
-      flex: 0 0 auto;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      background: transparent;
     }
 
-    .play-btn:hover {
-      transform: scale(1.1);
-      background: var(--oxide-gold);
-    }
+    .play-btn:hover { background: var(--oxide-gold); }
+    .play-btn:hover svg { fill: var(--void); }
+    .play-btn svg { width: 20px; fill: var(--oxide-gold); }
 
-    .waveform {
-      flex: 1 1 280px;
+    .waveform-visual {
+      flex-grow: 1;
       height: 40px;
       display: flex;
       align-items: center;
-      gap: 3px;
-      min-width: 240px;
+      gap: 4px;
     }
 
-    .wave-bar { flex: 1; background: #4d2d1d; height: var(--h); }
+    .wave-bar {
+      flex: 1;
+      background: #3d2218;
+      height: 20%;
+      transition: height 0.3s;
+    }
+
     .wave-bar.active { background: var(--oxide-gold); }
 
-    .audio-info { min-width: 180px; }
+    .audio-meta { text-align: right; }
 
-    .audio-title {
-      font-size: 0.7rem;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .audio-duration {
+    .audio-label {
       font-size: 0.6rem;
       color: var(--rust);
-      margin-top: 0.3rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
     }
 
     .action-footer {
@@ -320,7 +314,6 @@
 
     .back-nav::before { content: '←'; }
 
-    /* Footer style copied from Steel Cage Mother */
     .archive-footer {
       margin-top: 8rem;
       padding: 2rem 0;
@@ -342,6 +335,13 @@
       .layout { grid-template-columns: 64px 1fr; }
       .footer-cta { font-size: 2.2rem; }
       .artwork-title { font-size: 12vw; }
+      .audio-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      .audio-meta {
+        text-align: center;
+      }
     }
 
     /* =========================
@@ -514,37 +514,37 @@
           </div>
         </div>
 
-        <div class="audio-player" aria-label="Artist commentary (visual only)">
-          <div class="play-btn" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-              <path d="M8 5v14l11-7z"></path>
-            </svg>
+        <div class="audio-container">
+          <div class="play-btn" role="button" tabindex="0" aria-label="Play audio (placeholder)">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
           </div>
-          <div class="audio-info">
-            <div class="audio-title">Artist Commentary</div>
-            <div class="audio-duration">04:12 // SELF IMAGE</div>
+
+          <div class="waveform-visual" aria-hidden="true">
+            <div class="wave-bar" style="height:40%"></div>
+            <div class="wave-bar" style="height:60%"></div>
+            <div class="wave-bar active" style="height:80%"></div>
+            <div class="wave-bar active" style="height:100%"></div>
+            <div class="wave-bar active" style="height:70%"></div>
+            <div class="wave-bar" style="height:50%"></div>
+            <div class="wave-bar" style="height:90%"></div>
+            <div class="wave-bar" style="height:60%"></div>
+            <div class="wave-bar" style="height:30%"></div>
+            <div class="wave-bar" style="height:50%"></div>
+            <div class="wave-bar" style="height:80%"></div>
+            <div class="wave-bar" style="height:40%"></div>
+            <div class="wave-bar" style="height:60%"></div>
+            <div class="wave-bar" style="height:90%"></div>
+            <div class="wave-bar" style="height:70%"></div>
+            <div class="wave-bar" style="height:30%"></div>
+            <div class="wave-bar" style="height:50%"></div>
+            <div class="wave-bar" style="height:80%"></div>
+            <div class="wave-bar" style="height:100%"></div>
+            <div class="wave-bar" style="height:40%"></div>
           </div>
-          <div class="waveform" aria-hidden="true">
-            <div class="wave-bar" style="--h: 40%;"></div>
-            <div class="wave-bar" style="--h: 60%;"></div>
-            <div class="wave-bar active" style="--h: 80%;"></div>
-            <div class="wave-bar active" style="--h: 100%;"></div>
-            <div class="wave-bar active" style="--h: 70%;"></div>
-            <div class="wave-bar" style="--h: 50%;"></div>
-            <div class="wave-bar" style="--h: 90%;"></div>
-            <div class="wave-bar" style="--h: 60%;"></div>
-            <div class="wave-bar" style="--h: 30%;"></div>
-            <div class="wave-bar" style="--h: 50%;"></div>
-            <div class="wave-bar" style="--h: 80%;"></div>
-            <div class="wave-bar" style="--h: 40%;"></div>
-            <div class="wave-bar" style="--h: 60%;"></div>
-            <div class="wave-bar" style="--h: 90%;"></div>
-            <div class="wave-bar" style="--h: 70%;"></div>
-            <div class="wave-bar" style="--h: 30%;"></div>
-            <div class="wave-bar" style="--h: 50%;"></div>
-            <div class="wave-bar" style="--h: 80%;"></div>
-            <div class="wave-bar" style="--h: 100%;"></div>
-            <div class="wave-bar" style="--h: 40%;"></div>
+
+          <div class="audio-meta">
+            <div class="audio-label">Artist Commentary</div>
+            <div style="font-size:0.8rem;color:#fff;">04:12 // SELF IMAGE</div>
           </div>
         </div>
 
@@ -607,6 +607,15 @@
       if (!bbtLightbox.classList.contains("open")) return;
       if (e.key === "Escape") closeBBT();
     });
+
+    const bars = document.querySelectorAll('.wave-bar');
+    if (bars.length) {
+      setInterval(() => {
+        bars.forEach(bar => {
+          if (Math.random() > 0.5) bar.style.height = `${Math.random() * 100}%`;
+        });
+      }, 150);
+    }
   </script>
 </body>
 </html>
