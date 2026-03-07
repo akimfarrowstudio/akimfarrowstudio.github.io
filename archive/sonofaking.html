@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QK7045YE1S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QK7045YE1S');
+</script>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Son of a King | Akim Farrow</title>
+
+  <!-- SITE ICONS -->
+  <link rel="icon" href="../og.jpg?v=2" type="image/jpeg">
+  <link rel="apple-touch-icon" href="../og.jpg?v=2">
+  <link rel="shortcut icon" href="../og.jpg?v=2" type="image/jpeg">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Son of a King | Akim Farrow">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../assets/images/main.jpg?v=1">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Strange Harvest | Akim Farrow">
+  <meta name="twitter:image" content="../assets/images/main.jpg?v=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --void:#1a0f0a;
+      --charcoal:#121212;
+      --rust:#d35400;
+      --oxide-gold:#ff6b35;
+      --font-display:'Anton',sans-serif;
+      --font-mono:'Space Mono',monospace;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{width:100%}
+
+    body{
+      background-color:var(--charcoal);
+      color:#e8e0dc;
+      font-family:var(--font-mono);
+      overflow:hidden;
+      height:100vh;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:80px 1fr;
+      height:100vh;
+      width:100vw;
+    }
+
+    .sidebar{
+      background:var(--void);
+      border-right:1px solid #3d2218;
+      padding:2rem 0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      align-items:center;
+      z-index:100;
+      position:relative;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      padding-top:0.5rem;
+      text-decoration:none;
+    }
+
+    .brand-img{
+      width:38px;
+      height:auto;
+      max-width:80%;
+      display:block;
+      transform:none;
+    }
+
+    .nav-vertical{
+      display:flex;
+      flex-direction:column;
+      gap:4rem;
+      margin-top:2rem;
+    }
+
+    .nav-link{
+      font-size:0.75rem;
+      text-transform:uppercase;
+      letter-spacing:0.4em;
+      color:#8a665c;
+      text-decoration:none;
+      writing-mode:vertical-rl;
+      transform:rotate(180deg);
+      transition:color 0.3s ease;
+      white-space:nowrap;
+    }
+
+    .nav-link:hover,.nav-link.active{color:var(--oxide-gold)}
+
+    .location-tags{
+      font-size:0.6rem;
+      color:var(--rust);
+      letter-spacing:0.4em;
+      writing-mode:vertical-rl;
+      transform:rotate(180deg);
+      display:flex;
+      gap:2rem;
+      align-items:center;
+      opacity:0.5;
+      padding-bottom:2rem;
+    }
+
+    .detail-container{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      height:100vh;
+      background-color:var(--charcoal);
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.08) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    }
+
+    /* ✅ Gallery restored to "before" (stacked vertical images) */
+    .image-gallery{
+      overflow-y:auto;
+      height:100vh;
+      padding:2rem;
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .gallery-item{
+      width:100%;
+      border:1px solid rgba(255,107,53,0.15);
+      background:var(--void);
+      overflow:hidden;
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      cursor:zoom-in;
+      -webkit-touch-callout:none;
+    }
+
+    .gallery-item img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      object-position:center center;
+      display:block;
+      filter:grayscale(30%) contrast(110%);
+      transition:filter 0.5s ease, transform 0.35s ease;
+      transform:scale(1);
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .gallery-item:hover img{
+      filter:grayscale(0%) contrast(100%);
+      transform:scale(1.01);
+    }
+
+    .info-panel{
+      height:100vh;
+      padding:4rem;
+      overflow-y:auto;
+      border-left:1px solid #3d2218;
+      background:rgba(26,15,10,0.4);
+      backdrop-filter:blur(10px);
+      display:flex;
+      flex-direction:column;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .back-nav{margin-bottom:4rem}
+
+    .back-link{
+      color:var(--rust);
+      text-decoration:none;
+      font-size:0.7rem;
+      letter-spacing:0.3em;
+      text-transform:uppercase;
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+      transition:color 0.3s;
+    }
+    .back-link:hover{color:var(--oxide-gold)}
+
+    .artwork-header{margin-bottom:3rem}
+
+    .artwork-label{
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:0.4em;
+      color:var(--rust);
+      margin-bottom:1rem;
+    }
+
+    .artwork-main-title{
+      font-family:var(--font-display);
+      font-size:5rem;
+      line-height:0.9;
+      color:var(--oxide-gold);
+      text-transform:uppercase;
+      margin-bottom:1.5rem;
+    }
+
+    .artwork-specs{
+      display:flex;
+      gap:2rem;
+      border-top:1px solid #3d2218;
+      padding-top:1.5rem;
+      font-size:0.8rem;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+      color:#8a665c;
+      flex-wrap:wrap;
+    }
+
+    .spec-item span{
+      color:#e8e0dc;
+      display:block;
+      margin-top:0.2rem;
+    }
+
+    .artwork-statement{
+      font-size:0.9rem;
+      line-height:1.8;
+      color:#c8b8b0;
+      margin-bottom:2.75rem;
+    }
+
+    .phase-block{
+      border:1px solid rgba(255,107,53,0.18);
+      background:rgba(26,15,10,0.55);
+      padding:1.5rem;
+      margin-top:auto;
+    }
+
+    .phase-label{
+      font-size:0.65rem;
+      letter-spacing:0.3em;
+      color:var(--rust);
+      text-transform:uppercase;
+      margin-bottom:1rem;
+      opacity:0.95;
+    }
+
+    .phase-img{
+      width:100%;
+      border:1px solid rgba(255,107,53,0.14);
+      background:#000;
+      overflow:hidden;
+    }
+
+    .phase-img img{
+      width:100%;
+      display:block;
+      filter:grayscale(20%) contrast(1.08) brightness(0.9);
+    }
+
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#3d2218}
+
+    @media (max-width: 980px){
+      body{overflow:auto;height:auto}
+      .layout{grid-template-columns:80px 1fr;height:auto}
+      .detail-container{grid-template-columns:1fr;height:auto}
+      .image-gallery{height:auto}
+      .info-panel{height:auto;border-left:none;border-top:1px solid #3d2218}
+      .artwork-main-title{font-size:3.5rem}
+      .gallery-item img{ height:160px; }
+    }
+
+    /* ✅ Kill iOS blue tap highlight + focus rings where they show up */
+    *{ -webkit-tap-highlight-color: transparent; }
+    a, button{ -webkit-tap-highlight-color: transparent; }
+    button{ outline:none; }
+    button:focus{ outline:none; }
+    button:focus-visible{ outline:1px solid rgba(255,107,53,0.45); outline-offset:2px; }
+
+    /* =========================================================
+       ✅ CAROUSEL OVERLAY (White Album "film dots" version)
+       Top + bottom film squares, same behavior on mobile/desktop
+       ========================================================= */
+    .carousel-overlay{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:6vh 4vw;
+      background-color:var(--charcoal);
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.08) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    }
+    .carousel-overlay.open{display:flex}
+
+    .carousel-stage{
+      width:min(1200px, 92vw);
+      height:min(78vh, 760px);
+      border:1px solid rgba(255,107,53,0.18);
+      background:rgba(26,15,10,0.55);
+      box-shadow:0 40px 120px rgba(0,0,0,0.75);
+      overflow:hidden;
+      position:relative;
+      transform:perspective(1200px) rotateZ(-1.4deg) rotateY(-3deg);
+      transform-origin:center;
+
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+    }
+
+    .carousel-close{
+      position:absolute;
+      top:56px;
+      right:18px;
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      border:1px solid rgba(255,107,53,0.35);
+      background:rgba(26,15,10,0.88);
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:1;
+      z-index:7;
+      box-shadow:0 10px 30px rgba(0,0,0,0.45);
+      -webkit-appearance:none;
+      appearance:none;
+    }
+    .carousel-close:hover{border-color:var(--oxide-gold);color:var(--oxide-gold)}
+
+    .film-dots{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      padding:14px 14px;
+      z-index:4;
+      pointer-events:auto;
+      position:relative;
+      background:transparent;
+      user-select:none;
+      -webkit-user-select:none;
+    }
+    .film-dots-top{ grid-row:1; }
+    .film-dots-bottom{ grid-row:3; }
+
+    .film-dot{
+      width:10px;
+      height:10px;
+      border-radius:2px;
+      border:1px solid rgba(255,107,53,0.18);
+      background:rgba(26,15,10,0.25);
+      cursor:pointer;
+      padding:0;
+      appearance:none;
+      -webkit-appearance:none;
+      outline:none;
+    }
+    .film-dot:nth-child(3n){ width:16px; }
+    .film-dot:hover{border-color:rgba(255,107,53,0.35);background:rgba(26,15,10,0.35)}
+    .film-dot.active{border-color:rgba(255,107,53,0.65);background:rgba(255,107,53,0.18)}
+    .film-dot:focus{outline:none}
+
+    .carousel-strip{
+      grid-row:2;
+      width:100%;
+      height:100%;
+      display:flex;
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior-x:contain;
+      scroll-behavior:smooth;
+      touch-action:pan-x;
+      scrollbar-width:none;
+      cursor:grab;
+      user-select:none;
+      -webkit-user-select:none;
+      background:transparent;
+    }
+    .carousel-strip::-webkit-scrollbar{display:none}
+    .carousel-strip.dragging{cursor:grabbing}
+
+    .carousel-slide{
+      flex:0 0 100%;
+      width:100%;
+      height:100%;
+      scroll-snap-align:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:4.25vh 4vw;
+      position:relative;
+      background:transparent;
+    }
+
+    .carousel-media{
+      position:relative;
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .carousel-media img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      filter:grayscale(15%) contrast(1.08) brightness(0.92);
+      box-shadow:0 30px 80px rgba(0,0,0,0.55);
+      border:1px solid rgba(255,107,53,0.14);
+      background:rgba(18,18,18,0.6);
+      display:block;
+    }
+
+    .carousel-note{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:10px;
+      z-index:6;
+      max-width:calc(100% - 28px);
+      pointer-events:none;
+    }
+
+    .carousel-caption{
+      font-size:0.65rem;
+      color:#fff;
+      background:rgba(26,15,10,0.85);
+      border:1px solid rgba(255,107,53,0.35);
+      padding:6px 10px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      text-align:right;
+    }
+
+    @media (max-width: 900px){
+      .carousel-stage{
+        transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg);
+      }
+      .carousel-slide{
+        padding:3vh 4vw;
+      }
+      .carousel-close{
+        top:52px;
+        right:16px;
+        width:32px;
+        height:32px;
+      }
+      .carousel-media img{
+        max-height:60vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a href="../index.html#hero" class="brand" aria-label="Back to home">
+        <img class="brand-img" src="../ogw.png?v=5" alt="White Logo">
+      </a>
+
+      <nav class="nav-vertical">
+        <a href="../index.html#hero" class="nav-link">ARTIST</a>
+        <a href="../index.html#about" class="nav-link">ABOUT</a>
+        <a href="../index.html#works" class="nav-link active">ARCHIVE</a>
+        <a href="../index.html#inquire" class="nav-link">INQUIRE</a>
+      </nav>
+
+      <div class="location-tags">
+        <span>ID: SH-2024</span>
+        <span>WORK: STRANGE HARVEST</span>
+      </div>
+    </aside>
+
+    <main class="detail-container">
+      <div class="image-gallery" aria-label="Image gallery">
+        <a class="gallery-item" href="../assets/images/SHclose.jpeg" data-caption="STRANGE HARVEST — CLOSE VIEW" aria-label="Open Strange Harvest close view">
+          <img src="../assets/images/SHclose.jpeg" alt="Strange Harvest close view">
+        </a>
+
+         <a class="gallery-item" href="../assets/images/strangeharvest.jpg" data-caption="STRANGE HARVEST — DETAIL" aria-label="Open Strange Harvest detail">
+          <img src="../assets/images/strangeharvest.jpg" alt="Strange Harvest detail">
+        </a>
+
+        <a class="gallery-item" href="../assets/images/SHweld.jpeg" data-caption="STRANGE HARVEST — WELD" aria-label="Open Strange Harvest weld detail">
+          <img src="../assets/images/SHweld.jpeg" alt="Strange Harvest weld detail">
+        </a>
+        
+         <a class="gallery-item" href="../assets/images/SH.jpeg" data-caption="STRANGE HARVEST — OVERVIEW" aria-label="Open Strange Harvest overall">
+          <img src="../assets/images/SH.jpeg" alt="Strange Harvest overall view">
+        </a>
+
+        <a class="gallery-item" href="../assets/images/SHdown.jpeg" data-caption="STRANGE HARVEST — DOWN VIEW" aria-label="Open Strange Harvest down view">
+          <img src="../assets/images/SHdown.jpeg" alt="Strange Harvest down view">
+        </a>
+      </div>
+
+      <div class="info-panel">
+        <div class="back-nav">
+          <a href="../index.html#bsk" class="back-link">← RETURN TO ARCHIVE</a>
+        </div>
+
+        <div class="artwork-header">
+          <div class="artwork-label">Project // Archive</div>
+          <h1 class="artwork-main-title">Bastard Son of a King</h1>
+
+          <div class="artwork-specs">
+            <div class="spec-item">YEAR <span>2024</span></div>
+            <div class="spec-item">MEDIUM <span>WELDED STEEL, GLASS</span></div>
+            <div class="spec-item">SCALE <span>305 X 90 X 90 CM</span></div>
+          </div>
+        </div>
+
+        <div class="artwork-statement">
+          <p>
+            This piece depicts harvest as structure: gathered, counted, and displayed. A tapered steel lattice rises from a circular base, its geometry precise and exposed. Cobalt bottles extend from branching rods at the crown, positioned like suspended yield.
+          </p> <br>
+          <p>
+            The framework remains open and skeletal, with every weld visible. The bottles sit outward from the core, suggesting display, storage, and circulation rather than containment. The work examines how systems organize what is gathered and how value becomes architectural.
+          </p>
+        </div>
+
+        <div class="phase-block">
+          <div class="phase-label">SET UP & INSTALLATION</div>
+          <div class="phase-img">
+            <img src="../assets/images/SHsetup.jpeg" alt="Strange Harvest setup">
+          </div>
+        </div>
+
+        <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;">
+          <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
+          <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- ✅ White Album style overlay -->
+  <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
+    <div class="carousel-stage" id="carouselStage" role="dialog" aria-modal="true" aria-label="Image carousel">
+      <button class="carousel-close" id="carouselClose" type="button" aria-label="Close">×</button>
+
+      <div class="film-dots film-dots-top" id="filmDotsTop" aria-hidden="true"></div>
+      <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
+      <div class="film-dots film-dots-bottom" id="filmDotsBottom" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <script>
+    // ====== White Album carousel logic, adapted for .gallery-item ======
+    const overlay = document.getElementById('carouselOverlay');
+    const strip = document.getElementById('carouselStrip');
+    const closeBtn = document.getElementById('carouselClose');
+    const dotsTop = document.getElementById('filmDotsTop');
+    const dotsBottom = document.getElementById('filmDotsBottom');
+    const figLinks = Array.from(document.querySelectorAll('.gallery-item'));
+
+    let activeIndex = 0;
+    let rafLock = false;
+
+    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+    function slideWidth(){ return strip.clientWidth || 1; }
+
+    function buildSlides() {
+      strip.innerHTML = '';
+
+      figLinks.forEach((a) => {
+        const href = a.getAttribute('href');
+        const caption = a.getAttribute('data-caption') || '';
+        const imgEl = a.querySelector('img');
+        const alt = (imgEl && imgEl.getAttribute('alt')) || 'Image';
+
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+
+        const media = document.createElement('div');
+        media.className = 'carousel-media';
+
+        const img = document.createElement('img');
+        img.src = href;
+        img.alt = alt;
+
+        const note = document.createElement('div');
+        note.className = 'carousel-note';
+
+        const cap = document.createElement('div');
+        cap.className = 'carousel-caption';
+        cap.textContent = caption;
+
+        note.appendChild(cap);
+        media.appendChild(img);
+        media.appendChild(note);
+        slide.appendChild(media);
+        strip.appendChild(slide);
+      });
+    }
+
+    function setActiveDot(idx) {
+      activeIndex = idx;
+      const topButtons = Array.from(dotsTop.querySelectorAll('.film-dot'));
+      const bottomButtons = Array.from(dotsBottom.querySelectorAll('.film-dot'));
+      topButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+      bottomButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+    }
+
+    function goToIndex(idx) {
+      const maxIdx = Math.max(0, figLinks.length - 1);
+      const safe = clamp(idx, 0, maxIdx);
+      strip.scrollLeft = safe * slideWidth();
+      setActiveDot(safe);
+    }
+
+    function buildFilmDots() {
+      const count = figLinks.length;
+      dotsTop.innerHTML = '';
+      dotsBottom.innerHTML = '';
+
+      for (let i = 0; i < count; i++) {
+        const b1 = document.createElement('button');
+        b1.type = 'button';
+        b1.className = 'film-dot';
+        b1.setAttribute('aria-label', `Go to image ${i + 1}`);
+        b1.addEventListener('click', () => goToIndex(i));
+
+        const b2 = document.createElement('button');
+        b2.type = 'button';
+        b2.className = 'film-dot';
+        b2.setAttribute('aria-label', `Go to image ${i + 1}`);
+        b2.addEventListener('click', () => goToIndex(i));
+
+        dotsTop.appendChild(b1);
+        dotsBottom.appendChild(b2);
+      }
+
+      setActiveDot(0);
+    }
+
+    function openCarouselAt(index) {
+      // Build once, and rebuild if image count changed
+      if (strip.children.length !== figLinks.length) buildSlides();
+      if (dotsTop.children.length !== figLinks.length) buildFilmDots();
+
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      requestAnimationFrame(() => {
+        goToIndex(index);
+        // Avoid iOS focus highlight artifacts by not forcing focus on first open
+        // but still keep keyboard support if user taps inside:
+        strip.setAttribute('tabindex', '0');
+      });
+    }
+
+    function closeCarousel() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    figLinks.forEach((a, idx) => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCarouselAt(idx);
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeCarousel);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeCarousel();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
+    });
+
+    strip.addEventListener('scroll', () => {
+      if (!overlay.classList.contains('open')) return;
+      if (rafLock) return;
+      rafLock = true;
+      requestAnimationFrame(() => {
+        rafLock = false;
+        const idx = clamp(
+          Math.round(strip.scrollLeft / slideWidth()),
+          0,
+          Math.max(0, figLinks.length - 1)
+        );
+        if (idx !== activeIndex) setActiveDot(idx);
+      });
+    }, { passive: true });
+
+    function handleCarouselWheel(evt) {
+      if (!overlay.classList.contains('open')) return;
+      const dx = Math.abs(evt.deltaX || 0);
+      const dy = Math.abs(evt.deltaY || 0);
+      if (dy > dx) {
+        evt.preventDefault();
+        strip.scrollLeft += (evt.deltaY || 0) * 0.35;
+      }
+    }
+    overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
+
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+
+    strip.addEventListener('pointerdown', (evt) => {
+      if (!overlay.classList.contains('open')) return;
+      if (evt.pointerType !== 'mouse') return;
+
+      isDragging = true;
+      strip.classList.add('dragging');
+      dragStartX = evt.clientX;
+      dragStartScrollLeft = strip.scrollLeft;
+
+      strip.setPointerCapture(evt.pointerId);
+      evt.preventDefault();
+    });
+
+    strip.addEventListener('pointermove', (evt) => {
+      if (!isDragging) return;
+      const dx = evt.clientX - dragStartX;
+      strip.scrollLeft = dragStartScrollLeft - dx;
+      evt.preventDefault();
+    });
+
+    function endDrag(evt) {
+      if (!isDragging) return;
+      isDragging = false;
+      strip.classList.remove('dragging');
+      try { strip.releasePointerCapture(evt.pointerId); } catch (_) {}
+    }
+
+    strip.addEventListener('pointerup', endDrag);
+    strip.addEventListener('pointercancel', endDrag);
+    strip.addEventListener('pointerleave', endDrag);
+
+    window.addEventListener('resize', () => {
+      if (!overlay.classList.contains('open')) return;
+      goToIndex(activeIndex);
+    });
+  </script>
+</body>
+</html>
