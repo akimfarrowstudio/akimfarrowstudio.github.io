@@ -9,27 +9,43 @@
     gtag('js', new Date());
     gtag('config', 'G-QK7045YE1S');
   </script>
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bastard Son of a King | Akim Farrow</title>
 
-  <!-- SITE ICONS -->
-  <link rel="icon" href="../og.jpg?v=2" type="image/jpeg">
-  <link rel="apple-touch-icon" href="../og.jpg?v=2">
-  <link rel="shortcut icon" href="../og.jpg?v=2" type="image/jpeg">
+  <!-- Primary SEO -->
+  <title>Some Glad Morning | Akim Farrow</title>
+  <meta name="description" content="Some Glad Morning by Akim Farrow. Archival images, process writing, and project notes for the 2015 steel sculpture.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#121212">
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Bastard Son of a King | Akim Farrow">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="../assets/images/main.jpg?v=1">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://akimfarrowstudio.github.io/archive/somegladmorning.html">
+
+  <!-- Favicons (site-wide) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Akim Farrow Studios">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Some Glad Morning | Akim Farrow">
+  <meta property="og:description" content="Some Glad Morning by Akim Farrow. Archival images, process writing, and project notes for the 2015 steel sculpture.">
+  <meta property="og:url" content="https://akimfarrowstudio.github.io/archive/somegladmorning.html">
+  <meta property="og:image" content="https://akimfarrowstudio.github.io/assets/images/sgm.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/jpeg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Bastard Son of a King | Akim Farrow">
-  <meta name="twitter:image" content="../assets/images/main.jpg?v=1">
 
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Some Glad Morning | Akim Farrow">
+  <meta name="twitter:description" content="Some Glad Morning by Akim Farrow. Archival images, process writing, and project notes for the 2015 steel sculpture.">
+  <meta name="twitter:image" content="https://akimfarrowstudio.github.io/assets/images/sgm.jpg">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -42,17 +58,16 @@
       --oxide-gold:#ff6b35;
       --font-display:'Anton',sans-serif;
       --font-mono:'Space Mono',monospace;
+      --border:1px solid rgba(255,107,53,.2);
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{width:100%}
-
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;}
     body{
-      background-color:var(--charcoal);
+      background:var(--charcoal);
       color:#e8e0dc;
       font-family:var(--font-mono);
       overflow:hidden;
-      height:100vh;
     }
 
     .layout{
@@ -70,8 +85,7 @@
       flex-direction:column;
       justify-content:space-between;
       align-items:center;
-      z-index:100;
-      position:relative;
+      z-index:10;
     }
 
     .brand{
@@ -79,16 +93,14 @@
       align-items:center;
       justify-content:center;
       width:100%;
-      padding-top:0.5rem;
+      padding-top:.5rem;
       text-decoration:none;
     }
-
     .brand-img{
       width:38px;
       height:auto;
       max-width:80%;
       display:block;
-      transform:none;
     }
 
     .nav-vertical{
@@ -97,242 +109,327 @@
       gap:4rem;
       margin-top:2rem;
     }
-
     .nav-link{
-      font-size:0.75rem;
+      font-size:.75rem;
       text-transform:uppercase;
-      letter-spacing:0.4em;
+      letter-spacing:.4em;
       color:#8a665c;
       text-decoration:none;
       writing-mode:vertical-rl;
       transform:rotate(180deg);
-      transition:color 0.3s ease;
+      transition:color .2s ease;
       white-space:nowrap;
     }
+    .nav-link:hover,
+    .nav-link.active{color:var(--oxide-gold);}
 
-    .nav-link:hover,.nav-link.active{color:var(--oxide-gold)}
-
-    .location-tags{
-      font-size:0.6rem;
+    .ref{
+      font-size:.6rem;
       color:var(--rust);
-      letter-spacing:0.4em;
       writing-mode:vertical-rl;
       transform:rotate(180deg);
-      display:flex;
-      gap:2rem;
-      align-items:center;
-      opacity:0.5;
+      opacity:.5;
       padding-bottom:2rem;
+      letter-spacing:.18em;
     }
 
-    .detail-container{
-      display:grid;
-      grid-template-columns:1fr 1fr;
+    .scrolling-content{
       height:100vh;
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      scroll-behavior:smooth;
       background-color:var(--charcoal);
       background-image:
-        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.08) 0%, transparent 70%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,.05) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      padding:4rem 6vw;
     }
 
-    .image-gallery{
-      overflow-y:auto;
-      height:100vh;
-      padding:2rem;
-      display:flex;
-      flex-direction:column;
-      gap:2rem;
-      scroll-behavior:smooth;
-      -webkit-overflow-scrolling:touch;
-    }
-
-    .gallery-item{
-      width:100%;
-      border:1px solid rgba(255,107,53,0.15);
-      background:var(--void);
-      overflow:hidden;
-      display:block;
-      text-decoration:none;
-      color:inherit;
-      cursor:zoom-in;
-      -webkit-touch-callout:none;
-    }
-
-    .gallery-item img{
-      width:100%;
-      height:180px;
-      object-fit:cover;
-      object-position:center center;
-      display:block;
-      filter:grayscale(30%) contrast(110%);
-      transition:filter 0.5s ease, transform 0.35s ease;
-      transform:scale(1);
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    .gallery-item:hover img{
-      filter:grayscale(0%) contrast(100%);
-      transform:scale(1.01);
-    }
-
-    .info-panel{
-      height:100vh;
-      padding:4rem;
-      overflow-y:auto;
-      border-left:1px solid #3d2218;
-      background:rgba(26,15,10,0.4);
-      backdrop-filter:blur(10px);
-      display:flex;
-      flex-direction:column;
-      -webkit-overflow-scrolling:touch;
-    }
-
-    .back-nav{margin-bottom:4rem}
-
-    .back-link{
-      color:var(--rust);
-      text-decoration:none;
-      font-size:0.7rem;
-      letter-spacing:0.3em;
-      text-transform:uppercase;
-      display:flex;
+    .back-btn{
+      display:inline-flex;
       align-items:center;
-      gap:0.5rem;
-      transition:color 0.3s;
-    }
-    .back-link:hover{color:var(--oxide-gold)}
-
-    .artwork-header{margin-bottom:3rem}
-
-    .artwork-label{
-      font-size:0.7rem;
-      text-transform:uppercase;
-      letter-spacing:0.4em;
-      color:var(--rust);
-      margin-bottom:1rem;
-    }
-
-    .artwork-main-title{
-      font-family:var(--font-display);
-      font-size:5rem;
-      line-height:0.9;
+      gap:1rem;
+      font-size:.7rem;
       color:var(--oxide-gold);
+      text-decoration:none;
+      margin-bottom:3rem;
       text-transform:uppercase;
-      margin-bottom:1.5rem;
+      letter-spacing:.2em;
     }
+    .back-btn:hover{text-decoration:underline;}
 
-    .artwork-specs{
+    .dossier-header{
+      border-bottom:1px solid #3d2218;
+      padding-bottom:2rem;
+      margin-bottom:4rem;
       display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
       gap:2rem;
-      border-top:1px solid #3d2218;
-      padding-top:1.5rem;
-      font-size:0.8rem;
-      text-transform:uppercase;
-      letter-spacing:0.1em;
-      color:#8a665c;
       flex-wrap:wrap;
     }
 
-    .spec-item span{
-      color:#e8e0dc;
-      display:block;
-      margin-top:0.2rem;
+    .dossier-id{
+      color:#fff;
+      opacity:.4;
+      font-size:.6rem;
+      margin-bottom:.5rem;
+      letter-spacing:.18em;
     }
 
-    .artwork-statement{
-      font-size:0.9rem;
-      line-height:1.8;
-      color:#c8b8b0;
-      margin-bottom:2.75rem;
+    .stencil-title{
+      font-family:var(--font-display);
+      font-size:6rem;
+      color:var(--oxide-gold);
+      line-height:.9;
+      text-transform:uppercase;
+      -webkit-text-stroke:1px var(--oxide-gold);
+      background:linear-gradient(to bottom, var(--oxide-gold) 0%, var(--oxide-gold) 48%, transparent 48%, transparent 52%, var(--oxide-gold) 52%, var(--oxide-gold) 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      margin-top:1rem;
     }
 
-    .phase-block{
-      border:1px solid rgba(255,107,53,0.18);
-      background:rgba(26,15,10,0.55);
-      padding:1.5rem;
-      margin-top:auto;
-    }
-
-    .phase-label{
-      font-size:0.65rem;
-      letter-spacing:0.3em;
+    .dossier-meta{
+      font-size:.7rem;
       color:var(--rust);
       text-transform:uppercase;
-      margin-bottom:1rem;
-      opacity:0.95;
+      letter-spacing:.2em;
+      line-height:1.8;
+      max-width:520px;
     }
 
-    .phase-img{
-      width:100%;
-      border:1px solid rgba(255,107,53,0.14);
-      background:#000;
+    .detail-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;
+      margin-bottom:5rem;
+    }
+
+    .detail-frame{
+      aspect-ratio:1/1;
+      border:1px solid #3d2218;
       overflow:hidden;
+      position:relative;
+      background:#0f0f0f;
     }
 
-    .phase-img img{
+    .detail-frame img,
+    .detail-frame video{
       width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:grayscale(100%) contrast(120%) brightness(.8);
+      transition:filter .35s ease, transform .2s ease;
       display:block;
-      filter:grayscale(20%) contrast(1.08) brightness(0.9);
     }
 
-    ::-webkit-scrollbar{width:4px}
-    ::-webkit-scrollbar-track{background:transparent}
-    ::-webkit-scrollbar-thumb{background:#3d2218}
-
-    @media (max-width: 980px){
-      body{overflow:auto;height:auto}
-      .layout{grid-template-columns:80px 1fr;height:auto}
-      .detail-container{grid-template-columns:1fr;height:auto}
-      .image-gallery{height:auto}
-      .info-panel{height:auto;border-left:none;border-top:1px solid #3d2218}
-      .artwork-main-title{font-size:3.5rem}
-      .gallery-item img{ height:160px; }
+    .detail-frame:hover img,
+    .detail-frame:hover video{
+      filter:grayscale(0%) contrast(110%) brightness(.9);
+      transform:scale(1.01);
     }
 
-    *{ -webkit-tap-highlight-color: transparent; }
-    a, button{ -webkit-tap-highlight-color: transparent; }
-    button{ outline:none; }
-    button:focus{ outline:none; }
-    button:focus-visible{ outline:1px solid rgba(255,107,53,0.45); outline-offset:2px; }
+    .detail-label{
+      position:absolute;
+      bottom:10px;
+      right:10px;
+      font-size:.6rem;
+      color:#fff;
+      background:var(--void);
+      padding:2px 6px;
+      border:1px solid var(--rust);
+      pointer-events:none;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
 
-    .carousel-overlay{
+    .detail-frame.is-photo{cursor:pointer;}
+
+    .img-debug{
+      margin-top:10px;
+      font-size:12px;
+      color:#8a665c;
+      letter-spacing:.06em;
+      white-space:pre-wrap;
+    }
+
+    .archival-columns{
+      display:grid;
+      grid-template-columns:1fr 350px;
+      gap:6rem;
+    }
+
+    .field-notes-section{
+      border-top:1px solid #3d2218;
+      padding-top:2rem;
+    }
+
+    .section-tag{
+      font-size:.65rem;
+      color:var(--rust);
+      text-transform:uppercase;
+      letter-spacing:.4em;
+      margin-bottom:2rem;
+      display:flex;
+      align-items:center;
+      gap:1rem;
+    }
+
+    .section-tag::after{
+      content:"";
+      height:1px;
+      flex-grow:1;
+      background:#3d2218;
+    }
+
+    .notes-body{
+      font-size:.85rem;
+      line-height:2;
+      color:#c8b8b0;
+      max-width:800px;
+    }
+    .notes-body p{margin-bottom:2rem;}
+
+    .timeline-container{
+      border-left:1px solid #3d2218;
+      padding-left:2rem;
+    }
+    .timeline-item{margin-bottom:2.5rem; position:relative;}
+    .timeline-item::before{
+      content:"";
+      position:absolute;
+      left:-33.5px;
+      top:5px;
+      width:6px;
+      height:6px;
+      background:var(--rust);
+    }
+    .timeline-date{
+      font-size:.65rem;
+      color:var(--oxide-gold);
+      margin-bottom:.5rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .timeline-event{
+      font-size:.75rem;
+      color:#e8e0dc;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
+    .exhibition-list{list-style:none;margin-top:4rem;padding-left:0;}
+    .exhibition-item{
+      font-size:.7rem;
+      padding:1rem 0;
+      border-bottom:1px solid #251812;
+      display:flex;
+      justify-content:space-between;
+      gap:1rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .exhibition-item span:last-child{color:var(--rust);}
+
+    footer.doc-footer{
+      margin-top:8rem;
+      padding:2rem 0;
+      border-top:1px solid #3d2218;
+      font-size:.6rem;
+      display:flex;
+      justify-content:space-between;
+      gap:1rem;
+      color:#8a665c;
+      text-transform:uppercase;
+      flex-wrap:wrap;
+      letter-spacing:.14em;
+    }
+
+    .lb{
       position:fixed;
       inset:0;
-      z-index:9999;
       display:none;
       align-items:center;
       justify-content:center;
-      padding:6vh 4vw;
-      background-color:var(--charcoal);
-      background-image:
-        radial-gradient(circle at 50% 50%, rgba(211,84,0,0.08) 0%, transparent 70%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      padding:4vh 4vw;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(211,84,0,.10) 0%, transparent 70%),
+        rgba(18,18,18,.92);
+      z-index:9999;
     }
-    .carousel-overlay.open{display:flex}
+    .lb.open{display:flex;}
 
-    .carousel-stage{
-      width:min(1200px, 92vw);
-      height:min(78vh, 760px);
-      border:1px solid rgba(255,107,53,0.18);
-      background:rgba(26,15,10,0.55);
-      box-shadow:0 40px 120px rgba(0,0,0,0.75);
-      overflow:hidden;
+    .lb-stage{
       position:relative;
-      transform:perspective(1200px) rotateZ(-1.4deg) rotateY(-3deg);
-      transform-origin:center;
-      display:grid;
-      grid-template-rows:auto 1fr auto;
+      width:min(1200px,94vw);
+      height:min(86vh,900px);
+      border:1px solid rgba(255,107,53,.25);
+      background:rgba(26,15,10,.55);
+      box-shadow:0 40px 100px rgba(0,0,0,.85);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
     }
 
-    .carousel-close{
+    .lb-slide{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:3.5rem 2.5rem 4.25rem;
+      touch-action:pan-y;
+    }
+
+    .lb-slide img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      filter:grayscale(10%) contrast(1.05);
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+
+    .lb-caption{
       position:absolute;
-      top:56px;
-      right:18px;
-      width:34px;
-      height:34px;
+      left:0; right:0; bottom:0;
+      padding:1.15rem 1.5rem;
+      border-top:1px solid rgba(255,107,53,.18);
+      background:rgba(18,18,18,.60);
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+
+    .lb-cap-title{
+      font-family:var(--font-display);
+      font-size:1.15rem;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      color:#f5f0ee;
+      margin:0;
+    }
+
+    .lb-cap-meta{
+      font-size:.7rem;
+      color:var(--rust);
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      white-space:nowrap;
+    }
+
+    .lb-close{
+      position:absolute;
+      top:12px; right:12px;
+      width:34px; height:34px;
       border-radius:999px;
-      border:1px solid rgba(255,107,53,0.35);
-      background:rgba(26,15,10,0.88);
+      border:1px solid rgba(255,107,53,.35);
+      background:rgba(26,15,10,.85);
       color:#fff;
       font-size:16px;
       cursor:pointer;
@@ -340,139 +437,43 @@
       align-items:center;
       justify-content:center;
       line-height:1;
-      z-index:7;
-      box-shadow:0 10px 30px rgba(0,0,0,0.45);
-      -webkit-appearance:none;
-      appearance:none;
+      z-index:2;
     }
-    .carousel-close:hover{border-color:var(--oxide-gold);color:var(--oxide-gold)}
+    .lb-close:hover{border-color:var(--oxide-gold); color:var(--oxide-gold);}
 
-    .film-dots{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      padding:14px 14px;
-      z-index:4;
-      pointer-events:auto;
-      position:relative;
-      background:transparent;
-      user-select:none;
-      -webkit-user-select:none;
-    }
-    .film-dots-top{ grid-row:1; }
-    .film-dots-bottom{ grid-row:3; }
-
-    .film-dot{
-      width:10px;
-      height:10px;
-      border-radius:2px;
-      border:1px solid rgba(255,107,53,0.18);
-      background:rgba(26,15,10,0.25);
-      cursor:pointer;
-      padding:0;
-      appearance:none;
-      -webkit-appearance:none;
-      outline:none;
-    }
-    .film-dot:nth-child(3n){ width:16px; }
-    .film-dot:hover{border-color:rgba(255,107,53,0.35);background:rgba(26,15,10,0.35)}
-    .film-dot.active{border-color:rgba(255,107,53,0.65);background:rgba(255,107,53,0.18)}
-    .film-dot:focus{outline:none}
-
-    .carousel-strip{
-      grid-row:2;
-      width:100%;
-      height:100%;
-      display:flex;
-      overflow-x:auto;
-      overflow-y:hidden;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
-      overscroll-behavior-x:contain;
-      scroll-behavior:smooth;
-      touch-action:pan-x;
-      scrollbar-width:none;
-      cursor:grab;
-      user-select:none;
-      -webkit-user-select:none;
-      background:transparent;
-    }
-    .carousel-strip::-webkit-scrollbar{display:none}
-    .carousel-strip.dragging{cursor:grabbing}
-
-    .carousel-slide{
-      flex:0 0 100%;
-      width:100%;
-      height:100%;
-      scroll-snap-align:center;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:4.25vh 4vw;
-      position:relative;
-      background:transparent;
-    }
-
-    .carousel-media{
-      position:relative;
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .carousel-media img{
-      max-width:100%;
-      max-height:100%;
-      object-fit:contain;
-      filter:grayscale(15%) contrast(1.08) brightness(0.92);
-      box-shadow:0 30px 80px rgba(0,0,0,0.55);
-      border:1px solid rgba(255,107,53,0.14);
-      background:rgba(18,18,18,0.6);
-      display:block;
-    }
-
-    .carousel-note{
+    .lb-arrow{
       position:absolute;
-      right:14px;
-      bottom:14px;
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      gap:10px;
-      z-index:6;
-      max-width:calc(100% - 28px);
-      pointer-events:none;
-    }
-
-    .carousel-caption{
-      font-size:0.65rem;
+      top:50%;
+      transform:translateY(-50%);
+      width:44px; height:44px;
+      border-radius:999px;
+      border:1px solid rgba(255,107,53,.25);
+      background:rgba(26,15,10,.55);
       color:#fff;
-      background:rgba(26,15,10,0.85);
-      border:1px solid rgba(255,107,53,0.35);
-      padding:6px 10px;
-      text-transform:uppercase;
-      letter-spacing:0.14em;
-      text-align:right;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-family:var(--font-mono);
+      font-size:18px;
+      line-height:1;
+      user-select:none;
     }
+    .lb-arrow:hover{
+      border-color:var(--oxide-gold);
+      color:var(--oxide-gold);
+      background:rgba(26,15,10,.75);
+    }
+    .lb-arrow:disabled{opacity:.25; cursor:default;}
+    .lb-prev{left:12px;}
+    .lb-next{right:12px;}
 
-    @media (max-width: 900px){
-      .carousel-stage{
-        transform:perspective(1200px) rotateZ(-1deg) rotateY(-2deg);
-      }
-      .carousel-slide{
-        padding:3vh 4vw;
-      }
-      .carousel-close{
-        top:52px;
-        right:16px;
-        width:32px;
-        height:32px;
-      }
-      .carousel-media img{
-        max-height:60vh;
-      }
+    @media (max-width:900px){
+      .layout{grid-template-columns:64px 1fr;}
+      .stencil-title{font-size:3.2rem;}
+      .archival-columns{grid-template-columns:1fr;gap:3rem;}
+      .detail-grid{grid-template-columns:1fr;}
+      .lb-slide{padding:3.25rem 1rem 4.25rem;}
     }
   </style>
 </head>
@@ -480,285 +481,224 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <a href="../index.html#hero" class="brand" aria-label="Back to home">
+      <a class="brand" href="../index.html" aria-label="Home">
         <img class="brand-img" src="../ogw.png?v=5" alt="White Logo">
       </a>
 
-      <nav class="nav-vertical">
+      <nav class="nav-vertical" aria-label="Site">
         <a href="../index.html#hero" class="nav-link">ARTIST</a>
         <a href="../index.html#about" class="nav-link">ABOUT</a>
         <a href="../index.html#works" class="nav-link active">ARCHIVE</a>
         <a href="../index.html#inquire" class="nav-link">INQUIRE</a>
       </nav>
 
-      <div class="location-tags">
-        <span>ID: BSK-2016</span>
-        <span>WORK: BASTARD SON OF A KING</span>
-      </div>
+      <div class="ref">REF_NO: 815-SGM-ST</div>
     </aside>
 
-    <main class="detail-container">
-      <div class="image-gallery" aria-label="Image gallery">
-        <a class="gallery-item" href="../assets/images/bskbackright.jpg" data-caption="BASTARD SON OF A KING — BACK RIGHT" aria-label="Open Bastard Son of a King back right view">
-          <img src="../assets/images/bskbackright.jpg" alt="Bastard Son of a King back right view">
-        </a>
+    <main class="scrolling-content">
+      <a href="../index.html#sgm" class="back-btn">← RETURN TO ARCHIVE</a>
 
-        <a class="gallery-item" href="../assets/images/bsk.jpg" data-caption="BASTARD SON OF A KING — OVERVIEW" aria-label="Open Bastard Son of a King overview">
-          <img src="../assets/images/bsk.jpg" alt="Bastard Son of a King overview">
-        </a>
-
-        <a class="gallery-item" href="../assets/images/bskbackleft.jpg" data-caption="BASTARD SON OF A KING — BACK LEFT" aria-label="Open Bastard Son of a King back left view">
-          <img src="../assets/images/bskbackleft.jpg" alt="Bastard Son of a King back left view">
-        </a>
-
-        <a class="gallery-item" href="../assets/images/bskhead.jpg" data-caption="BASTARD SON OF A KING — HEAD DETAIL" aria-label="Open Bastard Son of a King head detail">
-          <img src="../assets/images/bskhead.jpg" alt="Bastard Son of a King head detail">
-        </a>
-
-        <a class="gallery-item" href="../assets/images/bskfront.jpg" data-caption="BASTARD SON OF A KING — FRONT VIEW" aria-label="Open Bastard Son of a King front view">
-          <img src="../assets/images/bskfront.jpg" alt="Bastard Son of a King front view">
-        </a>
-      </div>
-
-      <div class="info-panel">
-        <div class="back-nav">
-          <a href="../index.html#bsk" class="back-link">← RETURN TO ARCHIVE</a>
+      <header class="dossier-header">
+        <div>
+          <div class="dossier-id">CATALOG_ID // 2015_SGM_01</div>
+          <h1 class="stencil-title">SOME GLAD<br>MORNING</h1>
         </div>
 
-        <div class="artwork-header">
-          <div class="artwork-label">Project // Archive</div>
-          <h1 class="artwork-main-title">Bastard Son of a King</h1>
+        <div class="dossier-meta">
+          <div>MATERIAL: STEEL</div>
+          <div>YEAR: 2015</div>
+          <div>STATUS: ARCHIVE</div>
+        </div>
+      </header>
+      
+      <section class="detail-grid" aria-label="Images">
+        <div class="detail-frame is-photo" role="button" tabindex="0" aria-label="Open image: Left">
+          <img
+            src="../assets/images/sgmleft.jpg"
+            alt="Some Glad Morning left view"
+            loading="lazy"
+            decoding="async"
+            data-lb-title="Some Glad Morning"
+            data-lb-meta="FIG_01 · LEFT"
+          >
+          <div class="detail-label">FIG_01: LEFT</div>
+        </div>
 
-          <div class="artwork-specs">
-            <div class="spec-item">YEAR <span>2016</span></div>
-            <div class="spec-item">MEDIUM <span>WELDED STEEL, ANIMAL SKULL, AGRICULTURAL TOOLS</span></div>
-            <div class="spec-item">SCALE <span>192 X 36 X 48 IN</span></div>
+        <div class="detail-frame is-photo" role="button" tabindex="0" aria-label="Open image: Overview">
+          <img
+            src="../assets/images/sgm.jpg"
+            alt="Some Glad Morning overview"
+            loading="lazy"
+            decoding="async"
+            data-lb-title="Some Glad Morning"
+            data-lb-meta="FIG_02 · OVERVIEW"
+            onerror="(function(el){var d=document.getElementById('imgDebug'); if(d){d.textContent='Image failed: '+el.src+' | Check filename case and exact path in repo.';}})(this)"
+          >
+          <div class="detail-label">FIG_02: OVERVIEW</div>
+        </div>
+
+        <div class="detail-frame is-photo" role="button" tabindex="0" aria-label="Open image: Right">
+          <img
+            src="../assets/images/sgmright.jpg"
+            alt="Some Glad Morning right view"
+            loading="lazy"
+            decoding="async"
+            data-lb-title="Some Glad Morning"
+            data-lb-meta="FIG_03 · RIGHT"
+            onerror="(function(el){var d=document.getElementById('imgDebug'); if(d){d.textContent='Image failed: '+el.src+' | Check filename case and exact path in repo.';}})(this)"
+          >
+          <div class="detail-label">FIG_03: RIGHT</div>
+        </div>
+      </section>
+
+      <div id="imgDebug" class="img-debug"></div>
+
+      <section class="archival-columns" aria-label="Notes and timeline">
+        <div class="field-notes-section">
+          <div class="section-tag">FIELD NOTES / PROCESS WRITING</div>
+          <div class="notes-body">
+            <p>Some Glad Morning treats steel as both structure and atmosphere. The work holds weight, balance, and silhouette in tension, letting mass read as a kind of pause rather than pure force.</p>
+            <p>The piece was built through cutting, joining, and refining steel elements so the final form could remain direct without losing complexity. Surface and proportion were handled as part of the emotional tone of the work.</p>
+            <p>What stays with the piece is its sense of held arrival. It asks how a sculpture can carry heaviness and still remain open to tenderness, memory, and projection.</p>
           </div>
+
+          <a href="../index.html#sgm" class="back-btn">← RETURN TO ARCHIVE</a>
         </div>
 
-        <div class="artwork-statement">
-          <p>
-            Bastard Son of a King holds together inheritance, labor, and myth through welded steel and found implements. The figure rises from agricultural tools and animal remains, assembling sovereignty out of violence, survival, and rural memory.
-          </p><br>
-          <p>
-            The work treats kingship as something unstable and constructed. It asks what is passed down when power is fractured, and how identity gets built from what is left behind. The sculpture carries both monumentality and damage, refusing a clean lineage.
-          </p>
-        </div>
-
-        <div class="phase-block">
-          <div class="phase-label">DETAILS</div>
-          <div class="phase-img">
-            <img src="../assets/images/bskbroney.jpg" alt="Akim with his dog Broney as a puppy">
+        <aside class="sidebar-data">
+          <div class="section-tag">CREATION TIMELINE</div>
+          <div class="timeline-container">
+            <div class="timeline-item">
+              <div class="timeline-date">EARLY 2015</div>
+              <div class="timeline-event">CONCEPT DEVELOPMENT</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">MID 2015</div>
+              <div class="timeline-event">STEEL FABRICATION</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">LATE 2015</div>
+              <div class="timeline-event">SURFACE FINISHING</div>
+            </div>
           </div>
-        </div>
+        </aside>
+      </section>
 
-        <footer style="margin-top: 8rem; padding: 2rem 0; border-top: 1px solid #3d2218; font-size: 0.6rem; display: flex; justify-content: space-between; gap: 1rem; color: #8a665c; text-transform: uppercase; flex-wrap: wrap;">
-          <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
-          <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
-        </footer>
-      </div>
+      <footer class="doc-footer">
+        <div>DOCUMENT PROPERTY OF AKIM FARROW STUDIOS</div>
+        <div>CLASSIFICATION: ARCHIVAL RECORD // DO NOT DISTRIBUTE</div>
+      </footer>
     </main>
   </div>
 
-  <div class="carousel-overlay" id="carouselOverlay" aria-hidden="true">
-    <div class="carousel-stage" id="carouselStage" role="dialog" aria-modal="true" aria-label="Image carousel">
-      <button class="carousel-close" id="carouselClose" type="button" aria-label="Close">×</button>
+  <!-- Lightbox -->
+  <div class="lb" id="lb" aria-hidden="true">
+    <div class="lb-stage" role="dialog" aria-label="Image viewer">
+      <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+      <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">&lt;</button>
+      <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">&gt;</button>
 
-      <div class="film-dots film-dots-top" id="filmDotsTop" aria-hidden="true"></div>
-      <div class="carousel-strip" id="carouselStrip" tabindex="0"></div>
-      <div class="film-dots film-dots-bottom" id="filmDotsBottom" aria-hidden="true"></div>
+      <div class="lb-slide">
+        <img id="lbImg" src="" alt="">
+      </div>
+
+      <div class="lb-caption">
+        <div class="lb-cap-title" id="lbCapTitle"></div>
+        <div class="lb-cap-meta" id="lbCapMeta"></div>
+      </div>
     </div>
   </div>
 
   <script>
-    const overlay = document.getElementById('carouselOverlay');
-    const strip = document.getElementById('carouselStrip');
-    const closeBtn = document.getElementById('carouselClose');
-    const dotsTop = document.getElementById('filmDotsTop');
-    const dotsBottom = document.getElementById('filmDotsBottom');
-    const figLinks = Array.from(document.querySelectorAll('.gallery-item'));
+    const lb = document.getElementById("lb");
+    const lbClose = document.getElementById("lbClose");
+    const lbPrev = document.getElementById("lbPrev");
+    const lbNext = document.getElementById("lbNext");
+    const lbImg = document.getElementById("lbImg");
+    const lbCapTitle = document.getElementById("lbCapTitle");
+    const lbCapMeta = document.getElementById("lbCapMeta");
 
-    let activeIndex = 0;
-    let rafLock = false;
+    const photoFrames = Array.from(document.querySelectorAll(".detail-frame.is-photo"));
+    const photoImgs = photoFrames.map(f => f.querySelector("img")).filter(Boolean);
 
-    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-    function slideWidth(){ return strip.clientWidth || 1; }
+    const slides = photoImgs.map(img => ({
+      src: img.getAttribute("src"),
+      alt: img.getAttribute("alt") || "",
+      title: img.getAttribute("data-lb-title") || "Some Glad Morning",
+      meta: img.getAttribute("data-lb-meta") || ""
+    }));
 
-    function buildSlides() {
-      strip.innerHTML = '';
+    let idx = 0;
 
-      figLinks.forEach((a) => {
-        const href = a.getAttribute('href');
-        const caption = a.getAttribute('data-caption') || '';
-        const imgEl = a.querySelector('img');
-        const alt = (imgEl && imgEl.getAttribute('alt')) || 'Image';
+    function render() {
+      if (!slides.length) return;
+      const s = slides[idx];
+      lbImg.src = s.src;
+      lbImg.alt = s.alt;
+      lbCapTitle.textContent = s.title;
+      lbCapMeta.textContent = s.meta;
 
-        const slide = document.createElement('div');
-        slide.className = 'carousel-slide';
-
-        const media = document.createElement('div');
-        media.className = 'carousel-media';
-
-        const img = document.createElement('img');
-        img.src = href;
-        img.alt = alt;
-
-        const note = document.createElement('div');
-        note.className = 'carousel-note';
-
-        const cap = document.createElement('div');
-        cap.className = 'carousel-caption';
-        cap.textContent = caption;
-
-        note.appendChild(cap);
-        media.appendChild(img);
-        media.appendChild(note);
-        slide.appendChild(media);
-        strip.appendChild(slide);
-      });
+      const single = slides.length <= 1;
+      lbPrev.disabled = single;
+      lbNext.disabled = single;
     }
 
-    function setActiveDot(idx) {
-      activeIndex = idx;
-      const topButtons = Array.from(dotsTop.querySelectorAll('.film-dot'));
-      const bottomButtons = Array.from(dotsBottom.querySelectorAll('.film-dot'));
-      topButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
-      bottomButtons.forEach((b, i) => b.classList.toggle('active', i === idx));
+    function openLB(startIndex) {
+      if (!slides.length) return;
+      idx = Math.max(0, Math.min(startIndex, slides.length - 1));
+      render();
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
     }
 
-    function goToIndex(idx) {
-      const maxIdx = Math.max(0, figLinks.length - 1);
-      const safe = clamp(idx, 0, maxIdx);
-      strip.scrollLeft = safe * slideWidth();
-      setActiveDot(safe);
+    function closeLB() {
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
     }
 
-    function buildFilmDots() {
-      const count = figLinks.length;
-      dotsTop.innerHTML = '';
-      dotsBottom.innerHTML = '';
-
-      for (let i = 0; i < count; i++) {
-        const b1 = document.createElement('button');
-        b1.type = 'button';
-        b1.className = 'film-dot';
-        b1.setAttribute('aria-label', `Go to image ${i + 1}`);
-        b1.addEventListener('click', () => goToIndex(i));
-
-        const b2 = document.createElement('button');
-        b2.type = 'button';
-        b2.className = 'film-dot';
-        b2.setAttribute('aria-label', `Go to image ${i + 1}`);
-        b2.addEventListener('click', () => goToIndex(i));
-
-        dotsTop.appendChild(b1);
-        dotsBottom.appendChild(b2);
-      }
-
-      setActiveDot(0);
+    function prev() {
+      if (slides.length <= 1) return;
+      idx = (idx - 1 + slides.length) % slides.length;
+      render();
     }
 
-    function openCarouselAt(index) {
-      if (strip.children.length !== figLinks.length) buildSlides();
-      if (dotsTop.children.length !== figLinks.length) buildFilmDots();
-
-      overlay.classList.add('open');
-      overlay.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-
-      requestAnimationFrame(() => {
-        goToIndex(index);
-        strip.setAttribute('tabindex', '0');
-      });
+    function next() {
+      if (slides.length <= 1) return;
+      idx = (idx + 1) % slides.length;
+      render();
     }
 
-    function closeCarousel() {
-      overlay.classList.remove('open');
-      overlay.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    figLinks.forEach((a, idx) => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        openCarouselAt(idx);
+    photoFrames.forEach((frame, i) => {
+      frame.addEventListener("click", () => openLB(i));
+      frame.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openLB(i);
+        }
       });
     });
 
-    if (closeBtn) closeBtn.addEventListener('click', closeCarousel);
+    lbClose.addEventListener("click", closeLB);
+    lbPrev.addEventListener("click", prev);
+    lbNext.addEventListener("click", next);
 
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeCarousel();
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) closeLB();
     });
 
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && overlay.classList.contains('open')) closeCarousel();
+    window.addEventListener("keydown", (e) => {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") closeLB();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
     });
 
-    strip.addEventListener('scroll', () => {
-      if (!overlay.classList.contains('open')) return;
-      if (rafLock) return;
-      rafLock = true;
-      requestAnimationFrame(() => {
-        rafLock = false;
-        const idx = clamp(
-          Math.round(strip.scrollLeft / slideWidth()),
-          0,
-          Math.max(0, figLinks.length - 1)
-        );
-        if (idx !== activeIndex) setActiveDot(idx);
-      });
-    }, { passive: true });
-
-    function handleCarouselWheel(evt) {
-      if (!overlay.classList.contains('open')) return;
-      const dx = Math.abs(evt.deltaX || 0);
-      const dy = Math.abs(evt.deltaY || 0);
-      if (dy > dx) {
-        evt.preventDefault();
-        strip.scrollLeft += (evt.deltaY || 0) * 0.35;
-      }
-    }
-    overlay.addEventListener('wheel', handleCarouselWheel, { passive: false });
-
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragStartScrollLeft = 0;
-
-    strip.addEventListener('pointerdown', (evt) => {
-      if (!overlay.classList.contains('open')) return;
-      if (evt.pointerType !== 'mouse') return;
-
-      isDragging = true;
-      strip.classList.add('dragging');
-      dragStartX = evt.clientX;
-      dragStartScrollLeft = strip.scrollLeft;
-
-      strip.setPointerCapture(evt.pointerId);
-      evt.preventDefault();
-    });
-
-    strip.addEventListener('pointermove', (evt) => {
-      if (!isDragging) return;
-      const dx = evt.clientX - dragStartX;
-      strip.scrollLeft = dragStartScrollLeft - dx;
-      evt.preventDefault();
-    });
-
-    function endDrag(evt) {
-      if (!isDragging) return;
-      isDragging = false;
-      strip.classList.remove('dragging');
-      try { strip.releasePointerCapture(evt.pointerId); } catch (_) {}
-    }
-
-    strip.addEventListener('pointerup', endDrag);
-    strip.addEventListener('pointercancel', endDrag);
-    strip.addEventListener('pointerleave', endDrag);
-
-    window.addEventListener('resize', () => {
-      if (!overlay.classList.contains('open')) return;
-      goToIndex(activeIndex);
+    slides.forEach((s) => {
+      const test = new Image();
+      test.onerror = () => console.warn("Image failed to load:", s.src, "Check exact filename case and location.");
+      test.src = s.src;
     });
   </script>
 </body>
