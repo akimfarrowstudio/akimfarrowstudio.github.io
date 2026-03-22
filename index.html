@@ -893,112 +893,112 @@
             </p>
           </div>
 
-          <form id="commissionForm" vid="181">
-            <div class="form-grid" vid="182">
-              <div class="form-group" vid="183">
-                <label vid="184">Identifier [Name]</label>
-                <input name="name" type="text" placeholder="ENTER FULL NAME" required vid="185">
+            <form id="commissionForm" vid="181">
+              <div class="form-grid" vid="182">
+                <div class="form-group" vid="183">
+                  <label vid="184">Identifier [Name]</label>
+                  <input name="name" type="text" placeholder="ENTER FULL NAME" required vid="185">
+                </div>
+            
+                <div class="form-group" vid="186">
+                  <label vid="187">Frequency [Email]</label>
+                  <input name="email" type="email" placeholder="EMAIL@ADDRESS.COM" required vid="188">
+                </div>
               </div>
-
-              <div class="form-group" vid="186">
-                <label vid="187">Frequency [Email]</label>
-                <input name="email" type="email" placeholder="EMAIL@ADDRESS.COM" required vid="188">
+            
+              <div class="form-grid" style="margin-top: 1rem;">
+                <div class="form-group">
+                  <label>Signal [Phone] (optional)</label>
+                  <input name="phone" type="tel" placeholder="PHONE NUMBER">
+                </div>
+            
+                <div class="form-group">
+                  <label>Timeline</label>
+                  <select name="timeline" required>
+                    <option value="" disabled selected>SELECT TIMELINE</option>
+                    <option>0–3 months</option>
+                    <option>3–6 months</option>
+                    <option>6–12 months</option>
+                    <option>12+ months</option>
+                  </select>
+                </div>
               </div>
-            </div>
-
-            <div class="form-grid" style="margin-top: 1rem;">
-              <div class="form-group">
-                <label>Signal [Phone] (optional)</label>
-                <input name="phone" type="tel" placeholder="PHONE NUMBER">
-              </div>
-
-              <div class="form-group">
-                <label>Timeline</label>
-                <select name="timeline" required>
-                  <option value="" disabled selected>SELECT TIMELINE</option>
-                  <option>0–3 months</option>
-                  <option>3–6 months</option>
-                  <option>6–12 months</option>
-                  <option>12+ months</option>
+            
+              <div class="form-group full-width" vid="189">
+                <label vid="190">Project Scope</label>
+                <select name="scope" required vid="191">
+                  <option value="" disabled selected>SELECT SCOPE</option>
+                  <option>Public Sculpture Installation</option>
+                  <option>Private Collector Piece</option>
+                  <option>Architectural Integrated Work</option>
+                  <option>Gallery Exhibition Request</option>
                 </select>
               </div>
-            </div>
-
-            <div class="form-group full-width" vid="189">
-              <label vid="190">Project Scope</label>
-              <select name="scope" required vid="191">
-                <option value="" disabled selected>SELECT SCOPE</option>
-                <option>Public Sculpture Installation</option>
-                <option>Private Collector Piece</option>
-                <option>Architectural Integrated Work</option>
-                <option>Gallery Exhibition Request</option>
-              </select>
-            </div>
-
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Install Location</label>
-                <input name="location" type="text" placeholder="CITY, STATE OR COUNTRY" required>
+            
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Install Location</label>
+                  <input name="location" type="text" placeholder="CITY, STATE OR COUNTRY" required>
+                </div>
+            
+                <div class="form-group">
+                  <label>Budget Range</label>
+                  <select name="budget" required>
+                    <option value="" disabled selected>SELECT BUDGET</option>
+                    <option>Under $5k</option>
+                    <option>$5k–$15k</option>
+                    <option>$15k–$50k</option>
+                    <option>$50k+</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </div>
               </div>
-
-              <div class="form-group">
-                <label>Budget Range</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>SELECT BUDGET</option>
-                  <option>Under $5k</option>
-                  <option>$5k–$15k</option>
-                  <option>$15k–$50k</option>
-                  <option>$50k+</option>
-                  <option>Not sure yet</option>
-                </select>
+            
+              <div class="form-group full-width" vid="196">
+                <label vid="197">Preferred Material Palette</label>
+                <input type="hidden" name="materials" id="materialsInput" value="Precious Metals" data-default="Precious Metals">
+            
+                <div class="materials-grid" vid="198">
+                  <div class="material-option selected" data-material="Precious Metals" onclick="toggleMaterial(this)" vid="199">Precious Metals</div>
+                  <div class="material-option" data-material="Ferrous Metals" onclick="toggleMaterial(this)" vid="200">Ferrous Metals</div>
+                  <div class="material-option" data-material="Wood" onclick="toggleMaterial(this)" vid="201">Wood</div>
+                  <div class="material-option" data-material="Plastic" onclick="toggleMaterial(this)" vid="202">Plastic</div>
+                  <div class="material-option" data-material="Plaster" onclick="toggleMaterial(this)" vid="203">Plaster</div>
+                  <div class="material-option" data-material="Glass" onclick="toggleMaterial(this)" vid="204">Glass</div>
+                  <div class="material-option" data-material="Clay" onclick="toggleMaterial(this)" vid="205">Clay</div>
+                </div>
               </div>
-            </div>
-
-            <div class="form-group full-width" vid="196">
-              <label vid="197">Preferred Material Palette</label>
-              <input type="hidden" name="materials" id="materialsInput" value="Precious Metals" data-default="Precious Metals">
-
-              <div class="materials-grid" vid="198">
-                <div class="material-option selected" data-material="Precious Metals" onclick="toggleMaterial(this)" vid="199">Precious Metals</div>
-                <div class="material-option" data-material="Ferrous Metals" onclick="toggleMaterial(this)" vid="200">Ferrous Metals</div>
-                <div class="material-option" data-material="Wood" onclick="toggleMaterial(this)" vid="201">Wood</div>
-                <div class="material-option" data-material="Plastic" onclick="toggleMaterial(this)" vid="202">Plastic</div>
-                <div class="material-option" data-material="Plaster" onclick="toggleMaterial(this)" vid="203">Plaster</div>
-                <div class="material-option" data-material="Glass" onclick="toggleMaterial(this)" vid="204">Glass</div>
-                <div class="material-option" data-material="Clay" onclick="toggleMaterial(this)" vid="205">Clay</div>
+            
+              <div class="form-group full-width" style="margin-top: 1.25rem;">
+                <label>Reference PDF (optional)</label>
+            
+                <input id="refPdf" name="refPdf" type="file" accept="application/pdf" />
+            
+                <p style="margin-top: 0.75rem; font-size: 0.72rem; color:#8a665c; text-transform: uppercase; letter-spacing: 0.08em;">
+                  PDF will be uploaded to Drive with your submission.
+                </p>
+            
+                <p id="pdfError" style="margin-top: 0.75rem; font-size: 0.72rem; color:#8a665c; text-transform: uppercase; letter-spacing: 0.08em; display:none;">
+                  ERROR: FILE TOO BIG. SUBMIT AS GOOGLE DRIVE LINK IN REFERENCE LINKS.
+                </p>
               </div>
-            </div>
-
-            <!-- PDF upload (optional) -->
-            <div class="form-group full-width" style="margin-top: 1.25rem;">
-              <label>Reference PDF (optional)</label>
-
-              <input id="refPdf" name="refPdf" type="file" accept="application/pdf" />
-
-              <p style="margin-top: 0.75rem; font-size: 0.72rem; color:#8a665c; text-transform: uppercase; letter-spacing: 0.08em;">
-                PDF will be uploaded to Drive with your submission.
-              </p>
-
-              <p id="pdfError" style="margin-top: 0.75rem; font-size: 0.72rem; color:#8a665c; text-transform: uppercase; letter-spacing: 0.08em; display:none;">
-                ERROR: FILE TOO BIG. SUBMIT AS GOOGLE DRIVE LINK IN REFERENCE LINKS.
-              </p>
-            </div>
-
-            <div class="form-group full-width" vid="206">
-              <label vid="207">Specifications</label>
-              <textarea name="specs" rows="4" placeholder="DIMENSIONS, SITE CONTEXT, CONCEPT, ANY CONSTRAINTS..." required vid="208"></textarea>
-            </div>
-
-            <div class="form-group full-width">
-              <label>Reference Links (optional)</label>
-              <textarea name="links" rows="3" placeholder="PASTE LINKS TO SITE PHOTOS, INSPO, FLOORPLANS, PINTEREST, ETC."></textarea>
-            </div>
-
-            <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
-
-            <button type="submit" class="submit-btn" vid="209">Transmit Request</button>
-            <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
-          </form>
+            
+              <div class="form-group full-width" vid="206">
+                <label vid="207">Specifications</label>
+                <textarea name="specs" rows="4" placeholder="DIMENSIONS, SITE CONTEXT, CONCEPT, ANY CONSTRAINTS..." required vid="208"></textarea>
+              </div>
+            
+              <div class="form-group full-width">
+                <label>Reference Links (optional)</label>
+                <textarea name="links" rows="3" placeholder="PASTE LINKS TO SITE PHOTOS, INSPO, FLOORPLANS, PINTEREST, ETC."></textarea>
+              </div>
+            
+              <input type="text" name="website" id="websiteField" style="display:none" tabindex="-1" autocomplete="off">
+              <input type="hidden" name="formLoadedAt" id="formLoadedAt">
+            
+              <button type="submit" class="submit-btn" vid="209">Transmit Request</button>
+              <p id="formStatus" style="margin-top: 1rem; font-size: 0.8rem; color: #8a665c; text-transform: uppercase; letter-spacing: 0.1em;"></p>
+            </form>
         </div>
       </section>
 
@@ -1104,6 +1104,7 @@ const MAX_PDF_BYTES = 4 * 1024 * 1024;
 
 const form = document.getElementById("commissionForm");
 const statusEl = document.getElementById("formStatus");
+const formLoadedAtInput = document.getElementById("formLoadedAt");
 
 function syncMaterialsInput() {
   const selected = Array.from(document.querySelectorAll(".material-option.selected"))
@@ -1120,7 +1121,17 @@ function syncMaterialsInput() {
     input.value = def;
     return;
   }
+
   input.value = selected.join(", ");
+}
+
+function resetMaterials() {
+  document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
+  const input = document.getElementById("materialsInput");
+  const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
+  const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
+  if (defEl) defEl.classList.add("selected");
+  if (input) input.value = def;
 }
 
 function toggleMaterial(el) {
@@ -1128,8 +1139,18 @@ function toggleMaterial(el) {
   el.classList.toggle("selected");
   syncMaterialsInput();
 }
+
+function stampFormLoadedAt() {
+  if (formLoadedAtInput) {
+    formLoadedAtInput.value = String(Date.now());
+  }
+}
+
 window.toggleMaterial = toggleMaterial;
-window.addEventListener("load", syncMaterialsInput);
+window.addEventListener("load", () => {
+  syncMaterialsInput();
+  stampFormLoadedAt();
+});
 
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
@@ -1173,12 +1194,11 @@ if (form) {
     const file = (pdfInput && pdfInput.files && pdfInput.files[0]) ? pdfInput.files[0] : null;
 
     const fd = new FormData(form);
-    fd.append("page", window.location.href);
-    fd.append("userAgent", navigator.userAgent);
+    fd.set("page", window.location.href);
+    fd.set("userAgent", navigator.userAgent);
 
     const url = WEB_APP_URL + "?t=" + Date.now();
 
-    // No PDF: send as FormData (simple request)
     if (!file) {
       try {
         await fetch(url, {
@@ -1189,19 +1209,14 @@ if (form) {
 
         statusEl.textContent = "RECEIVED.";
         form.reset();
-        document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
-        const input = document.getElementById("materialsInput");
-        const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
-        const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-        if (defEl) defEl.classList.add("selected");
-        if (input) input.value = def;
+        resetMaterials();
+        stampFormLoadedAt();
       } catch (err) {
         statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
       }
       return;
     }
 
-    // PDF present: size gate
     if (file.size > MAX_PDF_BYTES) {
       if (pdfErrorEl) pdfErrorEl.style.display = "block";
       if (pdfInput) pdfInput.value = "";
@@ -1209,10 +1224,10 @@ if (form) {
       return;
     }
 
-    // PDF present: send JSON as TEXT (no headers) to avoid preflight patterns
     try {
       const b64 = await fileToBase64(file);
       const obj = formDataToObject(fd);
+
       obj.refPdfName = file.name || "reference.pdf";
       obj.refPdfMime = file.type || "application/pdf";
       obj.refPdfBase64 = b64;
@@ -1225,12 +1240,8 @@ if (form) {
 
       statusEl.textContent = "RECEIVED.";
       form.reset();
-      document.querySelectorAll(".material-option").forEach(x => x.classList.remove("selected"));
-      const input = document.getElementById("materialsInput");
-      const def = (input && input.getAttribute("data-default")) ? input.getAttribute("data-default") : "Precious Metals";
-      const defEl = document.querySelector(`.material-option[data-material="${CSS.escape(def)}"]`);
-      if (defEl) defEl.classList.add("selected");
-      if (input) input.value = def;
+      resetMaterials();
+      stampFormLoadedAt();
     } catch (err) {
       statusEl.textContent = "NETWORK ERROR. TRY AGAIN.";
     }
