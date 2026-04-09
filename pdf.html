@@ -48,6 +48,206 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #121212; }
         ::-webkit-scrollbar-thumb { background: #3d2218; }
+
+        @page {
+          size: Letter portrait;
+          margin: 0.5in;
+        }
+
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        @media print {
+          html,
+          body {
+            width: 8.5in;
+            height: auto;
+            background: #121212 !important;
+            color: #e8e0dc !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+
+          body {
+            min-height: auto !important;
+            padding: 0 !important;
+            overflow: visible !important;
+            background-color: #121212 !important;
+            background-image:
+              radial-gradient(circle at 50% 0%, rgba(211, 84, 0, 0.08) 0%, transparent 60%),
+              radial-gradient(circle at 50% 100%, rgba(255, 107, 53, 0.03) 0%, transparent 50%),
+              url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E") !important;
+            background-attachment: initial !important;
+            display: block !important;
+          }
+
+          .sheet-frame {
+            width: 7.5in !important;
+            min-height: 10in !important;
+            margin: 0 auto !important;
+            padding: 0.24in !important;
+            border: 1px solid #2c1e18 !important;
+            background: rgba(18, 18, 18, 0.9) !important;
+            box-shadow: none !important;
+            overflow: hidden !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+          }
+
+          .min-h-screen,
+          .flex-grow,
+          .overflow-hidden {
+            min-height: auto !important;
+            overflow: visible !important;
+          }
+
+          header,
+          main,
+          footer,
+          .film-strip,
+          .grid > div {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+
+          header {
+            padding-bottom: 0.12in !important;
+          }
+
+          main {
+            width: 7.5in;
+            margin: 0 auto;
+            gap: 0.18in !important;
+            padding-top: 0.18in !important;
+            padding-bottom: 0.16in !important;
+          }
+
+          .film-strip {
+            padding-top: 0.42in !important;
+            padding-bottom: 0.42in !important;
+            padding-left: 0.18in !important;
+            padding-right: 0.18in !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+          }
+
+          footer {
+            padding-top: 0.14in !important;
+            padding-bottom: 0 !important;
+            margin-top: auto !important;
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+          }
+
+          h1 {
+            font-size: 74pt !important;
+            line-height: 0.88 !important;
+            margin-bottom: 0.08in !important;
+          }
+
+          h2 {
+            font-size: 16pt !important;
+          }
+
+          .text-\[40vw\] {
+            font-size: 28vw !important;
+            opacity: 0.32 !important;
+          }
+
+          .grid-cols-2,
+          .md\:grid-cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+          }
+
+          .grid {
+            display: grid !important;
+          }
+
+          .gap-4,
+          .md\:gap-6 {
+            gap: 0.14in !important;
+          }
+
+          .film-strip > .film-meta-top-left,
+          .film-strip > .film-meta-bottom-left {
+            display: flex !important;
+          }
+
+          .film-strip > .film-meta-top-right,
+          .film-strip > .film-meta-bottom-right {
+            display: block !important;
+          }
+
+          .sheet-frame > .page-corner-mark {
+            display: block !important;
+          }
+
+          img {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+
+          .group img,
+          .group:hover img {
+            filter: grayscale(60%) contrast(120%) brightness(0.75) !important;
+            transform: none !important;
+          }
+
+          .transition-all,
+          .transition-colors,
+          .transition-transform,
+          .duration-500 {
+            transition: none !important;
+          }
+
+          .group-hover\:translate-x-1,
+          .group:hover .group-hover\:translate-x-1 {
+            transform: none !important;
+          }
+
+          .hover\:text-oxide-gold:hover,
+          button:hover {
+            color: inherit !important;
+          }
+
+          button {
+            pointer-events: none !important;
+          }
+
+          .backdrop-blur-sm {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+          }
+
+          .mix-blend-difference {
+            mix-blend-mode: normal !important;
+          }
+
+          .shadow-2xl {
+            box-shadow: none !important;
+          }
+
+          .sheet-frame,
+          header,
+          main,
+          footer,
+          .film-strip,
+          .grid,
+          .grid > div {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+          }
+
+          body,
+          .sheet-frame {
+            page-break-inside: avoid !important;
+          }
+        }
     </style>
 
   <style type="text/css">
@@ -1131,13 +1331,13 @@ video {
 <body class="noise-bg font-mono min-h-screen w-full flex flex-col p-4 sm:p-8 md:p-12" vid="11">
 
     
-    <div class="relative w-full h-full flex-grow flex flex-col justify-between p-6 sm:p-10 md:p-16 border border-[#2c1e18] bg-[#121212]/90 backdrop-blur-sm shadow-2xl overflow-hidden" vid="12">
+    <div class="sheet-frame relative w-full h-full flex-grow flex flex-col justify-between p-6 sm:p-10 md:p-16 border border-[#2c1e18] bg-[#121212]/90 backdrop-blur-sm shadow-2xl overflow-hidden" vid="12">
         
         
-        <div class="absolute top-8 left-8 w-6 h-6 border-t border-l border-[#4d2d1d] opacity-50 pointer-events-none hidden sm:block" vid="13"></div>
-        <div class="absolute top-8 right-8 w-6 h-6 border-t border-r border-[#4d2d1d] opacity-50 pointer-events-none hidden sm:block" vid="14"></div>
-        <div class="absolute bottom-8 left-8 w-6 h-6 border-b border-l border-[#4d2d1d] opacity-50 pointer-events-none hidden sm:block" vid="15"></div>
-        <div class="absolute bottom-8 right-8 w-6 h-6 border-b border-r border-[#4d2d1d] opacity-50 pointer-events-none hidden sm:block" vid="16"></div>
+        <div class="page-corner-mark absolute top-8 left-8 w-6 h-6 border-t border-l border-[#4d2d1d] opacity-50 pointer-events-none hidden sm:block" vid="13"></div>
+        <div class="page-corner-mark absolute top-8 right-8 w-6 h-6 border-t border-r border-[#4d2d1d] opacity-50 pointer-events-none hidden sm:block" vid="14"></div>
+        <div class="page-corner-mark absolute bottom-8 left-8 w-6 h-6 border-b border-l border-[#4d2d1d] opacity-50 pointer-events-none hidden sm:block" vid="15"></div>
+        <div class="page-corner-mark absolute bottom-8 right-8 w-6 h-6 border-b border-r border-[#4d2d1d] opacity-50 pointer-events-none hidden sm:block" vid="16"></div>
 
         
         <header class="flex flex-col border-b border-[#3d2218] pb-6 relative z-10 w-full" vid="17">
@@ -1167,11 +1367,11 @@ video {
                     <div class="sprocket-holes absolute top-2 left-0 right-0 opacity-80" vid="29"></div>
                     
                     
-                    <div class="absolute top-6 left-8 film-edge-text flex gap-8 hidden sm:flex" vid="30">
+                    <div class="film-meta-top-left absolute top-6 left-8 film-edge-text flex gap-8 hidden sm:flex" vid="30">
                         <span vid="31">KODAK 400TX</span>
                         <span class="text-[#333]" vid="32">▶</span>
                     </div>
-                    <div class="absolute top-6 right-8 film-edge-text hidden sm:block" vid="33">
+                    <div class="film-meta-top-right absolute top-6 right-8 film-edge-text hidden sm:block" vid="33">
                         <span vid="34">STUDIO REF: ZW/CHI</span>
                     </div>
 
@@ -1213,12 +1413,12 @@ video {
                     </div>
 
                     
-                    <div class="absolute bottom-6 left-8 film-edge-text hidden sm:flex" vid="52">
+                    <div class="film-meta-bottom-left absolute bottom-6 left-8 film-edge-text hidden sm:flex" vid="52">
                         <span vid="53">1</span>
                         <span class="ml-16" vid="54">1A</span>
                         <span class="ml-16" vid="55">2</span>
                     </div>
-                    <div class="absolute bottom-6 right-8 film-edge-text hidden sm:block" vid="56">
+                    <div class="film-meta-bottom-right absolute bottom-6 right-8 film-edge-text hidden sm:block" vid="56">
                         <span vid="57">SAF-TY FILM</span>
                     </div>
 
