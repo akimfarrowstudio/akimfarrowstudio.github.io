@@ -113,7 +113,7 @@
             width: 8.5in !important;
             max-width: none !important;
             margin: 0 auto !important;
-            padding: 0.28in 0.3in !important;
+            padding: 0.34in 0.34in !important;
             gap: 0 !important;
             background: transparent !important;
             box-sizing: border-box !important;
@@ -121,15 +121,15 @@
 
           .print-page {
             width: 100% !important;
-            min-height: calc(11in - 0.56in) !important;
-            height: calc(11in - 0.56in) !important;
+            min-height: calc(11in - 0.68in) !important;
+            height: auto !important;
             margin: 0 auto !important;
             padding: 0 !important;
             display: flex !important;
             flex-direction: column !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
             position: relative !important;
-            overflow: hidden !important;
+            overflow: visible !important;
             break-after: page !important;
             page-break-after: always !important;
             background: transparent !important;
@@ -144,8 +144,8 @@
           .print-page--cover,
           .print-page--middle,
           .print-page--final {
-            justify-content: center !important;
             width: 100% !important;
+            justify-content: flex-start !important;
             padding-top: 0 !important;
             padding-bottom: 0 !important;
           }
@@ -173,7 +173,7 @@
             max-width: none !important;
             margin-left: auto !important;
             margin-right: auto !important;
-            padding-bottom: 0.06in !important;
+            padding-bottom: 0.05in !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
             box-sizing: border-box !important;
@@ -217,17 +217,17 @@
           }
 
           .film-strip .grid {
-            gap: 0.09in !important;
+            gap: 0.07in !important;
           }
 
           .film-strip .px-6 {
-            padding-left: 0.12in !important;
-            padding-right: 0.12in !important;
+            padding-left: 0.1in !important;
+            padding-right: 0.1in !important;
           }
 
           .film-strip .py-4 {
-            padding-top: 0.08in !important;
-            padding-bottom: 0.08in !important;
+            padding-top: 0.07in !important;
+            padding-bottom: 0.07in !important;
           }
 
           .hidden.sm\:flex,
@@ -266,8 +266,8 @@
           footer {
             width: 100% !important;
             max-width: none !important;
-            margin: 0.05in auto 0 auto !important;
-            padding-top: 0.05in !important;
+            margin: 0.04in auto 0 auto !important;
+            padding-top: 0.04in !important;
             padding-bottom: 0 !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
@@ -308,53 +308,70 @@
           }
 
           .print-page--cover h1 {
-            font-size: 54pt !important;
-            line-height: 0.86 !important;
+            font-size: 48pt !important;
+            line-height: 0.84 !important;
           }
 
           .print-page--cover h2 {
-            font-size: 12pt !important;
+            font-size: 11pt !important;
             line-height: 1 !important;
           }
 
           .print-page--cover .mt-4 {
-            margin-top: 0.06in !important;
+            margin-top: 0.045in !important;
           }
 
           .print-page--cover .mt-2 {
-            margin-top: 0.03in !important;
+            margin-top: 0.025in !important;
           }
 
           .print-page--cover .text-xs {
-            font-size: 7.5px !important;
-            line-height: 1.05 !important;
-          }
-
-          .print-page--cover .text-\[10px\] {
-            font-size: 7.5px !important;
-            line-height: 1.05 !important;
-          }
-
-          .film-strip .text-\[10px\] {
-            font-size: 8px !important;
-            line-height: 1.1 !important;
-          }
-
-          .film-strip .text-\[9px\] {
             font-size: 7px !important;
             line-height: 1 !important;
           }
 
-          .film-strip .text-\[8px\] {
+          .print-page--cover .text-\[10px\] {
+            font-size: 7px !important;
+            line-height: 1 !important;
+          }
+
+          .film-strip .text-\[10px\] {
+            font-size: 7.5px !important;
+            line-height: 1.05 !important;
+          }
+
+          .film-strip .text-\[9px\] {
             font-size: 6.5px !important;
             line-height: 1 !important;
           }
 
-          .film-meta-row {
-            padding-top: 0.03in !important;
-            padding-bottom: 0.03in !important;
-            font-size: 6.5px !important;
+          .film-strip .text-\[8px\] {
+            font-size: 6px !important;
             line-height: 1 !important;
+          }
+
+          .film-meta-row {
+            padding-top: 0.025in !important;
+            padding-bottom: 0.025in !important;
+            font-size: 6px !important;
+            line-height: 1 !important;
+          }
+
+          .print-page--final footer {
+            margin-top: 0.03in !important;
+            padding-top: 0.03in !important;
+          }
+
+          .print-page--cover .film-strip,
+          .print-page--middle .film-strip,
+          .print-page--final .film-strip {
+            transform: scale(0.96);
+            transform-origin: top center;
+          }
+
+          .print-page--cover header {
+            transform: scale(0.96);
+            transform-origin: top left;
           }
         }
     </style>
