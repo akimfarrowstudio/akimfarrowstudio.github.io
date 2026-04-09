@@ -235,14 +235,33 @@
             display: flex !important;
           }
 
-          .photo-frame,
-          .grid > div {
-            break-inside: avoid;
-            page-break-inside: avoid;
+          .photo-frame {
+            aspect-ratio: auto !important;
+            width: 100% !important;
+            height: 1.62in !important;
+            min-height: 1.62in !important;
+            max-height: 1.62in !important;
+            overflow: hidden !important;
+            flex: 0 0 1.62in !important;
           }
 
-          .photo-frame {
-            aspect-ratio: 3 / 2 !important;
+          .grid > div {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+            min-height: 0 !important;
+          }
+
+          .photo-frame img,
+          .photo-frame video {
+            width: 100% !important;
+            height: 100% !important;
+            min-width: 100% !important;
+            min-height: 100% !important;
+            max-width: none !important;
+            max-height: none !important;
+            object-fit: cover !important;
+            object-position: center center !important;
+            display: block !important;
           }
 
           .photo-frame img {
@@ -371,13 +390,6 @@
           .print-page--final .film-strip {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
-            transform: scale(0.96);
-            transform-origin: top center;
-          }
-
-          .print-page--cover header {
-            transform: scale(0.96);
-            transform-origin: top left;
           }
 
 
