@@ -37,6 +37,240 @@
         .sidebar-scroll::-webkit-scrollbar { width: 4px; }
         .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
         .sidebar-scroll::-webkit-scrollbar-thumb { background: #3d2218; }
+
+        @page {
+          size: Letter portrait;
+          margin: 0.5in;
+        }
+
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        @media print {
+          html,
+          body {
+            width: 8.5in;
+            height: auto;
+            background: #050505 !important;
+            color: #e8e0dc !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+
+          body {
+            min-height: auto !important;
+            padding: 0 !important;
+            overflow: visible !important;
+            background-color: #050505 !important;
+            background-image: none !important;
+            display: block !important;
+          }
+
+          body > div {
+            width: 7.5in !important;
+            height: 10in !important;
+            min-height: 10in !important;
+            margin: 0 auto !important;
+            overflow: hidden !important;
+            box-shadow: none !important;
+            border: 1px solid #2c1e18 !important;
+            background-color: #121212 !important;
+            display: flex !important;
+            flex-direction: column !important;
+          }
+
+          .sidebar-scroll,
+          .overflow-y-auto,
+          .overflow-hidden,
+          body,
+          main,
+          section,
+          div {
+            scrollbar-width: none !important;
+          }
+
+          .sidebar-scroll,
+          .overflow-y-auto {
+            overflow: visible !important;
+            max-height: none !important;
+          }
+
+          .w-\[32\%\],
+          .w-\[68\%\] {
+            height: auto !important;
+          }
+
+          .flex-1 {
+            flex: 1 1 auto !important;
+          }
+
+          .text-oxide-gold {
+            color: #ff6b35 !important;
+          }
+
+          .text-rust {
+            color: #d35400 !important;
+          }
+
+          .text-\[\#e8e0dc\] {
+            color: #e8e0dc !important;
+          }
+
+          .text-\[\#c8b8b0\] {
+            color: #c8b8b0 !important;
+          }
+
+          .text-\[\#8a665c\] {
+            color: #8a665c !important;
+          }
+
+          .text-steel {
+            color: #2c1e18 !important;
+          }
+
+          .bg-charcoal {
+            background-color: #121212 !important;
+          }
+
+          .bg-void {
+            background-color: #1a0f0a !important;
+          }
+
+          .bg-rust {
+            background-color: #d35400 !important;
+          }
+
+          .border-steel {
+            border-color: #2c1e18 !important;
+          }
+
+          .border-rust {
+            border-color: #d35400 !important;
+          }
+
+          .border-oxide-gold {
+            border-color: #ff6b35 !important;
+          }
+
+          .w-\[816px\] {
+            width: 7.5in !important;
+          }
+
+          .h-\[1056px\] {
+            height: 10in !important;
+          }
+
+          .w-screen,
+          .h-screen {
+            width: auto !important;
+            height: auto !important;
+          }
+
+          .px-10 {
+            padding-left: 0.32in !important;
+            padding-right: 0.32in !important;
+          }
+
+          .px-6 {
+            padding-left: 0.2in !important;
+            padding-right: 0.2in !important;
+          }
+
+          .py-8 {
+            padding-top: 0.2in !important;
+            padding-bottom: 0.2in !important;
+          }
+
+          .text-\[72px\] {
+            font-size: 58pt !important;
+            line-height: 0.9 !important;
+          }
+
+          .text-2xl,
+          .text-xl {
+            font-size: 1.15rem !important;
+            line-height: 1.3 !important;
+          }
+
+          .text-\[12px\] {
+            font-size: 11px !important;
+          }
+
+          .text-\[11px\] {
+            font-size: 10px !important;
+          }
+
+          .text-\[10px\] {
+            font-size: 9px !important;
+          }
+
+          .text-\[9\.5px\] {
+            font-size: 8.75px !important;
+          }
+
+          .text-\[9px\] {
+            font-size: 8.25px !important;
+          }
+
+          .text-\[8\.5px\] {
+            font-size: 8px !important;
+          }
+
+          .leading-\[1\.8\] {
+            line-height: 1.5 !important;
+          }
+
+          .leading-\[1\.7\] {
+            line-height: 1.45 !important;
+          }
+
+          .gap-6 {
+            gap: 0.8rem !important;
+          }
+
+          .gap-3\.5 {
+            gap: 0.55rem !important;
+          }
+
+          .gap-3 {
+            gap: 0.45rem !important;
+          }
+
+          .mb-8 {
+            margin-bottom: 1rem !important;
+          }
+
+          .mb-5 {
+            margin-bottom: 0.6rem !important;
+          }
+
+          .mb-4 {
+            margin-bottom: 0.5rem !important;
+          }
+
+          div[vid="24"],
+          div[vid="116"] {
+            overflow: hidden !important;
+          }
+
+          div[vid="150"] {
+            overflow: hidden !important;
+            max-height: none !important;
+          }
+
+          body > div > div:nth-child(2) {
+            flex: 1 1 auto !important;
+            min-height: 0 !important;
+          }
+
+          body > div > div:first-child,
+          body > div > div:last-child {
+            flex-shrink: 0 !important;
+          }
+        }
     </style>
 
   <style type="text/css">
@@ -1231,7 +1465,7 @@ video {
                         Artist
                     </div>
                     <p class="text-[9.5px] text-[#c8b8b0] leading-[1.8] max-w-[95%]" vid="121">
-                        Chicago-based sculptor and fabrication professional with an MFA in Sculpture from the School of the Art Institute of Chicago and extensive experience supporting academic studio and shop facilities. Background includes operating and maintaining metal, wood, plaster, and digital fabrication studios in high-use instructional environments. Experienced in equipment maintenance, studio preparation, safety oversight, and student support across foundry and fabrication settings.
+                        Chicago-based sculptor and fabrication professional with an MFA in Sculpture from the School of the Art Institute of Chicago. Experienced in foundry instruction, equipment maintenance, studio preparation, fabrication workflows, and safety support in high-use academic and professional shop environments.
                     </p>
                     
                     
@@ -1289,7 +1523,7 @@ video {
                             </div>
                             <div class="text-[12px] font-bold text-[#e8e0dc] uppercase tracking-wider mb-1.5" vid="161">Working Artist and Fabricator</div>
                             <p class="text-[9.5px] text-[#c8b8b0] leading-[1.7]" vid="162">
-                                Maintained an active professional sculpture and fabrication practice producing commissioned works for private clients and organizations. Managing projects from proposal through fabrication and installation, including budgeting, scheduling, material sourcing, and client coordination. Operated and maintained a metalworking studio supporting welding, casting, and mixed fabrication processes.
+                                Maintained an active sculpture and fabrication practice producing commissioned work for private clients and organizations. Managed projects from proposal through installation, including fabrication, sourcing, scheduling, and studio operations.
                             </p>
                         </div>
                         
@@ -1303,7 +1537,7 @@ video {
                             </div>
                             <div class="text-[12px] font-bold text-[#e8e0dc] uppercase tracking-wider mb-1.5" vid="169">Advanced Foundry TA</div>
                             <p class="text-[9.5px] text-[#c8b8b0] leading-[1.7]" vid="170">
-                                Supported advanced bronze casting courses through foundry preparation, equipment maintenance, and technical assistance during pours. Assisted students with mold setup, metal handling, and post-cast cleanup while enforcing safety protocols in a high-risk instructional environment.
+                                Supported advanced bronze casting courses through foundry preparation, equipment maintenance, and technical assistance during pours. Assisted with mold setup, metal handling, cleanup, and safety enforcement in a high-risk instructional environment.
                             </p>
                         </div>
                         
@@ -1317,7 +1551,7 @@ video {
                             </div>
                             <div class="text-[12px] font-bold text-[#e8e0dc] uppercase tracking-wider mb-1.5" vid="177">Introduction to Foundry TA</div>
                             <p class="text-[9.5px] text-[#c8b8b0] leading-[1.7]" vid="178">
-                                Supported introductory foundry courses guiding students with no prior foundry experience through bronze and aluminum casting processes. Prepared studios for instruction, assisted with demonstrations, and reinforced safety procedures during pours and open studio hours.
+                                Supported introductory foundry courses guiding students through bronze and aluminum casting processes. Prepared studios, assisted with demonstrations, and reinforced safety procedures during pours and open studio hours.
                             </p>
                         </div>
                         
@@ -1331,7 +1565,7 @@ video {
                             </div>
                             <div class="text-[12px] font-bold text-[#e8e0dc] uppercase tracking-wider mb-1.5" vid="185">Mold Making TA</div>
                             <p class="text-[9.5px] text-[#c8b8b0] leading-[1.7]" vid="186">
-                                Supported instruction in advanced moldmaking techniques, including complex parting strategies and flexible mold systems. Prepared materials and studios for instruction and assisted students through multi-step mold fabrication processes with an emphasis on precision and safety.
+                                Supported instruction in advanced moldmaking techniques, including complex parting strategies and flexible mold systems. Prepared materials and studios and assisted students through multi-step mold fabrication with an emphasis on precision and safety.
                             </p>
                         </div>
 
