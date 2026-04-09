@@ -55,13 +55,33 @@
         }
 
         @media screen {
+          body {
+            padding-left: 0;
+            padding-right: 0;
+          }
+
+          main {
+            width: 100%;
+            max-width: 980px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
           .print-page {
-            width: auto;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
             min-height: auto;
             height: auto;
             background: transparent;
             break-after: auto;
             page-break-after: auto;
+          }
+
+          .film-strip {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
           }
         }
 
@@ -92,17 +112,18 @@
           main {
             width: 8.5in !important;
             max-width: none !important;
-            margin: 0 !important;
-            padding: 0.32in !important;
+            margin: 0 auto !important;
+            padding: 0.22in 0.24in !important;
             gap: 0 !important;
             background: transparent !important;
+            box-sizing: border-box !important;
           }
 
           .print-page {
             width: 100% !important;
-            min-height: calc(11in - 0.64in) !important;
-            height: calc(11in - 0.64in) !important;
-            margin: 0 !important;
+            min-height: calc(11in - 0.44in) !important;
+            height: calc(11in - 0.44in) !important;
+            margin: 0 auto !important;
             padding: 0 !important;
             display: flex !important;
             flex-direction: column !important;
@@ -111,6 +132,7 @@
             break-after: page !important;
             page-break-after: always !important;
             background: transparent !important;
+            box-sizing: border-box !important;
           }
 
           .print-page:last-of-type {
@@ -166,13 +188,26 @@
           }
 
           .film-strip {
-            width: 100%;
-            margin: 0 auto !important;
+            width: 100% !important;
+            max-width: none !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            align-self: center !important;
             break-inside: avoid;
             page-break-inside: avoid;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
             background: #050505 !important;
             flex-shrink: 0 !important;
+            box-sizing: border-box !important;
+          }
+
+          header,
+          footer {
+            width: 100% !important;
+            max-width: none !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            box-sizing: border-box !important;
           }
 
           .grid {
@@ -233,8 +268,8 @@
           }
 
           footer {
-            margin-top: 0.12in !important;
-            padding-top: 0.12in !important;
+            margin-top: 0.08in !important;
+            padding-top: 0.08in !important;
             padding-bottom: 0 !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
@@ -1129,7 +1164,7 @@ video {
       height: 0 !important;
     }
   </style></head>
-<body class="w-full min-h-screen font-mono flex flex-col py-12 px-6 sm:px-12 md:px-16 overflow-x-hidden" vid="11">
+<body class="w-full min-h-screen font-mono flex flex-col py-8 px-4 sm:px-6 md:px-8 overflow-x-hidden" vid="11">
 
     <main class="w-full flex flex-col gap-10 relative" vid="12">
         <section class="print-page print-page--cover">
@@ -1203,11 +1238,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="68">
                             <div class="flex justify-between text-rust" vid="69">
-                                <span class="font-bold" vid="70">01 // Echoes</span>
+                                <span class="font-bold" vid="70">01 // MOLD SETUP</span>
                                 <span vid="71">2023</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="72">Corten Steel · 14'x8'x6'</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="73">Study of ancient geometries</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="72">SILICONE + PLASTER</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="73">INITIAL POUR PREP</span>
                         </div>
                     </div>
                     
@@ -1220,11 +1255,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="78">
                             <div class="flex justify-between text-rust" vid="79">
-                                <span class="font-bold" vid="80">02 // Surface</span>
+                                <span class="font-bold" vid="80">02 // WAX STAGE</span>
                                 <span vid="81">2023</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="82">Oxidized Detail View</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="83">Natural patina progression</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="82">WAX POSITIVE</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="83">SURFACE CLEANUP</span>
                         </div>
                     </div>
                     
@@ -1235,11 +1270,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="88">
                             <div class="flex justify-between text-rust" vid="89">
-                                <span class="font-bold" vid="90">03 // Profile</span>
+                                <span class="font-bold" vid="90">03 // DEMOLD</span>
                                 <span vid="91">2023</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="92">Installation Context</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="93">Negative space interaction</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="92">CAST RELEASE</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="93">EARLY EXTRACTION</span>
                         </div>
                     </div>
                     
@@ -1250,11 +1285,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="98">
                             <div class="flex justify-between text-rust" vid="99">
-                                <span class="font-bold" vid="100">04 // Orbit</span>
+                                <span class="font-bold" vid="100">04 // ASSEMBLY</span>
                                 <span vid="101">2022</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="102">Bronze &amp; Circuitry</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="103">Ancestral memory cast</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="102">WALL TEST FIT</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="103">PART ALIGNMENT</span>
                         </div>
                     </div>
                 </div>
@@ -1305,11 +1340,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="136">
                             <div class="flex justify-between text-rust" vid="137">
-                                <span class="font-bold" vid="138">05 // Future V</span>
+                                <span class="font-bold" vid="138">05 // PATINA TEST</span>
                                 <span vid="139">2021</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="140">Mixed Media · 6'x4'x2'</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="141">Industrial decay study</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="140">SURFACE SAMPLE</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="141">COLOR CHECK</span>
                         </div>
                     </div>
                     
@@ -1320,11 +1355,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="146">
                             <div class="flex justify-between text-rust" vid="147">
-                                <span class="font-bold" vid="148">06 // Foundry 4</span>
+                                <span class="font-bold" vid="148">06 // HAND BUILD</span>
                                 <span vid="149">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="150">Cast Iron</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="151">Process documentation</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="150">WAX REFINEMENT</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="151">DETAIL PASS</span>
                         </div>
                     </div>
                     
@@ -1335,11 +1370,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="156">
                             <div class="flex justify-between text-rust" vid="157">
-                                <span class="font-bold" vid="158">07 // Ignition</span>
+                                <span class="font-bold" vid="158">07 // INVESTMENT</span>
                                 <span vid="159">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="160">Studio Archive</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="161">Plasma cutter sequence</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="160">SHELL BUILD</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="161">KILN READY</span>
                         </div>
                     </div>
                     
@@ -1350,11 +1385,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="166">
                             <div class="flex justify-between text-rust" vid="167">
-                                <span class="font-bold" vid="168">08 // Tools</span>
+                                <span class="font-bold" vid="168">08 // FABRICATION</span>
                                 <span vid="169">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="170">Chicago Studio</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="171">Implements of creation</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="170">WING SECTION</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="171">JOINERY REVIEW</span>
                         </div>
                     </div>
                 </div>
@@ -1405,11 +1440,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="204">
                             <div class="flex justify-between text-rust" vid="205">
-                                <span class="font-bold" vid="206">09 // Monolith</span>
+                                <span class="font-bold" vid="206">09 // FOAM CARVE</span>
                                 <span vid="207">2021</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="208">Forged Steel · 8'x3'x3'</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="209">Vertical form study</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="208">FORM BLOCKOUT</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="209">SCALE CHECK</span>
                         </div>
                     </div>
                     
@@ -1420,11 +1455,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="214">
                             <div class="flex justify-between text-rust" vid="215">
-                                <span class="font-bold" vid="216">10 // Kinetic</span>
+                                <span class="font-bold" vid="216">10 // FITTING</span>
                                 <span vid="217">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="218">Action Documentation</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="219">Grinding wheel sparks</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="218">WEAR TEST</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="219">IN CLASS REVIEW</span>
                         </div>
                     </div>
                     
@@ -1435,11 +1470,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="224">
                             <div class="flex justify-between text-rust" vid="225">
-                                <span class="font-bold" vid="226">11 // Slag Pile</span>
+                                <span class="font-bold" vid="226">11 // HANG TEST</span>
                                 <span vid="227">2022</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="228">Reclaimed Materials</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="229">Texture cataloging</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="228">SUSPENSION MOCKUP</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="229">BALANCE CHECK</span>
                         </div>
                     </div>
                     
@@ -1450,11 +1485,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="234">
                             <div class="flex justify-between text-rust" vid="235">
-                                <span class="font-bold" vid="236">12 // Ancestor</span>
+                                <span class="font-bold" vid="236">12 // INSTALL</span>
                                 <span vid="237">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="238">Bronze &amp; Corten</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="239">Exhibition ready state</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="238">FINAL HANG</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="239">CRIT READY</span>
                         </div>
                     </div>
                 </div>
@@ -1488,3 +1523,8 @@ video {
 
 
 </body></html>
+          .print-page--cover,
+          .print-page--middle,
+          .print-page--final {
+            width: 100% !important;
+          }
