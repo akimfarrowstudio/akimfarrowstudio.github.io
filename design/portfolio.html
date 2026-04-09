@@ -115,7 +115,7 @@
             width: 8.5in !important;
             max-width: none !important;
             margin: 0 auto !important;
-            padding: 0.2in 0.22in !important;
+            padding: 0.28in 0.3in !important;
             gap: 0 !important;
             background: transparent !important;
             box-sizing: border-box !important;
@@ -123,12 +123,13 @@
 
           .print-page {
             width: 100% !important;
-            min-height: calc(11in - 0.4in) !important;
-            height: calc(11in - 0.4in) !important;
+            min-height: calc(11in - 0.56in) !important;
+            height: calc(11in - 0.56in) !important;
             margin: 0 auto !important;
             padding: 0 !important;
             display: flex !important;
             flex-direction: column !important;
+            justify-content: center !important;
             position: relative !important;
             overflow: hidden !important;
             break-after: page !important;
@@ -142,23 +143,12 @@
             page-break-after: auto;
           }
 
-          .print-page--cover {
-            justify-content: flex-start !important;
-            padding-top: 0.06in !important;
-            padding-bottom: 0.03in !important;
-            gap: 0.1in !important;
-          }
-
-          .print-page--middle {
+          .print-page--cover,
+          .print-page--middle,
+          .print-page--final {
             justify-content: center !important;
             padding-top: 0 !important;
             padding-bottom: 0 !important;
-          }
-
-          .print-page--final {
-            justify-content: space-between !important;
-            padding-top: 0.04in !important;
-            padding-bottom: 0.03in !important;
           }
 
           .print-page::before {
@@ -180,9 +170,14 @@
           }
 
           header {
-            padding-bottom: 0.08in !important;
-            break-inside: avoid;
-            page-break-inside: avoid;
+            width: 100% !important;
+            max-width: none !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding-bottom: 0.06in !important;
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+            box-sizing: border-box !important;
           }
 
           header .gap-6 {
@@ -190,30 +185,31 @@
           }
 
           .print-page--cover h1 {
-            font-size: 60pt !important;
-            line-height: 0.88 !important;
+            font-size: 54pt !important;
+            line-height: 0.86 !important;
           }
 
           .print-page--cover h2 {
-            font-size: 13pt !important;
+            font-size: 12pt !important;
             line-height: 1 !important;
           }
 
           .print-page--cover .mt-4 {
-            margin-top: 0.08in !important;
+            margin-top: 0.06in !important;
           }
 
           .print-page--cover .mt-2 {
-            margin-top: 0.04in !important;
+            margin-top: 0.03in !important;
           }
 
           .print-page--cover .text-xs {
-            font-size: 8px !important;
-            line-height: 1.1 !important;
+            font-size: 7.5px !important;
+            line-height: 1.05 !important;
           }
 
           .print-page--cover .text-\[10px\] {
-            font-size: 8px !important;
+            font-size: 7.5px !important;
+            line-height: 1.05 !important;
           }
 
           .print-page--cover .film-strip {
@@ -245,32 +241,32 @@
           }
 
           .film-strip .grid {
-            gap: 0.11in !important;
+            gap: 0.09in !important;
           }
 
           .film-strip .px-6 {
-            padding-left: 0.14in !important;
-            padding-right: 0.14in !important;
+            padding-left: 0.12in !important;
+            padding-right: 0.12in !important;
           }
 
           .film-strip .py-4 {
-            padding-top: 0.1in !important;
-            padding-bottom: 0.1in !important;
+            padding-top: 0.08in !important;
+            padding-bottom: 0.08in !important;
           }
 
           .film-strip .text-\[10px\] {
-            font-size: 8.5px !important;
-            line-height: 1.15 !important;
+            font-size: 8px !important;
+            line-height: 1.1 !important;
           }
 
           .film-strip .text-\[9px\] {
-            font-size: 7.5px !important;
-            line-height: 1.05 !important;
+            font-size: 7px !important;
+            line-height: 1 !important;
           }
 
           .film-strip .text-\[8px\] {
-            font-size: 7px !important;
-            line-height: 1.05 !important;
+            font-size: 6.5px !important;
+            line-height: 1 !important;
           }
 
           .hidden.sm\:flex,
@@ -279,9 +275,9 @@
           }
 
           .film-meta-row {
-            padding-top: 0.04in !important;
-            padding-bottom: 0.04in !important;
-            font-size: 7px !important;
+            padding-top: 0.03in !important;
+            padding-bottom: 0.03in !important;
+            font-size: 6.5px !important;
             line-height: 1 !important;
           }
 
@@ -317,26 +313,15 @@
           }
 
           footer {
-            margin-top: 0.06in !important;
-            padding-top: 0.06in !important;
+            width: 100% !important;
+            max-width: none !important;
+            margin: 0.05in auto 0 auto !important;
+            padding-top: 0.05in !important;
             padding-bottom: 0 !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
             background: transparent !important;
-          }
-
-          .print-page--final .film-strip .py-4 {
-            padding-top: 0.09in !important;
-            padding-bottom: 0.09in !important;
-          }
-
-          .print-page--final footer {
-            margin-top: 0.06in !important;
-            padding-top: 0.06in !important;
-          }
-
-          .print-page--final .film-strip {
-            margin-bottom: 0 !important;
+            box-sizing: border-box !important;
           }
 
           header,
@@ -354,15 +339,6 @@
           .overflow-hidden,
           .overflow-x-hidden {
             overflow: visible !important;
-          }
-
-          h1 {
-            font-size: 68pt !important;
-            line-height: 0.92 !important;
-          }
-
-          h2 {
-            font-size: 15pt !important;
           }
 
           .sheet-frame,
