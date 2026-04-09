@@ -124,7 +124,7 @@
             min-height: calc(11in - 0.68in) !important;
             height: auto !important;
             margin: 0 auto !important;
-            padding: 0 !important;
+            padding: 0 0 0.06in 0 !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: flex-start !important;
@@ -217,17 +217,17 @@
           }
 
           .film-strip .grid {
-            gap: 0.07in !important;
+            gap: 0.05in !important;
           }
 
           .film-strip .px-6 {
-            padding-left: 0.1in !important;
-            padding-right: 0.1in !important;
+            padding-left: 0.08in !important;
+            padding-right: 0.08in !important;
           }
 
           .film-strip .py-4 {
-            padding-top: 0.07in !important;
-            padding-bottom: 0.07in !important;
+            padding-top: 0.05in !important;
+            padding-bottom: 0.05in !important;
           }
 
           .hidden.sm\:flex,
@@ -242,11 +242,20 @@
           }
 
           .photo-frame {
-            aspect-ratio: 3 / 2 !important;
+            aspect-ratio: 1 / 1 !important;
           }
 
           .photo-frame img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
             filter: grayscale(80%) contrast(120%) brightness(0.8) !important;
+          }
+
+          .photo-frame video {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
           }
 
           .photo-frame:hover img {
@@ -266,8 +275,8 @@
           footer {
             width: 100% !important;
             max-width: none !important;
-            margin: 0.04in auto 0 auto !important;
-            padding-top: 0.04in !important;
+            margin: 0.03in auto 0 auto !important;
+            padding-top: 0.03in !important;
             padding-bottom: 0 !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
@@ -336,25 +345,34 @@
           }
 
           .film-strip .text-\[10px\] {
-            font-size: 7.5px !important;
-            line-height: 1.05 !important;
+            font-size: 7px !important;
+            line-height: 1 !important;
           }
 
           .film-strip .text-\[9px\] {
-            font-size: 6.5px !important;
+            font-size: 6px !important;
             line-height: 1 !important;
           }
 
           .film-strip .text-\[8px\] {
-            font-size: 6px !important;
+            font-size: 5.5px !important;
             line-height: 1 !important;
           }
 
           .film-meta-row {
-            padding-top: 0.025in !important;
-            padding-bottom: 0.025in !important;
-            font-size: 6px !important;
+            padding-top: 0.02in !important;
+            padding-bottom: 0.02in !important;
+            font-size: 5.5px !important;
             line-height: 1 !important;
+          }
+
+          .grid > div {
+            gap: 0.04in !important;
+            min-height: 0 !important;
+          }
+
+          .grid > div > .flex.flex-col.gap-1 {
+            gap: 0.015in !important;
           }
 
           .print-page--final footer {
@@ -362,20 +380,15 @@
             padding-top: 0.03in !important;
           }
 
+          .print-page--cover {
+            gap: 0.03in !important;
+          }
+
           .print-page--cover .film-strip,
           .print-page--middle .film-strip,
           .print-page--final .film-strip {
-            transform: scale(0.96);
-            transform-origin: top center;
-          }
-
-          .print-page--cover header {
-            transform: scale(0.96);
-            transform-origin: top left;
-          }
-
-          .print-page--cover {
-            gap: 0.04in !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
           }
         }
     </style>
