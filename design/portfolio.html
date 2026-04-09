@@ -92,17 +92,18 @@
           main {
             width: 8.5in !important;
             max-width: none !important;
-            margin: 0 !important;
-            padding: 0.32in !important;
+            margin: 0 auto !important;
+            padding: 0.2in 0.22in !important;
             gap: 0 !important;
             background: transparent !important;
+            box-sizing: border-box !important;
           }
 
           .print-page {
             width: 100% !important;
-            min-height: calc(11in - 0.64in) !important;
-            height: calc(11in - 0.64in) !important;
-            margin: 0 !important;
+            min-height: calc(11in - 0.4in) !important;
+            height: calc(11in - 0.4in) !important;
+            margin: 0 auto !important;
             padding: 0 !important;
             display: flex !important;
             flex-direction: column !important;
@@ -111,6 +112,7 @@
             break-after: page !important;
             page-break-after: always !important;
             background: transparent !important;
+            box-sizing: border-box !important;
           }
 
           .print-page:last-of-type {
@@ -120,9 +122,9 @@
 
           .print-page--cover {
             justify-content: flex-start !important;
-            padding-top: 0.15in !important;
-            padding-bottom: 0.1in !important;
-            gap: 0.22in !important;
+            padding-top: 0.1in !important;
+            padding-bottom: 0.06in !important;
+            gap: 0.16in !important;
           }
 
           .print-page--middle {
@@ -133,8 +135,8 @@
 
           .print-page--final {
             justify-content: space-between !important;
-            padding-top: 0.08in !important;
-            padding-bottom: 0.08in !important;
+            padding-top: 0.04in !important;
+            padding-bottom: 0.04in !important;
           }
 
           .print-page::before {
@@ -156,23 +158,27 @@
           }
 
           header {
-            padding-bottom: 0.14in !important;
+            padding-bottom: 0.1in !important;
             break-inside: avoid;
             page-break-inside: avoid;
           }
 
           header .gap-6 {
-            gap: 0.14in !important;
+            gap: 0.1in !important;
           }
 
           .film-strip {
-            width: 100%;
-            margin: 0 auto !important;
-            break-inside: avoid;
-            page-break-inside: avoid;
+            width: 100% !important;
+            max-width: none !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            align-self: center !important;
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
             background: #050505 !important;
             flex-shrink: 0 !important;
+            box-sizing: border-box !important;
           }
 
           .grid {
@@ -186,22 +192,41 @@
           }
 
           .film-strip .grid {
-            gap: 0.14in !important;
+            gap: 0.11in !important;
           }
 
           .film-strip .px-6 {
-            padding-left: 0.18in !important;
-            padding-right: 0.18in !important;
+            padding-left: 0.14in !important;
+            padding-right: 0.14in !important;
           }
 
           .film-strip .py-4 {
-            padding-top: 0.12in !important;
-            padding-bottom: 0.12in !important;
+            padding-top: 0.1in !important;
+            padding-bottom: 0.1in !important;
+          }
+
+          .film-strip .text-\[10px\] {
+            font-size: 8.5px !important;
+          }
+
+          .film-strip .text-\[9px\] {
+            font-size: 7.5px !important;
+          }
+
+          .film-strip .text-\[8px\] {
+            font-size: 7px !important;
           }
 
           .hidden.sm\:flex,
           .film-meta-row {
             display: flex !important;
+          }
+
+          .film-meta-row {
+            padding-top: 0.04in !important;
+            padding-bottom: 0.04in !important;
+            font-size: 7px !important;
+            line-height: 1 !important;
           }
 
           .photo-frame,
@@ -215,6 +240,9 @@
           }
 
           .photo-frame img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
             filter: grayscale(80%) contrast(120%) brightness(0.8) !important;
           }
 
@@ -233,8 +261,8 @@
           }
 
           footer {
-            margin-top: 0.12in !important;
-            padding-top: 0.12in !important;
+            margin-top: 0.06in !important;
+            padding-top: 0.06in !important;
             padding-bottom: 0 !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
@@ -244,7 +272,8 @@
           header,
           footer,
           main,
-          .print-page {
+          .print-page,
+          .film-strip {
             background: transparent !important;
           }
 
@@ -275,6 +304,10 @@
           .grid > div {
             break-inside: avoid !important;
             page-break-inside: avoid !important;
+          }
+
+          .grid > div {
+            min-height: 0 !important;
           }
 
           body,
@@ -1198,16 +1231,16 @@ video {
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6 py-4" vid="63">
                     <div class="flex flex-col gap-3" vid="64">
                         <div class="photo-frame aspect-[3/2] bg-void border border-steel p-1 relative group cursor-pointer" vid="65">
-                            <img src="/assets/images/baobabbottletree.jpg" alt="Echoes of Great Zimbabwe" class="w-full h-full object-cover" vid="66">
+                            <img src="/assets/images/baobabbotletree.jpg" alt="Echoes of Great Zimbabwe" class="w-full h-full object-cover" vid="66">
                             <div class="absolute inset-0 border border-oxide-gold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none scale-[1.02]" vid="67"></div>
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="68">
                             <div class="flex justify-between text-rust" vid="69">
-                                <span class="font-bold" vid="70">01 // Echoes</span>
+                                <span class="font-bold" vid="70">01 // BOTTLE SHRINE</span>
                                 <span vid="71">2023</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="72">Corten Steel · 14'x8'x6'</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="73">Study of ancient geometries</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="72">STEEL + GLASS</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="73">VERTICAL ASSEMBLAGE</span>
                         </div>
                     </div>
                     
@@ -1218,11 +1251,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="78">
                             <div class="flex justify-between text-rust" vid="79">
-                                <span class="font-bold" vid="80">02 // Surface</span>
+                                <span class="font-bold" vid="80">02 // AUTOCHTHON</span>
                                 <span vid="81">2023</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="82">Oxidized Detail View</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="83">Natural patina progression</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="82">WELDED STEEL</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="83">FIGURAL TORSO FORM</span>
                         </div>
                     </div>
                     
@@ -1233,26 +1266,26 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="88">
                             <div class="flex justify-between text-rust" vid="89">
-                                <span class="font-bold" vid="90">03 // Profile</span>
+                                <span class="font-bold" vid="90">03 // BACK RELIEF</span>
                                 <span vid="91">2023</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="92">Installation Context</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="93">Negative space interaction</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="92">BRONZE CAST</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="93">WALL-MOUNTED FRAGMENT</span>
                         </div>
                     </div>
                     
                     <div class="flex flex-col gap-3" vid="94">
                         <div class="photo-frame aspect-[3/2] bg-void border border-steel p-1 relative group cursor-pointer" vid="95">
-                            <img src="/assets/images/SHclose.jpeg" alt="Contextual view" class="w-full h-full object-cover" vid="96">
+                            <img src="/assets/images/SHclose.jpg" alt="Contextual view" class="w-full h-full object-cover" vid="96">
                             <div class="absolute inset-0 border border-oxide-gold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none scale-[1.02]" vid="97"></div>
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="98">
                             <div class="flex justify-between text-rust" vid="99">
-                                <span class="font-bold" vid="100">04 // Orbit</span>
+                                <span class="font-bold" vid="100">04 // HEAD STUDY</span>
                                 <span vid="101">2022</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="102">Bronze &amp; Circuitry</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="103">Ancestral memory cast</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="102">CAST SURFACE</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="103">CLOSE DETAIL VIEW</span>
                         </div>
                     </div>
                 </div>
@@ -1298,16 +1331,16 @@ video {
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6 py-4" vid="131">
                     <div class="flex flex-col gap-3" vid="132">
                         <div class="photo-frame aspect-[3/2] bg-void border border-steel p-1 relative group cursor-pointer" vid="133">
-                            <img src="/assets/images/SHdown.jpeg" alt="Oxidized Future V" class="w-full h-full object-cover" vid="134">
+                            <img src="/assets/images/SHdown.jpg" alt="Oxidized Future V" class="w-full h-full object-cover" vid="134">
                             <div class="absolute inset-0 border border-oxide-gold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none scale-[1.02]" vid="135"></div>
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="136">
                             <div class="flex justify-between text-rust" vid="137">
-                                <span class="font-bold" vid="138">05 // Future V</span>
+                                <span class="font-bold" vid="138">05 // STAR FORM</span>
                                 <span vid="139">2021</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="140">Mixed Media · 6'x4'x2'</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="141">Industrial decay study</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="140">MIXED METAL</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="141">DENSE SURFACE CLUSTER</span>
                         </div>
                     </div>
                     
@@ -1318,11 +1351,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="146">
                             <div class="flex justify-between text-rust" vid="147">
-                                <span class="font-bold" vid="148">06 // Foundry 4</span>
+                                <span class="font-bold" vid="148">06 // WELD DETAIL</span>
                                 <span vid="149">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="150">Cast Iron</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="151">Process documentation</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="150">STEEL JOINT</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="151">FABRICATION CLOSEUP</span>
                         </div>
                     </div>
                     
@@ -1333,11 +1366,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="156">
                             <div class="flex justify-between text-rust" vid="157">
-                                <span class="font-bold" vid="158">07 // Ignition</span>
+                                <span class="font-bold" vid="158">07 // FIELD FIGURE</span>
                                 <span vid="159">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="160">Studio Archive</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="161">Plasma cutter sequence</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="160">WELDED STEEL</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="161">OUTDOOR INSTALL VIEW</span>
                         </div>
                     </div>
                     
@@ -1348,11 +1381,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="166">
                             <div class="flex justify-between text-rust" vid="167">
-                                <span class="font-bold" vid="168">08 // Tools</span>
+                                <span class="font-bold" vid="168">08 // ETCHED VESSEL</span>
                                 <span vid="169">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="170">Chicago Studio</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="171">Implements of creation</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="170">CAST METAL</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="171">SURFACE PATTERN DETAIL</span>
                         </div>
                     </div>
                 </div>
@@ -1398,16 +1431,16 @@ video {
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6 py-4" vid="199">
                     <div class="flex flex-col gap-3" vid="200">
                         <div class="photo-frame aspect-[3/2] bg-void border border-steel p-1 relative group cursor-pointer" vid="201">
-                            <img src="/assets/images/fig10WA.jpeg" alt="Sculpture detail" class="w-full h-full object-cover" vid="202">
+                            <img src="/assets/images/fig10WA.jpg" alt="Sculpture detail" class="w-full h-full object-cover" vid="202">
                             <div class="absolute inset-0 border border-oxide-gold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none scale-[1.02]" vid="203"></div>
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="204">
                             <div class="flex justify-between text-rust" vid="205">
-                                <span class="font-bold" vid="206">09 // Monolith</span>
+                                <span class="font-bold" vid="206">09 // DRAPED PLANE</span>
                                 <span vid="207">2021</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="208">Forged Steel · 8'x3'x3'</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="209">Vertical form study</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="208">STEEL FRAME</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="209">ANGULAR WALL FORM</span>
                         </div>
                     </div>
                     
@@ -1418,11 +1451,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="214">
                             <div class="flex justify-between text-rust" vid="215">
-                                <span class="font-bold" vid="216">10 // Kinetic</span>
+                                <span class="font-bold" vid="216">10 // PANEL STUDY</span>
                                 <span vid="217">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="218">Action Documentation</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="219">Grinding wheel sparks</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="218">FRAMED SURFACE</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="219">STUDIO INSTALL VIEW</span>
                         </div>
                     </div>
                     
@@ -1433,11 +1466,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="224">
                             <div class="flex justify-between text-rust" vid="225">
-                                <span class="font-bold" vid="226">11 // Slag Pile</span>
+                                <span class="font-bold" vid="226">11 // THRESHOLD</span>
                                 <span vid="227">2022</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="228">Reclaimed Materials</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="229">Texture cataloging</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="228">STRUCTURAL FORM</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="229">OUTDOOR ARCH VIEW</span>
                         </div>
                     </div>
                     
@@ -1448,11 +1481,11 @@ video {
                         </div>
                         <div class="flex flex-col gap-1 text-[10px] uppercase tracking-widest" vid="234">
                             <div class="flex justify-between text-rust" vid="235">
-                                <span class="font-bold" vid="236">12 // Ancestor</span>
+                                <span class="font-bold" vid="236">12 // FIGURE IN FIELD</span>
                                 <span vid="237">2024</span>
                             </div>
-                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="238">Bronze &amp; Corten</span>
-                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="239">Exhibition ready state</span>
+                            <span class="text-[#8a665c] text-[8px] leading-tight" vid="238">WELDED STEEL</span>
+                            <span class="text-steel border-t border-steel pt-1 mt-1" vid="239">OUTDOOR SCULPTURE VIEW</span>
                         </div>
                     </div>
                 </div>
