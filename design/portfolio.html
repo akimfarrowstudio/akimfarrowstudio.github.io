@@ -45,7 +45,7 @@
 
         @page {
           size: Letter portrait;
-          margin: 0.5in;
+          margin: 0;
         }
 
         html,
@@ -68,42 +68,19 @@
         @media print {
           html,
           body {
-            width: 8.5in;
-            height: auto;
+            width: 8.5in !important;
+            height: 11in !important;
+            margin: 0 !important;
+            padding: 0 !important;
             background: #121212 !important;
             color: #e8e0dc !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
 
           body {
-            min-height: auto !important;
-            padding: 0 !important;
             overflow: visible !important;
-            background: #121212 !important;
-            background-image: none !important;
-          }
-
-          main {
-            width: auto !important;
-            max-width: none !important;
-            margin: 0 !important;
-            gap: 0 !important;
-          }
-
-          .print-page {
-            width: 7.5in;
-            min-height: 10in;
-            height: 10in;
-            margin: 0 auto;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            break-after: page;
-            page-break-after: always;
+            display: block !important;
             background-color: #121212 !important;
             background-image:
               radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.05) 0%, transparent 70%),
@@ -112,28 +89,70 @@
             background-size: auto !important;
           }
 
+          main {
+            width: 8.5in !important;
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0.32in !important;
+            gap: 0 !important;
+            background: transparent !important;
+          }
+
+          .print-page {
+            width: 100% !important;
+            min-height: calc(11in - 0.64in) !important;
+            height: calc(11in - 0.64in) !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            position: relative !important;
+            overflow: hidden !important;
+            break-after: page !important;
+            page-break-after: always !important;
+            background: transparent !important;
+          }
+
           .print-page:last-of-type {
             break-after: auto;
             page-break-after: auto;
           }
 
           .print-page--cover {
-            justify-content: flex-start;
-            padding-top: 0.15in;
-            padding-bottom: 0.1in;
-            gap: 0.22in;
+            justify-content: flex-start !important;
+            padding-top: 0.15in !important;
+            padding-bottom: 0.1in !important;
+            gap: 0.22in !important;
           }
 
           .print-page--middle {
-            justify-content: center;
-            padding-top: 0;
-            padding-bottom: 0;
+            justify-content: center !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
           }
 
           .print-page--final {
-            justify-content: space-between;
-            padding-top: 0.08in;
-            padding-bottom: 0.08in;
+            justify-content: space-between !important;
+            padding-top: 0.08in !important;
+            padding-bottom: 0.08in !important;
+          }
+
+          .print-page::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #121212;
+            background-image:
+              radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.05) 0%, transparent 70%),
+              url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: auto;
+            z-index: 0;
+          }
+
+          .print-page > * {
+            position: relative;
+            z-index: 1;
           }
 
           header {
@@ -153,6 +172,7 @@
             page-break-inside: avoid;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
             background: #050505 !important;
+            flex-shrink: 0 !important;
           }
 
           .grid {
@@ -213,11 +233,19 @@
           }
 
           footer {
-            margin-top: 0.14in !important;
-            padding-top: 0.14in !important;
+            margin-top: 0.12in !important;
+            padding-top: 0.12in !important;
             padding-bottom: 0 !important;
-            break-inside: avoid;
-            page-break-inside: avoid;
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+            background: transparent !important;
+          }
+
+          header,
+          footer,
+          main,
+          .print-page {
+            background: transparent !important;
           }
 
           .min-h-screen {
