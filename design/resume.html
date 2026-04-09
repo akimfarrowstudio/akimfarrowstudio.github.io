@@ -38,6 +38,88 @@
         .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
         .sidebar-scroll::-webkit-scrollbar-thumb { background: #3d2218; }
 
+        @media screen {
+          .cv-page {
+            width: 816px;
+            height: 1056px;
+            overflow: hidden;
+          }
+
+          .cv-main {
+            min-height: 0;
+          }
+
+          .cv-right {
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 1.6rem;
+            padding-bottom: 1.6rem;
+          }
+
+          .cv-experience {
+            flex: 1 1 auto;
+            min-height: 0;
+          }
+
+          .cv-references {
+            flex-shrink: 0;
+          }
+
+          .cv-right .mb-8 {
+            margin-bottom: 1.1rem;
+          }
+
+          .cv-right .mb-5 {
+            margin-bottom: 0.7rem;
+          }
+
+          .cv-right .mb-4 {
+            margin-bottom: 0.55rem;
+          }
+
+          .cv-right .gap-6 {
+            gap: 0.9rem;
+          }
+
+          .cv-experience .text-\[12px\] {
+            font-size: 11px;
+          }
+
+          .cv-experience .text-\[9\.5px\] {
+            font-size: 8.75px;
+            line-height: 1.5;
+          }
+
+          .cv-experience .text-\[8px\] {
+            font-size: 7.5px;
+          }
+
+          .cv-experience .gap-6 {
+            gap: 0.8rem;
+          }
+
+          .cv-experience .mb-1\.5 {
+            margin-bottom: 0.25rem;
+          }
+
+          .cv-experience .mb-1 {
+            margin-bottom: 0.15rem;
+          }
+
+          .cv-references .grid {
+            gap: 0.8rem;
+          }
+
+          .cv-references .p-4 {
+            padding: 0.8rem;
+          }
+
+          .cv-references .mb-3 {
+            margin-bottom: 0.45rem;
+          }
+        }
+
         @page {
           size: Letter portrait;
           margin: 0.5in;
@@ -1292,7 +1374,7 @@ video {
 <body class="w-screen h-screen flex items-center justify-center font-mono overflow-hidden" vid="11">
 
     
-    <div class="w-[816px] h-[1056px] bg-charcoal relative flex flex-col shadow-2xl border border-steel overflow-hidden shrink-0" vid="12">
+    <div class="cv-page w-[816px] h-[1056px] bg-charcoal relative flex flex-col shadow-2xl border border-steel overflow-hidden shrink-0" vid="12">
         
         
         <div class="w-full bg-void border-b border-steel flex flex-col relative shrink-0" vid="13">
@@ -1310,7 +1392,7 @@ video {
         </div>
         
         
-        <div class="flex-1 w-full flex relative overflow-hidden" vid="23">
+        <div class="cv-main flex-1 w-full flex relative overflow-hidden" vid="23">
             
             
             <div class="w-[32%] bg-void border-r border-steel px-6 py-8 flex flex-col gap-6 relative z-10 shrink-0 overflow-y-auto sidebar-scroll" vid="24">
@@ -1454,7 +1536,7 @@ video {
             </div>
             
             
-            <div class="w-[68%] px-10 py-8 flex flex-col relative z-0 bg-noise bg-charcoal" vid="116">
+            <div class="cv-right w-[68%] px-10 py-8 flex flex-col relative z-0 bg-noise bg-charcoal" vid="116">
                 
                 
                 <div class="mb-8 relative pr-32 shrink-0" vid="117">
@@ -1505,7 +1587,7 @@ video {
                 </div>
                 
                 
-                <div class="mb-4 flex-1" vid="150">
+                <div class="cv-experience mb-4 flex-1" vid="150">
                     <h2 class="font-display text-2xl text-oxide-gold uppercase tracking-widest border-b border-steel pb-2 mb-5 flex justify-between items-end" vid="151">
                         <span vid="152">Professional Experience</span>
                         <span class="text-[9px] text-[#8a665c] tracking-[0.3em] font-mono mb-1" vid="153">SEC_A</span>
@@ -1573,7 +1655,7 @@ video {
                 </div>
                 
                 
-                <div class="mt-auto shrink-0" vid="187">
+                <div class="cv-references mt-auto shrink-0" vid="187">
                     <h2 class="font-display text-2xl text-oxide-gold uppercase tracking-widest border-b border-steel pb-2 mb-4 flex justify-between items-end" vid="188">
                         <span vid="189">Reference</span>
                         <span class="text-[9px] text-[#8a665c] tracking-[0.3em] font-mono mb-1" vid="190">SEC_B</span>
