@@ -37,6 +37,209 @@
         .sidebar-scroll::-webkit-scrollbar { width: 4px; }
         .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
         .sidebar-scroll::-webkit-scrollbar-thumb { background: #3d2218; }
+
+        @page {
+          size: Letter portrait;
+          margin: 0.5in;
+        }
+
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        @media print {
+          html,
+          body {
+            width: 8.5in;
+            height: auto;
+            background: #050505 !important;
+            color: #e8e0dc !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+
+          body {
+            min-height: auto !important;
+            padding: 0 !important;
+            overflow: visible !important;
+            background-color: #050505 !important;
+            background-image: none !important;
+            display: block !important;
+          }
+
+          body > div {
+            width: 7.5in !important;
+            height: 10in !important;
+            min-height: 10in !important;
+            margin: 0 auto !important;
+            overflow: hidden !important;
+            box-shadow: none !important;
+            border: 1px solid #2c1e18 !important;
+            background-color: #121212 !important;
+            display: flex !important;
+            flex-direction: column !important;
+          }
+
+          .sidebar-scroll,
+          .overflow-y-auto,
+          .overflow-hidden,
+          body,
+          main,
+          section,
+          div {
+            scrollbar-width: none !important;
+          }
+
+          .sidebar-scroll,
+          .overflow-y-auto {
+            overflow: visible !important;
+            max-height: none !important;
+          }
+
+          .w-\[32\%\],
+          .w-\[68\%\] {
+            height: auto !important;
+          }
+
+          .flex-1 {
+            flex: 1 1 auto !important;
+          }
+
+          .text-oxide-gold {
+            color: #ff6b35 !important;
+          }
+
+          .text-rust {
+            color: #d35400 !important;
+          }
+
+          .text-\[\#e8e0dc\] {
+            color: #e8e0dc !important;
+          }
+
+          .text-\[\#c8b8b0\] {
+            color: #c8b8b0 !important;
+          }
+
+          .text-\[\#8a665c\] {
+            color: #8a665c !important;
+          }
+
+          .text-steel {
+            color: #2c1e18 !important;
+          }
+
+          .bg-charcoal {
+            background-color: #121212 !important;
+          }
+
+          .bg-void {
+            background-color: #1a0f0a !important;
+          }
+
+          .border-steel {
+            border-color: #2c1e18 !important;
+          }
+
+          .border-rust {
+            border-color: #d35400 !important;
+          }
+
+          .w-\[816px\] {
+            width: 7.5in !important;
+          }
+
+          .h-\[1056px\] {
+            height: 10in !important;
+          }
+
+          .w-screen,
+          .h-screen {
+            width: auto !important;
+            height: auto !important;
+          }
+
+          .px-10 {
+            padding-left: 0.32in !important;
+            padding-right: 0.32in !important;
+          }
+
+          .px-6 {
+            padding-left: 0.2in !important;
+            padding-right: 0.2in !important;
+          }
+
+          .py-8 {
+            padding-top: 0.22in !important;
+            padding-bottom: 0.22in !important;
+          }
+
+          .pt-8 {
+            padding-top: 0.16in !important;
+          }
+
+          .text-\[72px\] {
+            font-size: 58pt !important;
+            line-height: 0.9 !important;
+          }
+
+          .text-\[11px\] {
+            font-size: 10px !important;
+          }
+
+          .text-\[10px\] {
+            font-size: 9px !important;
+          }
+
+          .text-\[9\.5px\] {
+            font-size: 8.75px !important;
+          }
+
+          .leading-\[1\.8\] {
+            line-height: 1.55 !important;
+          }
+
+          .gap-5 {
+            gap: 0.6rem !important;
+          }
+
+          .mb-10 {
+            margin-bottom: 1.2rem !important;
+          }
+
+          .mb-6 {
+            margin-bottom: 0.8rem !important;
+          }
+
+          .mb-5 {
+            margin-bottom: 0.7rem !important;
+          }
+
+          .mb-4 {
+            margin-bottom: 0.6rem !important;
+          }
+
+          div[vid="99"] {
+            overflow: hidden !important;
+            max-height: none !important;
+          }
+
+          div[vid="101"] {
+            gap: 0.55rem !important;
+          }
+
+          body > div > div:nth-child(2) {
+            flex: 1 1 auto !important;
+            min-height: 0 !important;
+          }
+
+          body > div > div:first-child,
+          body > div > div:last-child {
+            flex-shrink: 0 !important;
+          }
+        }
     </style>
 
   <style type="text/css">
@@ -1068,19 +1271,15 @@ video {
                     
                     <div class="flex flex-col gap-5 text-[10px] text-[#c8b8b0] leading-[1.8] text-justify" vid="101">
                         <p vid="102">
-                            I am writing to express my strong interest in the open position within your organization. As a Chicago-based sculptor and fabrication professional with an MFA from the School of the Art Institute of Chicago (SAIC), I bring a unique blend of technical expertise and creative problem-solving to every project. My background is rooted in the rigorous demands of industrial fabrication and high-level academic studio environments, where precision and safety are paramount.
+                            I am writing to express my interest in the open position within your organization. As a Chicago-based sculptor and fabrication professional with an MFA from the School of the Art Institute of Chicago, I bring technical fabrication experience shaped by academic foundries and professional studio practice.
                         </p>
                         
                         <p vid="103">
-                            Throughout my tenure at SAIC, I served as a Teaching Assistant for Advanced Foundry, Introduction to Foundry, and Mold Making courses. These roles allowed me to master the complexities of bronze and aluminum casting, from mold preparation to the final pour. My qualifications include extensive experience with material fabrication, metalworking, and advanced casting techniques. I have a proven track record of supporting students and peers through intricate technical processes, ensuring that equipment is operated correctly and safety protocols are strictly enforced.
+                            At SAIC, I served as a Teaching Assistant in Advanced Foundry, Introduction to Foundry, and Mold Making. That work built deep experience with casting workflows, studio operations, equipment use, and safety procedures. I have also managed commissioned projects in my own studio, including planning, fabrication, material sourcing, and installation.
                         </p>
                         
                         <p vid="104">
-                            In my professional practice, I maintain a fully operational metalworking studio where I manage commissioned projects from initial concept through to installation. This experience has honed my skills in budgeting, scheduling, and material sourcing, as well as equipment maintenance and safety oversight. Whether working on large-scale steel sculptures or delicate glass integrations, I approach every task with a commitment to technical excellence and structural integrity.
-                        </p>
-                        
-                        <p vid="105">
-                            I am eager to bring my skills in fabrication and studio management to your team. My work is informed by mentors like Jefferson Pinder and Adrian Wong, whose standards of excellence I strive to maintain in my own practice. I am confident that my background in both industrial shops and academic foundries makes me an ideal candidate for this role. Thank you for your time and consideration.
+                            I would welcome the chance to bring my fabrication background and studio discipline to your team. Thank you for your time and consideration.
                         </p>
                     </div>
 
