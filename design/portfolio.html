@@ -124,7 +124,7 @@
             min-height: calc(11in - 0.68in) !important;
             height: auto !important;
             margin: 0 auto !important;
-            padding: 0 0 0.06in 0 !important;
+            padding: 0 !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: flex-start !important;
@@ -217,17 +217,17 @@
           }
 
           .film-strip .grid {
-            gap: 0.035in !important;
+            gap: 0.07in !important;
           }
 
           .film-strip .px-6 {
-            padding-left: 0.06in !important;
-            padding-right: 0.06in !important;
+            padding-left: 0.1in !important;
+            padding-right: 0.1in !important;
           }
 
           .film-strip .py-4 {
-            padding-top: 0.035in !important;
-            padding-bottom: 0.035in !important;
+            padding-top: 0.07in !important;
+            padding-bottom: 0.07in !important;
           }
 
           .hidden.sm\:flex,
@@ -243,17 +243,6 @@
 
           .photo-frame {
             aspect-ratio: 3 / 2 !important;
-            height: auto !important;
-            max-height: none !important;
-            overflow: hidden !important;
-          }
-
-          .photo-frame img,
-          .photo-frame video {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            display: block !important;
           }
 
           .photo-frame img {
@@ -277,8 +266,8 @@
           footer {
             width: 100% !important;
             max-width: none !important;
-            margin: 0.015in auto 0 auto !important;
-            padding-top: 0.015in !important;
+            margin: 0.04in auto 0 auto !important;
+            padding-top: 0.04in !important;
             padding-bottom: 0 !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
@@ -347,45 +336,34 @@
           }
 
           .film-strip .text-\[10px\] {
-            font-size: 6px !important;
-            line-height: 0.95 !important;
+            font-size: 7.5px !important;
+            line-height: 1.05 !important;
           }
 
           .film-strip .text-\[9px\] {
-            font-size: 5.5px !important;
-            line-height: 0.95 !important;
+            font-size: 6.5px !important;
+            line-height: 1 !important;
           }
 
           .film-strip .text-\[8px\] {
-            font-size: 5px !important;
-            line-height: 0.95 !important;
+            font-size: 6px !important;
+            line-height: 1 !important;
           }
 
           .film-meta-row {
-            padding-top: 0.015in !important;
-            padding-bottom: 0.015in !important;
-            font-size: 5px !important;
-            line-height: 0.95 !important;
-          }
-
-          .grid > div {
-            gap: 0.025in !important;
-            min-height: 0 !important;
-          }
-
-          .grid > div > .flex.flex-col.gap-1 {
-            gap: 0.01in !important;
+            padding-top: 0.025in !important;
+            padding-bottom: 0.025in !important;
+            font-size: 6px !important;
+            line-height: 1 !important;
           }
 
           .print-page--final footer {
             margin-top: 0.03in !important;
             padding-top: 0.03in !important;
-            transform: scale(0.9);
-            transform-origin: top center;
           }
 
           .print-page--cover {
-            gap: 0.01in !important;
+            gap: 0.04in !important;
           }
 
           .print-page--cover .film-strip,
@@ -393,26 +371,16 @@
           .print-page--final .film-strip {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
-            transform: scale(0.88);
+            transform: scale(0.96);
             transform-origin: top center;
           }
 
-          .film-strip .border-t,
-          .film-strip .pt-1,
-          .film-strip .mt-1 {
-            border-top-width: 0.5px !important;
-            padding-top: 0.01in !important;
-            margin-top: 0.01in !important;
-          }
-
-          .print-page {
-            padding-bottom: 0.02in !important;
-          }
-
           .print-page--cover header {
-            transform: scale(0.9);
+            transform: scale(0.96);
             transform-origin: top left;
           }
+
+
         }
     </style>
 
