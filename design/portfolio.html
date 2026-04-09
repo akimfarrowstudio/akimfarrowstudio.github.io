@@ -54,6 +54,17 @@
           padding: 0;
         }
 
+        @media screen {
+          .print-page {
+            width: auto;
+            min-height: auto;
+            height: auto;
+            background: transparent;
+            break-after: auto;
+            page-break-after: auto;
+          }
+        }
+
         @media print {
           html,
           body {
@@ -69,29 +80,89 @@
             min-height: auto !important;
             padding: 0 !important;
             overflow: visible !important;
+            background: #121212 !important;
+            background-image: none !important;
+          }
+
+          main {
+            width: auto !important;
+            max-width: none !important;
+            margin: 0 !important;
+            gap: 0 !important;
+          }
+
+          .print-page {
+            width: 7.5in;
+            min-height: 10in;
+            height: 10in;
+            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            break-after: page;
+            page-break-after: always;
             background-color: #121212 !important;
             background-image:
               radial-gradient(circle at 50% 50%, rgba(211, 84, 0, 0.05) 0%, transparent 70%),
               url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E") !important;
+            background-repeat: repeat !important;
+            background-size: auto !important;
           }
 
-          main {
-            width: 7.5in;
-            margin: 0 auto;
-            gap: 0.18in !important;
+          .print-page:last-of-type {
+            break-after: auto;
+            page-break-after: auto;
           }
 
-          header,
-          .film-strip,
-          footer {
+          .print-page--cover {
+            justify-content: flex-start;
+            padding-top: 0.15in;
+            padding-bottom: 0.1in;
+            gap: 0.22in;
+          }
+
+          .print-page--middle {
+            justify-content: center;
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+
+          .print-page--final {
+            justify-content: space-between;
+            padding-top: 0.08in;
+            padding-bottom: 0.08in;
+          }
+
+          header {
+            padding-bottom: 0.14in !important;
             break-inside: avoid;
             page-break-inside: avoid;
           }
 
+          header .gap-6 {
+            gap: 0.14in !important;
+          }
+
           .film-strip {
-            margin-bottom: 0.18in;
-            break-before: auto;
-            break-after: auto;
+            width: 100%;
+            margin: 0 auto !important;
+            break-inside: avoid;
+            page-break-inside: avoid;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+            background: #050505 !important;
+          }
+
+          .grid {
+            display: grid !important;
+          }
+
+          .grid-cols-1,
+          .sm\:grid-cols-2,
+          .lg\:grid-cols-4 {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
           }
 
           .film-strip .grid {
@@ -108,42 +179,8 @@
             padding-bottom: 0.12in !important;
           }
 
-          header {
-            padding-bottom: 0.14in !important;
-          }
-
-          header .gap-6 {
-            gap: 0.14in !important;
-          }
-
-          main > .flex.flex-col.gap-12.w-full {
-            gap: 0.2in !important;
-          }
-
-          footer {
-            padding-top: 0.14in !important;
-            padding-bottom: 0 !important;
-            margin-top: 0.18in !important;
-          }
-
-          .grid {
-            display: grid !important;
-          }
-
-          .grid-cols-1,
-          .sm\:grid-cols-2,
-          .lg\:grid-cols-4 {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-          }
-
-          .gap-4,
-          .md\:gap-6 {
-            gap: 0.14in !important;
-          }
-
           .hidden.sm\:flex,
-          .film-meta-row,
-          .film-strip > div.flex.justify-between.px-6.py-1.text-\[9px\].text-\[\#8a665c\].tracking-widest.font-mono.items-center.hidden.sm\:flex {
+          .film-meta-row {
             display: flex !important;
           }
 
@@ -175,6 +212,14 @@
             page-break-inside: avoid;
           }
 
+          footer {
+            margin-top: 0.14in !important;
+            padding-top: 0.14in !important;
+            padding-bottom: 0 !important;
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+
           .min-h-screen {
             min-height: auto !important;
           }
@@ -193,12 +238,20 @@
             font-size: 15pt !important;
           }
 
-          .text-xs {
-            font-size: 8pt !important;
+          .sheet-frame,
+          header,
+          main,
+          footer,
+          .film-strip,
+          .grid,
+          .grid > div {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
           }
 
-          body > main {
-            max-width: 7.5in;
+          body,
+          .sheet-frame {
+            page-break-inside: avoid !important;
           }
         }
     </style>
@@ -1051,6 +1104,7 @@ video {
 <body class="w-full min-h-screen font-mono flex flex-col py-12 px-6 sm:px-12 md:px-16 overflow-x-hidden" vid="11">
 
     <main class="w-full flex flex-col gap-10 relative" vid="12">
+        <section class="print-page print-page--cover">
         <header class="flex flex-col md:flex-row md:items-end justify-between border-b border-steel pb-6 gap-6" vid="13">
                 <div vid="14">
                     <h1 class="font-display text-6xl sm:text-8xl text-oxide-gold uppercase leading-none tracking-wide m-0" vid="15">Akim<br vid="16">Farrow</h1>
@@ -1095,7 +1149,6 @@ video {
                 </div>
         </header>
 
-        <div class="flex flex-col gap-12 w-full" vid="48">
             <div class="film-strip w-full flex flex-col relative border-t border-b border-[#2c1e18]" vid="49">
                 <div class="sprockets w-full border-b border-[#1a0f0a]" vid="50"></div>
                 
@@ -1193,7 +1246,9 @@ video {
 
                 <div class="sprockets w-full border-t border-[#1a0f0a]" style="transform: rotate(180deg);" vid="116"></div>
             </div>
+        </section>
 
+        <section class="print-page print-page--middle">
             <div class="film-strip w-full flex flex-col relative border-t border-b border-[#2c1e18]" vid="117">
                 <div class="sprockets w-full border-b border-[#1a0f0a]" vid="118"></div>
                 
@@ -1291,7 +1346,9 @@ video {
 
                 <div class="sprockets w-full border-t border-[#1a0f0a]" style="transform: rotate(180deg);" vid="184"></div>
             </div>
+        </section>
 
+        <section class="print-page print-page--final">
             <div class="film-strip w-full flex flex-col relative border-t border-b border-[#2c1e18]" vid="185">
                 <div class="sprockets w-full border-b border-[#1a0f0a]" vid="186"></div>
                 
@@ -1395,7 +1452,7 @@ video {
                 <div vid="255">CONTACT SHEET 01 OF 01</div>
                 <div vid="256">END OF ROLL</div>
             </footer>
-        </div>
+        </section>
 
     </main>
 
